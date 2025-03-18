@@ -192,7 +192,6 @@ C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\bin\Debug\net8.0-windows\runtimes\win-x64\native\krbcc64.dll
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.vbproj.AssemblyReference.cache
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.Fm_add_books.resources
-C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.Fm_add_student.resources
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.Fm_admin_registration.resources
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.Fm_home_page.resources
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.Fm_issued_books.resources
@@ -331,3 +330,5 @@ C:\Users\jsonf\Desktop\Library_Management_System\Library_Management_System\obj\D
 C:\Users\jsonf\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.pdb
 C:\Users\jsonf\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.genruntimeconfig.cache
 C:\Users\jsonf\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\ref\Library_Management_System.dll
+C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.Fm_add_borrower.resources
+C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows\Library_Management_System.sourcelink.json
