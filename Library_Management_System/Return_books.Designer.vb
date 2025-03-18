@@ -22,7 +22,6 @@ Partial Class Fm_returned_books
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Btn_return = New Button()
         Btn_close = New Button()
         Label4 = New Label()
         Label3 = New Label()
@@ -39,16 +38,6 @@ Partial Class Fm_returned_books
         Txt_primary_book_id = New TextBox()
         Txt_primary_issued_book_id = New TextBox()
         SuspendLayout()
-        ' 
-        ' Btn_return
-        ' 
-        Btn_return.Font = New Font("Georgia", 9F)
-        Btn_return.Location = New Point(44, 239)
-        Btn_return.Name = "Btn_return"
-        Btn_return.Size = New Size(115, 39)
-        Btn_return.TabIndex = 0
-        Btn_return.Text = "&Return"
-        Btn_return.UseVisualStyleBackColor = True
         ' 
         ' Btn_close
         ' 
@@ -218,7 +207,6 @@ Partial Class Fm_returned_books
         Controls.Add(Label3)
         Controls.Add(Btn_close)
         Controls.Add(Label2)
-        Controls.Add(Btn_return)
         Controls.Add(Label1)
         Controls.Add(Txt_book_name)
         Controls.Add(Dtp_returned_date)
@@ -230,7 +218,6 @@ Partial Class Fm_returned_books
         ResumeLayout(False)
         PerformLayout()
     End Sub
-    Friend WithEvents Btn_return As Button
     Friend WithEvents Btn_close As Button
     Friend WithEvents Dtp_returned_date As DateTimePicker
     Friend WithEvents Txt_issued_to As TextBox
