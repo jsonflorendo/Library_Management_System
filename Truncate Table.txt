@@ -1,0 +1,11 @@
+TRUNCATE TABLE tbl_admin;
+TRUNCATE TABLE tbl_books;
+TRUNCATE TABLE tbl_borrower;
+TRUNCATE TABLE tbl_issued_books;
+TRUNCATE TABLE tbl_library_author;
+TRUNCATE TABLE tbl_library_category;
+TRUNCATE TABLE tbl_library_penalty;
+TRUNCATE TABLE tbl_library_publisher;
+TRUNCATE TABLE tbl_library_supplier;
+TRUNCATE TABLE tbl_penalty;
+INSERT INTO `tbl_admin` (first_name,middle_name,last_name,gender,birthday,contact_no,address,username,email,password,user_type) VALUE ("PAUL ANDREW","BARBARA","FLORENDO","MALE","Jan-02-2004","09123456789","TAGUIG","paul","paf@gmail.com","admin1234","ASSISTANT LIBRARIAN")
