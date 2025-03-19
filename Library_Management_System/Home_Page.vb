@@ -30,7 +30,7 @@ Public Class Fm_home_page
         Load_library_cb_penalty_description()
 
         Dtp_penalty_date.Format = DateTimePickerFormat.Custom
-        Dtp_penalty_date.CustomFormat = "MMMM dd, yyyy | h:mm tt"
+        Dtp_penalty_date.CustomFormat = "MMMM dd, yyyy"
 
     End Sub
 

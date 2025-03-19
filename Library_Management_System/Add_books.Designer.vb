@@ -56,20 +56,22 @@ Partial Class Fm_add_books
         ' 
         Txt_publisher.BorderStyle = BorderStyle.None
         Txt_publisher.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_publisher.Location = New Point(159, 132)
+        Txt_publisher.Location = New Point(159, 131)
+        Txt_publisher.Multiline = True
         Txt_publisher.Name = "Txt_publisher"
         Txt_publisher.PlaceholderText = "Pubisher"
-        Txt_publisher.Size = New Size(243, 14)
+        Txt_publisher.Size = New Size(243, 19)
         Txt_publisher.TabIndex = 5
         ' 
         ' Txt_author
         ' 
         Txt_author.BorderStyle = BorderStyle.None
         Txt_author.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_author.Location = New Point(159, 103)
+        Txt_author.Location = New Point(159, 101)
+        Txt_author.Multiline = True
         Txt_author.Name = "Txt_author"
         Txt_author.PlaceholderText = "Author"
-        Txt_author.Size = New Size(243, 14)
+        Txt_author.Size = New Size(243, 20)
         Txt_author.TabIndex = 4
         ' 
         ' Txt_book_name
@@ -220,11 +222,12 @@ Partial Class Fm_add_books
         ' 
         Txt_supplier_name.BorderStyle = BorderStyle.None
         Txt_supplier_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_supplier_name.Location = New Point(159, 191)
+        Txt_supplier_name.Location = New Point(159, 189)
+        Txt_supplier_name.Multiline = True
         Txt_supplier_name.Name = "Txt_supplier_name"
         Txt_supplier_name.PlaceholderText = "Supplier Name"
-        Txt_supplier_name.Size = New Size(243, 14)
-        Txt_supplier_name.TabIndex = 21
+        Txt_supplier_name.Size = New Size(243, 20)
+        Txt_supplier_name.TabIndex = 7
         ' 
         ' Cb_supplier_name
         ' 
@@ -235,7 +238,7 @@ Partial Class Fm_add_books
         Cb_supplier_name.Location = New Point(157, 187)
         Cb_supplier_name.Name = "Cb_supplier_name"
         Cb_supplier_name.Size = New Size(264, 23)
-        Cb_supplier_name.TabIndex = 23
+        Cb_supplier_name.TabIndex = 0
         ' 
         ' Txt_primary_author_id
         ' 
@@ -282,7 +285,7 @@ Partial Class Fm_add_books
         Dtp_acquisition_date.Location = New Point(157, 219)
         Dtp_acquisition_date.Name = "Dtp_acquisition_date"
         Dtp_acquisition_date.Size = New Size(263, 21)
-        Dtp_acquisition_date.TabIndex = 29
+        Dtp_acquisition_date.TabIndex = 8
         Dtp_acquisition_date.Value = New Date(2024, 5, 8, 0, 53, 43, 0)
         ' 
         ' Dtp_publish_date
@@ -291,7 +294,7 @@ Partial Class Fm_add_books
         Dtp_publish_date.Location = New Point(157, 157)
         Dtp_publish_date.Name = "Dtp_publish_date"
         Dtp_publish_date.Size = New Size(264, 23)
-        Dtp_publish_date.TabIndex = 30
+        Dtp_publish_date.TabIndex = 6
         ' 
         ' Label9
         ' 
@@ -329,7 +332,7 @@ Partial Class Fm_add_books
         update_Txt_isbn.Name = "update_Txt_isbn"
         update_Txt_isbn.PlaceholderText = "ISBN"
         update_Txt_isbn.Size = New Size(263, 21)
-        update_Txt_isbn.TabIndex = 32
+        update_Txt_isbn.TabIndex = 9
         ' 
         ' Fm_add_books
         ' 
