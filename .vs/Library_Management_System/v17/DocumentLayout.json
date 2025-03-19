@@ -1,12 +1,40 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jsonf\\Desktop\\Library_Management_System\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\library_management_system.vbproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\library_management_system.vbproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Library_Management_System",
+              "DocumentMoniker": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Library_Management_System.vbproj",
+              "RelativeDocumentMoniker": "Library_Management_System\\Library_Management_System.vbproj",
+              "ToolTip": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Library_Management_System.vbproj",
+              "RelativeToolTip": "Library_Management_System\\Library_Management_System.vbproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003380|",
+              "WhenOpened": "2025-03-19T09:33:00.644Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
