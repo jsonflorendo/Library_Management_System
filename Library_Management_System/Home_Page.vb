@@ -912,7 +912,7 @@ Public Class Fm_home_page
 
         Try
 
-            If Txt_author_id.Text = "" Or Txt_author_name.Text = "" Then
+            If Txt_author_name.Text = "" Then
 
                 MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -920,45 +920,32 @@ Public Class Fm_home_page
 
                 con.Open()
 
+                Dim author_name = Txt_author_name.Text
+
                 sql = "SELECT * FROM tbl_library_author
-                                WHERE author_id = '" & Txt_author_id.Text & "'"
+                                WHERE author_name = '" & Txt_author_name.Text & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader()
 
                 If dr.Read Then
 
+                    MessageBox.Show("Author name already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     con.Close()
-                    MessageBox.Show("Author ID already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
-                    Dim author_name As String = Txt_author_name.Text
-                    Dim dialog As DialogResult
+                    dr.Close()
 
-                    dialog = MessageBox.Show("Do you want to save " + author_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                    sql = "INSERT INTO tbl_library_author (author_name)
+                                    VALUE ('" & Txt_author_name.Text & "')"
+                    cmd = New MySqlCommand(sql, con)
+                    cmd.ExecuteNonQuery()
 
-                    If dialog = DialogResult.Yes Then
+                    con.Close()
 
-                        dr.Close()
-
-                        sql = "INSERT INTO tbl_library_author (author_id,
-                                                                author_name)
-                                        VALUE ('" & Txt_author_id.Text & "',
-                                                '" & Txt_author_name.Text & "')"
-                        cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
-
-                        con.Close()
-
-                        Clear_author_fields()
-                        Load_author_data_table()
-                        MessageBox.Show(author_name + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-
-                        con.Close()
-
-                    End If
+                    Clear_author_fields()
+                    Load_author_data_table()
+                    MessageBox.Show(author_name + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 End If
 
@@ -978,43 +965,40 @@ Public Class Fm_home_page
 
             If Lv_author.SelectedItems.Count > 0 Then
 
-                If Txt_author_id.Text = "" Or Txt_author_name.Text = "" Then
+                If Txt_author_name.Text = "" Then
 
-                    MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Please filled the field", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
                     con.Open()
 
-                    'to make sure Author ID not exists while in update process
+                    'to make sure Author Name not exists while in update process
                     sql = "UPDATE tbl_library_author SET 
-                                    author_id = '" & "" & "'                                        
-                            WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(2).Text & "'"
+                                    author_name = '" & "" & "'                                        
+                            WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(1).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
                     dr.Close()
                     '---------------------------------
 
                     sql = "SELECT * FROM tbl_library_author
-                                    WHERE author_id = '" & Txt_author_id.Text & "'"
+                                    WHERE author_name = '" & Txt_author_name.Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader()
 
                     If dr.Read Then
 
-                        con.Close()
-
-                        'returned previous Author ID
-                        con.Open()
+                        'returned previous Author Name
                         sql = "UPDATE tbl_library_author SET 
-                                        author_id = '" & Txt_temp_author_id.Text & "'                                       
-                               WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(2).Text & "'"
+                                        author_name = '" & Txt_temp_author_name.Text & "'                                       
+                               WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(1).Text & "'"
                         cmd = New MySqlCommand(sql, con)
                         dr = cmd.ExecuteReader
                         con.Close()
                         '---------------------------------
 
-                        MessageBox.Show("Author ID already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        MessageBox.Show("Author Name already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     Else
 
@@ -1027,10 +1011,9 @@ Public Class Fm_home_page
 
                             dr.Close()
 
-                            sql = "UPDATE tbl_library_author SET 
-                                            author_id = '" & Txt_author_id.Text & "',
+                            sql = "UPDATE tbl_library_author SET
                                             author_name = '" & Txt_author_name.Text & "'
-                                    WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(2).Text & "'"
+                                    WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(1).Text & "'"
                             cmd = New MySqlCommand(sql, con)
                             dr = cmd.ExecuteReader
 
@@ -1039,16 +1022,16 @@ Public Class Fm_home_page
                             Clear_author_fields()
                             Load_author_data_table()
                             Load_listed_books_data_table()
-                            MessageBox.Show(author_name + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            MessageBox.Show("Author name updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                         Else
 
                             dr.Close()
 
-                            'returned previous Author ID
+                            'returned previous Author Name
                             sql = "UPDATE tbl_library_author SET 
-                                            author_id = '" & Txt_temp_author_id.Text & "'                                       
-                                   WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(2).Text & "'"
+                                            author_name = '" & Txt_temp_author_name.Text & "'                                       
+                                   WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(1).Text & "'"
                             cmd = New MySqlCommand(sql, con)
                             dr = cmd.ExecuteReader
                             '---------------------------------
@@ -1084,7 +1067,7 @@ Public Class Fm_home_page
 
             If Lv_author.SelectedItems.Count > 0 Then
 
-                Dim author_name = Lv_author.SelectedItems(0).SubItems(1).Text
+                Dim author_name = Lv_author.SelectedItems(0).Text
                 Dim dialog As DialogResult
 
                 dialog = MessageBox.Show("Do you want to delete " + author_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
@@ -1094,7 +1077,7 @@ Public Class Fm_home_page
                     con.Open()
 
                     sql = "DELETE FROM tbl_library_author
-                                  WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(2).Text & "'"
+                                  WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(1).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
@@ -1105,8 +1088,6 @@ Public Class Fm_home_page
                     MessageBox.Show(author_name + " was deleted", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
-
-                    con.Close()
 
                     Clear_author_fields()
                     Load_author_data_table()
@@ -1131,43 +1112,13 @@ Public Class Fm_home_page
 
         If Lv_author.SelectedItems.Count > 0 Then
 
-            Txt_author_id.Text = Lv_author.SelectedItems(0).Text
-            Txt_author_name.Text = Lv_author.SelectedItems(0).SubItems(1).Text
+            Txt_temp_author_name.Text = Lv_author.SelectedItems(0).Text
+            Txt_author_name.Text = Lv_author.SelectedItems(0).Text
 
-            Txt_temp_author_id.Text = Lv_author.SelectedItems(0).Text
+        Else
 
-        End If
+            Txt_author_name.Clear()
 
-    End Sub
-
-    Private Sub Txt_author_id_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_author_id.KeyPress
-
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 11 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_author_id.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789- " ' Change this to the desired allowed characters
-
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
-            e.Handled = True
         End If
 
     End Sub
@@ -1680,55 +1631,41 @@ Public Class Fm_home_page
 
         Try
 
-            If Txt_category_id.Text = "" Or
-               Txt_category_description.Text = "" Then
+            If Txt_category_description.Text = "" Then
 
-                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Please filled the field", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Else
 
                 con.Open()
 
+                Dim category_description = Txt_category_description.Text
+
                 sql = "SELECT * FROM tbl_library_category
-                                WHERE category_id = '" & Txt_category_id.Text & "'"
+                                WHERE category_name = '" & Txt_category_description.Text & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader()
 
                 If dr.Read Then
 
                     con.Close()
-                    MessageBox.Show("Category ID already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Category Description already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
                     dr.Close()
 
-                    Dim category_description = Txt_category_description.Text
-                    Dim dialog As DialogResult
+                    sql = "INSERT INTO tbl_library_category (category_name)
+                                    VALUE ('" & Txt_category_description.Text & "')"
+                    cmd = New MySqlCommand(sql, con)
+                    cmd.ExecuteNonQuery()
 
-                    dialog = MessageBox.Show("Do you want to save " + category_description + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                    con.Close()
 
-                    If dialog = DialogResult.Yes Then
-
-                        sql = "INSERT INTO tbl_library_category (category_id,
-                                                                category_name)
-                                    VALUE ('" & Txt_category_id.Text & "',
-                                            '" & Txt_category_description.Text & "')"
-                        cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
-
-                        con.Close()
-
-                        Clear_category_fields()
-                        Load_category_data_table()
-                        Load_library_cb_category()
-                        MessageBox.Show(category_description + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-
-                        con.Close()
-
-                    End If
+                    Clear_category_fields()
+                    Load_category_data_table()
+                    Load_library_cb_category()
+                    MessageBox.Show(category_description + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 End If
 
@@ -1748,26 +1685,25 @@ Public Class Fm_home_page
 
             If Lv_category.SelectedItems.Count > 0 Then
 
-                If Txt_category_id.Text = "" Or
-                   Txt_category_description.Text = "" Then
+                If Txt_category_description.Text = "" Then
 
-                    MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Please filled the field", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
                     con.Open()
 
-                    'to make sure Category ID not exists while in update process
+                    'to make sure Category Description not exists while in update process
                     sql = "UPDATE tbl_library_category SET
-                                    category_id = '" & "" & "'                                        
-                            WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(2).Text & "'"
+                                    category_name = '" & "" & "'                                        
+                            WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(1).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
                     dr.Close()
                     '---------------------------------
 
                     sql = "SELECT * FROM tbl_library_category
-                                    WHERE category_id = '" & Txt_category_id.Text & "'"
+                                    WHERE category_name = '" & Txt_category_description.Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader()
 
@@ -1775,17 +1711,17 @@ Public Class Fm_home_page
 
                         con.Close()
 
-                        'returned previous Category ID
+                        'returned previous Category Description
                         con.Open()
                         sql = "UPDATE tbl_library_category SET
-                                        category_id = '" & Txt_temp_category_id.Text & "'                                        
-                               WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(2).Text & "'"
+                                        category_name = '" & Txt_temp_category_name.Text & "'                                        
+                               WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(1).Text & "'"
                         cmd = New MySqlCommand(sql, con)
                         dr = cmd.ExecuteReader
                         con.Close()
                         '---------------------------------
 
-                        MessageBox.Show("Category ID already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        MessageBox.Show("Category Description already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     Else
 
@@ -1799,9 +1735,8 @@ Public Class Fm_home_page
                             dr.Close()
 
                             sql = "UPDATE tbl_library_category SET
-                                            category_id = '" & Txt_category_id.Text & "',
                                             category_name = '" & Txt_category_description.Text & "'
-                                   WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(2).Text & "'"
+                                   WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(1).Text & "'"
                             cmd = New MySqlCommand(sql, con)
                             dr = cmd.ExecuteReader
 
@@ -1819,8 +1754,8 @@ Public Class Fm_home_page
 
                             'returned previous Category ID
                             sql = "UPDATE tbl_library_category SET
-                                            category_id = '" & Txt_temp_category_id.Text & "'                                        
-                                   WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(2).Text & "'"
+                                            category_name = '" & Txt_temp_category_name.Text & "'                                        
+                                   WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(1).Text & "'"
                             cmd = New MySqlCommand(sql, con)
                             dr = cmd.ExecuteReader
                             '---------------------------------
@@ -1858,7 +1793,7 @@ Public Class Fm_home_page
 
                 con.Open()
 
-                Dim category_description = Lv_category.SelectedItems(0).SubItems(1).Text
+                Dim category_description = Lv_category.SelectedItems(0).Text
                 Dim dialog As DialogResult
 
                 dialog = MessageBox.Show("Do you want to delete " + category_description + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
@@ -1866,7 +1801,7 @@ Public Class Fm_home_page
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_library_category
-                                  WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(2).Text & "'"
+                                  WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(1).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
@@ -1905,43 +1840,13 @@ Public Class Fm_home_page
 
         If Lv_category.SelectedItems.Count > 0 Then
 
-            Txt_category_id.Text = Lv_category.SelectedItems(0).Text
-            Txt_category_description.Text = Lv_category.SelectedItems(0).SubItems(1).Text
+            Txt_temp_category_name.Text = Lv_category.SelectedItems(0).Text
+            Txt_category_description.Text = Lv_category.SelectedItems(0).Text
 
-            Txt_temp_category_id.Text = Lv_category.SelectedItems(0).Text
+        Else
 
-        End If
+            Txt_category_description.Clear()
 
-    End Sub
-
-    Private Sub Txt_category_id_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_category_id.KeyPress
-
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 11 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_category_id.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789- " ' Change this to the desired allowed characters
-
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
-            e.Handled = True
         End If
 
     End Sub
@@ -2199,7 +2104,7 @@ Public Class Fm_home_page
 
             If dr.Read() Then
 
-                Txt_penalty_description_id.Text = dr("primary_penalty_description_id")
+                Txt_primary_penalty_description_id.Text = dr("primary_penalty_description_id")
 
             End If
 
@@ -2239,13 +2144,12 @@ Public Class Fm_home_page
                     If dialog = DialogResult.Yes Then
 
                         sql = "UPDATE tbl_penalty SET 
-                                        primary_borrower_id = '" & Txt_student_name_id.Text & "',                                                                        
-                                        primary_book_id = '" & Txt_book_id.Text & "',
+                                        primary_borrower_id = '" & Txt_primary_student_name_id.Text & "',                                                                        
+                                        primary_book_id = '" & Txt_primary_book_id.Text & "',
                                         penalty_amount = '" & Txt_penalty_amount.Text & "',
-                                        primary_penalty_description_id = '" & Txt_penalty_description_id.Text & "',                                    
-                                        penalty_date = '" & Dtp_penalty_date.Value.ToString("MMM-dd-yyyy") & "',
-                                        penalty_time = '" & Dtp_penalty_date.Value.ToString("hh:mm tt") & "'
-                                WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(7).Text & "'"
+                                        primary_penalty_description_id = '" & Txt_primary_penalty_description_id.Text & "',                                    
+                                        penalty_date = '" & Dtp_penalty_date.Value.ToString("MMM-dd-yyyy") & "'
+                                WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(6).Text & "'"
                         cmd = New MySqlCommand(sql, con)
                         cmd.ExecuteNonQuery()
 
@@ -2296,7 +2200,7 @@ Public Class Fm_home_page
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_penalty                                    
-                            WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(7).Text & "'"
+                            WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(6).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
 
@@ -2340,8 +2244,9 @@ Public Class Fm_home_page
             Cb_penalty_description.Text = Lv_penalty.SelectedItems(0).SubItems(4).Text
             Dtp_penalty_date.Text = Lv_penalty.SelectedItems(0).SubItems(5).Text
 
-            Txt_student_name_id.Text = Lv_penalty.SelectedItems(0).SubItems(8).Text
-            Txt_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(9).Text
+            Txt_primary_penalty_description_id.Text = Lv_penalty.SelectedItems(0).SubItems(7).Text
+            Txt_primary_student_name_id.Text = Lv_penalty.SelectedItems(0).SubItems(8).Text
+            Txt_primary_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(9).Text
 
         End If
 

@@ -247,7 +247,6 @@ Partial Class Fm_add_books
         Txt_primary_author_id.PlaceholderText = "Primary Author ID"
         Txt_primary_author_id.Size = New Size(120, 23)
         Txt_primary_author_id.TabIndex = 24
-        Txt_primary_author_id.Visible = False
         ' 
         ' Txt_primary_publisher_id
         ' 
@@ -256,7 +255,6 @@ Partial Class Fm_add_books
         Txt_primary_publisher_id.PlaceholderText = "Primary Publisher ID"
         Txt_primary_publisher_id.Size = New Size(120, 23)
         Txt_primary_publisher_id.TabIndex = 25
-        Txt_primary_publisher_id.Visible = False
         ' 
         ' Txt_primary_supplier_id
         ' 
@@ -265,7 +263,6 @@ Partial Class Fm_add_books
         Txt_primary_supplier_id.PlaceholderText = "Primary Supplier ID"
         Txt_primary_supplier_id.Size = New Size(120, 23)
         Txt_primary_supplier_id.TabIndex = 26
-        Txt_primary_supplier_id.Visible = False
         ' 
         ' Label8
         ' 
@@ -323,7 +320,6 @@ Partial Class Fm_add_books
         Txt_primary_category_id.PlaceholderText = "Primary Category ID"
         Txt_primary_category_id.Size = New Size(120, 23)
         Txt_primary_category_id.TabIndex = 33
-        Txt_primary_category_id.Visible = False
         ' 
         ' update_Txt_isbn
         ' 
@@ -339,7 +335,7 @@ Partial Class Fm_add_books
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(434, 328)
+        ClientSize = New Size(553, 328)
         ControlBox = False
         Controls.Add(Txt_primary_category_id)
         Controls.Add(update_Txt_isbn)

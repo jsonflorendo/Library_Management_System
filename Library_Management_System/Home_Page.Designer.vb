@@ -42,15 +42,13 @@ Partial Class Fm_home_page
         Btn_listed_add_books = New Button()
         Txt_listed_books_search = New TextBox()
         Panel5_Author = New Panel()
-        Txt_temp_author_id = New TextBox()
+        Txt_temp_author_name = New TextBox()
         Btn_author_delete = New Button()
         Btn_author_update = New Button()
         Btn_author_add = New Button()
         Txt_author_name = New TextBox()
-        Txt_author_id = New TextBox()
         Lv_author = New ListView()
-        ColumnHeader1 = New ColumnHeader()
-        ColumnHeader2 = New ColumnHeader()
+        ColumnHeader = New ColumnHeader()
         Panel2_Returned_Issued_Books = New Panel()
         Btn_return_books = New Button()
         Btn_borrow_books = New Button()
@@ -121,19 +119,17 @@ Partial Class Fm_home_page
         Btn_supplier_maintenance = New Button()
         Btn_author_maintenance = New Button()
         Panel7_Category = New Panel()
-        Txt_temp_category_id = New TextBox()
+        Txt_temp_category_name = New TextBox()
         Txt_category_description = New TextBox()
         Btn_category_delete = New Button()
         Btn_category_update = New Button()
         Btn_category_add = New Button()
-        Txt_category_id = New TextBox()
         Lv_category = New ListView()
         Listed_Category0 = New ColumnHeader()
-        Listed_Category1 = New ColumnHeader()
         Panel8_Penalty = New Panel()
-        Txt_book_id = New TextBox()
-        Txt_student_name_id = New TextBox()
-        Txt_penalty_description_id = New TextBox()
+        Txt_primary_book_id = New TextBox()
+        Txt_primary_student_name_id = New TextBox()
+        Txt_primary_penalty_description_id = New TextBox()
         Cb_penalty_description = New ComboBox()
         Btn_penalty_description_delete = New Button()
         Btn_penalty_description_update = New Button()
@@ -155,7 +151,6 @@ Partial Class Fm_home_page
         Listed_penalty3 = New ColumnHeader()
         Listed_penalty4 = New ColumnHeader()
         Listed_penalty5 = New ColumnHeader()
-        Listed_penalty6 = New ColumnHeader()
         PictureBox2 = New PictureBox()
         Panel1_Books.SuspendLayout()
         Panel5_Author.SuspendLayout()
@@ -314,25 +309,24 @@ Partial Class Fm_home_page
         ' Panel5_Author
         ' 
         Panel5_Author.BorderStyle = BorderStyle.FixedSingle
-        Panel5_Author.Controls.Add(Txt_temp_author_id)
+        Panel5_Author.Controls.Add(Txt_temp_author_name)
         Panel5_Author.Controls.Add(Btn_author_delete)
         Panel5_Author.Controls.Add(Btn_author_update)
         Panel5_Author.Controls.Add(Btn_author_add)
         Panel5_Author.Controls.Add(Txt_author_name)
-        Panel5_Author.Controls.Add(Txt_author_id)
         Panel5_Author.Controls.Add(Lv_author)
         Panel5_Author.Location = New Point(528, 131)
         Panel5_Author.Name = "Panel5_Author"
         Panel5_Author.Size = New Size(1192, 753)
         Panel5_Author.TabIndex = 25
         ' 
-        ' Txt_temp_author_id
+        ' Txt_temp_author_name
         ' 
-        Txt_temp_author_id.Location = New Point(100, 316)
-        Txt_temp_author_id.Name = "Txt_temp_author_id"
-        Txt_temp_author_id.PlaceholderText = "Temp Author ID"
-        Txt_temp_author_id.Size = New Size(89, 23)
-        Txt_temp_author_id.TabIndex = 6
+        Txt_temp_author_name.Location = New Point(100, 287)
+        Txt_temp_author_name.Name = "Txt_temp_author_name"
+        Txt_temp_author_name.PlaceholderText = "Temp Author Name"
+        Txt_temp_author_name.Size = New Size(118, 23)
+        Txt_temp_author_name.TabIndex = 7
         ' 
         ' Btn_author_delete
         ' 
@@ -374,18 +368,9 @@ Partial Class Fm_home_page
         Txt_author_name.Size = New Size(369, 38)
         Txt_author_name.TabIndex = 2
         ' 
-        ' Txt_author_id
-        ' 
-        Txt_author_id.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_author_id.Location = New Point(102, 269)
-        Txt_author_id.Name = "Txt_author_id"
-        Txt_author_id.PlaceholderText = "Enter Author ID"
-        Txt_author_id.Size = New Size(369, 38)
-        Txt_author_id.TabIndex = 1
-        ' 
         ' Lv_author
         ' 
-        Lv_author.Columns.AddRange(New ColumnHeader() {ColumnHeader1, ColumnHeader2})
+        Lv_author.Columns.AddRange(New ColumnHeader() {ColumnHeader})
         Lv_author.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_author.FullRowSelect = True
         Lv_author.HeaderStyle = ColumnHeaderStyle.Nonclickable
@@ -398,15 +383,10 @@ Partial Class Fm_home_page
         Lv_author.UseCompatibleStateImageBehavior = False
         Lv_author.View = View.Details
         ' 
-        ' ColumnHeader1
+        ' ColumnHeader
         ' 
-        ColumnHeader1.Text = "Author ID"
-        ColumnHeader1.Width = 250
-        ' 
-        ' ColumnHeader2
-        ' 
-        ColumnHeader2.Text = "Author Name"
-        ColumnHeader2.Width = 350
+        ColumnHeader.Text = "Author Name"
+        ColumnHeader.Width = 595
         ' 
         ' Panel2_Returned_Issued_Books
         ' 
@@ -1014,25 +994,24 @@ Partial Class Fm_home_page
         ' Panel7_Category
         ' 
         Panel7_Category.BorderStyle = BorderStyle.FixedSingle
-        Panel7_Category.Controls.Add(Txt_temp_category_id)
+        Panel7_Category.Controls.Add(Txt_temp_category_name)
         Panel7_Category.Controls.Add(Txt_category_description)
         Panel7_Category.Controls.Add(Btn_category_delete)
         Panel7_Category.Controls.Add(Btn_category_update)
         Panel7_Category.Controls.Add(Btn_category_add)
-        Panel7_Category.Controls.Add(Txt_category_id)
         Panel7_Category.Controls.Add(Lv_category)
         Panel7_Category.Location = New Point(528, 131)
         Panel7_Category.Name = "Panel7_Category"
         Panel7_Category.Size = New Size(1192, 753)
         Panel7_Category.TabIndex = 27
         ' 
-        ' Txt_temp_category_id
+        ' Txt_temp_category_name
         ' 
-        Txt_temp_category_id.Location = New Point(102, 316)
-        Txt_temp_category_id.Name = "Txt_temp_category_id"
-        Txt_temp_category_id.PlaceholderText = "Temp Category ID"
-        Txt_temp_category_id.Size = New Size(100, 23)
-        Txt_temp_category_id.TabIndex = 7
+        Txt_temp_category_name.Location = New Point(102, 316)
+        Txt_temp_category_name.Name = "Txt_temp_category_name"
+        Txt_temp_category_name.PlaceholderText = "Temp Category Name"
+        Txt_temp_category_name.Size = New Size(141, 23)
+        Txt_temp_category_name.TabIndex = 8
         ' 
         ' Txt_category_description
         ' 
@@ -1073,18 +1052,9 @@ Partial Class Fm_home_page
         Btn_category_add.Text = "Add"
         Btn_category_add.UseVisualStyleBackColor = True
         ' 
-        ' Txt_category_id
-        ' 
-        Txt_category_id.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_category_id.Location = New Point(102, 269)
-        Txt_category_id.Name = "Txt_category_id"
-        Txt_category_id.PlaceholderText = "Enter Category ID"
-        Txt_category_id.Size = New Size(369, 38)
-        Txt_category_id.TabIndex = 1
-        ' 
         ' Lv_category
         ' 
-        Lv_category.Columns.AddRange(New ColumnHeader() {Listed_Category0, Listed_Category1})
+        Lv_category.Columns.AddRange(New ColumnHeader() {Listed_Category0})
         Lv_category.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_category.FullRowSelect = True
         Lv_category.HeaderStyle = ColumnHeaderStyle.Nonclickable
@@ -1099,18 +1069,13 @@ Partial Class Fm_home_page
         ' Listed_Category0
         ' 
         Listed_Category0.Text = "Category ID"
-        Listed_Category0.Width = 250
-        ' 
-        ' Listed_Category1
-        ' 
-        Listed_Category1.Text = "Description"
-        Listed_Category1.Width = 350
+        Listed_Category0.Width = 595
         ' 
         ' Panel8_Penalty
         ' 
-        Panel8_Penalty.Controls.Add(Txt_book_id)
-        Panel8_Penalty.Controls.Add(Txt_student_name_id)
-        Panel8_Penalty.Controls.Add(Txt_penalty_description_id)
+        Panel8_Penalty.Controls.Add(Txt_primary_book_id)
+        Panel8_Penalty.Controls.Add(Txt_primary_student_name_id)
+        Panel8_Penalty.Controls.Add(Txt_primary_penalty_description_id)
         Panel8_Penalty.Controls.Add(Cb_penalty_description)
         Panel8_Penalty.Controls.Add(Btn_penalty_description_delete)
         Panel8_Penalty.Controls.Add(Btn_penalty_description_update)
@@ -1130,29 +1095,29 @@ Partial Class Fm_home_page
         Panel8_Penalty.Size = New Size(1421, 901)
         Panel8_Penalty.TabIndex = 28
         ' 
-        ' Txt_book_id
+        ' Txt_primary_book_id
         ' 
-        Txt_book_id.Location = New Point(1221, 252)
-        Txt_book_id.Name = "Txt_book_id"
-        Txt_book_id.PlaceholderText = "Book ID"
-        Txt_book_id.Size = New Size(144, 23)
-        Txt_book_id.TabIndex = 25
+        Txt_primary_book_id.Location = New Point(1221, 246)
+        Txt_primary_book_id.Name = "Txt_primary_book_id"
+        Txt_primary_book_id.PlaceholderText = "Primary Book ID"
+        Txt_primary_book_id.Size = New Size(144, 23)
+        Txt_primary_book_id.TabIndex = 25
         ' 
-        ' Txt_student_name_id
+        ' Txt_primary_student_name_id
         ' 
-        Txt_student_name_id.Location = New Point(1221, 171)
-        Txt_student_name_id.Name = "Txt_student_name_id"
-        Txt_student_name_id.PlaceholderText = "Student Name ID"
-        Txt_student_name_id.Size = New Size(144, 23)
-        Txt_student_name_id.TabIndex = 24
+        Txt_primary_student_name_id.Location = New Point(1221, 171)
+        Txt_primary_student_name_id.Name = "Txt_primary_student_name_id"
+        Txt_primary_student_name_id.PlaceholderText = "Primary Borrower ID"
+        Txt_primary_student_name_id.Size = New Size(144, 23)
+        Txt_primary_student_name_id.TabIndex = 24
         ' 
-        ' Txt_penalty_description_id
+        ' Txt_primary_penalty_description_id
         ' 
-        Txt_penalty_description_id.Location = New Point(1221, 114)
-        Txt_penalty_description_id.Name = "Txt_penalty_description_id"
-        Txt_penalty_description_id.PlaceholderText = "Penalty Description ID"
-        Txt_penalty_description_id.Size = New Size(144, 23)
-        Txt_penalty_description_id.TabIndex = 21
+        Txt_primary_penalty_description_id.Location = New Point(1221, 114)
+        Txt_primary_penalty_description_id.Name = "Txt_primary_penalty_description_id"
+        Txt_primary_penalty_description_id.PlaceholderText = "Primary Penalty Description ID"
+        Txt_primary_penalty_description_id.Size = New Size(176, 23)
+        Txt_primary_penalty_description_id.TabIndex = 21
         ' 
         ' Cb_penalty_description
         ' 
@@ -1290,7 +1255,7 @@ Partial Class Fm_home_page
         ' 
         ' Lv_penalty
         ' 
-        Lv_penalty.Columns.AddRange(New ColumnHeader() {Listed_penalty0, Listed_penalty1, Listed_penalty2, Listed_penalty3, Listed_penalty4, Listed_penalty5, Listed_penalty6})
+        Lv_penalty.Columns.AddRange(New ColumnHeader() {Listed_penalty0, Listed_penalty1, Listed_penalty2, Listed_penalty3, Listed_penalty4, Listed_penalty5})
         Lv_penalty.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_penalty.FullRowSelect = True
         Lv_penalty.HeaderStyle = ColumnHeaderStyle.Nonclickable
@@ -1333,12 +1298,6 @@ Partial Class Fm_home_page
         Listed_penalty5.TextAlign = HorizontalAlignment.Center
         Listed_penalty5.Width = 150
         ' 
-        ' Listed_penalty6
-        ' 
-        Listed_penalty6.Text = "Time"
-        Listed_penalty6.TextAlign = HorizontalAlignment.Center
-        Listed_penalty6.Width = 150
-        ' 
         ' PictureBox2
         ' 
         PictureBox2.Location = New Point(266, 0)
@@ -1355,15 +1314,15 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
+        Controls.Add(Panel7_Category)
+        Controls.Add(Panel5_Author)
+        Controls.Add(Panel8_Penalty)
         Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(Panel1_Books)
         Controls.Add(Panel3_Borrower_Info)
         Controls.Add(P_navigation)
         Controls.Add(Panel6_Supplier)
-        Controls.Add(Panel5_Author)
-        Controls.Add(Panel7_Category)
         Controls.Add(Panel4_User_Acounts)
-        Controls.Add(Panel8_Penalty)
         Controls.Add(PictureBox2)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
@@ -1457,10 +1416,9 @@ Partial Class Fm_home_page
     Friend WithEvents Btn_author_update As Button
     Friend WithEvents Btn_author_add As Button
     Friend WithEvents Txt_author_name As TextBox
-    Friend WithEvents Txt_author_id As TextBox
     Friend WithEvents Lv_author As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
-    Friend WithEvents ColumnHeader2 As ColumnHeader
+    Friend WithEvents ColumnHeader As ColumnHeader
     Friend WithEvents Btn_supplier_maintenance As Button
     Friend WithEvents Panel6_Supplier As Panel
     Friend WithEvents Btn_supplier_delete As Button
@@ -1489,10 +1447,8 @@ Partial Class Fm_home_page
     Friend WithEvents Btn_category_update As Button
     Friend WithEvents Btn_category_add As Button
     Friend WithEvents TextBox6 As TextBox
-    Friend WithEvents Txt_category_id As TextBox
     Friend WithEvents Lv_category As ListView
     Friend WithEvents Listed_Category0 As ColumnHeader
-    Friend WithEvents Listed_Category1 As ColumnHeader
     Friend WithEvents Btn_penalty_report As Button
     Friend WithEvents Panel8_Penalty As Panel
     Friend WithEvents Lv_penalty As ListView
@@ -1514,18 +1470,17 @@ Partial Class Fm_home_page
     Friend WithEvents Btn_penalty_description_update As Button
     Friend WithEvents Listed_details0 As ColumnHeader
     Friend WithEvents Cb_penalty_description As ComboBox
-    Friend WithEvents Txt_penalty_description_id As TextBox
-    Friend WithEvents Txt_student_name_id As TextBox
-    Friend WithEvents Txt_book_id As TextBox
-    Friend WithEvents Listed_penalty6 As ColumnHeader
+    Friend WithEvents Txt_primary_penalty_description_id As TextBox
+    Friend WithEvents Txt_primary_student_name_id As TextBox
+    Friend WithEvents Txt_primary_book_id As TextBox
     Friend WithEvents Listed_books8 As ColumnHeader
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Cb_supplier_source_type As ComboBox
-    Friend WithEvents Txt_temp_author_id As TextBox
     Friend WithEvents Txt_temp_supplier_id As TextBox
-    Friend WithEvents Txt_temp_category_id As TextBox
     Friend WithEvents Listed_books0 As ColumnHeader
     Friend WithEvents Btn_borrow_books As Button
     Friend WithEvents Btn_return_books As Button
     Public WithEvents PictureBox2 As PictureBox
+    Friend WithEvents Txt_temp_author_name As TextBox
+    Friend WithEvents Txt_temp_category_name As TextBox
 End Class

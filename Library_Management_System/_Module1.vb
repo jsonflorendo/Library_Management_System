@@ -333,8 +333,7 @@ Module Module1
 
             Do While dr.Read
 
-                Dim lv As New ListViewItem({dr("author_id").ToString(),
-                                            dr("author_name").ToString(),
+                Dim lv As New ListViewItem({dr("author_name").ToString(),
                                             dr("primary_author_id").ToString()})
                 Fm_home_page.Lv_author.Items.Add(lv)
 
@@ -433,8 +432,7 @@ Module Module1
 
             Do While dr.Read
 
-                Dim lv As New ListViewItem({dr("category_id").ToString(),
-                                            dr("category_name").ToString(),
+                Dim lv As New ListViewItem({dr("category_name").ToString(),
                                             dr("primary_category_id").ToString()})
                 Fm_home_page.Lv_category.Items.Add(lv)
 
@@ -525,8 +523,8 @@ Module Module1
                             tbl_library_penalty.penalty_description,
                             tbl_penalty.penalty_amount,
                             tbl_penalty.penalty_date,
-                            tbl_penalty.penalty_time,
                             tbl_penalty.primary_penalty_id,
+                            tbl_penalty.primary_penalty_description_id,
                             tbl_borrower.primary_borrower_id,
                             tbl_books.primary_book_id
 
@@ -551,8 +549,8 @@ Module Module1
                                             dr("penalty_amount").ToString(),
                                             dr("penalty_description").ToString(),
                                             dr("penalty_date").ToString(),
-                                            dr("penalty_time").ToString(),
                                             dr("primary_penalty_id").ToString(),
+                                            dr("primary_penalty_description_id").ToString(),
                                             dr("primary_borrower_id").ToString(),
                                             dr("primary_book_id").ToString()})
                 Fm_home_page.Lv_penalty.Items.Add(lv)
@@ -754,7 +752,6 @@ Module Module1
 
     Public Sub Clear_author_fields()
 
-        Fm_home_page.Txt_author_id.Clear()
         Fm_home_page.Txt_author_name.Clear()
 
     End Sub
@@ -773,21 +770,20 @@ Module Module1
 
     Public Sub Clear_category_fields()
 
-        Fm_home_page.Txt_category_id.Clear()
         Fm_home_page.Txt_category_description.Clear()
 
     End Sub
 
     Public Sub Clear_penalty_fields()
 
-        Fm_home_page.Txt_student_name_id.Clear()
+        Fm_home_page.Txt_primary_student_name_id.Clear()
 
         Fm_home_page.Txt_penalty_id_number.Clear()
         Fm_home_page.Txt_penalty_name.Clear()
         Fm_home_page.Txt_penalty_book_name.Clear()
         Fm_home_page.Txt_penalty_amount.Clear()
 
-        Fm_home_page.Txt_penalty_description_id.Clear()
+        Fm_home_page.Txt_primary_penalty_description_id.Clear()
 
         Fm_home_page.Cb_penalty_description.Text = ""
 
