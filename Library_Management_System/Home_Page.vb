@@ -14,7 +14,8 @@ Public Class Fm_home_page
         Panel5_Author.Visible = False
         Panel6_Supplier.Visible = False
         Panel7_Category.Visible = False
-        Panel8_Penalty.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel9_Penalty.Visible = False
 
         Load_listed_books_data_table()
         Load_returned_borrowed_books_data_table()
@@ -43,7 +44,8 @@ Public Class Fm_home_page
         Panel5_Author.Visible = False
         Panel6_Supplier.Visible = False
         Panel7_Category.Visible = False
-        Panel8_Penalty.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel9_Penalty.Visible = False
 
     End Sub
 
@@ -56,7 +58,8 @@ Public Class Fm_home_page
         Panel5_Author.Visible = False
         Panel6_Supplier.Visible = False
         Panel7_Category.Visible = False
-        Panel8_Penalty.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel9_Penalty.Visible = False
 
     End Sub
 
@@ -69,7 +72,8 @@ Public Class Fm_home_page
         Panel5_Author.Visible = False
         Panel6_Supplier.Visible = False
         Panel7_Category.Visible = False
-        Panel8_Penalty.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel9_Penalty.Visible = False
 
     End Sub
 
@@ -82,7 +86,8 @@ Public Class Fm_home_page
         Panel5_Author.Visible = False
         Panel6_Supplier.Visible = False
         Panel7_Category.Visible = False
-        Panel8_Penalty.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel9_Penalty.Visible = False
 
     End Sub
 
@@ -95,7 +100,8 @@ Public Class Fm_home_page
         Panel5_Author.Visible = True
         Panel6_Supplier.Visible = False
         Panel7_Category.Visible = False
-        Panel8_Penalty.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel9_Penalty.Visible = False
 
     End Sub
 
@@ -108,7 +114,8 @@ Public Class Fm_home_page
         Panel5_Author.Visible = False
         Panel6_Supplier.Visible = True
         Panel7_Category.Visible = False
-        Panel8_Penalty.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel9_Penalty.Visible = False
 
     End Sub
 
@@ -121,7 +128,8 @@ Public Class Fm_home_page
         Panel5_Author.Visible = False
         Panel6_Supplier.Visible = False
         Panel7_Category.Visible = True
-        Panel8_Penalty.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel9_Penalty.Visible = False
 
     End Sub
 
@@ -135,7 +143,22 @@ Public Class Fm_home_page
         Panel5_Author.Visible = False
         Panel6_Supplier.Visible = False
         Panel7_Category.Visible = False
-        Panel8_Penalty.Visible = True
+        Panel8_Penalty_Report.Visible = True
+        Panel9_Penalty.Visible = False
+
+    End Sub
+
+    Private Sub Btn_penalty_Click(sender As Object, e As EventArgs) Handles Btn_penalty.Click
+
+        Panel1_Books.Visible = False
+        Panel2_Returned_Issued_Books.Visible = False
+        Panel3_Borrower_Info.Visible = False
+        Panel4_User_Acounts.Visible = False
+        Panel5_Author.Visible = False
+        Panel6_Supplier.Visible = False
+        Panel7_Category.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel9_Penalty.Visible = True
 
     End Sub
 
@@ -1886,7 +1909,7 @@ Public Class Fm_home_page
 
     '/* Library Penalty */
 
-    Private Sub Btn_penalty_description_add_Click(sender As Object, e As EventArgs) Handles Btn_penalty_description_add.Click
+    Private Sub Btn_penalty_description_add_Click(sender As Object, e As EventArgs)
 
         Try
 
@@ -1896,7 +1919,7 @@ Public Class Fm_home_page
 
             Else
 
-                con.Open()
+                con.Open
 
                 Dim penalty_description = Txt_penalty_description.Text
                 Dim dialog As DialogResult
@@ -1908,18 +1931,18 @@ Public Class Fm_home_page
                     sql = "INSERT INTO tbl_library_penalty (penalty_description)
                                   VALUE ('" & Txt_penalty_description.Text & "')"
                     cmd = New MySqlCommand(sql, con)
-                    cmd.ExecuteNonQuery()
+                    cmd.ExecuteNonQuery
 
-                    con.Close()
+                    con.Close
 
-                    Txt_penalty_description.Clear()
-                    Load_penalty_description_data_table()
-                    Load_library_cb_penalty_description()
+                    Txt_penalty_description.Clear
+                    Load_penalty_description_data_table
+                    Load_library_cb_penalty_description
                     MessageBox.Show(penalty_description + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
-                    con.Close()
+                    con.Close
 
                 End If
 
@@ -1933,7 +1956,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_penalty_description_update_Click(sender As Object, e As EventArgs) Handles Btn_penalty_description_update.Click
+    Private Sub Btn_penalty_description_update_Click(sender As Object, e As EventArgs)
 
         Try
 
@@ -1945,7 +1968,7 @@ Public Class Fm_home_page
 
                 Else
 
-                    con.Open()
+                    con.Open
 
                     Dim penalty_description = Txt_penalty_description.Text
                     Dim dialog As DialogResult
@@ -1962,19 +1985,19 @@ Public Class Fm_home_page
                         cmd = New MySqlCommand(sql, con)
                         dr = cmd.ExecuteReader
 
-                        con.Close()
+                        con.Close
 
-                        Txt_penalty_description.Clear()
-                        Load_penalty_description_data_table()
-                        Load_library_cb_penalty_description()
+                        Txt_penalty_description.Clear
+                        Load_penalty_description_data_table
+                        Load_library_cb_penalty_description
                         MessageBox.Show(penalty_description + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     Else
 
-                        con.Close()
+                        con.Close
 
-                        Txt_penalty_description.Clear()
-                        Load_penalty_description_data_table()
+                        Txt_penalty_description.Clear
+                        Load_penalty_description_data_table
 
                     End If
 
@@ -1994,13 +2017,13 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_penalty_description_delete_Click(sender As Object, e As EventArgs) Handles Btn_penalty_description_delete.Click
+    Private Sub Btn_penalty_description_delete_Click(sender As Object, e As EventArgs)
 
         Try
 
             If Lv_penalty_description.SelectedItems.Count > 0 Then
 
-                con.Open()
+                con.Open
 
                 Dim penalty_description = Lv_penalty_description.SelectedItems(0).Text
                 Dim dialog As DialogResult
@@ -2014,19 +2037,19 @@ Public Class Fm_home_page
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
-                    con.Close()
+                    con.Close
 
-                    Txt_penalty_description.Clear()
-                    Load_penalty_description_data_table()
-                    Load_library_cb_penalty_description()
+                    Txt_penalty_description.Clear
+                    Load_penalty_description_data_table
+                    Load_library_cb_penalty_description
                     MessageBox.Show(penalty_description + " was deleted", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
-                    con.Close()
+                    con.Close
 
-                    Txt_penalty_description.Clear()
-                    Load_penalty_description_data_table()
+                    Txt_penalty_description.Clear
+                    Load_penalty_description_data_table
 
                 End If
 
@@ -2045,7 +2068,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Lv_penalty_description_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_penalty_description.SelectedIndexChanged
+    Private Sub Lv_penalty_description_SelectedIndexChanged(sender As Object, e As EventArgs)
 
         If Lv_penalty_description.SelectedItems.Count > 0 Then
 
@@ -2055,7 +2078,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Txt_penalty_description_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_penalty_description.KeyPress
+    Private Sub Txt_penalty_description_KeyPress(sender As Object, e As KeyPressEventArgs)
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -2067,7 +2090,7 @@ Public Class Fm_home_page
         e.KeyChar = Char.ToUpper(e.KeyChar)
 
         ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
+        Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
         If Txt_category_description.TextLength >= maxLength Then
@@ -2077,7 +2100,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
