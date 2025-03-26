@@ -85,9 +85,8 @@ Public Class Fm_login
 
                                     Clear_login_fields()
                                     Fm_home_page.Btn_listed_accounts.Visible = False
-                                    Fm_home_page.Btn_author_maintenance.Visible = False
+                                    Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
                                     Fm_home_page.Btn_supplier_maintenance.Visible = False
-                                    Fm_home_page.Btn_category_maintenance.Visible = False
                                     Fm_home_page.Show()
                                     Me.Hide()
 
@@ -204,9 +203,8 @@ Public Class Fm_login
 
                                     Clear_login_fields()
                                     Fm_home_page.Btn_listed_accounts.Visible = False
-                                    Fm_home_page.Btn_author_maintenance.Visible = False
+                                    Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
                                     Fm_home_page.Btn_supplier_maintenance.Visible = False
-                                    Fm_home_page.Btn_category_maintenance.Visible = False
                                     Fm_home_page.Show()
                                     Me.Hide()
 
@@ -321,10 +319,9 @@ Public Class Fm_login
 
                                 Clear_login_fields()
                                 Fm_home_page.Btn_listed_accounts.Visible = False
-                                Fm_home_page.Btn_author_maintenance.Visible = False
+                                Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
                                 Fm_home_page.Btn_supplier_maintenance.Visible = False
-                                Fm_home_page.Btn_category_maintenance.Visible = False
-                                Fm_home_page.Txt_penalty_description.Visible = False
+                                Fm_home_page.Txt_search_penalty_description.Visible = False
                                 Fm_home_page.Btn_penalty_description_add.Visible = False
                                 Fm_home_page.Btn_penalty_description_update.Visible = False
                                 Fm_home_page.Btn_penalty_description_delete.Visible = False

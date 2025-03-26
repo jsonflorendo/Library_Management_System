@@ -219,7 +219,7 @@ Module Module1
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
 
-            Fm_home_page.Lv_student_info.Items.Clear()
+            Fm_home_page.Lv_borrower_info.Items.Clear()
 
             Do While dr.Read
 
@@ -232,23 +232,23 @@ Module Module1
                                             dr("borrower_contact_no").ToString(),
                                             dr("borrower_address").ToString(),
                                             dr("primary_borrower_id").ToString()})
-                Fm_home_page.Lv_student_info.Items.Add(lv)
+                Fm_home_page.Lv_borrower_info.Items.Add(lv)
 
             Loop
 
             con.Close()
 
-            For i As Integer = 0 To Fm_home_page.Lv_student_info.Items.Count - 1
+            For i As Integer = 0 To Fm_home_page.Lv_borrower_info.Items.Count - 1
 
                 If i Mod 2 = 0 Then
 
-                    Fm_home_page.Lv_student_info.Items(i).BackColor = Color.Azure
-                    Fm_home_page.Lv_student_info.Items(i).ForeColor = Color.Black
+                    Fm_home_page.Lv_borrower_info.Items(i).BackColor = Color.Azure
+                    Fm_home_page.Lv_borrower_info.Items(i).ForeColor = Color.Black
 
                 Else
 
-                    Fm_home_page.Lv_student_info.Items(i).BackColor = Color.GhostWhite
-                    Fm_home_page.Lv_student_info.Items(i).ForeColor = Color.Black
+                    Fm_home_page.Lv_borrower_info.Items(i).BackColor = Color.GhostWhite
+                    Fm_home_page.Lv_borrower_info.Items(i).ForeColor = Color.Black
 
                 End If
 
@@ -318,53 +318,6 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_author_data_table()
-
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_author
-                            ORDER BY author_name ASC"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-
-            Fm_home_page.Lv_author.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("author_name").ToString(),
-                                            dr("primary_author_id").ToString()})
-                Fm_home_page.Lv_author.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i As Integer = 0 To Fm_home_page.Lv_author.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Fm_home_page.Lv_author.Items(i).BackColor = Color.Azure
-                    Fm_home_page.Lv_author.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Fm_home_page.Lv_author.Items(i).BackColor = Color.GhostWhite
-                    Fm_home_page.Lv_author.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
-
-    End Sub
-
     Public Sub Load_supplier_data_table()
 
         Try
@@ -418,13 +371,61 @@ Module Module1
 
     End Sub
 
+    Public Sub Load_author_data_table()
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT * FROM tbl_library_author
+                            ORDER BY author_name ASC"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Fm_home_page.Lv_author.Items.Clear()
+
+            Do While dr.Read
+
+                Dim lv As New ListViewItem({dr("author_name").ToString(),
+                                            dr("primary_author_id").ToString()})
+                Fm_home_page.Lv_author.Items.Add(lv)
+
+            Loop
+
+            con.Close()
+
+            For i As Integer = 0 To Fm_home_page.Lv_author.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Fm_home_page.Lv_author.Items(i).BackColor = Color.Azure
+                    Fm_home_page.Lv_author.Items(i).ForeColor = Color.Black
+
+                Else
+
+                    Fm_home_page.Lv_author.Items(i).BackColor = Color.GhostWhite
+                    Fm_home_page.Lv_author.Items(i).ForeColor = Color.Black
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
     Public Sub Load_category_data_table()
 
         Try
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_library_category"
+            sql = "SELECT * FROM tbl_library_category
+                            ORDER BY category_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
 
@@ -470,7 +471,8 @@ Module Module1
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_library_penalty"
+            sql = "SELECT * FROM tbl_library_penalty
+                            ORDER BY penalty_description ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
 
@@ -586,27 +588,22 @@ Module Module1
 
     'Load all cb list
 
-    Public Sub Load_library_cb_category()
+    Public Sub Load_library_cb_supplier()
 
         Try
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_library_category"
-            'GROUP BY author_name"
+            sql = "SELECT * FROM tbl_library_supplier"
+            'GROUP BY supplier_name"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader
 
-            Fm_home_page.Cb_listed_books_category.Items.Clear()
-            Fm_home_page.Cb_listed_books_category.Items.Add("All Category")
-
-            Fm_add_books.Cb_book_category.Items.Clear()
+            Fm_add_books.Cb_supplier_name.Items.Clear()
 
             Do While dr.Read()
 
-                Fm_home_page.Cb_listed_books_category.Items.Add(dr("category_name"))
-
-                Fm_add_books.Cb_book_category.Items.Add(dr("category_name"))
+                Fm_add_books.Cb_supplier_name.Items.Add(dr("first_name") + " " + dr("last_name"))
 
             Loop
 
@@ -649,51 +646,27 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_library_cb_publisher()
+    Public Sub Load_library_cb_category()
 
         Try
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_library_publisher"
-            'GROUP BY publisher_name"
+            sql = "SELECT * FROM tbl_library_category"
+            'GROUP BY author_name"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader
 
-            Fm_add_books.Cb_publisher.Items.Clear()
+            Fm_home_page.Cb_listed_books_category.Items.Clear()
+            Fm_home_page.Cb_listed_books_category.Items.Add("All Category")
+
+            Fm_add_books.Cb_book_category.Items.Clear()
 
             Do While dr.Read()
 
-                Fm_add_books.Cb_publisher.Items.Add(dr("publisher_name"))
+                Fm_home_page.Cb_listed_books_category.Items.Add(dr("category_name"))
 
-            Loop
-
-            con.Close()
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
-
-    End Sub
-
-    Public Sub Load_library_cb_supplier()
-
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_supplier"
-            'GROUP BY supplier_name"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-
-            Fm_add_books.Cb_supplier_name.Items.Clear()
-
-            Do While dr.Read()
-
-                Fm_add_books.Cb_supplier_name.Items.Add(dr("first_name") + " " + dr("last_name"))
+                Fm_add_books.Cb_book_category.Items.Add(dr("category_name"))
 
             Loop
 
@@ -740,6 +713,53 @@ Module Module1
 
     End Sub
 
+    Public Sub Load_library_cb_publisher()
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT * FROM tbl_library_publisher"
+            'GROUP BY publisher_name"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader
+
+            Fm_add_books.Cb_publisher.Items.Clear()
+
+            Do While dr.Read()
+
+                Fm_add_books.Cb_publisher.Items.Add(dr("publisher_name"))
+
+            Loop
+
+            con.Close()
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+
+    'Remove items selection on the other listview
+
+    Public Sub remove_items_selection()
+
+        Load_listed_books_data_table()
+        Load_returned_borrowed_books_data_table()
+        Load_borrower_info_data_table()
+        Load_listed_accounts_data_table()
+        Load_supplier_data_table()
+        Load_author_data_table()
+        Load_category_data_table()
+        Load_penalty_description_data_table()
+        Load_penalty_data_table()
+
+    End Sub
+
+
     'Load all clear fields
 
     Public Sub Clear_login_fields()
@@ -747,12 +767,6 @@ Module Module1
         Fm_login.Txt_username.Clear()
         Fm_login.Txt_password.Clear()
         Fm_login.Cb_show_password.Checked = False
-
-    End Sub
-
-    Public Sub Clear_author_fields()
-
-        Fm_home_page.Txt_author_name.Clear()
 
     End Sub
 
@@ -765,12 +779,6 @@ Module Module1
         Fm_home_page.Txt_supplier_email_address.Clear()
         Fm_home_page.Txt_supplier_address.Clear()
         Fm_home_page.Cb_supplier_source_type.Text = "--Select Source Type--"
-
-    End Sub
-
-    Public Sub Clear_category_fields()
-
-        Fm_home_page.Txt_category_description.Clear()
 
     End Sub
 

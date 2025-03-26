@@ -19,7 +19,7 @@ Public Class Fm_add_borrower
             con.Open()
             sql = "UPDATE tbl_borrower SET
                         borrower_id = '" & Txt_temp_borrower_id_number.Text & "'                                        
-                WHERE primary_borrower_id = '" & Fm_home_page.Lv_student_info.SelectedItems(0).SubItems(7).Text & "'"
+                WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text & "'"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader
             con.Close()
@@ -145,7 +145,7 @@ Public Class Fm_add_borrower
                 'to make sure ID Number not exists while in update process
                 sql = "UPDATE tbl_borrower SET
                                         borrower_id = '" & "" & "'                                        
-                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_student_info.SelectedItems(0).SubItems(7).Text & "'"
+                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -182,7 +182,7 @@ Public Class Fm_add_borrower
                                         gender = '" & Gender & "',
                                         borrower_contact_no = '" & Txt_borrower_contact_no.Text & "',
                                         borrower_address = '" & Txt_borrower_address.Text & "'
-                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_student_info.SelectedItems(0).SubItems(7).Text & "'"
+                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text & "'"
                         cmd = New MySqlCommand(sql, con)
                         dr = cmd.ExecuteReader
 

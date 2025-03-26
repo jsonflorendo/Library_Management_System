@@ -8,10 +8,10 @@ Public Class Fm_add_books
 
     Private Sub Fm_add_books_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Load_library_cb_category()
-        Load_library_cb_author()
-        Load_library_cb_publisher()
         Load_library_cb_supplier()
+        Load_library_cb_author()
+        Load_library_cb_category()
+        Load_library_cb_publisher()
 
         Dtp_acquisition_date.Format = DateTimePickerFormat.Custom
         Dtp_acquisition_date.CustomFormat = "MMMM dd, yyyy"
