@@ -249,6 +249,7 @@ Public Class Fm_admin_registration
         If Txt_temp_username.Text = "" And Txt_temp_email.Text = "" Then
 
             Fm_home_page.Enabled = True
+            Load_listed_accounts_data_table() '-> To item selection On the listview
             Me.Close()
 
         Else
@@ -267,6 +268,7 @@ Public Class Fm_admin_registration
 
 
             Fm_home_page.Enabled = True
+            Load_listed_accounts_data_table() '-> To item selection On the listview
             Me.Close()
 
         End If

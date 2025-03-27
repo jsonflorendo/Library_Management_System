@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2025 at 05:09 PM
+-- Generation Time: Mar 27, 2025 at 05:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -132,7 +132,6 @@ CREATE TABLE `tbl_issued_books` (
 
 CREATE TABLE `tbl_library_author` (
   `primary_author_id` int(11) NOT NULL,
-  `author_id` varchar(11) DEFAULT NULL,
   `author_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -140,10 +139,12 @@ CREATE TABLE `tbl_library_author` (
 -- Dumping data for table `tbl_library_author`
 --
 
-INSERT INTO `tbl_library_author` (`primary_author_id`, `author_id`, `author_name`) VALUES
-(1, 'A0001', 'DR. JOSE P. RIZAL'),
-(2, 'A0002', 'WILLIAM SHAKESPEARE'),
-(3, 'A0003', 'PAULLY');
+INSERT INTO `tbl_library_author` (`primary_author_id`, `author_name`) VALUES
+(1, 'DR. JOSE P. RIZAL'),
+(2, 'WILLIAM SHAKESPEARE'),
+(6, 'JOSE'),
+(10, 'SDFDSG'),
+(11, 'JOSE12');
 
 -- --------------------------------------------------------
 
@@ -153,7 +154,6 @@ INSERT INTO `tbl_library_author` (`primary_author_id`, `author_id`, `author_name
 
 CREATE TABLE `tbl_library_category` (
   `primary_category_id` int(11) NOT NULL,
-  `category_id` varchar(11) DEFAULT NULL,
   `category_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -161,9 +161,11 @@ CREATE TABLE `tbl_library_category` (
 -- Dumping data for table `tbl_library_category`
 --
 
-INSERT INTO `tbl_library_category` (`primary_category_id`, `category_id`, `category_name`) VALUES
-(1, 'C0001', 'ROMANCE'),
-(2, 'C0002', 'FANSTASY');
+INSERT INTO `tbl_library_category` (`primary_category_id`, `category_name`) VALUES
+(1, 'ROMANCE12'),
+(2, 'FANSTASY'),
+(8, 'LASON'),
+(9, 'GHVBNVBN');
 
 -- --------------------------------------------------------
 
@@ -182,7 +184,7 @@ CREATE TABLE `tbl_library_penalty` (
 
 INSERT INTO `tbl_library_penalty` (`primary_penalty_description_id`, `penalty_description`) VALUES
 (1, 'TORN PAGES'),
-(2, 'Wet Pages'),
+(2, '1234'),
 (3, 'Late Return'),
 (4, 'BURN PAGES');
 
@@ -219,9 +221,9 @@ INSERT INTO `tbl_library_publisher` (`primary_publisher_id`, `publisher_name`) V
 CREATE TABLE `tbl_library_supplier` (
   `primary_supplier_id` int(11) NOT NULL,
   `supplier_id` varchar(11) DEFAULT NULL,
+  `supplier_name` varchar(100) DEFAULT NULL,
   `last_name` varchar(100) DEFAULT NULL,
   `first_name` varchar(100) DEFAULT NULL,
-  `supplier_full_name` varchar(100) DEFAULT NULL,
   `email_address` varchar(100) DEFAULT NULL,
   `contact` varchar(11) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
@@ -232,9 +234,10 @@ CREATE TABLE `tbl_library_supplier` (
 -- Dumping data for table `tbl_library_supplier`
 --
 
-INSERT INTO `tbl_library_supplier` (`primary_supplier_id`, `supplier_id`, `last_name`, `first_name`, `supplier_full_name`, `email_address`, `contact`, `address`, `source_type`) VALUES
-(1, 'S0001', 'FLORENDO', 'PAUL ', 'PAUL  FLORENDO', 'paulf5364@gmail.com', '09092522961', 'LOWER BICUTAN', 'Donator'),
-(2, 'S0002', 'VOSOTROS', 'ALEXANDRA', 'ALEXANDRA VOSOTROS', 'alex@gmail.com', '09121312312', 'TAGUIG CITY', 'Supplier');
+INSERT INTO `tbl_library_supplier` (`primary_supplier_id`, `supplier_id`, `supplier_name`, `last_name`, `first_name`, `email_address`, `contact`, `address`, `source_type`) VALUES
+(1, 'S0001', 'PAULA-ANDREA', 'FLORENDO', 'PAUL', 'paulf5364@gmail.com', '09092522961', 'LOWER BICUTAN', 'Donator'),
+(2, 'S0002', NULL, 'VOSOTROS', 'ALEXANDRA', 'alex@gmail.com', '09121312312', 'TAGUIG CITY', 'Supplier'),
+(5, '1234', 'DAKILA', 'DELA CRUZ', 'JUAN', 'email@gmail.com', '12345', 'TAGUIG', 'Donator');
 
 -- --------------------------------------------------------
 
@@ -248,18 +251,17 @@ CREATE TABLE `tbl_penalty` (
   `primary_book_id` varchar(11) DEFAULT NULL,
   `penalty_amount` varchar(10) DEFAULT NULL,
   `primary_penalty_description_id` varchar(11) DEFAULT NULL,
-  `penalty_date` varchar(30) DEFAULT NULL,
-  `penalty_time` varchar(11) DEFAULT NULL
+  `penalty_date` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_penalty`
 --
 
-INSERT INTO `tbl_penalty` (`primary_penalty_id`, `primary_borrower_id`, `primary_book_id`, `penalty_amount`, `primary_penalty_description_id`, `penalty_date`, `penalty_time`) VALUES
-(2, '3', '1', '100', '1', 'May-08-2024', '12:00 AM'),
-(3, '3', '1', '132', '3', 'May-09-2024', '12:00 AM'),
-(5, '3', '1', '10', '3', 'May-10-2024', '12:00 AM');
+INSERT INTO `tbl_penalty` (`primary_penalty_id`, `primary_borrower_id`, `primary_book_id`, `penalty_amount`, `primary_penalty_description_id`, `penalty_date`) VALUES
+(2, '3', '1', '100', '1', 'May-08-2024'),
+(3, '3', '1', '132', '1', 'May-09-2024'),
+(5, '3', '1', '100', '2', 'May-10-2024');
 
 --
 -- Indexes for dumped tables
@@ -357,19 +359,19 @@ ALTER TABLE `tbl_issued_books`
 -- AUTO_INCREMENT for table `tbl_library_author`
 --
 ALTER TABLE `tbl_library_author`
-  MODIFY `primary_author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `primary_author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_category`
 --
 ALTER TABLE `tbl_library_category`
-  MODIFY `primary_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `primary_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_penalty`
 --
 ALTER TABLE `tbl_library_penalty`
-  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_publisher`
@@ -381,7 +383,7 @@ ALTER TABLE `tbl_library_publisher`
 -- AUTO_INCREMENT for table `tbl_library_supplier`
 --
 ALTER TABLE `tbl_library_supplier`
-  MODIFY `primary_supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `primary_supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_penalty`

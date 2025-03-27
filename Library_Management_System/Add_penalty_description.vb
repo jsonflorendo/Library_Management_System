@@ -44,7 +44,6 @@ Public Class Fm_penalty_description
 
             Catch ex As Exception
 
-                con.Close()
                 MsgBox(ex.Message)
 
             End Try

@@ -33,93 +33,7 @@ Public Class Fm_login
 
     Private Sub Txt_username_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_username.KeyPress
 
-        Try
-
-            If e.KeyChar = ChrW(13) Then 'No. 13 is the number code "Enter" from keyboard by ASC code value
-
-                If Txt_username.Text = "" And Txt_password.Text = "" Then
-
-                    MessageBox.Show("Please input your Username and Password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                Else
-
-                    If Txt_username.Text = "" Then
-
-                        MessageBox.Show("Please input your username", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-
-                        If Txt_password.Text = "" Then
-
-                            MessageBox.Show("Please input your password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                        Else
-
-                            con.Open()
-
-                            sql = "SELECT * FROM tbl_admin
-                                            WHERE username = '" & Txt_username.Text & "'
-                                            AND password = '" & Txt_password.Text & "'
-                                            AND user_type = '" & "Assistant Librarian" & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader()
-
-                            If dr.Read = True Then
-
-                                Clear_login_fields()
-                                Fm_home_page.Show()
-                                Hide()
-
-                            Else
-
-                                dr.Close()
-
-                                sql = "SELECT * FROM tbl_admin
-                                                WHERE username = '" & Txt_username.Text & "'
-                                                AND password = '" & Txt_password.Text & "'
-                                                AND user_type = '" & "Staff" & "'"
-                                cmd = New MySqlCommand(sql, con)
-                                dr = cmd.ExecuteReader()
-
-                                If dr.Read Then
-
-                                    Clear_login_fields()
-                                    Fm_home_page.Btn_listed_accounts.Visible = False
-                                    Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
-                                    Fm_home_page.Btn_supplier_maintenance.Visible = False
-                                    Fm_home_page.Show()
-                                    Me.Hide()
-
-                                    dr.Close()
-
-                                Else
-
-                                    MessageBox.Show("Incorret username or password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                                    Clear_login_fields()
-
-                                End If
-
-                            End If
-
-                            con.Close()
-
-                        End If
-
-                    End If
-
-                End If
-
-            Else
-
-                con.Close()
-
-            End If
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
+        Load_login(e)
 
 
         ' Check if the entered key is a control key (e.g., Backspace)
@@ -151,93 +65,7 @@ Public Class Fm_login
 
     Private Sub Txt_password_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_password.KeyPress
 
-        Try
-
-            If e.KeyChar = ChrW(13) Then 'No. 13 is the number code "Enter" from keyboard by ASC code value
-
-                If Txt_username.Text = "" And Txt_password.Text = "" Then
-
-                    MessageBox.Show("Please input your Username and Password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                Else
-
-                    If Txt_username.Text = "" Then
-
-                        MessageBox.Show("Please input your username", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-
-                        If Txt_password.Text = "" Then
-
-                            MessageBox.Show("Please input your password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                        Else
-
-                            con.Open()
-
-                            sql = "SELECT * FROM tbl_admin
-                                            WHERE username = '" & Txt_username.Text & "'
-                                            AND password = '" & Txt_password.Text & "'
-                                            AND user_type = '" & "Assistant Librarian" & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader()
-
-                            If dr.Read = True Then
-
-                                Clear_login_fields()
-                                Fm_home_page.Show()
-                                Hide()
-
-                            Else
-
-                                dr.Close()
-
-                                sql = "SELECT * FROM tbl_admin
-                                                WHERE username = '" & Txt_username.Text & "'
-                                                AND password = '" & Txt_password.Text & "'
-                                                AND user_type = '" & "Staff" & "'"
-                                cmd = New MySqlCommand(sql, con)
-                                dr = cmd.ExecuteReader()
-
-                                If dr.Read Then
-
-                                    Clear_login_fields()
-                                    Fm_home_page.Btn_listed_accounts.Visible = False
-                                    Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
-                                    Fm_home_page.Btn_supplier_maintenance.Visible = False
-                                    Fm_home_page.Show()
-                                    Me.Hide()
-
-                                    dr.Close()
-
-                                Else
-
-                                    MessageBox.Show("Incorret username or password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                                    Clear_login_fields()
-
-                                End If
-
-                            End If
-
-                            con.Close()
-
-                        End If
-
-                    End If
-
-                End If
-
-            Else
-
-                con.Close()
-
-            End If
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
+        Load_login(e)
 
 
         ' Check if the entered key is a control key (e.g., Backspace)
@@ -269,90 +97,65 @@ Public Class Fm_login
 
     Private Sub Btn_login_Click(sender As Object, e As EventArgs) Handles Btn_login.Click
 
-        Try
+        If Txt_username.Text = "" And Txt_password.Text = "" Then
 
-            If Txt_username.Text = "" And Txt_password.Text = "" Then
+            MessageBox.Show("Please input your Username and Password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                MessageBox.Show("Please input your Username and Password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ElseIf Txt_username.Text = "" Then
 
-            Else
+            MessageBox.Show("Please input your username", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                If Txt_username.Text = "" Then
+        ElseIf Txt_password.Text = "" Then
 
-                    MessageBox.Show("Please input your username", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Please input your password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                Else
+        Else
 
-                    If Txt_password.Text = "" Then
+            Try
 
-                        MessageBox.Show("Please input your password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                con.Open()
+
+                sql = "SELECT * FROM tbl_admin
+                                    WHERE username = '" & Txt_username.Text & "'
+                                    AND password = '" & Txt_password.Text & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
+
+                If dr.Read() = True Then
+
+                    If dr("user_type") = "ASSISTANT LIBRARIAN" Then
+
+                        Fm_home_page.Show()
+                        Clear_login_fields()
+                        Me.Hide()
 
                     Else
 
-                        con.Open()
-
-                        sql = "SELECT * FROM tbl_admin
-                                        WHERE username = '" & Txt_username.Text & "'
-                                        AND password = '" & Txt_password.Text & "'
-                                        AND user_type = '" & "Assistant Librarian" & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader()
-
-                        If dr.Read Then
-
-                            Clear_login_fields()
-                            Fm_home_page.Show()
-                            Hide()
-
-                        Else
-
-                            dr.Close()
-
-                            sql = "SELECT * FROM tbl_admin
-                                            WHERE username = '" & Txt_username.Text & "'
-                                            AND password = '" & Txt_password.Text & "'
-                                            AND user_type = '" & "Staff" & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader()
-
-                            If dr.Read Then
-
-                                Clear_login_fields()
-                                Fm_home_page.Btn_listed_accounts.Visible = False
-                                Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
-                                Fm_home_page.Btn_supplier_maintenance.Visible = False
-                                Fm_home_page.Txt_search_penalty_description.Visible = False
-                                Fm_home_page.Btn_penalty_description_add.Visible = False
-                                Fm_home_page.Btn_penalty_description_update.Visible = False
-                                Fm_home_page.Btn_penalty_description_delete.Visible = False
-                                Fm_home_page.Lv_penalty_description.Visible = False
-                                Fm_home_page.Show()
-                                Hide()
-
-                                dr.Close()
-
-                            Else
-
-                                MessageBox.Show("Incorret username or password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                                Clear_login_fields()
-
-                            End If
-
-                        End If
-
-                        con.Close()
+                        Fm_home_page.Show()
+                        Fm_home_page.Btn_listed_accounts.Visible = False
+                        Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
+                        Fm_home_page.Btn_supplier_maintenance.Visible = False
+                        Clear_login_fields()
+                        Me.Hide()
 
                     End If
 
+                Else
+
+                    MessageBox.Show("Incorret username or password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Clear_login_fields()
+
                 End If
 
-            End If
+                con.Close()
 
-        Catch ex As Exception
+            Catch ex As Exception
 
-            MessageBox.Show("Please configure Database")
+                MsgBox(ex.Message)
 
-        End Try
+            End Try
+
+        End If
 
     End Sub
 

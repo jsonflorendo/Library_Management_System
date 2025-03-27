@@ -44,7 +44,6 @@ Public Class Fm_add_author
 
             Catch ex As Exception
 
-                con.Close()
                 MsgBox(ex.Message)
 
             End Try

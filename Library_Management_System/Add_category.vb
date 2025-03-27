@@ -45,7 +45,6 @@ Public Class Fm_add_category
 
             Catch ex As Exception
 
-                con.Close()
                 MsgBox(ex.Message)
 
             End Try

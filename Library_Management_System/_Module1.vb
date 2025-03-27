@@ -54,7 +54,78 @@ Module Module1
     End Sub
 
 
-    'Load all Listviews
+    'L oad login function
+
+    Public Sub Load_login(e As KeyPressEventArgs)
+
+        If e.KeyChar = ChrW(13) Then 'No. 13 is the number code "Enter" from keyboard by ASC code value
+
+            If Fm_login.Txt_username.Text = "" And Fm_login.Txt_password.Text = "" Then
+
+                MessageBox.Show("Please input your Username and Password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ElseIf Fm_login.Txt_username.Text = "" Then
+
+                MessageBox.Show("Please input your username", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ElseIf Fm_login.Txt_password.Text = "" Then
+
+                MessageBox.Show("Please input your password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            Else
+
+                Try
+
+                    con.Open()
+
+                    sql = "SELECT * FROM tbl_admin
+                                    WHERE username = '" & Fm_login.Txt_username.Text & "'
+                                    AND password = '" & Fm_login.Txt_password.Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader()
+
+                    If dr.Read() = True Then
+
+                        If dr("user_type") = "ASSISTANT LIBRARIAN" Then
+
+                            Fm_home_page.Show()
+                            Clear_login_fields()
+                            Fm_login.Hide()
+
+                        Else
+
+                            Fm_home_page.Show()
+                            Fm_home_page.Btn_listed_accounts.Visible = False
+                            Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
+                            Fm_home_page.Btn_supplier_maintenance.Visible = False
+                            Clear_login_fields()
+                            Fm_login.Hide()
+
+                        End If
+
+                    Else
+
+                        MessageBox.Show("Incorret username or password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Clear_login_fields()
+
+                    End If
+
+                    con.Close()
+
+                Catch ex As Exception
+
+                    MsgBox(ex.Message)
+
+                End Try
+
+            End If
+
+        End If
+
+    End Sub
+
+
+    ' Load all Listviews
 
     Public Sub Load_listed_books_data_table()
 
@@ -69,7 +140,7 @@ Module Module1
                             tbl_library_author.author_name,
                             tbl_library_publisher.publisher_name,
                             tbl_books.publish_year,
-                            tbl_library_supplier.supplier_full_name,
+                            tbl_library_supplier.supplier_name,
                             tbl_books.acquisition_date,
                             tbl_books.status,
                             tbl_books.primary_book_id
@@ -97,7 +168,7 @@ Module Module1
                                             dr("author_name").ToString(),
                                             dr("publisher_name").ToString(),
                                             dr("publish_year").ToString(),
-                                            dr("supplier_full_name").ToString(),
+                                            dr("supplier_name").ToString(),
                                             dr("acquisition_date").ToString(),
                                             dr("status").ToString(),
                                             dr("primary_book_id").ToString()})
@@ -333,14 +404,15 @@ Module Module1
             Do While dr.Read
 
                 Dim lv As New ListViewItem({dr("supplier_id").ToString(),
+                                            dr("supplier_name").ToString(),
                                             dr("last_name").ToString() + ", " + dr("first_name").ToString(),
                                             dr("email_address").ToString(),
                                             dr("contact").ToString(),
                                             dr("address").ToString(),
                                             dr("source_type").ToString(),
                                             dr("primary_supplier_id").ToString(),
-                                            dr("last_name").ToString(),
-                                           dr("first_name").ToString()})
+                                            dr("first_name").ToString(),
+                                            dr("last_name").ToString()})
                 Fm_home_page.Lv_supplier.Items.Add(lv)
 
             Loop
@@ -586,7 +658,7 @@ Module Module1
     End Sub
 
 
-    'Load all cb list
+    ' Load all cb list
 
     Public Sub Load_library_cb_supplier()
 
@@ -603,7 +675,7 @@ Module Module1
 
             Do While dr.Read()
 
-                Fm_add_books.Cb_supplier_name.Items.Add(dr("first_name") + " " + dr("last_name"))
+                Fm_add_books.Cb_supplier_name.Items.Add(dr("supplier_name"))
 
             Loop
 
@@ -743,7 +815,7 @@ Module Module1
     End Sub
 
 
-    'Remove items selection on the other listview
+    ' Remove items selection on the other listview
 
     Public Sub remove_items_selection()
 
@@ -760,25 +832,13 @@ Module Module1
     End Sub
 
 
-    'Load all clear fields
+    ' Load all clear fields
 
     Public Sub Clear_login_fields()
 
         Fm_login.Txt_username.Clear()
         Fm_login.Txt_password.Clear()
         Fm_login.Cb_show_password.Checked = False
-
-    End Sub
-
-    Public Sub Clear_supplier_fields()
-
-        Fm_home_page.Txt_supplier_id.Clear()
-        Fm_home_page.Txt_supplier_lastname.Clear()
-        Fm_home_page.Txt_supplier_firstname.Clear()
-        Fm_home_page.Txt_supplier_contact.Clear()
-        Fm_home_page.Txt_supplier_email_address.Clear()
-        Fm_home_page.Txt_supplier_address.Clear()
-        Fm_home_page.Cb_supplier_source_type.Text = "--Select Source Type--"
 
     End Sub
 

@@ -151,7 +151,7 @@ Public Class Fm_home_page
     End Sub
 
 
-    ' /* Listed Books */
+    ' Listed Books
 
     Private Sub Txt_listed_books_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_listed_books_search.TextChanged
 
@@ -325,7 +325,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_listed_add_books_Click(sender As Object, e As EventArgs) Handles Btn_listed_add_books.Click
+    Private Sub Btn_listed_books_add_Click(sender As Object, e As EventArgs) Handles Btn_listed_books_add.Click
 
         Fm_add_books.update_Txt_isbn.Visible = False
         Fm_add_books.Show()
@@ -334,7 +334,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_listed_books_update_Click(sender As Object, e As EventArgs) Handles Btn_listed_books_update.Click
+    Private Sub Btn_listed_books_edit_Click(sender As Object, e As EventArgs) Handles Btn_listed_books_edit.Click
 
         Fm_add_books.Txt_isbn.Visible = False
 
@@ -457,7 +457,7 @@ Public Class Fm_home_page
     End Sub
 
 
-    ' /* Returned Borrowed Books */
+    ' Returned Borrowed Books
 
     Private Sub Txt_returned_borrowed_books_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_returned_borrowed_books_search.TextChanged
 
@@ -588,7 +588,7 @@ Public Class Fm_home_page
     End Sub
 
 
-    ' /* Student Informaion */
+    ' Borrower Informaion
 
     Private Sub Txt_student_info_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_student_info_search.TextChanged
 
@@ -777,7 +777,7 @@ Public Class Fm_home_page
     End Sub
 
 
-    ' /* Listed Accounts */
+    ' Listed Accounts
 
     Private Sub Txt_listed_accounts_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_listed_accounts_search.TextChanged
 
@@ -852,6 +852,49 @@ Public Class Fm_home_page
 
     End Sub
 
+    Private Sub Btn_listed_accounts_edit_Click(sender As Object, e As EventArgs) Handles Btn_listed_accounts_edit.Click
+
+        Dim Gender As String
+
+        If Lv_listed_accounts.SelectedItems.Count > 0 Then
+
+            Fm_admin_registration.Txt_firstname.Text = Lv_listed_accounts.SelectedItems(0).Text
+            Fm_admin_registration.Txt_middlename.Text = Lv_listed_accounts.SelectedItems(0).SubItems(1).Text
+            Fm_admin_registration.Txt_lastname.Text = Lv_listed_accounts.SelectedItems(0).SubItems(2).Text
+
+            Gender = Lv_listed_accounts.SelectedItems(0).SubItems(3).Text
+            If Gender = "MALE" Then
+                Fm_admin_registration.Rb_male.Checked = True
+            Else
+                Fm_admin_registration.Rb_female.Checked = True
+            End If
+
+            Fm_admin_registration.Dtp_birthdate.Text = Lv_listed_accounts.SelectedItems(0).SubItems(4).Text
+            Fm_admin_registration.Txt_contact.Text = Lv_listed_accounts.SelectedItems(0).SubItems(5).Text
+            Fm_admin_registration.Txt_address.Text = Lv_listed_accounts.SelectedItems(0).SubItems(6).Text
+            Fm_admin_registration.Txt_username.Text = Lv_listed_accounts.SelectedItems(0).SubItems(7).Text
+            Fm_admin_registration.Txt_email.Text = Lv_listed_accounts.SelectedItems(0).SubItems(8).Text
+            Fm_admin_registration.Cb_user_type.Text = Lv_listed_accounts.SelectedItems(0).SubItems(9).Text
+            Fm_admin_registration.Txt_password.Text = Lv_listed_accounts.SelectedItems(0).SubItems(10).Text
+
+
+            Fm_admin_registration.Txt_temp_username.Text = Lv_listed_accounts.SelectedItems(0).SubItems(7).Text
+            Fm_admin_registration.Txt_temp_email.Text = Lv_listed_accounts.SelectedItems(0).SubItems(8).Text
+
+
+            Fm_admin_registration.Show()
+            Fm_admin_registration.Btn_save.Visible = False
+            Fm_admin_registration.Txt_confirmpassword.Visible = False
+            Me.Enabled = False
+
+        Else
+
+            MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
+
+    End Sub
+
     Private Sub Btn_listed_accounts_delete_Click(sender As Object, e As EventArgs) Handles Btn_listed_accounts_delete.Click
 
         If Lv_listed_accounts.SelectedItems.Count > 0 Then
@@ -900,48 +943,6 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Lv_listed_accounts_DoubleClick(sender As Object, e As EventArgs) Handles Lv_listed_accounts.DoubleClick
-
-        Dim Gender As String
-
-        If Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Fm_admin_registration.Txt_firstname.Text = Lv_listed_accounts.SelectedItems(0).Text
-            Fm_admin_registration.Txt_middlename.Text = Lv_listed_accounts.SelectedItems(0).SubItems(1).Text
-            Fm_admin_registration.Txt_lastname.Text = Lv_listed_accounts.SelectedItems(0).SubItems(2).Text
-
-            Gender = Lv_listed_accounts.SelectedItems(0).SubItems(3).Text
-            If Gender = "MALE" Then
-                Fm_admin_registration.Rb_male.Checked = True
-            Else
-                Fm_admin_registration.Rb_female.Checked = True
-            End If
-
-            Fm_admin_registration.Dtp_birthdate.Text = Lv_listed_accounts.SelectedItems(0).SubItems(4).Text
-            Fm_admin_registration.Txt_contact.Text = Lv_listed_accounts.SelectedItems(0).SubItems(5).Text
-            Fm_admin_registration.Txt_address.Text = Lv_listed_accounts.SelectedItems(0).SubItems(6).Text
-            Fm_admin_registration.Txt_username.Text = Lv_listed_accounts.SelectedItems(0).SubItems(7).Text
-            Fm_admin_registration.Txt_email.Text = Lv_listed_accounts.SelectedItems(0).SubItems(8).Text
-            Fm_admin_registration.Cb_user_type.Text = Lv_listed_accounts.SelectedItems(0).SubItems(9).Text
-            Fm_admin_registration.Txt_password.Text = Lv_listed_accounts.SelectedItems(0).SubItems(10).Text
-
-
-            Fm_admin_registration.Txt_temp_username.Text = Lv_listed_accounts.SelectedItems(0).SubItems(7).Text
-            Fm_admin_registration.Txt_temp_email.Text = Lv_listed_accounts.SelectedItems(0).SubItems(8).Text
-
-
-            Fm_admin_registration.Show()
-            Fm_admin_registration.Btn_save.Visible = False
-            Fm_admin_registration.Txt_confirmpassword.Visible = False
-            Me.Enabled = False
-
-        Else
-
-            MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-        End If
-    End Sub
-
     Private Sub Lv_listed_accounts_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_listed_accounts.SelectedIndexChanged
 
         'Remove items selection on the other listview
@@ -982,81 +983,61 @@ Public Class Fm_home_page
     End Sub
 
 
-    ' /* Listed Supplier */
+    ' Listed Supplier
 
-    Private Sub Btn_supplier_add_Click(sender As Object, e As EventArgs) Handles Btn_supplier_add.Click
+    Private Sub Txt_search_supplier_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_supplier.TextChanged
 
         Try
 
-            If Txt_supplier_id.Text = "" Or
-               Txt_supplier_lastname.Text = "" Or
-               Txt_supplier_firstname.Text = "" Or
-               Txt_supplier_contact.Text = "" Or
-               Txt_supplier_email_address.Text = "" Or
-               Txt_supplier_address.Text = "" Or
-               Cb_supplier_source_type.Text = "--Select Source Type--" Then
+            con.Open()
 
-                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            sql = "SELECT * FROM tbl_library_supplier
+                            WHERE supplier_id LIKE '%" & Txt_search_supplier.Text & "%' OR
+                                  supplier_name LIKE '%" & Txt_search_supplier.Text & "%' OR
+                                  last_name LIKE '%" & Txt_search_supplier.Text & "%' OR
+                                  first_name LIKE '%" & Txt_search_supplier.Text & "%' OR
+                                  email_address LIKE '%" & Txt_search_supplier.Text & "%' OR
+                                  contact LIKE '%" & Txt_search_supplier.Text & "%' OR
+                                  address LIKE '%" & Txt_search_supplier.Text & "%' OR
+                                  source_type LIKE '%" & Txt_search_supplier.Text & "%'"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
 
-            Else
+            Lv_supplier.Items.Clear()
 
-                con.Open()
+            Do While dr.Read
 
-                sql = "SELECT * FROM tbl_library_supplier
-                                WHERE supplier_id = '" & Txt_supplier_id.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
+                Dim lv As New ListViewItem({dr("supplier_id").ToString(),
+                                            dr("supplier_name").ToString(),
+                                            dr("last_name").ToString() + ", " + dr("first_name").ToString(),
+                                            dr("email_address").ToString(),
+                                            dr("contact").ToString(),
+                                            dr("address").ToString(),
+                                            dr("source_type").ToString(),
+                                            dr("primary_supplier_id").ToString(),
+                                            dr("first_name").ToString(),
+                                            dr("last_name").ToString()})
+                Lv_supplier.Items.Add(lv)
 
-                If dr.Read Then
+            Loop
 
-                    con.Close()
-                    MessageBox.Show("Supplier ID already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            con.Close()
+
+            For i As Integer = 0 To Lv_supplier.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Lv_supplier.Items(i).BackColor = Color.Azure
+                    Lv_supplier.Items(i).ForeColor = Color.Black
 
                 Else
 
-                    dr.Close()
-
-                    Dim full_name As String = Txt_supplier_lastname.Text + ", " + Txt_supplier_firstname.Text
-                    Dim dialog As DialogResult
-
-                    dialog = MessageBox.Show("Do you want to save " + full_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-
-                    If dialog = DialogResult.Yes Then
-
-                        sql = "INSERT INTO tbl_library_supplier (supplier_id,
-                                                                last_name,
-                                                                first_name,
-                                                                supplier_full_name,
-                                                                email_address,
-                                                                contact,
-                                                                address,
-                                                                source_type)
-                                        VALUE ('" & Txt_supplier_id.Text & "',
-                                                '" & Txt_supplier_lastname.Text & "',
-                                                '" & Txt_supplier_firstname.Text & "',
-                                                '" & Txt_supplier_firstname.Text + " " + Txt_supplier_lastname.Text & "',
-                                                '" & Txt_supplier_email_address.Text & "',
-                                                '" & Txt_supplier_contact.Text & "',
-                                                '" & Txt_supplier_address.Text & "',
-                                                '" & Cb_supplier_source_type.Text & "')"
-                        cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
-
-                        con.Close()
-
-                        Clear_supplier_fields()
-                        Load_supplier_data_table()
-                        MessageBox.Show(full_name + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-
-                        con.Close()
-
-                    End If
+                    Lv_supplier.Items(i).BackColor = Color.GhostWhite
+                    Lv_supplier.Items(i).ForeColor = Color.Black
 
                 End If
 
-            End If
+            Next
 
         Catch ex As Exception
 
@@ -1066,130 +1047,46 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_supplier_update_Click(sender As Object, e As EventArgs) Handles Btn_supplier_update.Click
+    Private Sub Btn_supplier_add_Click(sender As Object, e As EventArgs) Handles Btn_supplier_add.Click
 
-        Try
+        Fm_supplier_maintenance.Show()
+        Fm_supplier_maintenance.Btn_update.Visible = False
+        Me.Enabled = False
 
-            If Lv_supplier.SelectedItems.Count > 0 Then
+    End Sub
 
-                If Txt_supplier_id.Text = "" Or
-                   Txt_supplier_lastname.Text = "" Or
-                   Txt_supplier_firstname.Text = "" Or
-                   Txt_supplier_contact.Text = "" Or
-                   Txt_supplier_email_address.Text = "" Or
-                   Txt_supplier_address.Text = "" Or
-                   Cb_supplier_source_type.Text = "--Select Source Type--" Then
+    Private Sub Btn_supplier_edit_Click(sender As Object, e As EventArgs) Handles Btn_supplier_edit.Click
 
-                    MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If Lv_supplier.SelectedItems.Count > 0 Then
 
-                Else
+            Fm_supplier_maintenance.Show()
 
-                    con.Open()
+            Fm_supplier_maintenance.Txt_supplier_id.Text = Lv_supplier.SelectedItems(0).Text
+            Fm_supplier_maintenance.Txt_supplier_name.Text = Lv_supplier.SelectedItems(0).SubItems(1).Text
+            Fm_supplier_maintenance.Txt_supplier_firstname.Text = Lv_supplier.SelectedItems(0).SubItems(8).Text
+            Fm_supplier_maintenance.Txt_supplier_lastname.Text = Lv_supplier.SelectedItems(0).SubItems(9).Text
+            Fm_supplier_maintenance.Txt_supplier_email_address.Text = Lv_supplier.SelectedItems(0).SubItems(3).Text
+            Fm_supplier_maintenance.Txt_supplier_contact.Text = Lv_supplier.SelectedItems(0).SubItems(4).Text
+            Fm_supplier_maintenance.Txt_supplier_address.Text = Lv_supplier.SelectedItems(0).SubItems(5).Text
+            Fm_supplier_maintenance.Cb_supplier_source_type.Text = Lv_supplier.SelectedItems(0).SubItems(6).Text
 
-                    'to make sure Supplier ID not exists while in update process
-                    sql = "UPDATE tbl_library_supplier SET 
-                                        supplier_id = '" & "" & "'                                        
-                            WHERE primary_supplier_id = '" & Lv_supplier.SelectedItems(0).SubItems(6).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                    '---------------------------------
+            Fm_supplier_maintenance.Btn_save.Visible = False
+            Me.Enabled = False
 
-                    sql = "SELECT * FROM tbl_library_supplier
-                                    WHERE supplier_id = '" & Txt_supplier_id.Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
+        Else
 
-                    If dr.Read Then
+            MessageBox.Show("Please select supplier", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                        con.Close()
-
-                        'returned previous Supplier ID
-                        con.Open()
-                        sql = "UPDATE tbl_library_supplier SET 
-                                        supplier_id = '" & Txt_temp_supplier_id.Text & "'                                        
-                                WHERE primary_supplier_id = '" & Lv_supplier.SelectedItems(0).SubItems(6).Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader
-                        con.Close()
-                        '---------------------------------
-
-                        MessageBox.Show("Supplier ID already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-
-                        Dim full_name As String = Txt_supplier_lastname.Text + ", " + Txt_supplier_firstname.Text
-                        Dim dialog As DialogResult
-
-                        dialog = MessageBox.Show("Do you want to update " + full_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-
-                        If dialog = DialogResult.Yes Then
-
-                            dr.Close()
-
-                            sql = "UPDATE tbl_library_supplier SET 
-                                            supplier_id = '" & Txt_supplier_id.Text & "',
-                                            last_name = '" & Txt_supplier_lastname.Text & "',
-                                            first_name = '" & Txt_supplier_firstname.Text & "',
-                                            supplier_full_name = '" & Txt_supplier_firstname.Text + " " + Txt_supplier_lastname.Text & "',
-                                            email_address = '" & Txt_supplier_email_address.Text & "',
-                                            contact = '" & Txt_supplier_contact.Text & "',
-                                            address = '" & Txt_supplier_address.Text & "',
-                                            source_type = '" & Cb_supplier_source_type.Text & "'
-                                   WHERE primary_supplier_id = '" & Lv_supplier.SelectedItems(0).SubItems(6).Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
-
-                            con.Close()
-
-                            Clear_supplier_fields()
-                            Load_supplier_data_table()
-                            Load_listed_books_data_table()
-                            MessageBox.Show(full_name + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                        Else
-
-                            dr.Close()
-
-                            'returned previous Supplier ID
-                            sql = "UPDATE tbl_library_supplier SET 
-                                            supplier_id = '" & Txt_temp_supplier_id.Text & "'                                        
-                                    WHERE primary_supplier_id = '" & Lv_supplier.SelectedItems(0).SubItems(6).Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
-                            '---------------------------------
-
-                            con.Close()
-
-                            Clear_supplier_fields()
-                            Load_supplier_data_table()
-
-                        End If
-
-                    End If
-
-                End If
-
-            Else
-
-                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            End If
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
+        End If
 
     End Sub
 
     Private Sub Btn_supplier_delete_Click(sender As Object, e As EventArgs) Handles Btn_supplier_delete.Click
 
-        Try
 
-            If Lv_supplier.SelectedItems.Count > 0 Then
+        If Lv_supplier.SelectedItems.Count > 0 Then
 
+            Try
                 con.Open()
 
                 Dim supplier_name = Lv_supplier.SelectedItems(0).SubItems(1).Text
@@ -1200,13 +1097,12 @@ Public Class Fm_home_page
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_library_supplier
-                                  WHERE primary_supplier_id = '" & Lv_supplier.SelectedItems(0).SubItems(6).Text & "'"
+                                  WHERE primary_supplier_id = '" & Lv_supplier.SelectedItems(0).SubItems(7).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
                     con.Close()
 
-                    Clear_supplier_fields()
                     Load_supplier_data_table()
                     MessageBox.Show(supplier_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -1214,42 +1110,25 @@ Public Class Fm_home_page
 
                     con.Close()
 
-                    Clear_supplier_fields()
                     Load_supplier_data_table()
 
                 End If
 
-            Else
+            Catch ex As Exception
 
-                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MsgBox(ex.Message)
 
-            End If
+            End Try
 
+        Else
 
-        Catch ex As Exception
+            MessageBox.Show("Please select supplier", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            MsgBox(ex.Message)
-
-        End Try
+        End If
 
     End Sub
 
     Private Sub Lv_supplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_supplier.SelectedIndexChanged
-
-        If Lv_supplier.SelectedItems.Count > 0 Then
-
-            Txt_supplier_id.Text = Lv_supplier.SelectedItems(0).Text
-            Txt_supplier_email_address.Text = Lv_supplier.SelectedItems(0).SubItems(2).Text
-            Txt_supplier_contact.Text = Lv_supplier.SelectedItems(0).SubItems(3).Text
-            Txt_supplier_address.Text = Lv_supplier.SelectedItems(0).SubItems(4).Text
-            Cb_supplier_source_type.Text = Lv_supplier.SelectedItems(0).SubItems(5).Text
-
-            Txt_supplier_lastname.Text = Lv_supplier.SelectedItems(0).SubItems(7).Text
-            Txt_supplier_firstname.Text = Lv_supplier.SelectedItems(0).SubItems(8).Text
-
-            Txt_temp_supplier_id.Text = Lv_supplier.SelectedItems(0).Text
-
-        End If
 
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
@@ -1288,21 +1167,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Cb_supplier_source_type_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cb_supplier_source_type.KeyPress
-
-        'No input alphanumeric
-        e.Handled = True
-
-    End Sub
-
-    Private Sub Cb_supplier_source_type_Click(sender As Object, e As EventArgs) Handles Cb_supplier_source_type.Click
-
-        Cb_supplier_source_type.DroppedDown = True
-
-    End Sub
-
-    Private Sub Txt_supplier_id_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_supplier_id.KeyPress
-
+    Private Sub Txt_search_supplier_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_supplier.KeyPress
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
             ' Allow control keys
@@ -1313,180 +1178,27 @@ Public Class Fm_home_page
         e.KeyChar = Char.ToUpper(e.KeyChar)
 
         ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 11 ' Change this to the desired maximum length
+        Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_supplier_id.TextLength >= maxLength Then
+        If Txt_search_supplier.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789- " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
-
-    End Sub
-
-    Private Sub Txt_supplier_firstname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_supplier_firstname.KeyPress
-
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_supplier_firstname.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
-
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
-            e.Handled = True
-        End If
-
-    End Sub
-
-    Private Sub Txt_supplier_lastname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_supplier_lastname.KeyPress
-
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_supplier_lastname.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
-
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
-            e.Handled = True
-        End If
-
-    End Sub
-
-    Private Sub Txt_supplier_email_address_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_supplier_email_address.KeyPress
-
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_supplier_email_address.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+'<>,.?/""" ' Change this to the desired allowed characters
-
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
-            e.Handled = True
-        End If
-
-    End Sub
-
-    Private Sub Txt_supplier_contact_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_supplier_contact.KeyPress
-
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 11 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_supplier_contact.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        'Input numeric only
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-
-            e.Handled = True
-
-        End If
-
-    End Sub
-
-    Private Sub Txt_supplier_address_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_supplier_address.KeyPress
-
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 200 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_supplier_address.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
-
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
-            e.Handled = True
-        End If
-
     End Sub
 
 
-    ' /* Listed Author */
+    ' Listed Author
 
     Private Sub Txt_search_author_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_author.TextChanged
 
@@ -1544,7 +1256,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_author_update_Click(sender As Object, e As EventArgs) Handles Btn_author_update.Click
+    Private Sub Btn_author_edit_Click(sender As Object, e As EventArgs) Handles Btn_author_edit.Click
 
         If Lv_author.SelectedItems.Count > 0 Then
 
@@ -1680,7 +1392,7 @@ Public Class Fm_home_page
     End Sub
 
 
-    ' /* Listed Category */
+    ' Listed Category
 
     Private Sub Txt_category_description_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_category.TextChanged
 
@@ -1738,7 +1450,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_category_update_Click(sender As Object, e As EventArgs) Handles Btn_category_update.Click
+    Private Sub Btn_category_edit_Click(sender As Object, e As EventArgs) Handles Btn_category_edit.Click
 
         If Lv_category.SelectedItems.Count > 0 Then
 
@@ -1875,7 +1587,7 @@ Public Class Fm_home_page
     End Sub
 
 
-    '/* Library Penalty */
+    ' Library Penalty
 
     Private Sub Txt_search_penalty_description_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_penalty_description.TextChanged
 
@@ -1933,7 +1645,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_penalty_description_update_Click(sender As Object, e As EventArgs) Handles Btn_penalty_description_update.Click
+    Private Sub Btn_penalty_description_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_description_edit.Click
 
         If Lv_penalty_description.SelectedItems.Count > 0 Then
 
@@ -2069,7 +1781,7 @@ Public Class Fm_home_page
     End Sub
 
 
-    '/* Penalty */
+    ' Penalty
 
     Private Sub Cb_penalty_description_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_penalty_description.SelectedIndexChanged
 
@@ -2099,7 +1811,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_penalty_update_Click(sender As Object, e As EventArgs) Handles Btn_penalty_update.Click
+    Private Sub Btn_penalty_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_edit.Click
 
         Try
 
