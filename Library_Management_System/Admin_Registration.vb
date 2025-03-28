@@ -1,4 +1,5 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Button
+Imports MySql.Data.MySqlClient
 
 Public Class Fm_admin_registration
 
@@ -7,6 +8,9 @@ Public Class Fm_admin_registration
     Private Sub Fm_admin_registration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Connection()
+
+        Clear_error_msg()
+
         Txt_password.UseSystemPasswordChar = True
         Txt_confirmpassword.UseSystemPasswordChar = True
 
@@ -30,135 +34,183 @@ Public Class Fm_admin_registration
 
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
-        Try
+        Clear_error_msg()
 
-            If Txt_firstname.Text = "" Or
-                Txt_middlename.Text = "" Or
-                Txt_lastname.Text = "" Or
-                Gender = "" Or
-                Txt_contact.Text = "" Or
-                Txt_address.Text = "" Or
-                Txt_username.Text = "" Or
-                Txt_email.Text = "" Or
-                Cb_user_type.Text = "-Select User Type-" Or
-                Txt_password.Text = "" Or
-                Txt_confirmpassword.Text = "" Then
+        If Txt_firstname.Text = "" Or
+            Txt_middlename.Text = "" Or
+            Txt_lastname.Text = "" Or
+            Gender = "" Or
+            Txt_contact.Text = "" Or
+            Txt_address.Text = "" Or
+            Txt_username.Text = "" Or
+            Txt_email.Text = "" Or
+            Cb_user_type.Text = "-Select User Type-" Or
+            Txt_password.Text = "" Or
+            Txt_confirmpassword.Text = "" Then
 
-                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {Txt_firstname, Txt_middlename, Txt_lastname, Txt_contact, Txt_address, Txt_username, Txt_email, Txt_password, Txt_confirmpassword}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_2, Lbl_error_msg_5, Lbl_error_msg_6, Lbl_error_msg_7, Lbl_error_msg_8, Lbl_error_msg_10, Lbl_error_msg_11}
 
+            ' Validate TextBoxes
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                Else
+                    labels(i).Text = "" ' Clear label if valid
+                End If
+            Next
+
+            ' Validate the ComboBox (Dropdown)
+            If Cb_user_type.SelectedIndex = -1 Then
+                Lbl_error_msg_9.Text = "This field is required"
             Else
+                Lbl_error_msg_9.Text = "" ' Clear label if valid
+            End If
 
-                If Txt_password.Text = Txt_confirmpassword.Text Then
+            ' Validate the RadioButtons (Check if at least one is selected)
+            If Not (Rb_male.Checked Or Rb_female.Checked) Then
+                Lbl_error_msg_3.Text = "Please select a gender"
+            Else
+                Lbl_error_msg_3.Text = "" ' Clear label if valid
+            End If
 
-                    con.Open()
+        ElseIf Txt_password.Text <> Txt_confirmpassword.Text Then
+
+            Lbl_error_msg_11.Text = "Password and Confirm Password"
+            Lbl_error_msg_12.Text = "don't match"
+
+        Else
+
+            Try
+
+                con.Open()
+
+                sql = "SELECT * FROM tbl_admin
+                                WHERE username = '" & Txt_username.Text & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
+
+                If dr.Read = True Then
+
+                    Lbl_error_msg_7.Text = "Username already exists"
+                    con.Close()
+
+                Else
+
+                    dr.Close()
 
                     sql = "SELECT * FROM tbl_admin
-                                    WHERE username = '" & Txt_username.Text & "'"
+                                    WHERE email = '" & Txt_email.Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader()
 
-                    If dr.Read Then
+                    If dr.Read = True Then
 
+                        Lbl_error_msg_8.Text = "Email already exists"
                         con.Close()
-
-                        MessageBox.Show("Username already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     Else
 
                         dr.Close()
 
-                        sql = "SELECT * FROM tbl_admin
-                                        WHERE email = '" & Txt_email.Text & "'"
+                        sql = "INSERT INTO tbl_admin (first_name,
+                                                        middle_name,
+                                                        last_name,
+                                                        gender,
+                                                        birthday,
+                                                        contact_no,
+                                                        address,
+                                                        username,
+                                                        email,
+                                                        password,
+                                                        user_type)
+                                        VALUE ('" & Txt_firstname.Text & "',
+                                        '" & Txt_middlename.Text & "',
+                                        '" & Txt_lastname.Text & "',
+                                        '" & Gender & "',
+                                        '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
+                                        '" & Txt_contact.Text & "',
+                                        '" & Txt_address.Text & "',
+                                        '" & Txt_username.Text & "',
+                                        '" & Txt_email.Text & "',
+                                        '" & Txt_password.Text & "',
+                                        '" & Cb_user_type.Text & "')"
                         cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader()
+                        cmd.ExecuteNonQuery()
 
-                        If dr.Read Then
+                        con.Close()
 
-                            con.Close()
-
-                            MessageBox.Show("Email already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                        Else
-
-                            dr.Close()
-
-                            sql = "INSERT INTO tbl_admin (first_name,
-                                                            middle_name,
-                                                            last_name,
-                                                            gender,
-                                                            birthday,
-                                                            contact_no,
-                                                            address,
-                                                            username,
-                                                            email,
-                                                            password,
-                                                            user_type)
-                                    VALUE ('" & Txt_firstname.Text & "',
-                                    '" & Txt_middlename.Text & "',
-                                    '" & Txt_lastname.Text & "',
-                                    '" & Gender & "',
-                                    '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
-                                    '" & Txt_contact.Text & "',
-                                    '" & Txt_address.Text & "',
-                                    '" & Txt_username.Text & "',
-                                    '" & Txt_email.Text & "',
-                                    '" & Txt_password.Text & "',
-                                    '" & Cb_user_type.Text & "')"
-                            cmd = New MySqlCommand(sql, con)
-                            cmd.ExecuteNonQuery()
-
-                            con.Close()
-
-                            Fm_home_page.Enabled = True
-                            Load_listed_accounts_data_table()
-                            MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " was saved")
-                            Me.Close()
-
-                        End If
+                        Fm_home_page.Enabled = True
+                        Load_listed_accounts_data_table()
+                        MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " added successfully")
+                        Me.Close()
 
                     End If
 
-                Else
-
-                    MessageBox.Show("Password don't match", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
                 End If
 
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+                MsgBox(ex.Message)
 
-            MsgBox(ex.Message)
+            End Try
 
-        End Try
+        End If
 
     End Sub
 
     Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
 
-        Try
 
-            If Txt_firstname.Text = "" Or
-                Txt_middlename.Text = "" Or
-                Txt_lastname.Text = "" Or
-                Gender = "" Or
-                Txt_contact.Text = "" Or
-                Txt_address.Text = "" Or
-                Txt_username.Text = "" Or
-                Txt_email.Text = "" Or
-                Cb_user_type.Text = "-Select User Type-" Or
-                Txt_password.Text = "" Then
 
-                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If Txt_firstname.Text = "" Or
+            Txt_middlename.Text = "" Or
+            Txt_lastname.Text = "" Or
+            Gender = "" Or
+            Txt_contact.Text = "" Or
+            Txt_address.Text = "" Or
+            Txt_username.Text = "" Or
+            Txt_email.Text = "" Or
+            Cb_user_type.Text = "-Select User Type-" Or
+            Txt_password.Text = "" Then
 
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {Txt_firstname, Txt_middlename, Txt_lastname, Txt_contact, Txt_address, Txt_username, Txt_email, Txt_password}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_2, Lbl_error_msg_5, Lbl_error_msg_6, Lbl_error_msg_7, Lbl_error_msg_8, Lbl_error_msg_10}
+
+            ' Validate TextBoxes
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                Else
+                    labels(i).Text = "" ' Clear label if valid
+                End If
+            Next
+
+            ' Validate the ComboBox (Dropdown)
+            If Cb_user_type.SelectedIndex = -1 Then
+                Lbl_error_msg_9.Text = "This field is required"
             Else
+                Lbl_error_msg_9.Text = "" ' Clear label if valid
+            End If
+
+            ' Validate the RadioButtons (Check if at least one is selected)
+            If Not (Rb_male.Checked Or Rb_female.Checked) Then
+                Lbl_error_msg_3.Text = "Please select a gender"
+            Else
+                Lbl_error_msg_3.Text = "" ' Clear label if valid
+            End If
+
+        Else
+
+            Try
 
                 con.Open()
 
-                'to make sure Username and Email not exists while in update process
+                'to make sure Username not exists while in update process
                 sql = "UPDATE tbl_admin SET
-                                username = '" & "" & "',
-                                email = '" & "" & "'
+                                username = '" & "" & "'
                         WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
@@ -172,13 +224,40 @@ Public Class Fm_admin_registration
 
                 If dr.Read Then
 
-                    con.Close()
+                    dr.Close()
 
-                    MessageBox.Show("Username already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg_7.Text = "Username already exists"
+
+                    'returned previous Username
+                    sql = "UPDATE tbl_admin SET
+                                    username = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(7).Text & "'
+                            WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
+                    con.Close()
+                    '---------------------------------
 
                 Else
 
                     dr.Close()
+
+                    'returned previous Username
+                    sql = "UPDATE tbl_admin SET
+                                    username = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(7).Text & "'
+                            WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
+                    dr.Close()
+                    '---------------------------------
+
+                    'to make sure Email not exists while in update process
+                    sql = "UPDATE tbl_admin SET
+                                email = '" & "" & "'
+                        WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
+                    dr.Close()
+                    '---------------------------------
 
                     sql = "SELECT * FROM tbl_admin
                                     WHERE email = '" & Txt_email.Text & "'"
@@ -187,91 +266,65 @@ Public Class Fm_admin_registration
 
                     If dr.Read Then
 
-                        con.Close()
+                        dr.Close()
 
-                        MessageBox.Show("Email already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Lbl_error_msg_8.Text = "Email already exists"
+
+                        'returned previous Email
+                        sql = "UPDATE tbl_admin SET
+                                        email = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(8).Text & "'
+                                WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
+                        cmd = New MySqlCommand(sql, con)
+                        dr = cmd.ExecuteReader
+                        con.Close()
+                        '---------------------------------
 
                     Else
 
-                        Dim dialog As DialogResult
+                        dr.Close()
 
-                        dialog = MessageBox.Show("Do you want to update " + Txt_firstname.Text + " " + Txt_lastname.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-
-                        If dialog = DialogResult.Yes Then
-
-                            dr.Close()
-
-                            sql = "UPDATE tbl_admin SET 
-                                            first_name = '" & Txt_firstname.Text & "',
-                                            middle_name = '" & Txt_middlename.Text & "',
-                                            last_name = '" & Txt_lastname.Text & "',
-                                            gender = '" & Gender & "',
-                                            birthday = '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
-                                            contact_no = '" & Txt_contact.Text & "',
-                                            address = '" & Txt_address.Text & "',
-                                            username = '" & Txt_username.Text & "',
-                                            email = '" & Txt_email.Text & "',
-                                            password = '" & Txt_password.Text & "',
-                                            user_type = '" & Cb_user_type.Text & "'
-                                   WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
+                        sql = "UPDATE tbl_admin SET 
+                                        first_name = '" & Txt_firstname.Text & "',
+                                        middle_name = '" & Txt_middlename.Text & "',
+                                        last_name = '" & Txt_lastname.Text & "',
+                                        gender = '" & Gender & "',
+                                        birthday = '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
+                                        contact_no = '" & Txt_contact.Text & "',
+                                        address = '" & Txt_address.Text & "',
+                                        username = '" & Txt_username.Text & "',
+                                        email = '" & Txt_email.Text & "',
+                                        password = '" & Txt_password.Text & "',
+                                        user_type = '" & Cb_user_type.Text & "'
+                                WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
                             cmd = New MySqlCommand(sql, con)
                             dr = cmd.ExecuteReader
 
                             con.Close()
 
                             Load_listed_accounts_data_table()
-                            MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Fm_home_page.Enabled = True
                             Me.Close()
 
-                        Else
-
-                            con.Close()
-
                         End If
-
-                    End If
 
                 End If
 
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+                MsgBox(ex.Message)
 
-            MsgBox(ex.Message)
+            End Try
 
-        End Try
+        End If
 
     End Sub
 
     Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
-        If Txt_temp_username.Text = "" And Txt_temp_email.Text = "" Then
-
-            Fm_home_page.Enabled = True
-            Load_listed_accounts_data_table() '-> To item selection On the listview
-            Me.Close()
-
-        Else
-
-            'returned previous Username and Email
-            con.Close()
-            con.Open()
-            sql = "UPDATE tbl_admin SET
-                        username = '" & Txt_temp_username.Text & "',
-                        email = '" & Txt_temp_email.Text & "'
-                WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-            con.Close()
-            '---------------------------------
-
-
-            Fm_home_page.Enabled = True
-            Load_listed_accounts_data_table() '-> To item selection On the listview
-            Me.Close()
-
-        End If
+        Fm_home_page.Enabled = True
+        Load_listed_accounts_data_table() '-> To item selection On the listview
+        Me.Close()
 
     End Sub
 

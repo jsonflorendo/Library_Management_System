@@ -3,7 +3,11 @@ Imports MySql.Data.MySqlClient
 
 Public Class Fm_login
 
+    Public selectedButton As Button = Nothing ' Track the currently selected button
+
     Private Sub Fm_login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Clear_error_msg()
 
         RoundCorners(Me)
         Connection()
@@ -11,9 +15,123 @@ Public Class Fm_login
 
     End Sub
 
+    Private Sub Btn_login_Click(sender As Object, e As EventArgs) Handles Btn_login.Click
+
+        If Txt_username.Text = "" And Txt_password.Text = "" Then
+
+            Lbl_error_msg_1.Text = ""
+            Lbl_error_msg.Text = "Please input your Username and Password"
+
+        ElseIf Txt_username.Text = "" Then
+
+            Lbl_error_msg.Text = ""
+            Lbl_error_msg_1.Text = "Please input your username"
+
+        ElseIf Txt_password.Text = "" Then
+
+            Lbl_error_msg_1.Text = ""
+            Lbl_error_msg.Text = "Please input your password"
+
+        Else
+
+            Try
+
+                con.Open()
+
+                sql = "SELECT * FROM tbl_admin
+                                WHERE username = '" & Txt_username.Text & "'
+                                AND password = '" & Txt_password.Text & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
+
+                If dr.Read() = True Then
+
+                    If dr("user_type") = "ASSISTANT LIBRARIAN" Then
+
+                        Fm_home_page.Show()
+                        Clear_login_fields()
+                        Clear_error_msg()
+                        Me.Hide()
+
+                    Else
+
+                        Fm_home_page.Show()
+                        Fm_home_page.Btn_listed_accounts.Visible = False
+                        Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
+                        Fm_home_page.Btn_supplier_maintenance.Visible = False
+                        Clear_login_fields()
+                        Clear_error_msg()
+                        Me.Hide()
+
+                    End If
+
+                Else
+
+                    Lbl_error_msg_1.Text = ""
+                    Lbl_error_msg.Text = "Incorrect username or password"
+                    Clear_login_fields()
+
+                End If
+
+                con.Close()
+
+            Catch ex As Exception
+
+                MsgBox(ex.Message)
+
+            End Try
+
+        End If
+
+    End Sub
+
+    Private Sub Btn_login_MouseEnter(sender As Object, e As EventArgs) Handles Btn_login.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_login_MouseLeave(sender As Object, e As EventArgs) Handles Btn_login.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Gainsboro
+        End If
+
+    End Sub
+
     Private Sub Btn_close_Click(sender As Object, e As EventArgs) Handles Btn_close.Click
 
         Me.Close()
+
+    End Sub
+
+    Private Sub Btn_close_MouseEnter(sender As Object, e As EventArgs) Handles Btn_close.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_close_MouseLeave(sender As Object, e As EventArgs) Handles Btn_close.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Gainsboro
+        End If
 
     End Sub
 
@@ -91,70 +209,6 @@ Public Class Fm_login
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
-        End If
-
-    End Sub
-
-    Private Sub Btn_login_Click(sender As Object, e As EventArgs) Handles Btn_login.Click
-
-        If Txt_username.Text = "" And Txt_password.Text = "" Then
-
-            MessageBox.Show("Please input your Username and Password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-        ElseIf Txt_username.Text = "" Then
-
-            MessageBox.Show("Please input your username", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-        ElseIf Txt_password.Text = "" Then
-
-            MessageBox.Show("Please input your password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-        Else
-
-            Try
-
-                con.Open()
-
-                sql = "SELECT * FROM tbl_admin
-                                    WHERE username = '" & Txt_username.Text & "'
-                                    AND password = '" & Txt_password.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
-
-                If dr.Read() = True Then
-
-                    If dr("user_type") = "ASSISTANT LIBRARIAN" Then
-
-                        Fm_home_page.Show()
-                        Clear_login_fields()
-                        Me.Hide()
-
-                    Else
-
-                        Fm_home_page.Show()
-                        Fm_home_page.Btn_listed_accounts.Visible = False
-                        Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
-                        Fm_home_page.Btn_supplier_maintenance.Visible = False
-                        Clear_login_fields()
-                        Me.Hide()
-
-                    End If
-
-                Else
-
-                    MessageBox.Show("Incorret username or password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Clear_login_fields()
-
-                End If
-
-                con.Close()
-
-            Catch ex As Exception
-
-                MsgBox(ex.Message)
-
-            End Try
-
         End If
 
     End Sub

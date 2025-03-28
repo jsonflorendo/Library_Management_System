@@ -2,7 +2,15 @@
 
 Public Class Fm_supplier_maintenance
 
+    Private Sub Fm_supplier_maintenance_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Clear_error_msg()
+
+    End Sub
+
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
+
+        Clear_error_msg()
 
         If Txt_supplier_id.Text = "" Or
            Txt_supplier_name.Text = "" Or
@@ -13,7 +21,25 @@ Public Class Fm_supplier_maintenance
            Txt_supplier_address.Text = "" Or
            Cb_supplier_source_type.Text = "--Select Source Type--" Then
 
-            MessageBox.Show("Please fill in all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {Txt_supplier_id, Txt_supplier_name, Txt_supplier_firstname, Txt_supplier_lastname, Txt_supplier_email_address, Txt_supplier_contact, Txt_supplier_address}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+
+            ' Loop through each TextBox and validate
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                Else
+                    labels(i).Text = "" ' Clear label if valid
+                End If
+            Next
+
+            ' Validate the ComboBox (Dropdown)
+            If Cb_supplier_source_type.SelectedIndex = -1 Then
+                Lbl_error_msg_7.Text = "This field is required"
+            Else
+                Lbl_error_msg_7.Text = "" ' Clear label if valid
+            End If
 
         Else
 
@@ -30,7 +56,7 @@ Public Class Fm_supplier_maintenance
 
                     con.Close()
 
-                    MessageBox.Show("Supplier already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg_1.Text = "Supplier already exists"
 
                 Else
 
@@ -76,6 +102,8 @@ Public Class Fm_supplier_maintenance
 
     Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
 
+        Clear_error_msg()
+
         If Txt_supplier_id.Text = "" Or
            Txt_supplier_name.Text = "" Or
            Txt_supplier_firstname.Text = "" Or
@@ -85,7 +113,25 @@ Public Class Fm_supplier_maintenance
            Txt_supplier_address.Text = "" Or
            Cb_supplier_source_type.Text = "--Select Source Type--" Then
 
-            MessageBox.Show("Please fill in all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {Txt_supplier_id, Txt_supplier_name, Txt_supplier_firstname, Txt_supplier_lastname, Txt_supplier_email_address, Txt_supplier_contact, Txt_supplier_address}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+
+            ' Loop through each TextBox and validate
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                Else
+                    labels(i).Text = "" ' Clear label if valid
+                End If
+            Next
+
+            ' Validate the ComboBox (Dropdown)
+            If Cb_supplier_source_type.SelectedIndex = -1 Then
+                Lbl_error_msg_7.Text = "This field is required"
+            Else
+                Lbl_error_msg_7.Text = "" ' Clear label if valid
+            End If
 
         Else
 
@@ -111,7 +157,7 @@ Public Class Fm_supplier_maintenance
 
                     dr.Close()
 
-                    MessageBox.Show("Supplier already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg_1.Text = "Supplier already exists"
 
                     'returned previous Supplier ID
                     sql = "UPDATE tbl_library_supplier SET 

@@ -2,11 +2,17 @@
 
 Public Class Fm_add_category
 
+    Private Sub Fm_add_category_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Clear_error_msg()
+
+    End Sub
+
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
         If Txt_category_name.Text = "" Then
 
-            MessageBox.Show("Please enter genre", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Lbl_error_msg.Text = "Please enter genre"
 
         Else
 
@@ -22,7 +28,7 @@ Public Class Fm_add_category
                 If dr.Read Then
 
                     con.Close()
-                    MessageBox.Show("Genre already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg.Text = "Genre already exists"
 
                 Else
 
@@ -57,7 +63,7 @@ Public Class Fm_add_category
 
         If Txt_category_name.Text = "" Then
 
-            MessageBox.Show("Please enter genre", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Lbl_error_msg.Text = "Please enter genre"
 
         Else
 
@@ -83,7 +89,7 @@ Public Class Fm_add_category
 
                     dr.Close()
 
-                    MessageBox.Show("Genre already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg.Text = "Genre already exists"
 
                     'returned previous Category Name
                     sql = "UPDATE tbl_library_category SET 

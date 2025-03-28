@@ -2,11 +2,17 @@
 
 Public Class Fm_penalty_description
 
+    Private Sub Fm_penalty_description_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Clear_error_msg()
+
+    End Sub
+
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
         If Txt_penalty_description.Text = "" Then
 
-            MessageBox.Show("Please enter penalty description", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Lbl_error_msg.Text = "Please enter penalty description"
 
         Else
 
@@ -22,7 +28,7 @@ Public Class Fm_penalty_description
                 If dr.Read Then
 
                     con.Close()
-                    MessageBox.Show("Penalty Description already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg.Text = "Penalty Description already exists"
 
                 Else
 
@@ -57,7 +63,7 @@ Public Class Fm_penalty_description
 
         If Txt_penalty_description.Text = "" Then
 
-            MessageBox.Show("Please enter penalty description", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Lbl_error_msg.Text = "Please enter penalty description"
 
         Else
 
@@ -83,7 +89,7 @@ Public Class Fm_penalty_description
 
                     dr.Close()
 
-                    MessageBox.Show("Penalty Description already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg.Text = "Penalty Description already exists"
 
                     'returned previous Author Name
                     sql = "UPDATE tbl_library_penalty SET 

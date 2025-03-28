@@ -2,11 +2,17 @@
 
 Public Class Fm_add_author
 
+    Private Sub Fm_add_author_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Clear_error_msg()
+
+    End Sub
+
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
         If Txt_author_name.Text = "" Then
 
-            MessageBox.Show("Please enter author name", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Lbl_error_msg.Text = "Please enter author name"
 
         Else
 
@@ -22,7 +28,7 @@ Public Class Fm_add_author
                 If dr.Read Then
 
                     con.Close()
-                    MessageBox.Show("Author already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg.Text = "Author already exists"
 
                 Else
 
@@ -57,7 +63,7 @@ Public Class Fm_add_author
 
         If Txt_author_name.Text = "" Then
 
-            MessageBox.Show("Please enter author name", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Lbl_error_msg.Text = "Please enter author name"
 
         Else
 
@@ -83,7 +89,7 @@ Public Class Fm_add_author
 
                     dr.Close()
 
-                    MessageBox.Show("Author already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg.Text = "Author already exists"
 
                     'returned previous Author Name
                     sql = "UPDATE tbl_library_author SET 

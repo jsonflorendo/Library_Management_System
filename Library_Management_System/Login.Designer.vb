@@ -31,6 +31,8 @@ Partial Class Fm_login
         Label1 = New Label()
         PictureBox1 = New PictureBox()
         Panel1 = New Panel()
+        Lbl_error_msg_1 = New Label()
+        Lbl_error_msg = New Label()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
         SuspendLayout()
@@ -83,7 +85,7 @@ Partial Class Fm_login
         ' 
         Cb_show_password.AutoSize = True
         Cb_show_password.Font = New Font("Georgia", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Cb_show_password.Location = New Point(754, 405)
+        Cb_show_password.Location = New Point(754, 412)
         Cb_show_password.Name = "Cb_show_password"
         Cb_show_password.Size = New Size(161, 27)
         Cb_show_password.TabIndex = 3
@@ -113,12 +115,36 @@ Partial Class Fm_login
         ' 
         ' Panel1
         ' 
+        Panel1.Controls.Add(Lbl_error_msg_1)
+        Panel1.Controls.Add(Lbl_error_msg)
         Panel1.Controls.Add(Label1)
         Panel1.Controls.Add(PictureBox1)
         Panel1.Location = New Point(0, 0)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1162, 618)
         Panel1.TabIndex = 7
+        ' 
+        ' Lbl_error_msg_1
+        ' 
+        Lbl_error_msg_1.AutoSize = True
+        Lbl_error_msg_1.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_1.ForeColor = Color.Red
+        Lbl_error_msg_1.Location = New Point(754, 320)
+        Lbl_error_msg_1.Name = "Lbl_error_msg_1"
+        Lbl_error_msg_1.Size = New Size(101, 17)
+        Lbl_error_msg_1.TabIndex = 8
+        Lbl_error_msg_1.Text = "Lbl_error_msg_1"
+        ' 
+        ' Lbl_error_msg
+        ' 
+        Lbl_error_msg.AutoSize = True
+        Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg.ForeColor = Color.Red
+        Lbl_error_msg.Location = New Point(751, 387)
+        Lbl_error_msg.Name = "Lbl_error_msg"
+        Lbl_error_msg.Size = New Size(91, 17)
+        Lbl_error_msg.TabIndex = 7
+        Lbl_error_msg.Text = "Lbl_error_msg"
         ' 
         ' Fm_login
         ' 
@@ -152,5 +178,7 @@ Partial Class Fm_login
     Friend WithEvents Label1 As Label
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents Lbl_error_msg As Label
+    Friend WithEvents Lbl_error_msg_1 As Label
 
 End Class

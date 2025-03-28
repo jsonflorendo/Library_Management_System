@@ -27,6 +27,7 @@ Partial Class Fm_add_author
         Btn_cancel = New Button()
         Btn_update = New Button()
         MySqlDataAdapter1 = New MySql.Data.MySqlClient.MySqlDataAdapter()
+        Lbl_error_msg = New Label()
         SuspendLayout()
         ' 
         ' Txt_author_name
@@ -72,6 +73,17 @@ Partial Class Fm_add_author
         MySqlDataAdapter1.SelectCommand = Nothing
         MySqlDataAdapter1.UpdateCommand = Nothing
         ' 
+        ' Lbl_error_msg
+        ' 
+        Lbl_error_msg.AutoSize = True
+        Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Lbl_error_msg.ForeColor = Color.Red
+        Lbl_error_msg.Location = New Point(47, 80)
+        Lbl_error_msg.Name = "Lbl_error_msg"
+        Lbl_error_msg.Size = New Size(91, 17)
+        Lbl_error_msg.TabIndex = 11
+        Lbl_error_msg.Text = "Lbl_error_msg"
+        ' 
         ' Fm_add_author
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -79,6 +91,7 @@ Partial Class Fm_add_author
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(333, 208)
         ControlBox = False
+        Controls.Add(Lbl_error_msg)
         Controls.Add(Btn_update)
         Controls.Add(Btn_cancel)
         Controls.Add(Btn_save)
@@ -95,4 +108,5 @@ Partial Class Fm_add_author
     Friend WithEvents Btn_cancel As Button
     Friend WithEvents Btn_update As Button
     Friend WithEvents MySqlDataAdapter1 As MySql.Data.MySqlClient.MySqlDataAdapter
+    Friend WithEvents Lbl_error_msg As Label
 End Class

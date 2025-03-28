@@ -41,8 +41,19 @@ Partial Class Fm_admin_registration
         Btn_update = New Button()
         Cb_show_password = New CheckBox()
         Cb_user_type = New ComboBox()
-        Txt_temp_email = New TextBox()
-        Txt_temp_username = New TextBox()
+        Lbl_error_msg = New Label()
+        Lbl_error_msg_1 = New Label()
+        Lbl_error_msg_2 = New Label()
+        Lbl_error_msg_3 = New Label()
+        Lbl_error_msg_4 = New Label()
+        Lbl_error_msg_5 = New Label()
+        Lbl_error_msg_6 = New Label()
+        Lbl_error_msg_7 = New Label()
+        Lbl_error_msg_8 = New Label()
+        Lbl_error_msg_9 = New Label()
+        Lbl_error_msg_10 = New Label()
+        Lbl_error_msg_11 = New Label()
+        Lbl_error_msg_12 = New Label()
         SuspendLayout()
         ' 
         ' Txt_firstname
@@ -57,7 +68,7 @@ Partial Class Fm_admin_registration
         ' Txt_email
         ' 
         Txt_email.Font = New Font("Georgia", 9F)
-        Txt_email.Location = New Point(260, 104)
+        Txt_email.Location = New Point(260, 105)
         Txt_email.Name = "Txt_email"
         Txt_email.PlaceholderText = "Email"
         Txt_email.Size = New Size(199, 21)
@@ -75,7 +86,7 @@ Partial Class Fm_admin_registration
         ' Txt_middlename
         ' 
         Txt_middlename.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_middlename.Location = New Point(22, 104)
+        Txt_middlename.Location = New Point(22, 105)
         Txt_middlename.Name = "Txt_middlename"
         Txt_middlename.PlaceholderText = "Middle Name"
         Txt_middlename.Size = New Size(199, 21)
@@ -93,7 +104,7 @@ Partial Class Fm_admin_registration
         ' Txt_password
         ' 
         Txt_password.Font = New Font("Georgia", 9F)
-        Txt_password.Location = New Point(260, 212)
+        Txt_password.Location = New Point(260, 229)
         Txt_password.Name = "Txt_password"
         Txt_password.PlaceholderText = "Password"
         Txt_password.Size = New Size(199, 21)
@@ -102,7 +113,7 @@ Partial Class Fm_admin_registration
         ' Txt_confirmpassword
         ' 
         Txt_confirmpassword.Font = New Font("Georgia", 9F)
-        Txt_confirmpassword.Location = New Point(260, 245)
+        Txt_confirmpassword.Location = New Point(259, 275)
         Txt_confirmpassword.Name = "Txt_confirmpassword"
         Txt_confirmpassword.PlaceholderText = "Confirm Password"
         Txt_confirmpassword.Size = New Size(199, 21)
@@ -110,7 +121,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Btn_save
         ' 
-        Btn_save.Location = New Point(52, 340)
+        Btn_save.Location = New Point(52, 406)
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(119, 33)
         Btn_save.TabIndex = 0
@@ -120,7 +131,7 @@ Partial Class Fm_admin_registration
         ' Btn_cancel
         ' 
         Btn_cancel.Font = New Font("Georgia", 9F)
-        Btn_cancel.Location = New Point(295, 340)
+        Btn_cancel.Location = New Point(292, 406)
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(117, 33)
         Btn_cancel.TabIndex = 15
@@ -130,7 +141,7 @@ Partial Class Fm_admin_registration
         ' Txt_contact
         ' 
         Txt_contact.Font = New Font("Georgia", 9F)
-        Txt_contact.Location = New Point(22, 266)
+        Txt_contact.Location = New Point(22, 312)
         Txt_contact.Name = "Txt_contact"
         Txt_contact.PlaceholderText = "Contact No."
         Txt_contact.Size = New Size(199, 21)
@@ -139,7 +150,7 @@ Partial Class Fm_admin_registration
         ' Txt_address
         ' 
         Txt_address.Font = New Font("Georgia", 9F)
-        Txt_address.Location = New Point(22, 304)
+        Txt_address.Location = New Point(22, 358)
         Txt_address.Name = "Txt_address"
         Txt_address.PlaceholderText = "Address"
         Txt_address.Size = New Size(199, 21)
@@ -149,7 +160,7 @@ Partial Class Fm_admin_registration
         ' 
         Rb_male.AutoSize = True
         Rb_male.Font = New Font("Georgia", 9F)
-        Rb_male.Location = New Point(27, 185)
+        Rb_male.Location = New Point(27, 202)
         Rb_male.Name = "Rb_male"
         Rb_male.Size = New Size(53, 19)
         Rb_male.TabIndex = 4
@@ -161,7 +172,7 @@ Partial Class Fm_admin_registration
         ' 
         Rb_female.AutoSize = True
         Rb_female.Font = New Font("Georgia", 9F)
-        Rb_female.Location = New Point(97, 185)
+        Rb_female.Location = New Point(97, 202)
         Rb_female.Name = "Rb_female"
         Rb_female.Size = New Size(67, 19)
         Rb_female.TabIndex = 5
@@ -173,7 +184,7 @@ Partial Class Fm_admin_registration
         ' 
         Dtp_birthdate.Font = New Font("Georgia", 9F)
         Dtp_birthdate.Format = DateTimePickerFormat.Short
-        Dtp_birthdate.Location = New Point(22, 228)
+        Dtp_birthdate.Location = New Point(22, 266)
         Dtp_birthdate.Name = "Dtp_birthdate"
         Dtp_birthdate.Size = New Size(199, 21)
         Dtp_birthdate.TabIndex = 6
@@ -182,7 +193,7 @@ Partial Class Fm_admin_registration
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(22, 210)
+        Label1.Location = New Point(22, 248)
         Label1.Name = "Label1"
         Label1.Size = New Size(51, 15)
         Label1.TabIndex = 15
@@ -194,14 +205,14 @@ Partial Class Fm_admin_registration
         Label2.Font = New Font("Georgia", 24F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label2.Location = New Point(2, 1)
         Label2.Name = "Label2"
-        Label2.Size = New Size(275, 38)
+        Label2.Size = New Size(208, 38)
         Label2.TabIndex = 16
-        Label2.Text = "User Maintenance"
+        Label2.Text = "User Account"
         ' 
         ' Btn_update
         ' 
         Btn_update.Font = New Font("Georgia", 9F)
-        Btn_update.Location = New Point(52, 340)
+        Btn_update.Location = New Point(52, 406)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(119, 33)
         Btn_update.TabIndex = 0
@@ -212,7 +223,7 @@ Partial Class Fm_admin_registration
         ' 
         Cb_show_password.AutoSize = True
         Cb_show_password.Font = New Font("Georgia", 9F)
-        Cb_show_password.Location = New Point(260, 186)
+        Cb_show_password.Location = New Point(260, 203)
         Cb_show_password.Name = "Cb_show_password"
         Cb_show_password.Size = New Size(113, 19)
         Cb_show_password.TabIndex = 12
@@ -232,30 +243,168 @@ Partial Class Fm_admin_registration
         Cb_user_type.Tag = ""
         Cb_user_type.Text = "-Select User Type-"
         ' 
-        ' Txt_temp_email
+        ' Lbl_error_msg
         ' 
-        Txt_temp_email.Location = New Point(465, 103)
-        Txt_temp_email.Name = "Txt_temp_email"
-        Txt_temp_email.PlaceholderText = "Temp Email"
-        Txt_temp_email.Size = New Size(152, 23)
-        Txt_temp_email.TabIndex = 17
+        Lbl_error_msg.AutoSize = True
+        Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg.ForeColor = Color.Red
+        Lbl_error_msg.Location = New Point(19, 83)
+        Lbl_error_msg.Name = "Lbl_error_msg"
+        Lbl_error_msg.Size = New Size(91, 17)
+        Lbl_error_msg.TabIndex = 19
+        Lbl_error_msg.Text = "Lbl_error_msg"
         ' 
-        ' Txt_temp_username
+        ' Lbl_error_msg_1
         ' 
-        Txt_temp_username.Location = New Point(465, 58)
-        Txt_temp_username.Name = "Txt_temp_username"
-        Txt_temp_username.PlaceholderText = "Temp Username"
-        Txt_temp_username.Size = New Size(152, 23)
-        Txt_temp_username.TabIndex = 18
+        Lbl_error_msg_1.AutoSize = True
+        Lbl_error_msg_1.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_1.ForeColor = Color.Red
+        Lbl_error_msg_1.Location = New Point(19, 129)
+        Lbl_error_msg_1.Name = "Lbl_error_msg_1"
+        Lbl_error_msg_1.Size = New Size(101, 17)
+        Lbl_error_msg_1.TabIndex = 20
+        Lbl_error_msg_1.Text = "Lbl_error_msg_1"
+        ' 
+        ' Lbl_error_msg_2
+        ' 
+        Lbl_error_msg_2.AutoSize = True
+        Lbl_error_msg_2.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_2.ForeColor = Color.Red
+        Lbl_error_msg_2.Location = New Point(19, 176)
+        Lbl_error_msg_2.Name = "Lbl_error_msg_2"
+        Lbl_error_msg_2.Size = New Size(103, 17)
+        Lbl_error_msg_2.TabIndex = 21
+        Lbl_error_msg_2.Text = "Lbl_error_msg_2"
+        ' 
+        ' Lbl_error_msg_3
+        ' 
+        Lbl_error_msg_3.AutoSize = True
+        Lbl_error_msg_3.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_3.ForeColor = Color.Red
+        Lbl_error_msg_3.Location = New Point(19, 224)
+        Lbl_error_msg_3.Name = "Lbl_error_msg_3"
+        Lbl_error_msg_3.Size = New Size(103, 17)
+        Lbl_error_msg_3.TabIndex = 22
+        Lbl_error_msg_3.Text = "Lbl_error_msg_3"
+        ' 
+        ' Lbl_error_msg_4
+        ' 
+        Lbl_error_msg_4.AutoSize = True
+        Lbl_error_msg_4.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_4.ForeColor = Color.Red
+        Lbl_error_msg_4.Location = New Point(19, 290)
+        Lbl_error_msg_4.Name = "Lbl_error_msg_4"
+        Lbl_error_msg_4.Size = New Size(103, 17)
+        Lbl_error_msg_4.TabIndex = 23
+        Lbl_error_msg_4.Text = "Lbl_error_msg_4"
+        ' 
+        ' Lbl_error_msg_5
+        ' 
+        Lbl_error_msg_5.AutoSize = True
+        Lbl_error_msg_5.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_5.ForeColor = Color.Red
+        Lbl_error_msg_5.Location = New Point(19, 336)
+        Lbl_error_msg_5.Name = "Lbl_error_msg_5"
+        Lbl_error_msg_5.Size = New Size(103, 17)
+        Lbl_error_msg_5.TabIndex = 24
+        Lbl_error_msg_5.Text = "Lbl_error_msg_5"
+        ' 
+        ' Lbl_error_msg_6
+        ' 
+        Lbl_error_msg_6.AutoSize = True
+        Lbl_error_msg_6.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_6.ForeColor = Color.Red
+        Lbl_error_msg_6.Location = New Point(19, 382)
+        Lbl_error_msg_6.Name = "Lbl_error_msg_6"
+        Lbl_error_msg_6.Size = New Size(103, 17)
+        Lbl_error_msg_6.TabIndex = 25
+        Lbl_error_msg_6.Text = "Lbl_error_msg_6"
+        ' 
+        ' Lbl_error_msg_7
+        ' 
+        Lbl_error_msg_7.AutoSize = True
+        Lbl_error_msg_7.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_7.ForeColor = Color.Red
+        Lbl_error_msg_7.Location = New Point(257, 83)
+        Lbl_error_msg_7.Name = "Lbl_error_msg_7"
+        Lbl_error_msg_7.Size = New Size(103, 17)
+        Lbl_error_msg_7.TabIndex = 26
+        Lbl_error_msg_7.Text = "Lbl_error_msg_7"
+        ' 
+        ' Lbl_error_msg_8
+        ' 
+        Lbl_error_msg_8.AutoSize = True
+        Lbl_error_msg_8.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_8.ForeColor = Color.Red
+        Lbl_error_msg_8.Location = New Point(257, 129)
+        Lbl_error_msg_8.Name = "Lbl_error_msg_8"
+        Lbl_error_msg_8.Size = New Size(103, 17)
+        Lbl_error_msg_8.TabIndex = 27
+        Lbl_error_msg_8.Text = "Lbl_error_msg_8"
+        ' 
+        ' Lbl_error_msg_9
+        ' 
+        Lbl_error_msg_9.AutoSize = True
+        Lbl_error_msg_9.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_9.ForeColor = Color.Red
+        Lbl_error_msg_9.Location = New Point(259, 178)
+        Lbl_error_msg_9.Name = "Lbl_error_msg_9"
+        Lbl_error_msg_9.Size = New Size(103, 17)
+        Lbl_error_msg_9.TabIndex = 28
+        Lbl_error_msg_9.Text = "Lbl_error_msg_9"
+        ' 
+        ' Lbl_error_msg_10
+        ' 
+        Lbl_error_msg_10.AutoSize = True
+        Lbl_error_msg_10.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_10.ForeColor = Color.Red
+        Lbl_error_msg_10.Location = New Point(257, 253)
+        Lbl_error_msg_10.Name = "Lbl_error_msg_10"
+        Lbl_error_msg_10.Size = New Size(108, 17)
+        Lbl_error_msg_10.TabIndex = 29
+        Lbl_error_msg_10.Text = "Lbl_error_msg_10"
+        ' 
+        ' Lbl_error_msg_11
+        ' 
+        Lbl_error_msg_11.AutoSize = True
+        Lbl_error_msg_11.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_11.ForeColor = Color.Red
+        Lbl_error_msg_11.Location = New Point(257, 299)
+        Lbl_error_msg_11.Name = "Lbl_error_msg_11"
+        Lbl_error_msg_11.Size = New Size(106, 17)
+        Lbl_error_msg_11.TabIndex = 30
+        Lbl_error_msg_11.Text = "Lbl_error_msg_11"
+        ' 
+        ' Lbl_error_msg_12
+        ' 
+        Lbl_error_msg_12.AutoSize = True
+        Lbl_error_msg_12.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
+        Lbl_error_msg_12.ForeColor = Color.Red
+        Lbl_error_msg_12.Location = New Point(257, 316)
+        Lbl_error_msg_12.Name = "Lbl_error_msg_12"
+        Lbl_error_msg_12.Size = New Size(108, 17)
+        Lbl_error_msg_12.TabIndex = 31
+        Lbl_error_msg_12.Text = "Lbl_error_msg_12"
         ' 
         ' Fm_admin_registration
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(720, 385)
+        ClientSize = New Size(480, 451)
         ControlBox = False
-        Controls.Add(Txt_temp_username)
-        Controls.Add(Txt_temp_email)
+        Controls.Add(Lbl_error_msg_12)
+        Controls.Add(Lbl_error_msg_11)
+        Controls.Add(Lbl_error_msg_10)
+        Controls.Add(Lbl_error_msg_9)
+        Controls.Add(Lbl_error_msg_8)
+        Controls.Add(Lbl_error_msg_7)
+        Controls.Add(Lbl_error_msg_6)
+        Controls.Add(Lbl_error_msg_5)
+        Controls.Add(Lbl_error_msg_4)
+        Controls.Add(Lbl_error_msg_3)
+        Controls.Add(Lbl_error_msg_2)
+        Controls.Add(Lbl_error_msg_1)
+        Controls.Add(Lbl_error_msg)
         Controls.Add(Cb_user_type)
         Controls.Add(Cb_show_password)
         Controls.Add(Label2)
@@ -301,6 +450,17 @@ Partial Class Fm_admin_registration
     Friend WithEvents Btn_update As Button
     Friend WithEvents Cb_show_password As CheckBox
     Friend WithEvents Cb_user_type As ComboBox
-    Friend WithEvents Txt_temp_email As TextBox
-    Friend WithEvents Txt_temp_username As TextBox
+    Friend WithEvents Lbl_error_msg As Label
+    Friend WithEvents Lbl_error_msg_1 As Label
+    Friend WithEvents Lbl_error_msg_2 As Label
+    Friend WithEvents Lbl_error_msg_3 As Label
+    Friend WithEvents Lbl_error_msg_4 As Label
+    Friend WithEvents Lbl_error_msg_5 As Label
+    Friend WithEvents Lbl_error_msg_6 As Label
+    Friend WithEvents Lbl_error_msg_7 As Label
+    Friend WithEvents Lbl_error_msg_8 As Label
+    Friend WithEvents Lbl_error_msg_9 As Label
+    Friend WithEvents Lbl_error_msg_10 As Label
+    Friend WithEvents Lbl_error_msg_11 As Label
+    Friend WithEvents Lbl_error_msg_12 As Label
 End Class

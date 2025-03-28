@@ -1,7 +1,8 @@
-﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
 
 Public Class Fm_home_page
+
+    Public selectedButton As Button = Nothing ' Track the currently selected button
 
     Private Sub Fm_home_page_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -36,6 +37,9 @@ Public Class Fm_home_page
     Private Sub Btn_listed_books_Click(sender As Object, e As EventArgs) Handles Btn_listed_books.Click
 
         Panel1_Books.Visible = True
+        If Panel1_Books.Visible = True Then
+            Btn_listed_books.BackColor = Color.RoyalBlue
+        End If
         Panel2_Returned_Issued_Books.Visible = False
         Panel3_Borrower_Info.Visible = False
         Panel4_User_Acounts.Visible = False
@@ -44,6 +48,39 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
 
         remove_items_selection()
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Reset the previously selected button's color
+        If selectedButton IsNot Nothing Then
+            selectedButton.BackColor = Color.Sienna
+        End If
+
+        ' Set the new selected button and change its color
+        btn.BackColor = Color.RoyalBlue
+        selectedButton = btn
+
+    End Sub
+
+    Private Sub Btn_listed_books_MouseEnter(sender As Object, e As EventArgs) Handles Btn_listed_books.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_listed_books_MouseLeave(sender As Object, e As EventArgs) Handles Btn_listed_books.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Sienna
+        End If
 
     End Sub
 
@@ -59,6 +96,39 @@ Public Class Fm_home_page
 
         remove_items_selection()
 
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Reset the previously selected button's color
+        If selectedButton IsNot Nothing Then
+            selectedButton.BackColor = Color.Sienna
+        End If
+
+        ' Set the new selected button and change its color
+        btn.BackColor = Color.RoyalBlue
+        selectedButton = btn
+
+    End Sub
+
+    Private Sub Btn_returned_books_MouseEnter(sender As Object, e As EventArgs) Handles Btn_returned_books.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_returned_books_MouseLeave(sender As Object, e As EventArgs) Handles Btn_returned_books.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Sienna
+        End If
+
     End Sub
 
     Private Sub Btn_student_information_Click(sender As Object, e As EventArgs) Handles Btn_student_information.Click
@@ -73,33 +143,38 @@ Public Class Fm_home_page
 
         remove_items_selection()
 
-    End Sub
+        Dim btn As Button = DirectCast(sender, Button)
 
-    Private Sub Btn_listed_accounts_Click(sender As Object, e As EventArgs) Handles Btn_listed_accounts.Click
+        ' Reset the previously selected button's color
+        If selectedButton IsNot Nothing Then
+            selectedButton.BackColor = Color.Sienna
+        End If
 
-        Panel1_Books.Visible = False
-        Panel2_Returned_Issued_Books.Visible = False
-        Panel3_Borrower_Info.Visible = False
-        Panel4_User_Acounts.Visible = True
-        Panel6_Supplier.Visible = False
-        Panel8_Penalty_Report.Visible = False
-        Panel10_Author_Category_Penalty_Publisher.Visible = False
-
-        remove_items_selection()
+        ' Set the new selected button and change its color
+        btn.BackColor = Color.RoyalBlue
+        selectedButton = btn
 
     End Sub
 
-    Private Sub Btn_supplier_maintenance_Click(sender As Object, e As EventArgs) Handles Btn_supplier_maintenance.Click
+    Private Sub Btn_student_information_MouseEnter(sender As Object, e As EventArgs) Handles Btn_student_information.MouseEnter
 
-        Panel1_Books.Visible = False
-        Panel2_Returned_Issued_Books.Visible = False
-        Panel3_Borrower_Info.Visible = False
-        Panel4_User_Acounts.Visible = False
-        Panel6_Supplier.Visible = True
-        Panel8_Penalty_Report.Visible = False
-        Panel10_Author_Category_Penalty_Publisher.Visible = False
+        Dim btn As Button = DirectCast(sender, Button)
 
-        remove_items_selection()
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_student_information_MouseLeave(sender As Object, e As EventArgs) Handles Btn_student_information.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Sienna
+        End If
 
     End Sub
 
@@ -115,6 +190,133 @@ Public Class Fm_home_page
 
         remove_items_selection()
 
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Reset the previously selected button's color
+        If selectedButton IsNot Nothing Then
+            selectedButton.BackColor = Color.Sienna
+        End If
+
+        ' Set the new selected button and change its color
+        btn.BackColor = Color.RoyalBlue
+        selectedButton = btn
+
+    End Sub
+
+    Private Sub Btn_penalty_report_MouseEnter(sender As Object, e As EventArgs) Handles Btn_penalty_report.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_penalty_report_MouseLeave(sender As Object, e As EventArgs) Handles Btn_penalty_report.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Sienna
+        End If
+
+    End Sub
+
+    Private Sub Btn_listed_accounts_Click(sender As Object, e As EventArgs) Handles Btn_listed_accounts.Click
+
+        Panel1_Books.Visible = False
+        Panel2_Returned_Issued_Books.Visible = False
+        Panel3_Borrower_Info.Visible = False
+        Panel4_User_Acounts.Visible = True
+        Panel6_Supplier.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel10_Author_Category_Penalty_Publisher.Visible = False
+
+        remove_items_selection()
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Reset the previously selected button's color
+        If selectedButton IsNot Nothing Then
+            selectedButton.BackColor = Color.Sienna
+        End If
+
+        ' Set the new selected button and change its color
+        btn.BackColor = Color.RoyalBlue
+        selectedButton = btn
+
+    End Sub
+
+    Private Sub Btn_listed_accounts_MouseEnter(sender As Object, e As EventArgs) Handles Btn_listed_accounts.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_listed_accounts_MouseLeave(sender As Object, e As EventArgs) Handles Btn_listed_accounts.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Sienna
+        End If
+
+    End Sub
+
+    Private Sub Btn_supplier_maintenance_Click(sender As Object, e As EventArgs) Handles Btn_supplier_maintenance.Click
+
+        Panel1_Books.Visible = False
+        Panel2_Returned_Issued_Books.Visible = False
+        Panel3_Borrower_Info.Visible = False
+        Panel4_User_Acounts.Visible = False
+        Panel6_Supplier.Visible = True
+        Panel8_Penalty_Report.Visible = False
+        Panel10_Author_Category_Penalty_Publisher.Visible = False
+
+        remove_items_selection()
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Reset the previously selected button's color
+        If selectedButton IsNot Nothing Then
+            selectedButton.BackColor = Color.Sienna
+        End If
+
+        ' Set the new selected button and change its color
+        btn.BackColor = Color.RoyalBlue
+        selectedButton = btn
+
+    End Sub
+
+    Private Sub Btn_supplier_maintenance_MouseEnter(sender As Object, e As EventArgs) Handles Btn_supplier_maintenance.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_supplier_maintenance_MouseLeave(sender As Object, e As EventArgs) Handles Btn_supplier_maintenance.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Sienna
+        End If
+
     End Sub
 
     Private Sub Btn_author_category_penalty_publisher_maintenance_Click(sender As Object, e As EventArgs) Handles Btn_author_category_penalty_publisher_maintenance.Click
@@ -128,6 +330,39 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = True
 
         remove_items_selection()
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Reset the previously selected button's color
+        If selectedButton IsNot Nothing Then
+            selectedButton.BackColor = Color.Sienna
+        End If
+
+        ' Set the new selected button and change its color
+        btn.BackColor = Color.RoyalBlue
+        selectedButton = btn
+
+    End Sub
+
+    Private Sub Btn_author_category_penalty_publisher_maintenance_MouseEnter(sender As Object, e As EventArgs) Handles Btn_author_category_penalty_publisher_maintenance.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_author_category_penalty_publisher_maintenance_MouseLeave(sender As Object, e As EventArgs) Handles Btn_author_category_penalty_publisher_maintenance.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Sienna
+        End If
 
     End Sub
 
@@ -147,6 +382,18 @@ Public Class Fm_home_page
             End If
 
         End If
+
+    End Sub
+
+    Private Sub Btn_logout_MouseEnter(sender As Object, e As EventArgs) Handles Btn_logout.MouseEnter
+
+        Btn_logout.BackColor = Color.RoyalBlue
+
+    End Sub
+
+    Private Sub Btn_logout_MouseLeave(sender As Object, e As EventArgs) Handles Btn_logout.MouseLeave
+
+        Btn_logout.BackColor = Color.Sienna
 
     End Sub
 
@@ -876,11 +1123,6 @@ Public Class Fm_home_page
             Fm_admin_registration.Txt_email.Text = Lv_listed_accounts.SelectedItems(0).SubItems(8).Text
             Fm_admin_registration.Cb_user_type.Text = Lv_listed_accounts.SelectedItems(0).SubItems(9).Text
             Fm_admin_registration.Txt_password.Text = Lv_listed_accounts.SelectedItems(0).SubItems(10).Text
-
-
-            Fm_admin_registration.Txt_temp_username.Text = Lv_listed_accounts.SelectedItems(0).SubItems(7).Text
-            Fm_admin_registration.Txt_temp_email.Text = Lv_listed_accounts.SelectedItems(0).SubItems(8).Text
-
 
             Fm_admin_registration.Show()
             Fm_admin_registration.Btn_save.Visible = False

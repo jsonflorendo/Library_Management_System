@@ -26,6 +26,7 @@ Partial Class Fm_add_category
         Btn_save = New Button()
         Txt_category_name = New TextBox()
         Btn_update = New Button()
+        Lbl_error_msg = New Label()
         SuspendLayout()
         ' 
         ' Btn_cancel
@@ -64,6 +65,17 @@ Partial Class Fm_add_category
         Btn_update.Text = "Update"
         Btn_update.UseVisualStyleBackColor = True
         ' 
+        ' Lbl_error_msg
+        ' 
+        Lbl_error_msg.AutoSize = True
+        Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Lbl_error_msg.ForeColor = Color.Red
+        Lbl_error_msg.Location = New Point(47, 78)
+        Lbl_error_msg.Name = "Lbl_error_msg"
+        Lbl_error_msg.Size = New Size(91, 17)
+        Lbl_error_msg.TabIndex = 8
+        Lbl_error_msg.Text = "Lbl_error_msg"
+        ' 
         ' Fm_add_category
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -71,6 +83,7 @@ Partial Class Fm_add_category
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(333, 208)
         ControlBox = False
+        Controls.Add(Lbl_error_msg)
         Controls.Add(Btn_update)
         Controls.Add(Btn_cancel)
         Controls.Add(Btn_save)
@@ -86,4 +99,5 @@ Partial Class Fm_add_category
     Friend WithEvents Btn_save As Button
     Friend WithEvents Txt_category_name As TextBox
     Friend WithEvents Btn_update As Button
+    Friend WithEvents Lbl_error_msg As Label
 End Class

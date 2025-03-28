@@ -54,7 +54,7 @@ Module Module1
     End Sub
 
 
-    'L oad login function
+    ' Load login function
 
     Public Sub Load_login(e As KeyPressEventArgs)
 
@@ -62,15 +62,18 @@ Module Module1
 
             If Fm_login.Txt_username.Text = "" And Fm_login.Txt_password.Text = "" Then
 
-                MessageBox.Show("Please input your Username and Password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Fm_login.Lbl_error_msg_1.Text = ""
+                Fm_login.Lbl_error_msg.Text = "Please input your Username and Password"
 
             ElseIf Fm_login.Txt_username.Text = "" Then
 
-                MessageBox.Show("Please input your username", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Fm_login.Lbl_error_msg.Text = ""
+                Fm_login.Lbl_error_msg_1.Text = "Please input your username"
 
             ElseIf Fm_login.Txt_password.Text = "" Then
 
-                MessageBox.Show("Please input your password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Fm_login.Lbl_error_msg_1.Text = ""
+                Fm_login.Lbl_error_msg.Text = "Please input your password"
 
             Else
 
@@ -90,6 +93,7 @@ Module Module1
 
                             Fm_home_page.Show()
                             Clear_login_fields()
+                            Clear_error_msg()
                             Fm_login.Hide()
 
                         Else
@@ -99,13 +103,15 @@ Module Module1
                             Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
                             Fm_home_page.Btn_supplier_maintenance.Visible = False
                             Clear_login_fields()
+                            Clear_error_msg()
                             Fm_login.Hide()
 
                         End If
 
                     Else
 
-                        MessageBox.Show("Incorret username or password", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Fm_login.Lbl_error_msg_1.Text = ""
+                        Fm_login.Lbl_error_msg.Text = "Incorrect username or password"
                         Clear_login_fields()
 
                     End If
@@ -832,7 +838,7 @@ Module Module1
     End Sub
 
 
-    ' Load all clear fields
+    ' Load clear all fields
 
     Public Sub Clear_login_fields()
 
@@ -854,6 +860,45 @@ Module Module1
         Fm_home_page.Txt_primary_penalty_description_id.Clear()
 
         Fm_home_page.Cb_penalty_description.Text = ""
+
+    End Sub
+
+
+    ' Load clear all error messages
+
+    Public Sub Clear_error_msg()
+
+        Fm_admin_registration.Lbl_error_msg.Text = ""
+        Fm_admin_registration.Lbl_error_msg_1.Text = ""
+        Fm_admin_registration.Lbl_error_msg_2.Text = ""
+        Fm_admin_registration.Lbl_error_msg_3.Text = ""
+        Fm_admin_registration.Lbl_error_msg_4.Text = ""
+        Fm_admin_registration.Lbl_error_msg_5.Text = ""
+        Fm_admin_registration.Lbl_error_msg_6.Text = ""
+        Fm_admin_registration.Lbl_error_msg_7.Text = ""
+        Fm_admin_registration.Lbl_error_msg_8.Text = ""
+        Fm_admin_registration.Lbl_error_msg_9.Text = ""
+        Fm_admin_registration.Lbl_error_msg_10.Text = ""
+        Fm_admin_registration.Lbl_error_msg_11.Text = ""
+        Fm_admin_registration.Lbl_error_msg_12.Text = ""
+
+        Fm_login.Lbl_error_msg.Text = ""
+        Fm_login.Lbl_error_msg_1.Text = ""
+
+        Fm_supplier_maintenance.Lbl_error_msg.Text = ""
+        Fm_supplier_maintenance.Lbl_error_msg_1.Text = ""
+        Fm_supplier_maintenance.Lbl_error_msg_2.Text = ""
+        Fm_supplier_maintenance.Lbl_error_msg_3.Text = ""
+        Fm_supplier_maintenance.Lbl_error_msg_4.Text = ""
+        Fm_supplier_maintenance.Lbl_error_msg_5.Text = ""
+        Fm_supplier_maintenance.Lbl_error_msg_6.Text = ""
+        Fm_supplier_maintenance.Lbl_error_msg_7.Text = ""
+
+        Fm_add_author.Lbl_error_msg.Text = ""
+
+        Fm_add_category.Lbl_error_msg.Text = ""
+
+        Fm_penalty_description.Lbl_error_msg.Text = ""
 
     End Sub
 
