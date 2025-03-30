@@ -158,6 +158,7 @@ Partial Class Fm_home_page
         Lv_category = New ListView()
         Listed_Category0 = New ColumnHeader()
         Lbl_date_time = New Label()
+        Listed_details1 = New ColumnHeader()
         Panel1_Books.SuspendLayout()
         Panel2_Returned_Issued_Books.SuspendLayout()
         Panel6_Supplier.SuspendLayout()
@@ -1282,7 +1283,7 @@ Partial Class Fm_home_page
         ' 
         ' Lv_penalty_description
         ' 
-        Lv_penalty_description.Columns.AddRange(New ColumnHeader() {Listed_details0})
+        Lv_penalty_description.Columns.AddRange(New ColumnHeader() {Listed_details0, Listed_details1})
         Lv_penalty_description.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_penalty_description.FullRowSelect = True
         Lv_penalty_description.Location = New Point(16, 77)
@@ -1295,7 +1296,7 @@ Partial Class Fm_home_page
         ' Listed_details0
         ' 
         Listed_details0.Text = "Penalty Description"
-        Listed_details0.Width = 710
+        Listed_details0.Width = 503
         ' 
         ' Panel7_Category
         ' 
@@ -1378,6 +1379,11 @@ Partial Class Fm_home_page
         Lbl_date_time.TabIndex = 30
         Lbl_date_time.Text = "December 31, 2025 | 12:59 PM"
         Lbl_date_time.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Listed_details1
+        ' 
+        Listed_details1.Text = "Amount"
+        Listed_details1.Width = 215
         ' 
         ' Fm_home_page
         ' 
@@ -1564,4 +1570,5 @@ Partial Class Fm_home_page
     Friend WithEvents Txt_search_publisher As TextBox
     Friend WithEvents Btn_publisher_add As Button
     Friend WithEvents Lv_publisher As ListView
+    Friend WithEvents Listed_details1 As ColumnHeader
 End Class

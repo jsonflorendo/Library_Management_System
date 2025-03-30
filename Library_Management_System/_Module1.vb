@@ -640,6 +640,7 @@ Module Module1
             Do While dr.Read
 
                 Dim lv As New ListViewItem({dr("penalty_description").ToString(),
+                                            dr("amount").ToString(),
                                             dr("primary_penalty_description_id").ToString()})
                 Fm_home_page.Lv_penalty_description.Items.Add(lv)
 
@@ -962,6 +963,7 @@ Module Module1
         Fm_add_category.Lbl_error_msg.Text = ""
 
         Fm_penalty_description.Lbl_error_msg.Text = ""
+        Fm_penalty_description.Lbl_error_msg_1.Text = ""
 
         Fm_publisher.Lbl_error_msg.Text = ""
 

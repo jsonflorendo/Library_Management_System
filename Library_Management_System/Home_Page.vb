@@ -2210,6 +2210,7 @@ Public Class Fm_home_page
 
             Fm_penalty_description.Show()
             Fm_penalty_description.Txt_penalty_description.Text = Lv_penalty_description.SelectedItems(0).Text
+            Fm_penalty_description.Txt_penalty_amount.Text = Lv_penalty_description.SelectedItems(0).SubItems(1).Text
             Fm_penalty_description.Btn_save.Visible = False
             Enabled = False
 
@@ -2408,6 +2409,7 @@ Public Class Fm_home_page
 
             Fm_publisher.Show()
             Fm_publisher.Txt_publisher_name.Text = Lv_publisher.SelectedItems(0).Text
+            Fm_publisher.Txt_publisher_name.Text = Lv_publisher.SelectedItems(0).SubItems(1).Text
             Fm_publisher.Btn_save.Visible = False
             Enabled = False
 

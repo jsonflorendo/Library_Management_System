@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2025 at 03:23 PM
+-- Generation Time: Mar 30, 2025 at 04:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -84,7 +84,8 @@ INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_catego
 (2, '9789710639540', 'CINDERELLLA', '1', '2', '2', '3', 'April 16, 2024', '1', 'May 07, 2024', 'Available'),
 (5, 'AP091GW', 'LIBRO', '1', '22', '1', '1', 'May 06, 2024', '5', 'May 08, 2024', 'Available'),
 (28, '123', 'SADSAD', '2', '2', '1', '1', 'March 30, 2025', '2', 'March 30, 2025', 'Available'),
-(29, 'sadsdf', 'BOOKS', '1', '2', '1', '2', 'March 30, 2025', '1', 'March 30, 2025', 'Available');
+(29, 'sadsdf', 'BOOKS', '1', '2', '1', '2', 'March 30, 2025', '1', 'March 30, 2025', 'Available'),
+(30, 'sddasdasd', 'ASDASD', '16', '23', '19', '12', 'March 30, 2025', '2', 'March 30, 2025', 'Available');
 
 -- --------------------------------------------------------
 
@@ -153,7 +154,8 @@ CREATE TABLE `tbl_library_author` (
 INSERT INTO `tbl_library_author` (`primary_author_id`, `author_name`) VALUES
 (1, 'DR. JOSE P. RIZAL'),
 (2, 'WILLIAM SHAKESPEARE'),
-(6, 'JOSE');
+(6, 'JOSE'),
+(19, 'ASD');
 
 -- --------------------------------------------------------
 
@@ -172,7 +174,8 @@ CREATE TABLE `tbl_library_category` (
 
 INSERT INTO `tbl_library_category` (`primary_category_id`, `category_name`) VALUES
 (1, 'ROMANCE'),
-(2, 'FANSTASY');
+(2, 'FANSTASY'),
+(16, 'MAMA MO');
 
 -- --------------------------------------------------------
 
@@ -182,17 +185,20 @@ INSERT INTO `tbl_library_category` (`primary_category_id`, `category_name`) VALU
 
 CREATE TABLE `tbl_library_penalty` (
   `primary_penalty_description_id` int(11) NOT NULL,
-  `penalty_description` varchar(100) DEFAULT NULL
+  `penalty_description` varchar(100) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_library_penalty`
 --
 
-INSERT INTO `tbl_library_penalty` (`primary_penalty_description_id`, `penalty_description`) VALUES
-(1, 'TORN PAGES'),
-(3, 'Late Return'),
-(4, 'BURN PAGES');
+INSERT INTO `tbl_library_penalty` (`primary_penalty_description_id`, `penalty_description`, `amount`) VALUES
+(1, 'TORN PAGES', 2200),
+(3, 'Late Return', 1000),
+(4, 'BURN PAGES', 100),
+(8, 'DGDFG', 1),
+(9, 'XZCXCV', 1);
 
 -- --------------------------------------------------------
 
@@ -217,7 +223,8 @@ INSERT INTO `tbl_library_publisher` (`primary_publisher_id`, `publisher_name`) V
 (5, 'SDFSDF'),
 (7, '7'),
 (8, 'JHKHK'),
-(11, '123');
+(11, '123'),
+(12, 'SFGF');
 
 -- --------------------------------------------------------
 
@@ -348,7 +355,7 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_books`
 --
 ALTER TABLE `tbl_books`
-  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tbl_borrower`
@@ -366,25 +373,25 @@ ALTER TABLE `tbl_issued_books`
 -- AUTO_INCREMENT for table `tbl_library_author`
 --
 ALTER TABLE `tbl_library_author`
-  MODIFY `primary_author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `primary_author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_category`
 --
 ALTER TABLE `tbl_library_category`
-  MODIFY `primary_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `primary_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_penalty`
 --
 ALTER TABLE `tbl_library_penalty`
-  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_publisher`
 --
 ALTER TABLE `tbl_library_publisher`
-  MODIFY `primary_publisher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `primary_publisher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_supplier`

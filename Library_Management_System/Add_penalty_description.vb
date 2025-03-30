@@ -10,9 +10,20 @@ Public Class Fm_penalty_description
 
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
-        If Txt_penalty_description.Text = "" Then
+        Clear_error_msg()
 
-            Lbl_error_msg.Text = "Please enter penalty description"
+        If Txt_penalty_description.Text = "" Or Txt_penalty_amount.Text = "" Then
+
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {Txt_penalty_description, Txt_penalty_amount}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1}
+
+            ' Loop through each TextBox and validate
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                End If
+            Next
 
         Else
 
@@ -34,8 +45,10 @@ Public Class Fm_penalty_description
 
                     dr.Close()
 
-                    sql = "INSERT INTO tbl_library_penalty (penalty_description)
-                                  VALUE ('" & Txt_penalty_description.Text & "')"
+                    sql = "INSERT INTO tbl_library_penalty (penalty_description,
+                                                            amount)
+                                  VALUE ('" & Txt_penalty_description.Text & "',
+                                         '" & Txt_penalty_amount.Text & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
 
@@ -61,9 +74,20 @@ Public Class Fm_penalty_description
 
     Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
 
-        If Txt_penalty_description.Text = "" Then
+        Clear_error_msg()
 
-            Lbl_error_msg.Text = "Please enter penalty description"
+        If Txt_penalty_description.Text = "" Or Txt_penalty_amount.Text = "" Then
+
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {Txt_penalty_description, Txt_penalty_amount}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1}
+
+            ' Loop through each TextBox and validate
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                End If
+            Next
 
         Else
 
@@ -74,7 +98,7 @@ Public Class Fm_penalty_description
                 'to make sure Penalty Description not exists while in update process
                 sql = "UPDATE tbl_library_penalty SET 
                               penalty_description = '" & "" & "'                                        
-                       WHERE primary_penalty_description_id = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(1).Text & "'"
+                       WHERE primary_penalty_description_id = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(2).Text & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -94,7 +118,7 @@ Public Class Fm_penalty_description
                     'returned previous Author Name
                     sql = "UPDATE tbl_library_penalty SET 
                                   penalty_description = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).Text & "'                                       
-                           WHERE primary_penalty_description_id = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(1).Text & "'"
+                           WHERE primary_penalty_description_id = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(2).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
@@ -106,8 +130,9 @@ Public Class Fm_penalty_description
                     dr.Close()
 
                     sql = "UPDATE tbl_library_penalty SET
-                                  penalty_description = '" & Txt_penalty_description.Text & "'
-                           WHERE primary_penalty_description_id = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(1).Text & "'"
+                                  penalty_description = '" & Txt_penalty_description.Text & "',
+                                  amount = '" & Txt_penalty_amount.Text & "'
+                           WHERE primary_penalty_description_id = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(2).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
@@ -161,6 +186,35 @@ Public Class Fm_penalty_description
 
         ' Define the allowed characters (in this example, only digits are allowed)
         Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
+
+    End Sub
+
+    Private Sub Txt_penalty_amount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_penalty_amount.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength = 11 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_penalty_description.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "0123456789,." ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
