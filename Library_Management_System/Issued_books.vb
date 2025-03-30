@@ -6,13 +6,10 @@ Public Class Fm_issued_books
 
     Private Sub Fm_issued_books_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Dtp_issued_date.Format = DateTimePickerFormat.Custom
-        Dtp_issued_date.CustomFormat = "MMMM dd, yyyy"
-
         Dtp_due_date.Format = DateTimePickerFormat.Custom
         Dtp_due_date.CustomFormat = "MMMM dd, yyyy"
 
-        Dtp_due_date.Value = Dtp_due_date.Value.AddDays(30)
+        Dtp_due_date.Value = Date.Now.AddDays(30)
 
         Txt_isbn.Enabled = False
 
@@ -71,8 +68,8 @@ Public Class Fm_issued_books
                                                             due_date)
                                         VALUE ('" & Txt_primary_borrower_id.Text & "',
                                                 '" & Txt_primary_book_id.Text & "',
-                                                '" & Dtp_issued_date.Value.ToString("MMM-dd-yyyy") & "',
-                                                '" & Dtp_due_date.Value.AddDays(30).ToString("MMM-dd-yyyy") & "')"
+                                                '" & Date.Now.ToString("MMMM dd, yyyy") & "',
+                                                '" & Dtp_due_date.Value.ToString("MMMM dd, yyyy") & "')"
                         cmd = New MySqlCommand(sql, con)
                         cmd.ExecuteNonQuery()
 
@@ -100,6 +97,8 @@ Public Class Fm_issued_books
                         Load_listed_books_data_table()
                         Load_returned_borrowed_books_data_table()
                         Txt_isbn.Clear()
+
+                        ' Removed this line due to Scan Mode
                         'MessageBox.Show(Txt_book_name.Text + " book has been issued to " + Txt_issued_to.Text, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         'Fm_home_page.Enabled = True
                         'Me.Close()

@@ -1,5 +1,4 @@
 ﻿'Database Connection
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
 
 Module Module1
@@ -16,7 +15,6 @@ Module Module1
             con = New MySqlConnection("datasource = localhost; username = root; password =; database = db_lms")
             con.Open()
             con.Close()
-            'MessageBox.Show("Connected to Database")
 
         Catch ex As Exception
 
@@ -89,9 +87,14 @@ Module Module1
 
                     If dr.Read() = True Then
 
+                        Dim name As String = dr("first_name") + " " + dr("last_name")
+                        Dim user_type As String = dr("user_type")
+
                         If dr("user_type") = "ASSISTANT LIBRARIAN" Then
 
                             Fm_home_page.Show()
+                            Fm_home_page.Lbl_name_logged_in.Text = name
+                            Fm_home_page.Lbl_user_type_logged_in.Text = user_type
                             Clear_login_fields()
                             Clear_error_msg()
                             Fm_login.Hide()
@@ -99,6 +102,8 @@ Module Module1
                         Else
 
                             Fm_home_page.Show()
+                            Fm_home_page.Lbl_name_logged_in.Text = name
+                            Fm_home_page.Lbl_user_type_logged_in.Text = user_type
                             Fm_home_page.Btn_listed_accounts.Visible = False
                             Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
                             Fm_home_page.Btn_supplier_maintenance.Visible = False
@@ -149,7 +154,8 @@ Module Module1
                             tbl_library_supplier.supplier_name,
                             tbl_books.acquisition_date,
                             tbl_books.status,
-                            tbl_books.primary_book_id
+                            tbl_books.primary_book_id,
+                            tbl_books.primary_category_id
 
                     FROM tbl_books
 
@@ -177,7 +183,8 @@ Module Module1
                                             dr("supplier_name").ToString(),
                                             dr("acquisition_date").ToString(),
                                             dr("status").ToString(),
-                                            dr("primary_book_id").ToString()})
+                                            dr("primary_book_id").ToString(),
+                                            dr("primary_category_id")})
                 Fm_home_page.Lv_listed_books.Items.Add(lv)
 
             Loop
@@ -223,6 +230,7 @@ Module Module1
         Try
 
             con.Open()
+
             sql = "SELECT   tbl_borrower.borrower_id,
                             tbl_borrower.last_name,
                             tbl_borrower.first_name,
@@ -339,6 +347,79 @@ Module Module1
 
     End Sub
 
+    Public Sub Load_penalty_report_data_table()
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT   tbl_borrower.borrower_id,
+                            tbl_borrower.last_name,
+                            tbl_borrower.first_name,
+                            tbl_books.book_name,
+                            tbl_library_penalty.penalty_description,
+                            tbl_penalty_report.penalty_amount,
+                            tbl_penalty_report.penalty_date,
+                            tbl_penalty_report.primary_penalty_id,
+                            tbl_penalty_report.primary_penalty_description_id,
+                            tbl_borrower.primary_borrower_id,
+                            tbl_books.primary_book_id
+
+                    FROM tbl_penalty_report
+
+                    INNER JOIN tbl_borrower ON tbl_penalty_report.primary_borrower_id = tbl_borrower.primary_borrower_id
+                    INNER JOIN tbl_books ON tbl_penalty_report.primary_book_id = tbl_books.primary_book_id
+                    INNER JOIN tbl_library_penalty ON tbl_penalty_report.primary_penalty_description_id = tbl_library_penalty.primary_penalty_description_id
+
+                    ORDER BY primary_penalty_id DESC"
+
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Fm_home_page.Lv_penalty.Items.Clear()
+
+            Do While dr.Read
+
+                Dim lv As New ListViewItem({dr("borrower_id").ToString(),
+                                            dr("last_name").ToString() + ", " + dr("first_name").ToString(),
+                                            dr("book_name").ToString(),
+                                            dr("penalty_amount").ToString(),
+                                            dr("penalty_description").ToString(),
+                                            dr("penalty_date").ToString(),
+                                            dr("primary_penalty_id").ToString(),
+                                            dr("primary_penalty_description_id").ToString(),
+                                            dr("primary_borrower_id").ToString(),
+                                            dr("primary_book_id").ToString()})
+                Fm_home_page.Lv_penalty.Items.Add(lv)
+
+            Loop
+
+            con.Close()
+
+            For i As Integer = 0 To Fm_home_page.Lv_penalty.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Fm_home_page.Lv_penalty.Items(i).BackColor = Color.Azure
+                    Fm_home_page.Lv_penalty.Items(i).ForeColor = Color.Black
+
+                Else
+
+                    Fm_home_page.Lv_penalty.Items(i).BackColor = Color.GhostWhite
+                    Fm_home_page.Lv_penalty.Items(i).ForeColor = Color.Black
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
     Public Sub Load_listed_accounts_data_table()
 
         Try
@@ -395,7 +476,7 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_supplier_data_table()
+    Public Sub Load_library_supplier_data_table()
 
         Try
 
@@ -449,7 +530,7 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_author_data_table()
+    Public Sub Load_library_author_data_table()
 
         Try
 
@@ -496,7 +577,7 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_category_data_table()
+    Public Sub Load_library_category_data_table()
 
         Try
 
@@ -543,7 +624,7 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_penalty_description_data_table()
+    Public Sub Load_library_penalty_data_table()
 
         Try
 
@@ -590,66 +671,40 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_penalty_data_table()
+    Public Sub Load_library_publisher_data_table()
 
         Try
 
             con.Open()
 
-            sql = "SELECT   tbl_borrower.borrower_id,
-                            tbl_borrower.last_name,
-                            tbl_borrower.first_name,
-                            tbl_books.book_name,
-                            tbl_library_penalty.penalty_description,
-                            tbl_penalty.penalty_amount,
-                            tbl_penalty.penalty_date,
-                            tbl_penalty.primary_penalty_id,
-                            tbl_penalty.primary_penalty_description_id,
-                            tbl_borrower.primary_borrower_id,
-                            tbl_books.primary_book_id
-
-                    FROM tbl_penalty
-
-                    INNER JOIN tbl_borrower ON tbl_penalty.primary_borrower_id = tbl_borrower.primary_borrower_id
-                    INNER JOIN tbl_books ON tbl_penalty.primary_book_id = tbl_books.primary_book_id
-                    INNER JOIN tbl_library_penalty ON tbl_penalty.primary_penalty_description_id = tbl_library_penalty.primary_penalty_description_id
-
-                    ORDER BY primary_penalty_id DESC"
-
+            sql = "SELECT * FROM tbl_library_publisher
+                            ORDER BY publisher_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
 
-            Fm_home_page.Lv_penalty.Items.Clear()
+            Fm_home_page.Lv_publisher.Items.Clear()
 
             Do While dr.Read
 
-                Dim lv As New ListViewItem({dr("borrower_id").ToString(),
-                                            dr("last_name").ToString() + ", " + dr("first_name").ToString(),
-                                            dr("book_name").ToString(),
-                                            dr("penalty_amount").ToString(),
-                                            dr("penalty_description").ToString(),
-                                            dr("penalty_date").ToString(),
-                                            dr("primary_penalty_id").ToString(),
-                                            dr("primary_penalty_description_id").ToString(),
-                                            dr("primary_borrower_id").ToString(),
-                                            dr("primary_book_id").ToString()})
-                Fm_home_page.Lv_penalty.Items.Add(lv)
+                Dim lv As New ListViewItem({dr("publisher_name").ToString(),
+                                            dr("primary_publisher_id").ToString()})
+                Fm_home_page.Lv_publisher.Items.Add(lv)
 
             Loop
 
             con.Close()
 
-            For i As Integer = 0 To Fm_home_page.Lv_penalty.Items.Count - 1
+            For i As Integer = 0 To Fm_home_page.Lv_publisher.Items.Count - 1
 
                 If i Mod 2 = 0 Then
 
-                    Fm_home_page.Lv_penalty.Items(i).BackColor = Color.Azure
-                    Fm_home_page.Lv_penalty.Items(i).ForeColor = Color.Black
+                    Fm_home_page.Lv_publisher.Items(i).BackColor = Color.Azure
+                    Fm_home_page.Lv_publisher.Items(i).ForeColor = Color.Black
 
                 Else
 
-                    Fm_home_page.Lv_penalty.Items(i).BackColor = Color.GhostWhite
-                    Fm_home_page.Lv_penalty.Items(i).ForeColor = Color.Black
+                    Fm_home_page.Lv_publisher.Items(i).BackColor = Color.GhostWhite
+                    Fm_home_page.Lv_publisher.Items(i).ForeColor = Color.Black
 
                 End If
 
@@ -829,11 +884,11 @@ Module Module1
         Load_returned_borrowed_books_data_table()
         Load_borrower_info_data_table()
         Load_listed_accounts_data_table()
-        Load_supplier_data_table()
-        Load_author_data_table()
-        Load_category_data_table()
-        Load_penalty_description_data_table()
-        Load_penalty_data_table()
+        Load_library_supplier_data_table()
+        Load_library_author_data_table()
+        Load_library_category_data_table()
+        Load_library_penalty_data_table()
+        Load_penalty_report_data_table()
 
     End Sub
 
@@ -868,6 +923,17 @@ Module Module1
 
     Public Sub Clear_error_msg()
 
+        Fm_login.Lbl_error_msg.Text = ""
+        Fm_login.Lbl_error_msg_1.Text = ""
+
+        Fm_add_books.Lbl_error_msg.Text = ""
+        Fm_add_books.Lbl_error_msg_1.Text = ""
+        Fm_add_books.Lbl_error_msg_2.Text = ""
+        Fm_add_books.Lbl_error_msg_3.Text = ""
+        Fm_add_books.Lbl_error_msg_4.Text = ""
+        Fm_add_books.Lbl_error_msg_5.Text = ""
+        Fm_add_books.Lbl_error_msg_6.Text = ""
+
         Fm_admin_registration.Lbl_error_msg.Text = ""
         Fm_admin_registration.Lbl_error_msg_1.Text = ""
         Fm_admin_registration.Lbl_error_msg_2.Text = ""
@@ -881,9 +947,6 @@ Module Module1
         Fm_admin_registration.Lbl_error_msg_10.Text = ""
         Fm_admin_registration.Lbl_error_msg_11.Text = ""
         Fm_admin_registration.Lbl_error_msg_12.Text = ""
-
-        Fm_login.Lbl_error_msg.Text = ""
-        Fm_login.Lbl_error_msg_1.Text = ""
 
         Fm_supplier_maintenance.Lbl_error_msg.Text = ""
         Fm_supplier_maintenance.Lbl_error_msg_1.Text = ""
@@ -899,6 +962,8 @@ Module Module1
         Fm_add_category.Lbl_error_msg.Text = ""
 
         Fm_penalty_description.Lbl_error_msg.Text = ""
+
+        Fm_publisher.Lbl_error_msg.Text = ""
 
     End Sub
 

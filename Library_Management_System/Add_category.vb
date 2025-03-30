@@ -10,50 +10,107 @@ Public Class Fm_add_category
 
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
-        If Txt_category_name.Text = "" Then
+        If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
 
-            Lbl_error_msg.Text = "Please enter genre"
+            If Txt_category_name.Text = "" Then
+
+                Lbl_error_msg.Text = "Please enter genre"
+
+            Else
+
+                Try
+
+                    con.Open()
+
+                    sql = "SELECT * FROM tbl_library_category
+                                WHERE category_name = '" & Txt_category_name.Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
+
+                    If dr.Read Then
+
+                        con.Close()
+                        Lbl_error_msg.Text = "Genre already exists"
+
+                    Else
+
+                        dr.Close()
+
+                        sql = "INSERT INTO tbl_library_category (category_name)
+                                  VALUE ('" & Txt_category_name.Text & "')"
+                        cmd = New MySqlCommand(sql, con)
+                        cmd.ExecuteNonQuery()
+
+                        con.Close()
+
+                        MessageBox.Show("Genre added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_library_category_data_table()
+                        Load_library_cb_category()
+                        Fm_add_books.Enabled = True
+                        Fm_add_books.Cb_book_category.Text = Txt_category_name.Text
+                        Me.Close()
+
+                    End If
+
+                Catch ex As Exception
+
+                    MsgBox(ex.Message)
+
+                End Try
+
+            End If
+
+
+
 
         Else
 
-            Try
+            If Txt_category_name.Text = "" Then
 
-                con.Open()
+                Lbl_error_msg.Text = "Please enter genre"
 
-                sql = "SELECT * FROM tbl_library_category
+            Else
+
+                Try
+
+                    con.Open()
+
+                    sql = "SELECT * FROM tbl_library_category
                                 WHERE category_name = '" & Txt_category_name.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-
-                If dr.Read Then
-
-                    con.Close()
-                    Lbl_error_msg.Text = "Genre already exists"
-
-                Else
-
-                    dr.Close()
-
-                    sql = "INSERT INTO tbl_library_category (category_name)
-                                  VALUE ('" & Txt_category_name.Text & "')"
                     cmd = New MySqlCommand(sql, con)
-                    cmd.ExecuteNonQuery()
+                    dr = cmd.ExecuteReader
 
-                    con.Close()
+                    If dr.Read Then
 
-                    MessageBox.Show("Genre added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_category_data_table()
-                    Load_library_cb_category()
-                    Fm_home_page.Enabled = True
-                    Me.Close()
+                        con.Close()
+                        Lbl_error_msg.Text = "Genre already exists"
 
-                End If
+                    Else
 
-            Catch ex As Exception
+                        dr.Close()
 
-                MsgBox(ex.Message)
+                        sql = "INSERT INTO tbl_library_category (category_name)
+                                  VALUE ('" & Txt_category_name.Text & "')"
+                        cmd = New MySqlCommand(sql, con)
+                        cmd.ExecuteNonQuery()
 
-            End Try
+                        con.Close()
+
+                        MessageBox.Show("Genre added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_library_category_data_table()
+                        Load_library_cb_category()
+                        Fm_home_page.Enabled = True
+                        Me.Close()
+
+                    End If
+
+                Catch ex As Exception
+
+                    MsgBox(ex.Message)
+
+                End Try
+
+            End If
 
         End If
 
@@ -114,7 +171,7 @@ Public Class Fm_add_category
                     con.Close()
 
                     MessageBox.Show("Genre updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_category_data_table()
+                    Load_library_category_data_table()
                     Load_library_cb_category()
                     Fm_home_page.Enabled = True
                     Me.Close()
@@ -133,9 +190,18 @@ Public Class Fm_add_category
 
     Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
-        Fm_home_page.Enabled = True
-        Load_category_data_table() '-> To item selection On the listview
-        Me.Close()
+        If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
+
+            Fm_add_books.Enabled = True
+            Me.Close()
+
+        Else
+
+            Fm_home_page.Enabled = True
+            Load_library_category_data_table() '-> To item selection On the listview
+            Me.Close()
+
+        End If
 
     End Sub
 

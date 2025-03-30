@@ -26,14 +26,12 @@ Partial Class Fm_issued_books
         Txt_primary_borrower_id = New TextBox()
         Label11 = New Label()
         Label10 = New Label()
-        Label9 = New Label()
         Label8 = New Label()
         Txt_borrower_id_number = New TextBox()
         Txt_issued_to = New TextBox()
         Dtp_due_date = New DateTimePicker()
         Label2 = New Label()
         Txt_book_name = New TextBox()
-        Dtp_issued_date = New DateTimePicker()
         Txt_isbn = New TextBox()
         Label1 = New Label()
         Txt_primary_book_id = New TextBox()
@@ -42,7 +40,7 @@ Partial Class Fm_issued_books
         ' Btn_exit
         ' 
         Btn_exit.Font = New Font("Georgia", 9F)
-        Btn_exit.Location = New Point(296, 233)
+        Btn_exit.Location = New Point(296, 198)
         Btn_exit.Name = "Btn_exit"
         Btn_exit.Size = New Size(119, 32)
         Btn_exit.TabIndex = 6
@@ -56,7 +54,6 @@ Partial Class Fm_issued_books
         Txt_primary_borrower_id.PlaceholderText = "Primary Borrower ID"
         Txt_primary_borrower_id.Size = New Size(114, 23)
         Txt_primary_borrower_id.TabIndex = 8
-        Txt_primary_borrower_id.Visible = False
         ' 
         ' Label11
         ' 
@@ -80,23 +77,12 @@ Partial Class Fm_issued_books
         Label10.TabIndex = 20
         Label10.Text = "ID Number:"
         ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.BackColor = SystemColors.ControlLight
-        Label9.Font = New Font("Georgia", 14.25F, FontStyle.Bold)
-        Label9.Location = New Point(21, 154)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(133, 23)
-        Label9.TabIndex = 19
-        Label9.Text = "Issued Date:"
-        ' 
         ' Label8
         ' 
         Label8.AutoSize = True
         Label8.BackColor = SystemColors.ControlLight
         Label8.Font = New Font("Georgia", 14.25F, FontStyle.Bold)
-        Label8.Location = New Point(21, 190)
+        Label8.Location = New Point(21, 155)
         Label8.Name = "Label8"
         Label8.Size = New Size(108, 23)
         Label8.TabIndex = 18
@@ -125,7 +111,7 @@ Partial Class Fm_issued_books
         ' Dtp_due_date
         ' 
         Dtp_due_date.Font = New Font("Georgia", 9F)
-        Dtp_due_date.Location = New Point(185, 192)
+        Dtp_due_date.Location = New Point(185, 157)
         Dtp_due_date.Name = "Dtp_due_date"
         Dtp_due_date.Size = New Size(230, 21)
         Dtp_due_date.TabIndex = 3
@@ -150,15 +136,6 @@ Partial Class Fm_issued_books
         Txt_book_name.Name = "Txt_book_name"
         Txt_book_name.Size = New Size(230, 21)
         Txt_book_name.TabIndex = 4
-        ' 
-        ' Dtp_issued_date
-        ' 
-        Dtp_issued_date.Enabled = False
-        Dtp_issued_date.Font = New Font("Georgia", 9F)
-        Dtp_issued_date.Location = New Point(185, 156)
-        Dtp_issued_date.Name = "Dtp_issued_date"
-        Dtp_issued_date.Size = New Size(230, 21)
-        Dtp_issued_date.TabIndex = 3
         ' 
         ' Txt_isbn
         ' 
@@ -188,19 +165,17 @@ Partial Class Fm_issued_books
         Txt_primary_book_id.PlaceholderText = "Primary Book ID"
         Txt_primary_book_id.Size = New Size(114, 23)
         Txt_primary_book_id.TabIndex = 24
-        Txt_primary_book_id.Visible = False
         ' 
         ' Fm_issued_books
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(435, 276)
+        ClientSize = New Size(548, 248)
         ControlBox = False
         Controls.Add(Txt_primary_book_id)
         Controls.Add(Label1)
         Controls.Add(Txt_isbn)
-        Controls.Add(Dtp_issued_date)
         Controls.Add(Txt_book_name)
         Controls.Add(Label2)
         Controls.Add(Dtp_due_date)
@@ -209,7 +184,6 @@ Partial Class Fm_issued_books
         Controls.Add(Btn_exit)
         Controls.Add(Txt_borrower_id_number)
         Controls.Add(Label8)
-        Controls.Add(Label9)
         Controls.Add(Label11)
         Controls.Add(Label10)
         FormBorderStyle = FormBorderStyle.FixedSingle
@@ -222,14 +196,12 @@ Partial Class Fm_issued_books
     Friend WithEvents Txt_primary_borrower_id As TextBox
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
-    Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Txt_borrower_id_number As TextBox
     Friend WithEvents Txt_issued_to As TextBox
     Friend WithEvents Dtp_due_date As DateTimePicker
     Friend WithEvents Label2 As Label
     Friend WithEvents Txt_book_name As TextBox
-    Friend WithEvents Dtp_issued_date As DateTimePicker
     Friend WithEvents Txt_isbn As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Txt_primary_book_id As TextBox

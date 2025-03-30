@@ -46,9 +46,14 @@ Public Class Fm_login
 
                 If dr.Read() = True Then
 
+                    Dim name As String = dr("first_name") + " " + dr("last_name")
+                    Dim user_type As String = dr("user_type")
+
                     If dr("user_type") = "ASSISTANT LIBRARIAN" Then
 
                         Fm_home_page.Show()
+                        Fm_home_page.Lbl_name_logged_in.Text = name
+                        Fm_home_page.Lbl_user_type_logged_in.Text = user_type
                         Clear_login_fields()
                         Clear_error_msg()
                         Me.Hide()
@@ -56,6 +61,8 @@ Public Class Fm_login
                     Else
 
                         Fm_home_page.Show()
+                        Fm_home_page.Lbl_name_logged_in.Text = name
+                        Fm_home_page.Lbl_user_type_logged_in.Text = user_type
                         Fm_home_page.Btn_listed_accounts.Visible = False
                         Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
                         Fm_home_page.Btn_supplier_maintenance.Visible = False

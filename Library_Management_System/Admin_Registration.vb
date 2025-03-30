@@ -56,23 +56,17 @@ Public Class Fm_admin_registration
             For i As Integer = 0 To textBoxes.Length - 1
                 If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
                     labels(i).Text = "This field is required"
-                Else
-                    labels(i).Text = "" ' Clear label if valid
                 End If
             Next
 
             ' Validate the ComboBox (Dropdown)
             If Cb_user_type.SelectedIndex = -1 Then
                 Lbl_error_msg_9.Text = "This field is required"
-            Else
-                Lbl_error_msg_9.Text = "" ' Clear label if valid
             End If
 
             ' Validate the RadioButtons (Check if at least one is selected)
             If Not (Rb_male.Checked Or Rb_female.Checked) Then
                 Lbl_error_msg_3.Text = "Please select a gender"
-            Else
-                Lbl_error_msg_3.Text = "" ' Clear label if valid
             End If
 
         ElseIf Txt_password.Text <> Txt_confirmpassword.Text Then
@@ -162,7 +156,7 @@ Public Class Fm_admin_registration
 
     Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
 
-
+        Clear_error_msg()
 
         If Txt_firstname.Text = "" Or
             Txt_middlename.Text = "" Or
@@ -183,23 +177,17 @@ Public Class Fm_admin_registration
             For i As Integer = 0 To textBoxes.Length - 1
                 If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
                     labels(i).Text = "This field is required"
-                Else
-                    labels(i).Text = "" ' Clear label if valid
                 End If
             Next
 
             ' Validate the ComboBox (Dropdown)
             If Cb_user_type.SelectedIndex = -1 Then
                 Lbl_error_msg_9.Text = "This field is required"
-            Else
-                Lbl_error_msg_9.Text = "" ' Clear label if valid
             End If
 
             ' Validate the RadioButtons (Check if at least one is selected)
             If Not (Rb_male.Checked Or Rb_female.Checked) Then
                 Lbl_error_msg_3.Text = "Please select a gender"
-            Else
-                Lbl_error_msg_3.Text = "" ' Clear label if valid
             End If
 
         Else

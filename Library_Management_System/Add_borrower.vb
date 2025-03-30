@@ -190,7 +190,7 @@ Public Class Fm_add_borrower
 
                         Load_borrower_info_data_table()
                         Load_returned_borrowed_books_data_table()
-                        Load_penalty_data_table()
+                        Load_penalty_report_data_table()
                         MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Fm_home_page.Enabled = True
                         Me.Close()

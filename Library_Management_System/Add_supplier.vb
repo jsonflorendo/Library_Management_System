@@ -10,59 +10,57 @@ Public Class Fm_supplier_maintenance
 
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
-        Clear_error_msg()
+        If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
 
-        If Txt_supplier_id.Text = "" Or
-           Txt_supplier_name.Text = "" Or
-           Txt_supplier_firstname.Text = "" Or
-           Txt_supplier_lastname.Text = "" Or
-           Txt_supplier_email_address.Text = "" Or
-           Txt_supplier_contact.Text = "" Or
-           Txt_supplier_address.Text = "" Or
-           Cb_supplier_source_type.Text = "--Select Source Type--" Then
+            Clear_error_msg()
 
-            ' Store TextBoxes and their corresponding Labels
-            Dim textBoxes As TextBox() = {Txt_supplier_id, Txt_supplier_name, Txt_supplier_firstname, Txt_supplier_lastname, Txt_supplier_email_address, Txt_supplier_contact, Txt_supplier_address}
-            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+            If Txt_supplier_id.Text = "" Or
+               Txt_supplier_name.Text = "" Or
+               Txt_supplier_firstname.Text = "" Or
+               Txt_supplier_lastname.Text = "" Or
+               Txt_supplier_email_address.Text = "" Or
+               Txt_supplier_contact.Text = "" Or
+               Txt_supplier_address.Text = "" Or
+               Cb_supplier_source_type.Text = "--Select Source Type--" Then
 
-            ' Loop through each TextBox and validate
-            For i As Integer = 0 To textBoxes.Length - 1
-                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
-                    labels(i).Text = "This field is required"
-                Else
-                    labels(i).Text = "" ' Clear label if valid
+                ' Store TextBoxes and their corresponding Labels
+                Dim textBoxes As TextBox() = {Txt_supplier_id, Txt_supplier_name, Txt_supplier_firstname, Txt_supplier_lastname, Txt_supplier_email_address, Txt_supplier_contact, Txt_supplier_address}
+                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+
+                ' Loop through each TextBox and validate
+                For i As Integer = 0 To textBoxes.Length - 1
+                    If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                        labels(i).Text = "This field is required"
+                    End If
+                Next
+
+                ' Validate the ComboBox (Dropdown)
+                If Cb_supplier_source_type.SelectedIndex = -1 Then
+                    Lbl_error_msg_7.Text = "This field is required"
                 End If
-            Next
 
-            ' Validate the ComboBox (Dropdown)
-            If Cb_supplier_source_type.SelectedIndex = -1 Then
-                Lbl_error_msg_7.Text = "This field is required"
             Else
-                Lbl_error_msg_7.Text = "" ' Clear label if valid
-            End If
 
-        Else
+                Try
 
-            Try
+                    con.Open()
 
-                con.Open()
-
-                sql = "SELECT * FROM tbl_library_supplier
+                    sql = "SELECT * FROM tbl_library_supplier
                                 WHERE supplier_id = '" & Txt_supplier_id.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader()
 
-                If dr.Read Then
+                    If dr.Read Then
 
-                    con.Close()
+                        con.Close()
 
-                    Lbl_error_msg_1.Text = "Supplier already exists"
+                        Lbl_error_msg_1.Text = "Supplier already exists"
 
-                Else
+                    Else
 
-                    dr.Close()
+                        dr.Close()
 
-                    sql = "INSERT INTO tbl_library_supplier (supplier_id,
+                        sql = "INSERT INTO tbl_library_supplier (supplier_id,
                                                             supplier_name,
                                                             last_name,
                                                             first_name,
@@ -78,23 +76,113 @@ Public Class Fm_supplier_maintenance
                                             '" & Txt_supplier_contact.Text & "',
                                             '" & Txt_supplier_address.Text & "',
                                             '" & Cb_supplier_source_type.Text & "')"
-                    cmd = New MySqlCommand(sql, con)
-                    cmd.ExecuteNonQuery()
+                        cmd = New MySqlCommand(sql, con)
+                        cmd.ExecuteNonQuery()
 
-                    con.Close()
+                        con.Close()
 
-                    MessageBox.Show("Supplier added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_supplier_data_table()
-                    Fm_home_page.Enabled = True
-                    Me.Close()
+                        MessageBox.Show("Supplier added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_library_supplier_data_table()
+                        Load_library_cb_supplier()
+                        Fm_add_books.Enabled = True
+                        Fm_add_books.Txt_supplier_name.Text = Txt_supplier_name.Text
+                        Me.Close()
 
+                    End If
+
+                Catch ex As Exception
+
+                    MsgBox(ex.Message)
+
+                End Try
+
+            End If
+
+        Else
+
+            Clear_error_msg()
+
+            If Txt_supplier_id.Text = "" Or
+               Txt_supplier_name.Text = "" Or
+               Txt_supplier_firstname.Text = "" Or
+               Txt_supplier_lastname.Text = "" Or
+               Txt_supplier_email_address.Text = "" Or
+               Txt_supplier_contact.Text = "" Or
+               Txt_supplier_address.Text = "" Or
+               Cb_supplier_source_type.Text = "--Select Source Type--" Then
+
+                ' Store TextBoxes and their corresponding Labels
+                Dim textBoxes As TextBox() = {Txt_supplier_id, Txt_supplier_name, Txt_supplier_firstname, Txt_supplier_lastname, Txt_supplier_email_address, Txt_supplier_contact, Txt_supplier_address}
+                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+
+                ' Loop through each TextBox and validate
+                For i As Integer = 0 To textBoxes.Length - 1
+                    If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                        labels(i).Text = "This field is required"
+                    End If
+                Next
+
+                ' Validate the ComboBox (Dropdown)
+                If Cb_supplier_source_type.SelectedIndex = -1 Then
+                    Lbl_error_msg_7.Text = "This field is required"
                 End If
 
-            Catch ex As Exception
+            Else
 
-                MsgBox(ex.Message)
+                Try
 
-            End Try
+                    con.Open()
+
+                    sql = "SELECT * FROM tbl_library_supplier
+                                WHERE supplier_id = '" & Txt_supplier_id.Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader()
+
+                    If dr.Read Then
+
+                        con.Close()
+
+                        Lbl_error_msg_1.Text = "Supplier already exists"
+
+                    Else
+
+                        dr.Close()
+
+                        sql = "INSERT INTO tbl_library_supplier (supplier_id,
+                                                            supplier_name,
+                                                            last_name,
+                                                            first_name,
+                                                            email_address,
+                                                            contact,
+                                                            address,
+                                                            source_type)
+                                    VALUE ('" & Txt_supplier_id.Text & "',
+                                            '" & Txt_supplier_name.Text & "',
+                                            '" & Txt_supplier_lastname.Text & "',
+                                            '" & Txt_supplier_firstname.Text & "',
+                                            '" & Txt_supplier_email_address.Text & "',
+                                            '" & Txt_supplier_contact.Text & "',
+                                            '" & Txt_supplier_address.Text & "',
+                                            '" & Cb_supplier_source_type.Text & "')"
+                        cmd = New MySqlCommand(sql, con)
+                        cmd.ExecuteNonQuery()
+
+                        con.Close()
+
+                        MessageBox.Show("Supplier added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_library_supplier_data_table()
+                        Fm_home_page.Enabled = True
+                        Me.Close()
+
+                    End If
+
+                Catch ex As Exception
+
+                    MsgBox(ex.Message)
+
+                End Try
+
+            End If
 
         End If
 
@@ -105,13 +193,13 @@ Public Class Fm_supplier_maintenance
         Clear_error_msg()
 
         If Txt_supplier_id.Text = "" Or
-           Txt_supplier_name.Text = "" Or
-           Txt_supplier_firstname.Text = "" Or
-           Txt_supplier_lastname.Text = "" Or
-           Txt_supplier_email_address.Text = "" Or
-           Txt_supplier_contact.Text = "" Or
-           Txt_supplier_address.Text = "" Or
-           Cb_supplier_source_type.Text = "--Select Source Type--" Then
+               Txt_supplier_name.Text = "" Or
+               Txt_supplier_firstname.Text = "" Or
+               Txt_supplier_lastname.Text = "" Or
+               Txt_supplier_email_address.Text = "" Or
+               Txt_supplier_contact.Text = "" Or
+               Txt_supplier_address.Text = "" Or
+               Cb_supplier_source_type.Text = "--Select Source Type--" Then
 
             ' Store TextBoxes and their corresponding Labels
             Dim textBoxes As TextBox() = {Txt_supplier_id, Txt_supplier_name, Txt_supplier_firstname, Txt_supplier_lastname, Txt_supplier_email_address, Txt_supplier_contact, Txt_supplier_address}
@@ -121,16 +209,12 @@ Public Class Fm_supplier_maintenance
             For i As Integer = 0 To textBoxes.Length - 1
                 If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
                     labels(i).Text = "This field is required"
-                Else
-                    labels(i).Text = "" ' Clear label if valid
                 End If
             Next
 
             ' Validate the ComboBox (Dropdown)
             If Cb_supplier_source_type.SelectedIndex = -1 Then
                 Lbl_error_msg_7.Text = "This field is required"
-            Else
-                Lbl_error_msg_7.Text = "" ' Clear label if valid
             End If
 
         Else
@@ -188,7 +272,7 @@ Public Class Fm_supplier_maintenance
                     con.Close()
 
                     MessageBox.Show("Supplier updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_supplier_data_table()
+                    Load_library_supplier_data_table()
                     Fm_home_page.Enabled = True
                     Me.Close()
 
@@ -206,9 +290,18 @@ Public Class Fm_supplier_maintenance
 
     Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
-        Fm_home_page.Enabled = True
-        Load_supplier_data_table() '-> To item selection On the listview
-        Me.Close()
+        If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
+
+            Fm_add_books.Enabled = True
+            Me.Close()
+
+        Else
+
+            Fm_home_page.Enabled = True
+            Load_library_supplier_data_table() '-> To item selection On the listview
+            Me.Close()
+
+        End If
 
     End Sub
 

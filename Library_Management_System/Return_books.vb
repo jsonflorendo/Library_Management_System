@@ -4,9 +4,6 @@ Public Class Fm_returned_books
 
     Private Sub Fm_returned_books_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Dtp_returned_date.Format = DateTimePickerFormat.Custom
-        Dtp_returned_date.CustomFormat = "MMMM dd, yyyy"
-
         Txt_isbn.Enabled = False
 
     End Sub
@@ -47,7 +44,7 @@ Public Class Fm_returned_books
                 Try
 
                     sql = "UPDATE tbl_issued_books SET 
-                                    returned_date = '" & Dtp_returned_date.Value.ToString("MMMM-dd-yyyy") & "'
+                                    returned_date = '" & Date.Now.ToString("MMMM dd, yyyy") & "'
                             WHERE primary_issued_book_id = '" & Txt_primary_issued_book_id.Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader

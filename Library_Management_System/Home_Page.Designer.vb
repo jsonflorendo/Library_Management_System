@@ -98,14 +98,18 @@ Partial Class Fm_home_page
         Btn_returned_books = New Button()
         Btn_student_information = New Button()
         Btn_listed_accounts = New Button()
-        TimerAnimation = New Timer(components)
+        Tmr_home_page_date_time = New Timer(components)
         P_navigation = New Panel()
+        Lbl_user_type_logged_in = New Label()
+        Lbl_name_logged_in = New Label()
         Label2 = New Label()
         PictureBox1 = New PictureBox()
         Btn_penalty_report = New Button()
         Btn_supplier_maintenance = New Button()
         Btn_author_category_penalty_publisher_maintenance = New Button()
         Panel8_Penalty_Report = New Panel()
+        TextBox1 = New TextBox()
+        Btn_penalty_add = New Button()
         Txt_primary_book_id = New TextBox()
         Txt_primary_student_name_id = New TextBox()
         Txt_primary_penalty_description_id = New TextBox()
@@ -125,6 +129,13 @@ Partial Class Fm_home_page
         Listed_penalty4 = New ColumnHeader()
         Listed_penalty5 = New ColumnHeader()
         Panel10_Author_Category_Penalty_Publisher = New Panel()
+        Panel11_Publisher = New Panel()
+        Btn_publisher_delete = New Button()
+        Btn_publisher_edit = New Button()
+        Txt_search_publisher = New TextBox()
+        Btn_publisher_add = New Button()
+        Lv_publisher = New ListView()
+        ColumnHeader1 = New ColumnHeader()
         Panel5_Author = New Panel()
         Txt_search_author = New TextBox()
         Btn_author_delete = New Button()
@@ -146,6 +157,7 @@ Partial Class Fm_home_page
         Btn_category_add = New Button()
         Lv_category = New ListView()
         Listed_Category0 = New ColumnHeader()
+        Lbl_date_time = New Label()
         Panel1_Books.SuspendLayout()
         Panel2_Returned_Issued_Books.SuspendLayout()
         Panel6_Supplier.SuspendLayout()
@@ -155,6 +167,7 @@ Partial Class Fm_home_page
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel8_Penalty_Report.SuspendLayout()
         Panel10_Author_Category_Penalty_Publisher.SuspendLayout()
+        Panel11_Publisher.SuspendLayout()
         Panel5_Author.SuspendLayout()
         Panel9_Penalty.SuspendLayout()
         Panel7_Category.SuspendLayout()
@@ -169,9 +182,9 @@ Partial Class Fm_home_page
         Panel1_Books.Controls.Add(Btn_listed_books_delete)
         Panel1_Books.Controls.Add(Btn_listed_books_add)
         Panel1_Books.Controls.Add(Txt_listed_books_search)
-        Panel1_Books.Location = New Point(300, 1)
+        Panel1_Books.Location = New Point(300, 28)
         Panel1_Books.Name = "Panel1_Books"
-        Panel1_Books.Size = New Size(1603, 1003)
+        Panel1_Books.Size = New Size(1603, 973)
         Panel1_Books.TabIndex = 13
         ' 
         ' Lv_listed_books
@@ -182,7 +195,7 @@ Partial Class Fm_home_page
         Lv_listed_books.ForeColor = SystemColors.WindowText
         Lv_listed_books.FullRowSelect = True
         Lv_listed_books.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        Lv_listed_books.Location = New Point(33, 118)
+        Lv_listed_books.Location = New Point(29, 74)
         Lv_listed_books.Name = "Lv_listed_books"
         Lv_listed_books.Size = New Size(1546, 874)
         Lv_listed_books.TabIndex = 6
@@ -253,7 +266,7 @@ Partial Class Fm_home_page
         Cb_listed_books_category.ForeColor = Color.Black
         Cb_listed_books_category.FormattingEnabled = True
         Cb_listed_books_category.Items.AddRange(New Object() {"Adventure fiction", "Biographies", "Books", "Chapter books", "Childrens literature", "Classics", "Comics", "Cooking", "Fantasy", "Fiction", "General fiction", "History", "Horror", "Humor", "Memoir", "Mystery", "Non-fiction", "Poetry", "Religion", "Romance", "Satire", "Science fiction", "Self-help book", "Thriller"})
-        Cb_listed_books_category.Location = New Point(302, 70)
+        Cb_listed_books_category.Location = New Point(298, 26)
         Cb_listed_books_category.Name = "Cb_listed_books_category"
         Cb_listed_books_category.Size = New Size(273, 26)
         Cb_listed_books_category.TabIndex = 23
@@ -263,7 +276,7 @@ Partial Class Fm_home_page
         ' 
         Btn_listed_books_edit.BackColor = Color.Tan
         Btn_listed_books_edit.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_listed_books_edit.Location = New Point(1340, 73)
+        Btn_listed_books_edit.Location = New Point(1336, 29)
         Btn_listed_books_edit.Name = "Btn_listed_books_edit"
         Btn_listed_books_edit.Size = New Size(118, 30)
         Btn_listed_books_edit.TabIndex = 11
@@ -274,7 +287,7 @@ Partial Class Fm_home_page
         ' 
         Btn_listed_books_delete.BackColor = Color.Tan
         Btn_listed_books_delete.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_listed_books_delete.Location = New Point(1464, 73)
+        Btn_listed_books_delete.Location = New Point(1460, 29)
         Btn_listed_books_delete.Name = "Btn_listed_books_delete"
         Btn_listed_books_delete.Size = New Size(118, 30)
         Btn_listed_books_delete.TabIndex = 10
@@ -285,7 +298,7 @@ Partial Class Fm_home_page
         ' 
         Btn_listed_books_add.BackColor = Color.Tan
         Btn_listed_books_add.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_listed_books_add.Location = New Point(1216, 73)
+        Btn_listed_books_add.Location = New Point(1212, 29)
         Btn_listed_books_add.Name = "Btn_listed_books_add"
         Btn_listed_books_add.Size = New Size(118, 30)
         Btn_listed_books_add.TabIndex = 9
@@ -295,7 +308,7 @@ Partial Class Fm_home_page
         ' Txt_listed_books_search
         ' 
         Txt_listed_books_search.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_listed_books_search.Location = New Point(33, 62)
+        Txt_listed_books_search.Location = New Point(29, 18)
         Txt_listed_books_search.Name = "Txt_listed_books_search"
         Txt_listed_books_search.PlaceholderText = "Search"
         Txt_listed_books_search.Size = New Size(246, 38)
@@ -308,16 +321,16 @@ Partial Class Fm_home_page
         Panel2_Returned_Issued_Books.Controls.Add(Btn_borrow_books)
         Panel2_Returned_Issued_Books.Controls.Add(Txt_returned_borrowed_books_search)
         Panel2_Returned_Issued_Books.Controls.Add(Lv_returned_borrowed_books)
-        Panel2_Returned_Issued_Books.Location = New Point(300, 1)
+        Panel2_Returned_Issued_Books.Location = New Point(300, 28)
         Panel2_Returned_Issued_Books.Name = "Panel2_Returned_Issued_Books"
-        Panel2_Returned_Issued_Books.Size = New Size(1603, 1003)
+        Panel2_Returned_Issued_Books.Size = New Size(1603, 970)
         Panel2_Returned_Issued_Books.TabIndex = 14
         ' 
         ' Btn_return_books
         ' 
         Btn_return_books.BackColor = Color.Tan
         Btn_return_books.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_return_books.Location = New Point(1385, 70)
+        Btn_return_books.Location = New Point(1385, 26)
         Btn_return_books.Name = "Btn_return_books"
         Btn_return_books.Size = New Size(194, 30)
         Btn_return_books.TabIndex = 19
@@ -328,7 +341,7 @@ Partial Class Fm_home_page
         ' 
         Btn_borrow_books.BackColor = Color.Tan
         Btn_borrow_books.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_borrow_books.Location = New Point(1185, 70)
+        Btn_borrow_books.Location = New Point(1185, 26)
         Btn_borrow_books.Name = "Btn_borrow_books"
         Btn_borrow_books.Size = New Size(194, 30)
         Btn_borrow_books.TabIndex = 18
@@ -338,7 +351,7 @@ Partial Class Fm_home_page
         ' Txt_returned_borrowed_books_search
         ' 
         Txt_returned_borrowed_books_search.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_returned_borrowed_books_search.Location = New Point(33, 65)
+        Txt_returned_borrowed_books_search.Location = New Point(33, 21)
         Txt_returned_borrowed_books_search.Name = "Txt_returned_borrowed_books_search"
         Txt_returned_borrowed_books_search.PlaceholderText = "Search"
         Txt_returned_borrowed_books_search.Size = New Size(246, 38)
@@ -351,7 +364,7 @@ Partial Class Fm_home_page
         Lv_returned_borrowed_books.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_returned_borrowed_books.FullRowSelect = True
         Lv_returned_borrowed_books.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        Lv_returned_borrowed_books.Location = New Point(33, 116)
+        Lv_returned_borrowed_books.Location = New Point(33, 72)
         Lv_returned_borrowed_books.Name = "Lv_returned_borrowed_books"
         Lv_returned_borrowed_books.Size = New Size(1546, 874)
         Lv_returned_borrowed_books.TabIndex = 3
@@ -447,7 +460,7 @@ Partial Class Fm_home_page
         ' Lv_supplier
         ' 
         Lv_supplier.Columns.AddRange(New ColumnHeader() {Listed_supplier_0, Listed_supplier_1, Listed_supplier_2, Listed_supplier_3, Listed_supplier_4, Listed_supplier_5, Listed_supplier_6})
-        Lv_supplier.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Lv_supplier.Font = New Font("Georgia", 13F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_supplier.FullRowSelect = True
         Lv_supplier.HeaderStyle = ColumnHeaderStyle.Nonclickable
         Lv_supplier.HideSelection = True
@@ -461,7 +474,7 @@ Partial Class Fm_home_page
         ' Listed_supplier_0
         ' 
         Listed_supplier_0.Text = "Supplier ID"
-        Listed_supplier_0.Width = 170
+        Listed_supplier_0.Width = 150
         ' 
         ' Listed_supplier_1
         ' 
@@ -500,15 +513,15 @@ Partial Class Fm_home_page
         Panel3_Borrower_Info.Controls.Add(Btn_student_info_delete)
         Panel3_Borrower_Info.Controls.Add(Btn_student_info_add)
         Panel3_Borrower_Info.Controls.Add(Lv_borrower_info)
-        Panel3_Borrower_Info.Location = New Point(300, 1)
+        Panel3_Borrower_Info.Location = New Point(300, 28)
         Panel3_Borrower_Info.Name = "Panel3_Borrower_Info"
-        Panel3_Borrower_Info.Size = New Size(1603, 1003)
+        Panel3_Borrower_Info.Size = New Size(1603, 970)
         Panel3_Borrower_Info.TabIndex = 15
         ' 
         ' Txt_student_info_search
         ' 
         Txt_student_info_search.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_student_info_search.Location = New Point(33, 65)
+        Txt_student_info_search.Location = New Point(33, 24)
         Txt_student_info_search.Name = "Txt_student_info_search"
         Txt_student_info_search.PlaceholderText = "Search"
         Txt_student_info_search.Size = New Size(246, 38)
@@ -518,7 +531,7 @@ Partial Class Fm_home_page
         ' 
         Btn_student_info_delete.BackColor = Color.Tan
         Btn_student_info_delete.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_student_info_delete.Location = New Point(1461, 73)
+        Btn_student_info_delete.Location = New Point(1461, 32)
         Btn_student_info_delete.Name = "Btn_student_info_delete"
         Btn_student_info_delete.Size = New Size(118, 30)
         Btn_student_info_delete.TabIndex = 10
@@ -529,7 +542,7 @@ Partial Class Fm_home_page
         ' 
         Btn_student_info_add.BackColor = Color.Tan
         Btn_student_info_add.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_student_info_add.Location = New Point(1317, 73)
+        Btn_student_info_add.Location = New Point(1317, 32)
         Btn_student_info_add.Name = "Btn_student_info_add"
         Btn_student_info_add.Size = New Size(118, 30)
         Btn_student_info_add.TabIndex = 9
@@ -543,7 +556,7 @@ Partial Class Fm_home_page
         Lv_borrower_info.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_borrower_info.FullRowSelect = True
         Lv_borrower_info.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        Lv_borrower_info.Location = New Point(33, 116)
+        Lv_borrower_info.Location = New Point(33, 75)
         Lv_borrower_info.Name = "Lv_borrower_info"
         Lv_borrower_info.Size = New Size(1546, 874)
         Lv_borrower_info.TabIndex = 6
@@ -598,16 +611,16 @@ Partial Class Fm_home_page
         Panel4_User_Acounts.Controls.Add(Btn_listed_accounts_delete)
         Panel4_User_Acounts.Controls.Add(Btn_listed_accounts_add)
         Panel4_User_Acounts.Controls.Add(Txt_listed_accounts_search)
-        Panel4_User_Acounts.Location = New Point(300, 1)
+        Panel4_User_Acounts.Location = New Point(300, 28)
         Panel4_User_Acounts.Name = "Panel4_User_Acounts"
-        Panel4_User_Acounts.Size = New Size(1603, 1003)
+        Panel4_User_Acounts.Size = New Size(1603, 973)
         Panel4_User_Acounts.TabIndex = 16
         ' 
         ' Btn_listed_accounts_edit
         ' 
         Btn_listed_accounts_edit.BackColor = Color.Tan
         Btn_listed_accounts_edit.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_listed_accounts_edit.Location = New Point(1317, 73)
+        Btn_listed_accounts_edit.Location = New Point(1317, 36)
         Btn_listed_accounts_edit.Name = "Btn_listed_accounts_edit"
         Btn_listed_accounts_edit.Size = New Size(118, 30)
         Btn_listed_accounts_edit.TabIndex = 16
@@ -622,7 +635,7 @@ Partial Class Fm_home_page
         Lv_listed_accounts.ForeColor = SystemColors.WindowText
         Lv_listed_accounts.FullRowSelect = True
         Lv_listed_accounts.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        Lv_listed_accounts.Location = New Point(33, 116)
+        Lv_listed_accounts.Location = New Point(33, 79)
         Lv_listed_accounts.Name = "Lv_listed_accounts"
         Lv_listed_accounts.Size = New Size(1546, 874)
         Lv_listed_accounts.TabIndex = 12
@@ -687,7 +700,7 @@ Partial Class Fm_home_page
         ' 
         Btn_listed_accounts_delete.BackColor = Color.Tan
         Btn_listed_accounts_delete.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_listed_accounts_delete.Location = New Point(1461, 73)
+        Btn_listed_accounts_delete.Location = New Point(1461, 36)
         Btn_listed_accounts_delete.Name = "Btn_listed_accounts_delete"
         Btn_listed_accounts_delete.Size = New Size(118, 30)
         Btn_listed_accounts_delete.TabIndex = 15
@@ -698,7 +711,7 @@ Partial Class Fm_home_page
         ' 
         Btn_listed_accounts_add.BackColor = Color.Tan
         Btn_listed_accounts_add.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_listed_accounts_add.Location = New Point(1175, 73)
+        Btn_listed_accounts_add.Location = New Point(1175, 36)
         Btn_listed_accounts_add.Name = "Btn_listed_accounts_add"
         Btn_listed_accounts_add.Size = New Size(118, 30)
         Btn_listed_accounts_add.TabIndex = 14
@@ -708,7 +721,7 @@ Partial Class Fm_home_page
         ' Txt_listed_accounts_search
         ' 
         Txt_listed_accounts_search.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_listed_accounts_search.Location = New Point(33, 62)
+        Txt_listed_accounts_search.Location = New Point(33, 25)
         Txt_listed_accounts_search.Name = "Txt_listed_accounts_search"
         Txt_listed_accounts_search.PlaceholderText = "Search"
         Txt_listed_accounts_search.Size = New Size(246, 38)
@@ -774,9 +787,16 @@ Partial Class Fm_home_page
         Btn_listed_accounts.Text = "User Maintenance"
         Btn_listed_accounts.UseVisualStyleBackColor = False
         ' 
+        ' Tmr_home_page_date_time
+        ' 
+        Tmr_home_page_date_time.Enabled = True
+        Tmr_home_page_date_time.Interval = 1000
+        ' 
         ' P_navigation
         ' 
         P_navigation.BackColor = Color.LightGray
+        P_navigation.Controls.Add(Lbl_user_type_logged_in)
+        P_navigation.Controls.Add(Lbl_name_logged_in)
         P_navigation.Controls.Add(Label2)
         P_navigation.Controls.Add(PictureBox1)
         P_navigation.Controls.Add(Btn_penalty_report)
@@ -791,6 +811,24 @@ Partial Class Fm_home_page
         P_navigation.Name = "P_navigation"
         P_navigation.Size = New Size(285, 1004)
         P_navigation.TabIndex = 23
+        ' 
+        ' Lbl_user_type_logged_in
+        ' 
+        Lbl_user_type_logged_in.AutoSize = True
+        Lbl_user_type_logged_in.Location = New Point(8, 283)
+        Lbl_user_type_logged_in.Name = "Lbl_user_type_logged_in"
+        Lbl_user_type_logged_in.Size = New Size(57, 15)
+        Lbl_user_type_logged_in.TabIndex = 32
+        Lbl_user_type_logged_in.Text = "User Type"
+        ' 
+        ' Lbl_name_logged_in
+        ' 
+        Lbl_name_logged_in.AutoSize = True
+        Lbl_name_logged_in.Location = New Point(8, 261)
+        Lbl_name_logged_in.Name = "Lbl_name_logged_in"
+        Lbl_name_logged_in.Size = New Size(95, 15)
+        Lbl_name_logged_in.TabIndex = 15
+        Lbl_name_logged_in.Text = "Name Logged In"
         ' 
         ' Label2
         ' 
@@ -850,6 +888,8 @@ Partial Class Fm_home_page
         ' 
         ' Panel8_Penalty_Report
         ' 
+        Panel8_Penalty_Report.Controls.Add(TextBox1)
+        Panel8_Penalty_Report.Controls.Add(Btn_penalty_add)
         Panel8_Penalty_Report.Controls.Add(Txt_primary_book_id)
         Panel8_Penalty_Report.Controls.Add(Txt_primary_student_name_id)
         Panel8_Penalty_Report.Controls.Add(Txt_primary_penalty_description_id)
@@ -862,14 +902,33 @@ Partial Class Fm_home_page
         Panel8_Penalty_Report.Controls.Add(Txt_penalty_name)
         Panel8_Penalty_Report.Controls.Add(Txt_penalty_id_number)
         Panel8_Penalty_Report.Controls.Add(Lv_penalty)
-        Panel8_Penalty_Report.Location = New Point(379, 52)
+        Panel8_Penalty_Report.Location = New Point(379, 56)
         Panel8_Penalty_Report.Name = "Panel8_Penalty_Report"
         Panel8_Penalty_Report.Size = New Size(1421, 901)
         Panel8_Penalty_Report.TabIndex = 28
         ' 
+        ' TextBox1
+        ' 
+        TextBox1.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        TextBox1.Location = New Point(23, 38)
+        TextBox1.Name = "TextBox1"
+        TextBox1.PlaceholderText = "Search"
+        TextBox1.Size = New Size(246, 38)
+        TextBox1.TabIndex = 27
+        ' 
+        ' Btn_penalty_add
+        ' 
+        Btn_penalty_add.Font = New Font("Georgia", 9F)
+        Btn_penalty_add.Location = New Point(992, 46)
+        Btn_penalty_add.Name = "Btn_penalty_add"
+        Btn_penalty_add.Size = New Size(118, 30)
+        Btn_penalty_add.TabIndex = 26
+        Btn_penalty_add.Text = "Add"
+        Btn_penalty_add.UseVisualStyleBackColor = True
+        ' 
         ' Txt_primary_book_id
         ' 
-        Txt_primary_book_id.Location = New Point(1221, 246)
+        Txt_primary_book_id.Location = New Point(704, 793)
         Txt_primary_book_id.Name = "Txt_primary_book_id"
         Txt_primary_book_id.PlaceholderText = "Primary Book ID"
         Txt_primary_book_id.Size = New Size(144, 23)
@@ -877,7 +936,7 @@ Partial Class Fm_home_page
         ' 
         ' Txt_primary_student_name_id
         ' 
-        Txt_primary_student_name_id.Location = New Point(1221, 171)
+        Txt_primary_student_name_id.Location = New Point(704, 718)
         Txt_primary_student_name_id.Name = "Txt_primary_student_name_id"
         Txt_primary_student_name_id.PlaceholderText = "Primary Borrower ID"
         Txt_primary_student_name_id.Size = New Size(144, 23)
@@ -885,7 +944,7 @@ Partial Class Fm_home_page
         ' 
         ' Txt_primary_penalty_description_id
         ' 
-        Txt_primary_penalty_description_id.Location = New Point(1221, 114)
+        Txt_primary_penalty_description_id.Location = New Point(704, 661)
         Txt_primary_penalty_description_id.Name = "Txt_primary_penalty_description_id"
         Txt_primary_penalty_description_id.PlaceholderText = "Primary Penalty Description ID"
         Txt_primary_penalty_description_id.Size = New Size(176, 23)
@@ -895,7 +954,7 @@ Partial Class Fm_home_page
         ' 
         Cb_penalty_description.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Cb_penalty_description.FormattingEnabled = True
-        Cb_penalty_description.Location = New Point(900, 112)
+        Cb_penalty_description.Location = New Point(699, 547)
         Cb_penalty_description.Name = "Cb_penalty_description"
         Cb_penalty_description.Size = New Size(302, 39)
         Cb_penalty_description.TabIndex = 20
@@ -903,20 +962,20 @@ Partial Class Fm_home_page
         ' 
         ' Btn_penalty_delete
         ' 
-        Btn_penalty_delete.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_penalty_delete.Location = New Point(1102, 304)
+        Btn_penalty_delete.Font = New Font("Georgia", 9F)
+        Btn_penalty_delete.Location = New Point(1279, 46)
         Btn_penalty_delete.Name = "Btn_penalty_delete"
-        Btn_penalty_delete.Size = New Size(156, 48)
+        Btn_penalty_delete.Size = New Size(118, 30)
         Btn_penalty_delete.TabIndex = 10
         Btn_penalty_delete.Text = "Delete"
         Btn_penalty_delete.UseVisualStyleBackColor = True
         ' 
         ' Btn_penalty_edit
         ' 
-        Btn_penalty_edit.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_penalty_edit.Location = New Point(927, 304)
+        Btn_penalty_edit.Font = New Font("Georgia", 9F)
+        Btn_penalty_edit.Location = New Point(1137, 46)
         Btn_penalty_edit.Name = "Btn_penalty_edit"
-        Btn_penalty_edit.Size = New Size(156, 48)
+        Btn_penalty_edit.Size = New Size(118, 30)
         Btn_penalty_edit.TabIndex = 9
         Btn_penalty_edit.Text = "Edit"
         Btn_penalty_edit.UseVisualStyleBackColor = True
@@ -925,7 +984,7 @@ Partial Class Fm_home_page
         ' 
         Dtp_penalty_date.CalendarFont = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Dtp_penalty_date.Font = New Font("Georgia", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Dtp_penalty_date.Location = New Point(900, 174)
+        Dtp_penalty_date.Location = New Point(699, 609)
         Dtp_penalty_date.Name = "Dtp_penalty_date"
         Dtp_penalty_date.Size = New Size(302, 29)
         Dtp_penalty_date.TabIndex = 7
@@ -934,7 +993,7 @@ Partial Class Fm_home_page
         ' Txt_penalty_amount
         ' 
         Txt_penalty_amount.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_penalty_amount.Location = New Point(573, 305)
+        Txt_penalty_amount.Location = New Point(344, 738)
         Txt_penalty_amount.Name = "Txt_penalty_amount"
         Txt_penalty_amount.PlaceholderText = "Enter Penalty Amount"
         Txt_penalty_amount.Size = New Size(302, 38)
@@ -943,7 +1002,7 @@ Partial Class Fm_home_page
         ' Txt_penalty_book_name
         ' 
         Txt_penalty_book_name.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_penalty_book_name.Location = New Point(573, 239)
+        Txt_penalty_book_name.Location = New Point(344, 672)
         Txt_penalty_book_name.Name = "Txt_penalty_book_name"
         Txt_penalty_book_name.PlaceholderText = "Book Name"
         Txt_penalty_book_name.Size = New Size(302, 38)
@@ -953,7 +1012,7 @@ Partial Class Fm_home_page
         ' 
         Txt_penalty_name.Enabled = False
         Txt_penalty_name.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_penalty_name.Location = New Point(573, 175)
+        Txt_penalty_name.Location = New Point(344, 608)
         Txt_penalty_name.Name = "Txt_penalty_name"
         Txt_penalty_name.PlaceholderText = "Enter Name"
         Txt_penalty_name.Size = New Size(302, 38)
@@ -963,7 +1022,7 @@ Partial Class Fm_home_page
         ' 
         Txt_penalty_id_number.Enabled = False
         Txt_penalty_id_number.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_penalty_id_number.Location = New Point(573, 114)
+        Txt_penalty_id_number.Location = New Point(344, 547)
         Txt_penalty_id_number.Name = "Txt_penalty_id_number"
         Txt_penalty_id_number.PlaceholderText = "Enter ID Number"
         Txt_penalty_id_number.Size = New Size(302, 38)
@@ -975,9 +1034,9 @@ Partial Class Fm_home_page
         Lv_penalty.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_penalty.FullRowSelect = True
         Lv_penalty.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        Lv_penalty.Location = New Point(23, 392)
+        Lv_penalty.Location = New Point(23, 99)
         Lv_penalty.Name = "Lv_penalty"
-        Lv_penalty.Size = New Size(1374, 486)
+        Lv_penalty.Size = New Size(1374, 126)
         Lv_penalty.TabIndex = 0
         Lv_penalty.UseCompatibleStateImageBehavior = False
         Lv_penalty.View = View.Details
@@ -1016,13 +1075,84 @@ Partial Class Fm_home_page
         ' 
         ' Panel10_Author_Category_Penalty_Publisher
         ' 
+        Panel10_Author_Category_Penalty_Publisher.Controls.Add(Panel11_Publisher)
         Panel10_Author_Category_Penalty_Publisher.Controls.Add(Panel5_Author)
         Panel10_Author_Category_Penalty_Publisher.Controls.Add(Panel9_Penalty)
         Panel10_Author_Category_Penalty_Publisher.Controls.Add(Panel7_Category)
-        Panel10_Author_Category_Penalty_Publisher.Location = New Point(300, 1)
+        Panel10_Author_Category_Penalty_Publisher.Location = New Point(300, 28)
         Panel10_Author_Category_Penalty_Publisher.Name = "Panel10_Author_Category_Penalty_Publisher"
-        Panel10_Author_Category_Penalty_Publisher.Size = New Size(1603, 1003)
+        Panel10_Author_Category_Penalty_Publisher.Size = New Size(1603, 973)
         Panel10_Author_Category_Penalty_Publisher.TabIndex = 29
+        ' 
+        ' Panel11_Publisher
+        ' 
+        Panel11_Publisher.BorderStyle = BorderStyle.FixedSingle
+        Panel11_Publisher.Controls.Add(Btn_publisher_delete)
+        Panel11_Publisher.Controls.Add(Btn_publisher_edit)
+        Panel11_Publisher.Controls.Add(Txt_search_publisher)
+        Panel11_Publisher.Controls.Add(Btn_publisher_add)
+        Panel11_Publisher.Controls.Add(Lv_publisher)
+        Panel11_Publisher.Location = New Point(815, 493)
+        Panel11_Publisher.Name = "Panel11_Publisher"
+        Panel11_Publisher.Size = New Size(771, 456)
+        Panel11_Publisher.TabIndex = 31
+        Panel11_Publisher.Tag = ""
+        ' 
+        ' Btn_publisher_delete
+        ' 
+        Btn_publisher_delete.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_publisher_delete.Location = New Point(634, 23)
+        Btn_publisher_delete.Name = "Btn_publisher_delete"
+        Btn_publisher_delete.Size = New Size(104, 31)
+        Btn_publisher_delete.TabIndex = 49
+        Btn_publisher_delete.Text = "Delete"
+        Btn_publisher_delete.UseVisualStyleBackColor = True
+        ' 
+        ' Btn_publisher_edit
+        ' 
+        Btn_publisher_edit.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_publisher_edit.Location = New Point(503, 23)
+        Btn_publisher_edit.Name = "Btn_publisher_edit"
+        Btn_publisher_edit.Size = New Size(104, 31)
+        Btn_publisher_edit.TabIndex = 48
+        Btn_publisher_edit.Text = "Edit"
+        Btn_publisher_edit.UseVisualStyleBackColor = True
+        ' 
+        ' Txt_search_publisher
+        ' 
+        Txt_search_publisher.Font = New Font("Georgia", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_search_publisher.Location = New Point(16, 22)
+        Txt_search_publisher.Name = "Txt_search_publisher"
+        Txt_search_publisher.PlaceholderText = "Search"
+        Txt_search_publisher.Size = New Size(256, 29)
+        Txt_search_publisher.TabIndex = 47
+        ' 
+        ' Btn_publisher_add
+        ' 
+        Btn_publisher_add.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_publisher_add.Location = New Point(373, 23)
+        Btn_publisher_add.Name = "Btn_publisher_add"
+        Btn_publisher_add.Size = New Size(104, 31)
+        Btn_publisher_add.TabIndex = 46
+        Btn_publisher_add.Text = "Add"
+        Btn_publisher_add.UseVisualStyleBackColor = True
+        ' 
+        ' Lv_publisher
+        ' 
+        Lv_publisher.Columns.AddRange(New ColumnHeader() {ColumnHeader1})
+        Lv_publisher.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Lv_publisher.FullRowSelect = True
+        Lv_publisher.Location = New Point(16, 77)
+        Lv_publisher.Name = "Lv_publisher"
+        Lv_publisher.Size = New Size(722, 361)
+        Lv_publisher.TabIndex = 45
+        Lv_publisher.UseCompatibleStateImageBehavior = False
+        Lv_publisher.View = View.Details
+        ' 
+        ' ColumnHeader1
+        ' 
+        ColumnHeader1.Text = "Publisher Name"
+        ColumnHeader1.Width = 710
         ' 
         ' Panel5_Author
         ' 
@@ -1032,7 +1162,7 @@ Partial Class Fm_home_page
         Panel5_Author.Controls.Add(Lv_author)
         Panel5_Author.Controls.Add(Btn_author_add)
         Panel5_Author.Controls.Add(Btn_author_edit)
-        Panel5_Author.Location = New Point(25, 23)
+        Panel5_Author.Location = New Point(25, 17)
         Panel5_Author.Name = "Panel5_Author"
         Panel5_Author.Size = New Size(771, 456)
         Panel5_Author.TabIndex = 26
@@ -1105,7 +1235,7 @@ Partial Class Fm_home_page
         Panel9_Penalty.Controls.Add(Txt_search_penalty_description)
         Panel9_Penalty.Controls.Add(Btn_penalty_description_add)
         Panel9_Penalty.Controls.Add(Lv_penalty_description)
-        Panel9_Penalty.Location = New Point(25, 510)
+        Panel9_Penalty.Location = New Point(25, 493)
         Panel9_Penalty.Name = "Panel9_Penalty"
         Panel9_Penalty.Size = New Size(771, 456)
         Panel9_Penalty.TabIndex = 30
@@ -1175,7 +1305,7 @@ Partial Class Fm_home_page
         Panel7_Category.Controls.Add(Btn_category_edit)
         Panel7_Category.Controls.Add(Btn_category_add)
         Panel7_Category.Controls.Add(Lv_category)
-        Panel7_Category.Location = New Point(815, 23)
+        Panel7_Category.Location = New Point(815, 17)
         Panel7_Category.Name = "Panel7_Category"
         Panel7_Category.Size = New Size(771, 456)
         Panel7_Category.TabIndex = 28
@@ -1238,6 +1368,17 @@ Partial Class Fm_home_page
         Listed_Category0.Text = "Genre"
         Listed_Category0.Width = 710
         ' 
+        ' Lbl_date_time
+        ' 
+        Lbl_date_time.AutoSize = True
+        Lbl_date_time.Font = New Font("Arial Narrow", 15F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Lbl_date_time.Location = New Point(1657, 3)
+        Lbl_date_time.Name = "Lbl_date_time"
+        Lbl_date_time.Size = New Size(243, 24)
+        Lbl_date_time.TabIndex = 30
+        Lbl_date_time.Text = "December 31, 2025 | 12:59 PM"
+        Lbl_date_time.TextAlign = ContentAlignment.MiddleRight
+        ' 
         ' Fm_home_page
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -1245,11 +1386,12 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
-        Controls.Add(Panel6_Supplier)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
-        Controls.Add(Panel4_User_Acounts)
+        Controls.Add(Panel6_Supplier)
         Controls.Add(Panel1_Books)
         Controls.Add(Panel8_Penalty_Report)
+        Controls.Add(Lbl_date_time)
+        Controls.Add(Panel4_User_Acounts)
         Controls.Add(Panel3_Borrower_Info)
         Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(P_navigation)
@@ -1276,6 +1418,8 @@ Partial Class Fm_home_page
         Panel8_Penalty_Report.ResumeLayout(False)
         Panel8_Penalty_Report.PerformLayout()
         Panel10_Author_Category_Penalty_Publisher.ResumeLayout(False)
+        Panel11_Publisher.ResumeLayout(False)
+        Panel11_Publisher.PerformLayout()
         Panel5_Author.ResumeLayout(False)
         Panel5_Author.PerformLayout()
         Panel9_Penalty.ResumeLayout(False)
@@ -1283,6 +1427,7 @@ Partial Class Fm_home_page
         Panel7_Category.ResumeLayout(False)
         Panel7_Category.PerformLayout()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
     Friend WithEvents Panel1_Books As Panel
     Friend WithEvents Btn_listed_books_edit As Button
@@ -1337,7 +1482,7 @@ Partial Class Fm_home_page
     Friend WithEvents Student_info2 As ColumnHeader
     Friend WithEvents Student_info3 As ColumnHeader
     Friend WithEvents Listed_books3 As ColumnHeader
-    Friend WithEvents TimerAnimation As Timer
+    Friend WithEvents Tmr_home_page_date_time As Timer
     Friend WithEvents Listed_books7 As ColumnHeader
     Friend WithEvents P_navigation As Panel
     Friend WithEvents Txt_student_info_search As RoundCornerTextbox
@@ -1409,4 +1554,14 @@ Partial Class Fm_home_page
     Friend WithEvents Btn_listed_accounts_edit As Button
     Friend WithEvents Txt_search_supplier As TextBox
     Friend WithEvents Listed_supplier_1 As ColumnHeader
+    Friend WithEvents Lbl_user_type_logged_in As Label
+    Friend WithEvents Lbl_name_logged_in As Label
+    Friend WithEvents Lbl_date_time As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Panel11_Publisher As Panel
+    Friend WithEvents Btn_publisher_delete As Button
+    Friend WithEvents Btn_publisher_edit As Button
+    Friend WithEvents Txt_search_publisher As TextBox
+    Friend WithEvents Btn_publisher_add As Button
+    Friend WithEvents Lv_publisher As ListView
 End Class

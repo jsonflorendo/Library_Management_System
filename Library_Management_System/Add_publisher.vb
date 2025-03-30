@@ -1,8 +1,8 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Public Class Fm_add_author
+Public Class Fm_publisher
 
-    Private Sub Fm_add_author_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Fm_publisher_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Clear_error_msg()
 
@@ -12,9 +12,9 @@ Public Class Fm_add_author
 
         If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
 
-            If Txt_author_name.Text = "" Then
+            If Txt_publisher_name.Text = "" Then
 
-                Lbl_error_msg.Text = "Please enter author name"
+                Lbl_error_msg.Text = "Please enter publisher name"
 
             Else
 
@@ -22,32 +22,32 @@ Public Class Fm_add_author
 
                     con.Open()
 
-                    sql = "SELECT * FROM tbl_library_author
-                                WHERE author_name = '" & Txt_author_name.Text & "'"
+                    sql = "SELECT * FROM tbl_library_publisher
+                                WHERE publisher_name = '" & Txt_publisher_name.Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
                     If dr.Read Then
 
                         con.Close()
-                        Lbl_error_msg.Text = "Author already exists"
+                        Lbl_error_msg.Text = "Publisher already exists"
 
                     Else
 
                         dr.Close()
 
-                        sql = "INSERT INTO tbl_library_author (author_name)
-                                  VALUE ('" & Txt_author_name.Text & "')"
+                        sql = "INSERT INTO tbl_library_publisher (publisher_name)
+                                  VALUE ('" & Txt_publisher_name.Text & "')"
                         cmd = New MySqlCommand(sql, con)
                         cmd.ExecuteNonQuery()
 
                         con.Close()
 
-                        MessageBox.Show("Author added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_library_author_data_table()
-                        Load_library_cb_author()
+                        MessageBox.Show("Publisher added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_library_publisher_data_table()
+                        Load_library_cb_publisher()
                         Fm_add_books.Enabled = True
-                        Fm_add_books.Txt_author.Text = Txt_author_name.Text
+                        Fm_add_books.Txt_publisher.Text = Txt_publisher_name.Text
                         Me.Close()
 
                     End If
@@ -62,9 +62,9 @@ Public Class Fm_add_author
 
         Else
 
-            If Txt_author_name.Text = "" Then
+            If Txt_publisher_name.Text = "" Then
 
-                Lbl_error_msg.Text = "Please enter author name"
+                Lbl_error_msg.Text = "Please enter publisher name"
 
             Else
 
@@ -72,29 +72,29 @@ Public Class Fm_add_author
 
                     con.Open()
 
-                    sql = "SELECT * FROM tbl_library_author
-                                WHERE author_name = '" & Txt_author_name.Text & "'"
+                    sql = "SELECT * FROM tbl_library_publisher
+                                WHERE publisher_name = '" & Txt_publisher_name.Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
                     If dr.Read Then
 
                         con.Close()
-                        Lbl_error_msg.Text = "Author already exists"
+                        Lbl_error_msg.Text = "Publisher already exists"
 
                     Else
 
                         dr.Close()
 
-                        sql = "INSERT INTO tbl_library_author (author_name)
-                                  VALUE ('" & Txt_author_name.Text & "')"
+                        sql = "INSERT INTO tbl_library_publisher (publisher_name)
+                                  VALUE ('" & Txt_publisher_name.Text & "')"
                         cmd = New MySqlCommand(sql, con)
                         cmd.ExecuteNonQuery()
 
                         con.Close()
 
-                        MessageBox.Show("Author added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_library_author_data_table()
+                        MessageBox.Show("Publisher added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_library_publisher_data_table()
                         Fm_home_page.Enabled = True
                         Me.Close()
 
@@ -114,9 +114,9 @@ Public Class Fm_add_author
 
     Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
 
-        If Txt_author_name.Text = "" Then
+        If Txt_publisher_name.Text = "" Then
 
-            Lbl_error_msg.Text = "Please enter author name"
+            Lbl_error_msg.Text = "Please enter publisher name"
 
         Else
 
@@ -124,17 +124,17 @@ Public Class Fm_add_author
 
                 con.Open()
 
-                'to make sure Author Name not exists while in update process
-                sql = "UPDATE tbl_library_author SET 
-                              author_name = '" & "" & "'                                        
-                       WHERE primary_author_id = '" & Fm_home_page.Lv_author.SelectedItems(0).SubItems(1).Text & "'"
+                'to make sure Publisher Name not exists while in update process
+                sql = "UPDATE tbl_library_publisher SET 
+                              publisher_name = '" & "" & "'                                        
+                       WHERE primary_publisher_id = '" & Fm_home_page.Lv_publisher.SelectedItems(0).SubItems(1).Text & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
                 dr.Close()
                 '---------------------------------
 
-                sql = "SELECT * FROM tbl_library_author
-                                WHERE author_name = '" & Txt_author_name.Text & "'"
+                sql = "SELECT * FROM tbl_library_publisher
+                                WHERE publisher_name = '" & Txt_publisher_name.Text & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
 
@@ -142,12 +142,12 @@ Public Class Fm_add_author
 
                     dr.Close()
 
-                    Lbl_error_msg.Text = "Author already exists"
+                    Lbl_error_msg.Text = "Publisher already exists"
 
                     'returned previous Author Name
-                    sql = "UPDATE tbl_library_author SET 
-                                  author_name = '" & Fm_home_page.Lv_author.SelectedItems(0).Text & "'                                       
-                           WHERE primary_author_id = '" & Fm_home_page.Lv_author.SelectedItems(0).SubItems(1).Text & "'"
+                    sql = "UPDATE tbl_library_publisher SET 
+                                  publisher_name = '" & Fm_home_page.Lv_publisher.SelectedItems(0).Text & "'                                       
+                           WHERE primary_publisher_id = '" & Fm_home_page.Lv_publisher.SelectedItems(0).SubItems(1).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
@@ -158,16 +158,16 @@ Public Class Fm_add_author
 
                     dr.Close()
 
-                    sql = "UPDATE tbl_library_author SET
-                                  author_name = '" & Txt_author_name.Text & "'
-                           WHERE primary_author_id = '" & Fm_home_page.Lv_author.SelectedItems(0).SubItems(1).Text & "'"
+                    sql = "UPDATE tbl_library_publisher SET
+                                  publisher_name = '" & Txt_publisher_name.Text & "'
+                           WHERE primary_publisher_id = '" & Fm_home_page.Lv_publisher.SelectedItems(0).SubItems(1).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
                     con.Close()
 
-                    MessageBox.Show("Author updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_author_data_table()
+                    MessageBox.Show("Publisher updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Load_library_publisher_data_table()
                     Fm_home_page.Enabled = True
                     Me.Close()
 
@@ -193,14 +193,14 @@ Public Class Fm_add_author
         Else
 
             Fm_home_page.Enabled = True
-            Load_library_author_data_table() '-> To item selection On the listview
+            Load_library_publisher_data_table() '-> To item selection On the listview
             Me.Close()
 
         End If
 
     End Sub
 
-    Private Sub Txt_author_name_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_author_name.KeyPress
+    Private Sub Txt_publisher_name_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_publisher_name.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -215,7 +215,7 @@ Public Class Fm_add_author
         Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_author_name.TextLength >= maxLength Then
+        If Txt_publisher_name.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return

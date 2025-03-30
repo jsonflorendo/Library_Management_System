@@ -91,24 +91,24 @@ Public Class Fm_add_penalty
 
                 If dialog = DialogResult.Yes Then
 
-                    sql = "INSERT INTO tbl_penalty (primary_borrower_id, 
-                                                    primary_book_id,
-                                                    penalty_amount,
-                                                    primary_penalty_description_id,
-                                                    penalty_date,
-                                                    penalty_time)
-                                  VALUE ('" & Txt_primary_borrower_id.Text & "',
-                                        '" & Txt_primary_book_id.Text & "',
-                                        '" & Txt_penalty_amount.Text & "',
-                                        '" & Txt_primary_penalty_description_id.Text & "',
-                                        '" & Dtp_penalty_date.Value.ToString("MMM-dd-yyyy") & "',
-                                        '" & Dtp_penalty_date.Value.ToString("hh:mm tt") & "')"
+                    sql = "INSERT INTO tbl_penalty_report (primary_borrower_id, 
+                                                            primary_book_id,
+                                                            penalty_amount,
+                                                            primary_penalty_description_id,
+                                                            penalty_date,
+                                                            penalty_time)
+                                          VALUE ('" & Txt_primary_borrower_id.Text & "',
+                                                '" & Txt_primary_book_id.Text & "',
+                                                '" & Txt_penalty_amount.Text & "',
+                                                '" & Txt_primary_penalty_description_id.Text & "',
+                                                '" & Dtp_penalty_date.Value.ToString("MMM-dd-yyyy") & "',
+                                                '" & Dtp_penalty_date.Value.ToString("hh:mm tt") & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
 
                     con.Close()
 
-                    Load_penalty_data_table()
+                    Load_penalty_report_data_table()
                     MessageBox.Show("Penalty for " + penalty_name + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     Fm_returned_books.Enabled = True

@@ -19,18 +19,25 @@ Public Class Fm_home_page
         Load_listed_books_data_table()
         Load_returned_borrowed_books_data_table()
         Load_borrower_info_data_table()
+        Load_penalty_report_data_table()
         Load_listed_accounts_data_table()
-        Load_author_data_table()
-        Load_supplier_data_table()
-        Load_category_data_table()
-        Load_penalty_description_data_table()
-        Load_penalty_data_table()
+        Load_library_category_data_table()
+        Load_library_supplier_data_table()
+        Load_library_category_data_table()
+        Load_library_publisher_data_table()
+        Load_library_publisher_data_table()
 
         Load_library_cb_category()
         Load_library_cb_penalty_description()
 
         Dtp_penalty_date.Format = DateTimePickerFormat.Custom
         Dtp_penalty_date.CustomFormat = "MMMM dd, yyyy"
+
+    End Sub
+
+    Private Sub Tmr_home_page_date_time_Tick(sender As Object, e As EventArgs) Handles Tmr_home_page_date_time.Tick
+
+        Lbl_date_time.Text = Date.Now.ToString("MMMM dd, yyyy | h:mm:ss tt")
 
     End Sub
 
@@ -413,7 +420,7 @@ Public Class Fm_home_page
                             tbl_library_author.author_name,
                             tbl_library_publisher.publisher_name,
                             tbl_books.publish_year,
-                            tbl_library_supplier.supplier_full_name,
+                            tbl_library_supplier.supplier_name,
                             tbl_books.acquisition_date,
                             tbl_books.status,
                             tbl_books.primary_book_id
@@ -430,7 +437,7 @@ Public Class Fm_home_page
                             category_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
                             author_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
                             publisher_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
-                            supplier_full_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
+                            supplier_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
                             status LIKE '%" & Txt_listed_books_search.Text & "%'
 
                     ORDER BY primary_book_id DESC"
@@ -448,7 +455,7 @@ Public Class Fm_home_page
                                             dr("author_name").ToString(),
                                             dr("publisher_name").ToString(),
                                             dr("publish_year").ToString(),
-                                            dr("supplier_full_name").ToString(),
+                                            dr("supplier_name").ToString(),
                                             dr("acquisition_date").ToString(),
                                             dr("status").ToString(),
                                             dr("primary_book_id").ToString()})
@@ -501,7 +508,7 @@ Public Class Fm_home_page
                                 tbl_library_author.author_name,
                                 tbl_library_publisher.publisher_name,
                                 tbl_books.publish_year,
-                                tbl_library_supplier.supplier_full_name,
+                                tbl_library_supplier.supplier_name,
                                 tbl_books.acquisition_date,
                                 tbl_books.status,
                                 tbl_books.primary_book_id
@@ -530,7 +537,7 @@ Public Class Fm_home_page
                                                 dr("author_name").ToString(),
                                                 dr("publisher_name").ToString(),
                                                 dr("publish_year").ToString(),
-                                                dr("supplier_full_name").ToString(),
+                                                dr("supplier_name").ToString(),
                                                 dr("acquisition_date").ToString(),
                                                 dr("status").ToString(),
                                                 dr("primary_book_id").ToString()})
@@ -583,7 +590,7 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_books_edit_Click(sender As Object, e As EventArgs) Handles Btn_listed_books_edit.Click
 
-        Fm_add_books.Txt_isbn.Visible = False
+        Fm_add_books.save_Txt_isbn.Visible = False
 
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
@@ -593,9 +600,11 @@ Public Class Fm_home_page
             Fm_add_books.Txt_book_qty.Text = Lv_listed_books.SelectedItems(0).SubItems(3).Text
             Fm_add_books.Txt_author.Text = Lv_listed_books.SelectedItems(0).SubItems(4).Text
             Fm_add_books.Txt_publisher.Text = Lv_listed_books.SelectedItems(0).SubItems(5).Text
-            Fm_add_books.Dtp_publish_date.Text = Lv_listed_books.SelectedItems(0).SubItems(6).Text
+            Fm_add_books.Dtp_publish_date.Value = Lv_listed_books.SelectedItems(0).SubItems(6).Text
             Fm_add_books.Txt_supplier_name.Text = Lv_listed_books.SelectedItems(0).SubItems(7).Text
-            Fm_add_books.Dtp_acquisition_date.Text = Lv_listed_books.SelectedItems(0).SubItems(8).Text
+            Fm_add_books.Dtp_acquisition_date.Value = Lv_listed_books.SelectedItems(0).SubItems(8).Text
+
+            Fm_add_books.Txt_primary_category_id.Text = Lv_listed_books.SelectedItems(0).SubItems(11).Text
 
             Fm_add_books.Show()
             Me.Enabled = False
@@ -675,29 +684,33 @@ Public Class Fm_home_page
 
             Load_borrower_info_data_table()
 
+        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+
+            Load_penalty_report_data_table()
+
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
             Load_listed_accounts_data_table()
 
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_author_data_table()
-
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_supplier_data_table()
+            Load_library_supplier_data_table()
+
+        ElseIf Lv_author.SelectedItems.Count > 0 Then
+
+            Load_library_category_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_category_data_table()
+            Load_library_category_data_table()
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_penalty_description_data_table()
+            Load_library_publisher_data_table()
 
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_penalty_data_table()
+            Load_library_publisher_data_table()
 
         End If
 
@@ -806,29 +819,33 @@ Public Class Fm_home_page
 
             Load_borrower_info_data_table()
 
+        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+
+            Load_penalty_report_data_table()
+
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
             Load_listed_accounts_data_table()
 
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_author_data_table()
-
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_supplier_data_table()
+            Load_library_supplier_data_table()
+
+        ElseIf Lv_author.SelectedItems.Count > 0 Then
+
+            Load_library_category_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_category_data_table()
+            Load_library_category_data_table()
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_penalty_description_data_table()
+            Load_library_publisher_data_table()
 
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_penalty_data_table()
+            Load_library_publisher_data_table()
 
         End If
 
@@ -995,29 +1012,277 @@ Public Class Fm_home_page
 
             Load_returned_borrowed_books_data_table()
 
+        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+
+            Load_penalty_report_data_table()
+
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
             Load_listed_accounts_data_table()
 
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_author_data_table()
-
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_supplier_data_table()
+            Load_library_supplier_data_table()
+
+        ElseIf Lv_author.SelectedItems.Count > 0 Then
+
+            Load_library_category_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_category_data_table()
+            Load_library_category_data_table()
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_penalty_description_data_table()
+            Load_library_publisher_data_table()
 
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_penalty_data_table()
+            Load_library_publisher_data_table()
+
+        End If
+
+    End Sub
+
+
+    ' Penalty
+
+    Private Sub Cb_penalty_description_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_penalty_description.SelectedIndexChanged
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT * FROM tbl_library_penalty
+                            WHERE penalty_description = '" & Cb_penalty_description.SelectedItem & "'"
+            'GROUP BY author_name"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader
+
+            If dr.Read() Then
+
+                Txt_primary_penalty_description_id.Text = dr("primary_penalty_description_id")
+
+            End If
+
+            con.Close()
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub Btn_penalty_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_edit.Click
+
+        Try
+
+            If Lv_penalty.SelectedItems.Count > 0 Then
+
+                If Txt_penalty_id_number.Text = "" Or
+                Txt_penalty_name.Text = "" Or
+                Txt_penalty_book_name.Text = "" Or
+                Txt_penalty_amount.Text = "" Or
+                Cb_penalty_description.Text = "" Then
+
+                    MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                Else
+
+                    con.Open()
+
+                    Dim penalty_name = Txt_penalty_name.Text
+                    Dim dialog As DialogResult
+
+                    dialog = MessageBox.Show("Do you want to update this penalty for " + penalty_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+
+                    If dialog = DialogResult.Yes Then
+
+                        sql = "UPDATE tbl_penalty SET 
+                                        primary_borrower_id = '" & Txt_primary_student_name_id.Text & "',                                                                        
+                                        primary_book_id = '" & Txt_primary_book_id.Text & "',
+                                        penalty_amount = '" & Txt_penalty_amount.Text & "',
+                                        primary_penalty_description_id = '" & Txt_primary_penalty_description_id.Text & "',                                    
+                                        penalty_date = '" & Dtp_penalty_date.Value.ToString("MMM-dd-yyyy") & "'
+                                WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(6).Text & "'"
+                        cmd = New MySqlCommand(sql, con)
+                        cmd.ExecuteNonQuery()
+
+                        con.Close()
+
+                        Clear_penalty_fields()
+                        Load_penalty_report_data_table()
+                        MessageBox.Show("Penalty for " + penalty_name + " has been updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Else
+
+                        con.Close()
+
+                        Clear_penalty_fields()
+                        Load_penalty_report_data_table()
+
+                    End If
+
+                End If
+
+            Else
+
+                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            End If
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub Btn_penalty_delete_Click(sender As Object, e As EventArgs) Handles Btn_penalty_delete.Click
+
+        Try
+
+            If Lv_penalty.SelectedItems.Count > 0 Then
+
+                con.Open()
+
+                Dim penalty_name = Txt_penalty_name.Text
+                Dim dialog As DialogResult
+
+                dialog = MessageBox.Show("Do you want to delete this penalty for " + penalty_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+
+                If dialog = DialogResult.Yes Then
+
+                    sql = "DELETE FROM tbl_penalty                                    
+                            WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(6).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    cmd.ExecuteNonQuery()
+
+                    con.Close()
+
+                    Clear_penalty_fields()
+                    Load_penalty_report_data_table()
+                    MessageBox.Show("Penalty for " + penalty_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                Else
+
+                    con.Close()
+
+                    Clear_penalty_fields()
+                    Load_penalty_report_data_table()
+
+                End If
+
+            Else
+
+                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            End If
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub Lv_penalty_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_penalty.SelectedIndexChanged
+
+        If Lv_penalty.SelectedItems.Count > 0 Then
+
+            Txt_penalty_id_number.Text = Lv_penalty.SelectedItems(0).Text
+            Txt_penalty_name.Text = Lv_penalty.SelectedItems(0).SubItems(1).Text
+            Txt_penalty_book_name.Text = Lv_penalty.SelectedItems(0).SubItems(2).Text
+            Txt_penalty_amount.Text = Lv_penalty.SelectedItems(0).SubItems(3).Text
+            Cb_penalty_description.Text = Lv_penalty.SelectedItems(0).SubItems(4).Text
+            Dtp_penalty_date.Text = Lv_penalty.SelectedItems(0).SubItems(5).Text
+
+            Txt_primary_penalty_description_id.Text = Lv_penalty.SelectedItems(0).SubItems(7).Text
+            Txt_primary_student_name_id.Text = Lv_penalty.SelectedItems(0).SubItems(8).Text
+            Txt_primary_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(9).Text
+
+        End If
+
+        'Remove items selection on the other listview
+        If Lv_listed_books.SelectedItems.Count > 0 Then
+
+            Load_listed_books_data_table()
+
+        ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
+
+            Load_returned_borrowed_books_data_table()
+
+        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
+
+            Load_borrower_info_data_table()
+
+        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
+
+            Load_listed_accounts_data_table()
+
+        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
+
+            Load_library_supplier_data_table()
+
+        ElseIf Lv_author.SelectedItems.Count > 0 Then
+
+            Load_library_category_data_table()
+
+        ElseIf Lv_category.SelectedItems.Count > 0 Then
+
+            Load_library_category_data_table()
+
+        ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
+
+            Load_library_publisher_data_table()
+
+        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
+
+            Load_library_publisher_data_table()
+
+        End If
+
+    End Sub
+
+    Private Sub Cb_penalty_description_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cb_penalty_description.KeyPress
+
+        'No input alphanumeric
+        e.Handled = True
+
+    End Sub
+
+    Private Sub Cb_penalty_description_Click(sender As Object, e As EventArgs) Handles Cb_penalty_description.Click
+
+        Cb_penalty_description.DroppedDown = True
+
+    End Sub
+
+    Private Sub Txt_penalty_amount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_penalty_amount.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength As Integer = 10 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_penalty_amount.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        'Input numeric only
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+
+            e.Handled = True
 
         End If
 
@@ -1200,26 +1465,62 @@ Public Class Fm_home_page
 
             Load_borrower_info_data_table()
 
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
+        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_author_data_table()
+            Load_penalty_report_data_table()
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_supplier_data_table()
+            Load_library_supplier_data_table()
+
+        ElseIf Lv_author.SelectedItems.Count > 0 Then
+
+            Load_library_category_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_category_data_table()
+            Load_library_category_data_table()
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_penalty_description_data_table()
+            Load_library_publisher_data_table()
 
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_penalty_data_table()
+            Load_library_publisher_data_table()
 
+        End If
+
+    End Sub
+
+    Private Sub Txt_listed_accounts_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_listed_accounts_search.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Convert the entered character to uppercase
+        e.KeyChar = Char.ToUpper(e.KeyChar)
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_listed_accounts_search.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
         End If
 
     End Sub
@@ -1243,29 +1544,29 @@ Public Class Fm_home_page
                                   address LIKE '%" & Txt_search_supplier.Text & "%' OR
                                   source_type LIKE '%" & Txt_search_supplier.Text & "%'"
             cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
+            dr = cmd.ExecuteReader
 
             Lv_supplier.Items.Clear()
 
             Do While dr.Read
 
-                Dim lv As New ListViewItem({dr("supplier_id").ToString(),
-                                            dr("supplier_name").ToString(),
-                                            dr("last_name").ToString() + ", " + dr("first_name").ToString(),
-                                            dr("email_address").ToString(),
-                                            dr("contact").ToString(),
-                                            dr("address").ToString(),
-                                            dr("source_type").ToString(),
-                                            dr("primary_supplier_id").ToString(),
-                                            dr("first_name").ToString(),
-                                            dr("last_name").ToString()})
+                Dim lv As New ListViewItem({dr("supplier_id").ToString,
+                                            dr("supplier_name").ToString,
+                                            dr("last_name").ToString + ", " + dr("first_name").ToString,
+                                            dr("email_address").ToString,
+                                            dr("contact").ToString,
+                                            dr("address").ToString,
+                                            dr("source_type").ToString,
+                                            dr("primary_supplier_id").ToString,
+                                            dr("first_name").ToString,
+                                            dr("last_name").ToString})
                 Lv_supplier.Items.Add(lv)
 
             Loop
 
             con.Close()
 
-            For i As Integer = 0 To Lv_supplier.Items.Count - 1
+            For i = 0 To Lv_supplier.Items.Count - 1
 
                 If i Mod 2 = 0 Then
 
@@ -1345,14 +1646,14 @@ Public Class Fm_home_page
 
                     con.Close()
 
-                    Load_supplier_data_table()
+                    Load_library_supplier_data_table()
                     MessageBox.Show(supplier_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
                     con.Close()
 
-                    Load_supplier_data_table()
+                    Load_library_supplier_data_table()
 
                 End If
 
@@ -1385,31 +1686,36 @@ Public Class Fm_home_page
 
             Load_borrower_info_data_table()
 
+        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+
+            Load_penalty_report_data_table()
+
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
             Load_listed_accounts_data_table()
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_author_data_table()
+            Load_library_category_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_category_data_table()
+            Load_library_category_data_table()
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_penalty_description_data_table()
+            Load_library_publisher_data_table()
 
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_penalty_data_table()
+            Load_library_publisher_data_table()
 
         End If
 
     End Sub
 
     Private Sub Txt_search_supplier_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_supplier.KeyPress
+
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
             ' Allow control keys
@@ -1437,6 +1743,7 @@ Public Class Fm_home_page
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
+
     End Sub
 
 
@@ -1540,11 +1847,13 @@ Public Class Fm_home_page
                     con.Close()
 
                     MessageBox.Show(author_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_author_data_table()
+                    Load_library_category_data_table()
 
                 Else
 
-                    Load_author_data_table()
+                    con.Close()
+
+                    Load_library_category_data_table()
 
                 End If
 
@@ -1577,25 +1886,29 @@ Public Class Fm_home_page
 
             Load_borrower_info_data_table()
 
+        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+
+            Load_penalty_report_data_table()
+
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
             Load_listed_accounts_data_table()
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_supplier_data_table()
+            Load_library_supplier_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_category_data_table()
+            Load_library_category_data_table()
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_penalty_description_data_table()
+            Load_library_publisher_data_table()
 
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_penalty_data_table()
+            Load_library_publisher_data_table()
 
         End If
 
@@ -1732,14 +2045,14 @@ Public Class Fm_home_page
                     con.Close()
 
                     MessageBox.Show(category_description + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_category_data_table()
+                    Load_library_category_data_table()
                     Load_library_cb_category()
 
                 Else
 
                     con.Close()
 
-                    Load_category_data_table()
+                    Load_library_category_data_table()
 
                 End If
 
@@ -1772,25 +2085,29 @@ Public Class Fm_home_page
 
             Load_borrower_info_data_table()
 
+        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+
+            Load_penalty_report_data_table()
+
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
             Load_listed_accounts_data_table()
 
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_author_data_table()
-
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_supplier_data_table()
+            Load_library_supplier_data_table()
+
+        ElseIf Lv_author.SelectedItems.Count > 0 Then
+
+            Load_library_category_data_table()
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_penalty_description_data_table()
+            Load_library_publisher_data_table()
 
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_penalty_data_table()
+            Load_library_publisher_data_table()
 
         End If
 
@@ -1841,21 +2158,21 @@ Public Class Fm_home_page
                             WHERE penalty_description LIKE '%" & Txt_search_penalty_description.Text & "%'
                             ORDER BY penalty_description ASC"
             cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
+            dr = cmd.ExecuteReader
 
             Lv_penalty_description.Items.Clear()
 
             Do While dr.Read
 
-                Dim lv As New ListViewItem({dr("penalty_description").ToString(),
-                                            dr("primary_penalty_description_id").ToString()})
+                Dim lv As New ListViewItem({dr("penalty_description").ToString,
+                                            dr("primary_penalty_description_id").ToString})
                 Lv_penalty_description.Items.Add(lv)
 
             Loop
 
             con.Close()
 
-            For i As Integer = 0 To Lv_penalty_description.Items.Count - 1
+            For i = 0 To Lv_penalty_description.Items.Count - 1
 
                 If i Mod 2 = 0 Then
 
@@ -1883,7 +2200,7 @@ Public Class Fm_home_page
 
         Fm_penalty_description.Show()
         Fm_penalty_description.Btn_update.Visible = False
-        Me.Enabled = False
+        Enabled = False
 
     End Sub
 
@@ -1894,7 +2211,7 @@ Public Class Fm_home_page
             Fm_penalty_description.Show()
             Fm_penalty_description.Txt_penalty_description.Text = Lv_penalty_description.SelectedItems(0).Text
             Fm_penalty_description.Btn_save.Visible = False
-            Me.Enabled = False
+            Enabled = False
 
         Else
 
@@ -1927,13 +2244,13 @@ Public Class Fm_home_page
                     con.Close()
 
                     MessageBox.Show(penalty_description + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_penalty_description_data_table()
+                    Load_library_publisher_data_table()
 
                 Else
 
                     con.Close()
 
-                    Load_penalty_description_data_table()
+                    Load_library_publisher_data_table()
 
                 End If
 
@@ -1966,25 +2283,29 @@ Public Class Fm_home_page
 
             Load_borrower_info_data_table()
 
+        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+
+            Load_penalty_report_data_table()
+
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
             Load_listed_accounts_data_table()
 
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_author_data_table()
-
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_supplier_data_table()
+            Load_library_supplier_data_table()
+
+        ElseIf Lv_author.SelectedItems.Count > 0 Then
+
+            Load_library_category_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_category_data_table()
+            Load_library_category_data_table()
 
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_penalty_data_table()
+            Load_library_publisher_data_table()
 
         End If
 
@@ -2023,93 +2344,47 @@ Public Class Fm_home_page
     End Sub
 
 
-    ' Penalty
+    ' Library Penalty
 
-    Private Sub Cb_penalty_description_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_penalty_description.SelectedIndexChanged
+    Private Sub Txt_search_publisher_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_publisher.TextChanged
 
         Try
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_library_penalty
-                            WHERE penalty_description = '" & Cb_penalty_description.SelectedItem & "'"
-            'GROUP BY author_name"
+            sql = "SELECT * FROM tbl_library_publisher
+                            WHERE publisher_name LIKE '%" & Txt_search_publisher.Text & "%'
+                            ORDER BY publisher_name ASC"
             cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
+            dr = cmd.ExecuteReader()
 
-            If dr.Read() Then
+            Lv_publisher.Items.Clear()
 
-                Txt_primary_penalty_description_id.Text = dr("primary_penalty_description_id")
+            Do While dr.Read
 
-            End If
+                Dim lv As New ListViewItem({dr("publisher_name").ToString(),
+                                            dr("primary_publisher_id").ToString()})
+                Lv_publisher.Items.Add(lv)
+
+            Loop
 
             con.Close()
 
-        Catch ex As Exception
+            For i As Integer = 0 To Lv_publisher.Items.Count - 1
 
-            MsgBox(ex.Message)
+                If i Mod 2 = 0 Then
 
-        End Try
-
-    End Sub
-
-    Private Sub Btn_penalty_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_edit.Click
-
-        Try
-
-            If Lv_penalty.SelectedItems.Count > 0 Then
-
-                If Txt_penalty_id_number.Text = "" Or
-                Txt_penalty_name.Text = "" Or
-                Txt_penalty_book_name.Text = "" Or
-                Txt_penalty_amount.Text = "" Or
-                Cb_penalty_description.Text = "" Then
-
-                    MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lv_publisher.Items(i).BackColor = Color.Azure
+                    Lv_publisher.Items(i).ForeColor = Color.Black
 
                 Else
 
-                    con.Open()
-
-                    Dim penalty_name = Txt_penalty_name.Text
-                    Dim dialog As DialogResult
-
-                    dialog = MessageBox.Show("Do you want to update this penalty for " + penalty_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-
-                    If dialog = DialogResult.Yes Then
-
-                        sql = "UPDATE tbl_penalty SET 
-                                        primary_borrower_id = '" & Txt_primary_student_name_id.Text & "',                                                                        
-                                        primary_book_id = '" & Txt_primary_book_id.Text & "',
-                                        penalty_amount = '" & Txt_penalty_amount.Text & "',
-                                        primary_penalty_description_id = '" & Txt_primary_penalty_description_id.Text & "',                                    
-                                        penalty_date = '" & Dtp_penalty_date.Value.ToString("MMM-dd-yyyy") & "'
-                                WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(6).Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
-
-                        con.Close()
-
-                        Clear_penalty_fields()
-                        Load_penalty_data_table()
-                        MessageBox.Show("Penalty for " + penalty_name + " has been updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-
-                        con.Close()
-
-                        Clear_penalty_fields()
-                        Load_penalty_data_table()
-
-                    End If
+                    Lv_publisher.Items(i).BackColor = Color.GhostWhite
+                    Lv_publisher.Items(i).ForeColor = Color.Black
 
                 End If
 
-            Else
-
-                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            End If
+            Next
 
         Catch ex As Exception
 
@@ -2119,71 +2394,79 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_penalty_delete_Click(sender As Object, e As EventArgs) Handles Btn_penalty_delete.Click
+    Private Sub Btn_publisher_add_Click(sender As Object, e As EventArgs) Handles Btn_publisher_add.Click
 
-        Try
+        Fm_publisher.Show()
+        Fm_publisher.Btn_update.Visible = False
+        Enabled = False
 
-            If Lv_penalty.SelectedItems.Count > 0 Then
+    End Sub
+
+    Private Sub Btn_publisher_edit_Click(sender As Object, e As EventArgs) Handles Btn_publisher_edit.Click
+
+        If Lv_publisher.SelectedItems.Count > 0 Then
+
+            Fm_publisher.Show()
+            Fm_publisher.Txt_publisher_name.Text = Lv_publisher.SelectedItems(0).Text
+            Fm_publisher.Btn_save.Visible = False
+            Enabled = False
+
+        Else
+
+            MessageBox.Show("Please select publisher", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
+
+    End Sub
+
+    Private Sub Btn_publisher_delete_Click(sender As Object, e As EventArgs) Handles Btn_publisher_delete.Click
+
+        If Lv_publisher.SelectedItems.Count > 0 Then
+
+            Try
 
                 con.Open()
 
-                Dim penalty_name = Txt_penalty_name.Text
+                Dim publisher_name = Lv_publisher.SelectedItems(0).Text
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete this penalty for " + penalty_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete " + publisher_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
-                    sql = "DELETE FROM tbl_penalty                                    
-                            WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(6).Text & "'"
+                    sql = "DELETE FROM tbl_library_publisher
+                            WHERE primary_publisher_id = '" & Lv_publisher.SelectedItems(0).SubItems(1).Text & "'"
                     cmd = New MySqlCommand(sql, con)
-                    cmd.ExecuteNonQuery()
+                    dr = cmd.ExecuteReader
 
                     con.Close()
 
-                    Clear_penalty_fields()
-                    Load_penalty_data_table()
-                    MessageBox.Show("Penalty for " + penalty_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show(publisher_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Load_library_publisher_data_table()
 
                 Else
 
                     con.Close()
 
-                    Clear_penalty_fields()
-                    Load_penalty_data_table()
+                    Load_library_publisher_data_table()
 
                 End If
 
-            Else
+            Catch ex As Exception
 
-                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MsgBox(ex.Message)
 
-            End If
+            End Try
 
-        Catch ex As Exception
+        Else
 
-            MsgBox(ex.Message)
+            MessageBox.Show("Please select publisher", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-        End Try
+        End If
 
     End Sub
 
-    Private Sub Lv_penalty_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_penalty.SelectedIndexChanged
-
-        If Lv_penalty.SelectedItems.Count > 0 Then
-
-            Txt_penalty_id_number.Text = Lv_penalty.SelectedItems(0).Text
-            Txt_penalty_name.Text = Lv_penalty.SelectedItems(0).SubItems(1).Text
-            Txt_penalty_book_name.Text = Lv_penalty.SelectedItems(0).SubItems(2).Text
-            Txt_penalty_amount.Text = Lv_penalty.SelectedItems(0).SubItems(3).Text
-            Cb_penalty_description.Text = Lv_penalty.SelectedItems(0).SubItems(4).Text
-            Dtp_penalty_date.Text = Lv_penalty.SelectedItems(0).SubItems(5).Text
-
-            Txt_primary_penalty_description_id.Text = Lv_penalty.SelectedItems(0).SubItems(7).Text
-            Txt_primary_student_name_id.Text = Lv_penalty.SelectedItems(0).SubItems(8).Text
-            Txt_primary_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(9).Text
-
-        End If
+    Private Sub Lv_publisher_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_publisher.SelectedIndexChanged
 
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
@@ -2198,44 +2481,35 @@ Public Class Fm_home_page
 
             Load_borrower_info_data_table()
 
+        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
+
+            Load_penalty_report_data_table()
+
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
             Load_listed_accounts_data_table()
 
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_author_data_table()
-
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_supplier_data_table()
+            Load_library_supplier_data_table()
+
+        ElseIf Lv_author.SelectedItems.Count > 0 Then
+
+            Load_library_category_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_category_data_table()
+            Load_library_category_data_table()
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_penalty_description_data_table()
+            Load_library_publisher_data_table()
 
         End If
 
     End Sub
 
-    Private Sub Cb_penalty_description_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cb_penalty_description.KeyPress
-
-        'No input alphanumeric
-        e.Handled = True
-
-    End Sub
-
-    Private Sub Cb_penalty_description_Click(sender As Object, e As EventArgs) Handles Cb_penalty_description.Click
-
-        Cb_penalty_description.DroppedDown = True
-
-    End Sub
-
-    Private Sub Txt_penalty_amount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_penalty_amount.KeyPress
+    Private Sub Txt_search_publisher_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_publisher.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -2243,21 +2517,26 @@ Public Class Fm_home_page
             Return
         End If
 
+        ' Convert the entered character to uppercase
+        e.KeyChar = Char.ToUpper(e.KeyChar)
+
         ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 10 ' Change this to the desired maximum length
+        Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_penalty_amount.TextLength >= maxLength Then
+        If Txt_search_publisher.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
-        'Input numeric only
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
             e.Handled = True
-
         End If
 
     End Sub

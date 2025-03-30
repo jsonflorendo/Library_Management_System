@@ -1,7 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.Diagnostics.Eventing
 Imports System.Runtime.InteropServices
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
 
 Public Class Fm_add_books
@@ -13,11 +12,25 @@ Public Class Fm_add_books
         Load_library_cb_category()
         Load_library_cb_publisher()
 
+        Clear_error_msg()
+
         Dtp_acquisition_date.Format = DateTimePickerFormat.Custom
         Dtp_acquisition_date.CustomFormat = "MMMM dd, yyyy"
 
         Dtp_publish_date.Format = DateTimePickerFormat.Custom
         Dtp_publish_date.CustomFormat = "MMMM dd, yyyy"
+
+        Dim tooltip_add_category As New ToolTip()
+        tooltip_add_category.SetToolTip(Btn_add_category, "Add Category")
+
+        Dim tooltip_add_author As New ToolTip()
+        tooltip_add_author.SetToolTip(Btn_add_author, "Add Author")
+
+        Dim tooltip_add_publisher As New ToolTip()
+        tooltip_add_publisher.SetToolTip(Btn_add_publisher, "Add Publisher")
+
+        Dim tooltip_add_supplier As New ToolTip()
+        tooltip_add_supplier.SetToolTip(Btn_add_supplier, "Add Supplier")
 
     End Sub
 
@@ -55,6 +68,10 @@ Public Class Fm_add_books
             MsgBox(ex.Message)
 
         End Try
+
+    End Sub
+
+    Private Sub Cb_book_category_TextChanged(sender As Object, e As EventArgs) Handles Cb_book_category.TextChanged
 
     End Sub
 
@@ -163,7 +180,7 @@ Public Class Fm_add_books
                 con.Open()
 
                 sql = "SELECT * FROM tbl_library_supplier
-                                WHERE supplier_full_name LIKE '%" & Txt_supplier_name.Text & "%'"
+                                WHERE supplier_name LIKE '%" & Txt_supplier_name.Text & "%'"
                 'GROUP BY supplier_name"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
@@ -171,7 +188,7 @@ Public Class Fm_add_books
 
                 If dr.Read() Then
 
-                    Cb_supplier_name.Items.Add(dr("supplier_full_name"))
+                    Cb_supplier_name.Items.Add(dr("supplier_name"))
                     Txt_primary_supplier_id.Text = dr("primary_supplier_id")
 
                 Else
@@ -309,6 +326,9 @@ Public Class Fm_add_books
             Return
         End If
 
+        ' Convert the entered character to uppercase
+        e.KeyChar = Char.ToUpper(e.KeyChar)
+
         ' Define the maximum length for the TextBox
         Dim maxLength As Integer = 100 ' Change this to the desired maximum length
 
@@ -320,7 +340,7 @@ Public Class Fm_add_books
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz-,. " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -394,154 +414,89 @@ Public Class Fm_add_books
 
     End Sub
 
-    Private Sub Txt_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_isbn.KeyPress
+    Private Sub save_Txt_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles save_Txt_isbn.KeyPress
+
+        Clear_error_msg()
 
         If e.KeyChar = ChrW(13) Then
 
-            Try
+            If Txt_book_name.Text = "" Or
+                Cb_book_category.Text = "-Select Category-" Or
+                Txt_book_qty.Text = "" Or
+                Txt_author.Text = "" Or
+                Txt_publisher.Text = "" Or
+                Txt_supplier_name.Text = "" Or
+                save_Txt_isbn.Text = "" Then
 
-                If Txt_book_name.Text = "" Or
-                    Cb_book_category.Text = "-Select Category-" Or
-                    Txt_book_qty.Text = "" Or
-                    Txt_author.Text = "" Or
-                    Txt_publisher.Text = "" Or
-                    Txt_supplier_name.Text = "" Or
-                    Txt_isbn.Text = "" Then
+                ' Store TextBoxes and their corresponding Labels
+                Dim textBoxes As TextBox() = {Txt_book_name, Txt_book_qty, Txt_author, Txt_publisher, Txt_supplier_name, save_Txt_isbn}
+                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
 
-                    MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ' Loop through each TextBox and validate
+                For i As Integer = 0 To textBoxes.Length - 1
+                    If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                        labels(i).Text = "This field is required"
+                    End If
+                Next
 
-                Else
+                ' Validate the ComboBox (Dropdown)
+                If Cb_book_category.SelectedIndex = -1 Then
+                    Lbl_error_msg_1.Text = "This field is required"
+                End If
+
+            ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_supplier_id.Text = "" Then
+
+                If Txt_primary_author_id.Text = "" Then
+                    Lbl_error_msg_3.Text = "Invalid Author Name"
+                End If
+
+                If Txt_primary_supplier_id.Text = "" Then
+                    Lbl_error_msg_5.Text = "Invalid Supplier Name"
+                End If
+
+            Else
+
+                Try
 
                     con.Open()
 
-                    sql = "SELECT * FROM tbl_library_author
-                                WHERE author_name = '" & Txt_author.Text & "'"
+                    sql = "INSERT INTO tbl_books (isbn,
+                                                    book_name,
+                                                    primary_category_id,                                                    
+                                                    qty,
+                                                    primary_author_id,
+                                                    primary_publisher_id,
+                                                    publish_year,
+                                                    primary_supplier_id,
+                                                    acquisition_date,
+                                                    status)
+                                    VALUE ('" & save_Txt_isbn.Text & "',
+                                            '" & Txt_book_name.Text & "',
+                                            '" & Txt_primary_category_id.Text & "',                                            
+                                            '" & Txt_book_qty.Text & "',
+                                            '" & Txt_primary_author_id.Text & "',
+                                            '" & Txt_primary_publisher_id.Text & "',
+                                            '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "',
+                                            '" & Txt_primary_supplier_id.Text & "',                                            
+                                            '" & Dtp_acquisition_date.Value.ToString("MMMM dd, yyyy") & "',
+                                            '" & "Available" & "')"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
-
-                    If dr.Read Then
-
-                        dr.Close()
-
-                        sql = "SELECT * FROM tbl_library_supplier
-                                WHERE supplier_full_name = '" & Txt_supplier_name.Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader()
-
-                        If dr.Read Then
-
-                            dr.Close()
-
-                            sql = "INSERT INTO tbl_books (isbn,
-                                                        book_name,
-                                                        primary_category_id,                                                    
-                                                        qty,
-                                                        primary_author_id,
-                                                        primary_publisher_id,
-                                                        publish_year,
-                                                        primary_supplier_id,
-                                                        acquisition_date,
-                                                        status)
-                                        VALUE ('" & Txt_isbn.Text & "',
-                                                '" & Txt_book_name.Text & "',
-                                                '" & Txt_primary_category_id.Text & "',                                            
-                                                '" & Txt_book_qty.Text & "',
-                                                '" & Txt_primary_author_id.Text & "',
-                                                '" & "NULL" & "',
-                                                '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "',
-                                                '" & Txt_primary_supplier_id.Text & "',                                            
-                                                '" & Dtp_acquisition_date.Value.ToString("MMMM dd, yyyy") & "',
-                                                '" & "Available" & "')"
-                            cmd = New MySqlCommand(sql, con)
-                            cmd.ExecuteNonQuery()
-
-
-
-                            sql = "SELECT * FROM tbl_library_publisher
-                                    WHERE publisher_name = '" & Txt_publisher.Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader()
-
-                            If dr.Read Then
-
-                                dr.Close()
-
-                            Else
-
-                                dr.Close()
-
-                                sql = "INSERT INTO tbl_library_publisher (publisher_name)
-                                              VALUE ('" & Txt_publisher.Text & "')"
-                                cmd = New MySqlCommand(sql, con)
-                                cmd.ExecuteNonQuery()
-
-                            End If
-
-
-                            sql = "SELECT * FROM tbl_library_publisher
-                                   WHERE publisher_name = '" & Txt_publisher.Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader()
-
-                            If dr.Read Then
-
-                                Dim publisher_id As String = dr("primary_publisher_id")
-                                dr.Close()
-
-                                sql = "UPDATE tbl_books SET 
-                                              primary_publisher_id = '" & publisher_id & "'
-                                       WHERE primary_publisher_id = '" & "NULL" & "'"
-                                cmd = New MySqlCommand(sql, con)
-                                dr = cmd.ExecuteReader
-
-                                dr.Close()
-
-                            Else
-
-                                dr.Close()
-
-                            End If
-
-
-
-                            con.Close()
-
-                            Load_listed_books_data_table()
-                            MessageBox.Show(Txt_book_name.Text + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Fm_home_page.Enabled = True
-                            Me.Close()
-
-                        Else
-
-                            dr.Close()
-
-                            MessageBox.Show("Invalid Supplier Name", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Txt_isbn.Clear()
-
-                        End If
-
-                    Else
-
-                        dr.Close()
-
-                        MessageBox.Show("Invalid Author Name", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Txt_isbn.Clear()
-
-                    End If
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
-                End If
+                    Load_listed_books_data_table()
+                    MessageBox.Show(Txt_book_name.Text + " added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Fm_home_page.Enabled = True
+                    Me.Close()
 
-            Catch ex As Exception
+                Catch ex As Exception
 
-                MsgBox(ex.Message)
+                    MsgBox(ex.Message)
 
-            End Try
+                End Try
 
-        Else
-
-            con.Close()
+            End If
 
         End If
 
@@ -549,166 +504,9 @@ Public Class Fm_add_books
 
     Private Sub update_Txt_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles update_Txt_isbn.KeyPress
 
+        Clear_error_msg()
+
         If e.KeyChar = ChrW(13) Then
-
-            Try
-
-                If update_Txt_isbn.Text = "" Or
-                   Txt_book_name.Text = "" Or
-                   Cb_book_category.Text = "-Select Category-" Or
-                   Txt_book_qty.Text = "" Or
-                   Txt_author.Text = "" Or
-                   Txt_publisher.Text = "" Or
-                   Txt_supplier_name.Text = "" Then
-
-                    MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                Else
-
-                    con.Open()
-
-                    sql = "SELECT * FROM tbl_library_author
-                                    WHERE author_name = '" & Txt_author.Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
-
-                    If dr.Read Then
-
-                        dr.Close()
-
-                        sql = "SELECT * FROM tbl_library_supplier
-                                        WHERE supplier_full_name = '" & Txt_supplier_name.Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader()
-
-                        If dr.Read Then
-
-                            dr.Close()
-
-                            sql = "UPDATE tbl_books SET
-                                            isbn = '" & update_Txt_isbn.Text & "',
-                                            book_name = '" & Txt_book_name.Text & "',
-                                            qty = '" & Txt_book_qty.Text & "',
-                                            primary_author_id = '" & Txt_primary_author_id.Text & "',                                            
-                                            publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "',
-                                            primary_supplier_id = '" & Txt_primary_supplier_id.Text & "',                                            
-                                            acquisition_date = '" & Dtp_acquisition_date.Value.ToString("MMMM dd, yyyy") & "'
-                                    WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
-
-                            dr.Close()
-
-                            If Txt_primary_category_id.Text = "" Then
-
-                            Else
-
-                                sql = "UPDATE tbl_books SET
-                                              primary_category_id = '" & Txt_primary_category_id.Text & "'                                                
-                                       WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
-                                cmd = New MySqlCommand(sql, con)
-                                dr = cmd.ExecuteReader
-
-                                dr.Close()
-
-                            End If
-
-
-
-                            sql = "SELECT * FROM tbl_library_publisher
-                                            WHERE publisher_name = '" & Txt_publisher.Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader()
-
-                            If dr.Read Then
-
-                                dr.Close()
-
-                            Else
-
-                                dr.Close()
-
-                                sql = "INSERT INTO tbl_library_publisher (publisher_name)
-                                              VALUE ('" & Txt_publisher.Text & "')"
-                                cmd = New MySqlCommand(sql, con)
-                                cmd.ExecuteNonQuery()
-
-                            End If
-
-
-
-                            sql = "SELECT * FROM tbl_library_publisher
-                                            WHERE publisher_name = '" & Txt_publisher.Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader()
-
-                            If dr.Read Then
-
-                                Dim publisher_id As String = dr("primary_publisher_id")
-                                dr.Close()
-
-                                sql = "UPDATE tbl_books SET 
-                                              primary_publisher_id = '" & publisher_id & "'
-                                       WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
-                                cmd = New MySqlCommand(sql, con)
-                                dr = cmd.ExecuteReader
-
-                                dr.Close()
-
-                            Else
-
-                                dr.Close()
-
-                            End If
-
-
-
-                            con.Close()
-
-                            Load_listed_books_data_table()
-                            Load_returned_borrowed_books_data_table()
-                            Load_penalty_data_table()
-                            MessageBox.Show(Txt_book_name.Text + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Fm_home_page.Enabled = True
-                            Me.Close()
-
-                        Else
-
-                            dr.Close()
-
-                            MessageBox.Show("Invalid Supplier Name", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                        End If
-
-                    Else
-
-                        dr.Close()
-
-                        MessageBox.Show("Invalid Author Name", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    End If
-
-                    con.Close()
-
-                End If
-
-            Catch ex As Exception
-
-                MsgBox(ex.Message)
-
-            End Try
-
-        Else
-
-            con.Close()
-
-        End If
-
-    End Sub
-
-    Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
-
-        Try
 
             If update_Txt_isbn.Text = "" Or
                Txt_book_name.Text = "" Or
@@ -718,142 +516,180 @@ Public Class Fm_add_books
                Txt_publisher.Text = "" Or
                Txt_supplier_name.Text = "" Then
 
-                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ' Store TextBoxes and their corresponding Labels
+                Dim textBoxes As TextBox() = {Txt_book_name, Txt_book_qty, Txt_author, Txt_publisher, Txt_supplier_name, save_Txt_isbn}
+                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+
+                ' Loop through each TextBox and validate
+                For i As Integer = 0 To textBoxes.Length - 1
+                    If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                        labels(i).Text = "This field is required"
+                    End If
+                Next
+
+                ' Validate the ComboBox (Dropdown)
+                If Cb_book_category.SelectedIndex = -1 Then
+                    Lbl_error_msg_1.Text = "This field is required"
+                End If
+
+            ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_supplier_id.Text = "" Then
+
+                If Txt_primary_author_id.Text = "" Then
+                    Lbl_error_msg_3.Text = "Invalid Author Name"
+                End If
+
+                If Txt_primary_supplier_id.Text = "" Then
+                    Lbl_error_msg_5.Text = "Invalid Supplier Name"
+                End If
 
             Else
 
-                con.Open()
+                Try
 
-                sql = "SELECT * FROM tbl_library_author
-                                WHERE author_name = '" & Txt_author.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
+                    con.Open()
 
-                If dr.Read Then
-
-                    dr.Close()
-
-                    sql = "SELECT * FROM tbl_library_supplier
-                                    WHERE supplier_full_name = '" & Txt_supplier_name.Text & "'"
+                    sql = "UPDATE tbl_books SET
+                                    isbn = '" & update_Txt_isbn.Text & "',
+                                    book_name = '" & Txt_book_name.Text & "',
+                                    primary_category_id = '" & Txt_primary_category_id.Text & "',
+                                    qty = '" & Txt_book_qty.Text & "',
+                                    primary_author_id = '" & Txt_primary_author_id.Text & "',
+                                    primary_publisher_id = '" & Txt_primary_publisher_id.Text & "',
+                                    publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "',
+                                    primary_supplier_id = '" & Txt_primary_supplier_id.Text & "',
+                                    acquisition_date = '" & Dtp_acquisition_date.Value.ToString("MMMM dd, yyyy") & "'
+                            WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
+                    dr = cmd.ExecuteReader
 
-                    If dr.Read Then
+                    con.Close()
 
-                        dr.Close()
+                    Load_listed_books_data_table()
+                    Load_returned_borrowed_books_data_table()
+                    Load_penalty_report_data_table()
+                    MessageBox.Show(Txt_book_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Fm_home_page.Enabled = True
+                    Me.Close()
 
-                        sql = "UPDATE tbl_books SET
-                                        isbn = '" & update_Txt_isbn.Text & "',
-                                        book_name = '" & Txt_book_name.Text & "',
-                                        qty = '" & Txt_book_qty.Text & "',
-                                        primary_author_id = '" & Txt_primary_author_id.Text & "',                                            
-                                        publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "',
-                                        primary_supplier_id = '" & Txt_primary_supplier_id.Text & "',                                            
-                                        acquisition_date = '" & Dtp_acquisition_date.Value.ToString("MMMM dd, yyyy") & "'
-                                WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader
+                Catch ex As Exception
 
-                        dr.Close()
+                    MsgBox(ex.Message)
 
-                        If Txt_primary_category_id.Text = "" Then
-
-                        Else
-
-                            sql = "UPDATE tbl_books SET
-                                          primary_category_id = '" & Txt_primary_category_id.Text & "'                                                
-                                   WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
-
-                            dr.Close()
-
-                        End If
-
-
-
-                        sql = "SELECT * FROM tbl_library_publisher
-                                   WHERE publisher_name = '" & Txt_publisher.Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader()
-
-                        If dr.Read Then
-
-                            dr.Close()
-
-                        Else
-
-                            dr.Close()
-
-                            sql = "INSERT INTO tbl_library_publisher (publisher_name)
-                                              VALUE ('" & Txt_publisher.Text & "')"
-                            cmd = New MySqlCommand(sql, con)
-                            cmd.ExecuteNonQuery()
-
-                        End If
-
-
-
-                        sql = "SELECT * FROM tbl_library_publisher
-                                            WHERE publisher_name = '" & Txt_publisher.Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader()
-
-                        If dr.Read Then
-
-                            Dim publisher_id As String = dr("primary_publisher_id")
-                            dr.Close()
-
-                            sql = "UPDATE tbl_books SET 
-                                          primary_publisher_id = '" & publisher_id & "'
-                                   WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
-
-                            dr.Close()
-
-                        Else
-
-                            dr.Close()
-
-                        End If
-
-
-
-                        con.Close()
-
-                        Load_listed_books_data_table()
-                        Load_returned_borrowed_books_data_table()
-                        Load_penalty_data_table()
-                        MessageBox.Show(Txt_book_name.Text + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Fm_home_page.Enabled = True
-                        Me.Close()
-
-                    Else
-
-                        dr.Close()
-
-                        MessageBox.Show("Invalid Supplier Name", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    End If
-
-                Else
-
-                    dr.Close()
-
-                    MessageBox.Show("Invalid Author Name", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                End If
-
-                con.Close()
+                End Try
 
             End If
 
-        Catch ex As Exception
+        End If
 
-            MsgBox(ex.Message)
+    End Sub
 
-        End Try
+    Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
+
+        Clear_error_msg()
+
+        If update_Txt_isbn.Text = "" Or
+           Txt_book_name.Text = "" Or
+           Cb_book_category.Text = "-Select Category-" Or
+           Txt_book_qty.Text = "" Or
+           Txt_author.Text = "" Or
+           Txt_publisher.Text = "" Or
+           Txt_supplier_name.Text = "" Then
+
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {Txt_book_name, Txt_book_qty, Txt_author, Txt_publisher, Txt_supplier_name, save_Txt_isbn}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+
+            ' Loop through each TextBox and validate
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                End If
+            Next
+
+            ' Validate the ComboBox (Dropdown)
+            If Cb_book_category.SelectedIndex = -1 Then
+                Lbl_error_msg_1.Text = "This field is required"
+            End If
+
+        ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_supplier_id.Text = "" Then
+
+            If Txt_primary_author_id.Text = "" Then
+                Lbl_error_msg_3.Text = "Invalid Author Name"
+            End If
+
+            If Txt_primary_supplier_id.Text = "" Then
+                Lbl_error_msg_5.Text = "Invalid Supplier Name"
+            End If
+
+        Else
+
+            Try
+
+                con.Open()
+
+                sql = "UPDATE tbl_books SET
+                                isbn = '" & update_Txt_isbn.Text & "',
+                                book_name = '" & Txt_book_name.Text & "',
+                                primary_category_id = '" & Txt_primary_category_id.Text & "',
+                                qty = '" & Txt_book_qty.Text & "',
+                                primary_author_id = '" & Txt_primary_author_id.Text & "',
+                                primary_publisher_id = '" & Txt_primary_publisher_id.Text & "',
+                                publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "',
+                                primary_supplier_id = '" & Txt_primary_supplier_id.Text & "',
+                                acquisition_date = '" & Dtp_acquisition_date.Value.ToString("MMMM dd, yyyy") & "'
+                        WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader
+
+                con.Close()
+
+                Load_listed_books_data_table()
+
+                Load_returned_borrowed_books_data_table()
+                Load_penalty_report_data_table()
+                MessageBox.Show(Txt_book_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Fm_home_page.Enabled = True
+                Me.Close()
+
+            Catch ex As Exception
+
+                MsgBox(ex.Message)
+
+            End Try
+
+        End If
+
+    End Sub
+
+    Private Sub Btn_add_category_Click(sender As Object, e As EventArgs) Handles Btn_add_category.Click
+
+        Fm_add_category.Show()
+        Fm_add_category.Btn_update.Visible = False
+        Me.Enabled = False
+
+    End Sub
+
+    Private Sub Btn_add_author_Click(sender As Object, e As EventArgs) Handles Btn_add_author.Click
+
+        Fm_add_author.Show()
+        Fm_add_author.Btn_update.Visible = False
+        Me.Enabled = False
+
+    End Sub
+
+    Private Sub Btn_add_publisher_Click(sender As Object, e As EventArgs) Handles Btn_add_publisher.Click
+
+        Fm_publisher.Show()
+        Fm_publisher.Btn_update.Visible = False
+        Me.Enabled = False
+
+    End Sub
+
+    Private Sub Btn_add_supplier_Click(sender As Object, e As EventArgs) Handles Btn_add_supplier.Click
+
+        Fm_supplier_maintenance.Show()
+        Fm_supplier_maintenance.Btn_update.Visible = False
+        Me.Enabled = False
 
     End Sub
 

@@ -23,11 +23,9 @@ Partial Class Fm_returned_books
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Btn_close = New Button()
-        Label4 = New Label()
         Label3 = New Label()
         Label2 = New Label()
         Label1 = New Label()
-        Dtp_returned_date = New DateTimePicker()
         Txt_issued_to = New TextBox()
         Txt_borrower_id_number = New TextBox()
         Txt_book_name = New TextBox()
@@ -42,23 +40,12 @@ Partial Class Fm_returned_books
         ' Btn_close
         ' 
         Btn_close.Font = New Font("Georgia", 9F)
-        Btn_close.Location = New Point(311, 239)
+        Btn_close.Location = New Point(311, 182)
         Btn_close.Name = "Btn_close"
         Btn_close.Size = New Size(110, 39)
         Btn_close.TabIndex = 2
         Btn_close.Text = "&Close"
         Btn_close.UseVisualStyleBackColor = True
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.BackColor = SystemColors.ControlLight
-        Label4.Font = New Font("Georgia", 14.25F, FontStyle.Bold)
-        Label4.Location = New Point(20, 181)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(162, 23)
-        Label4.TabIndex = 7
-        Label4.Text = "Returned Date:"
         ' 
         ' Label3
         ' 
@@ -93,15 +80,6 @@ Partial Class Fm_returned_books
         Label1.TabIndex = 4
         Label1.Text = "Book Name:"
         ' 
-        ' Dtp_returned_date
-        ' 
-        Dtp_returned_date.Enabled = False
-        Dtp_returned_date.Font = New Font("Georgia", 9F, FontStyle.Bold)
-        Dtp_returned_date.Location = New Point(208, 181)
-        Dtp_returned_date.Name = "Dtp_returned_date"
-        Dtp_returned_date.Size = New Size(242, 21)
-        Dtp_returned_date.TabIndex = 1
-        ' 
         ' Txt_issued_to
         ' 
         Txt_issued_to.Enabled = False
@@ -134,7 +112,7 @@ Partial Class Fm_returned_books
         ' Btn_penalty
         ' 
         Btn_penalty.Font = New Font("Georgia", 9F)
-        Btn_penalty.Location = New Point(177, 239)
+        Btn_penalty.Location = New Point(177, 182)
         Btn_penalty.Name = "Btn_penalty"
         Btn_penalty.Size = New Size(110, 39)
         Btn_penalty.TabIndex = 23
@@ -148,7 +126,6 @@ Partial Class Fm_returned_books
         Txt_primary_borrower_id.PlaceholderText = "Primary Borrower ID"
         Txt_primary_borrower_id.Size = New Size(114, 23)
         Txt_primary_borrower_id.TabIndex = 24
-        Txt_primary_borrower_id.Visible = False
         ' 
         ' Label5
         ' 
@@ -179,7 +156,6 @@ Partial Class Fm_returned_books
         Txt_primary_book_id.PlaceholderText = "Primary Book ID"
         Txt_primary_book_id.Size = New Size(114, 23)
         Txt_primary_book_id.TabIndex = 27
-        Txt_primary_book_id.Visible = False
         ' 
         ' Txt_primary_issued_book_id
         ' 
@@ -188,14 +164,13 @@ Partial Class Fm_returned_books
         Txt_primary_issued_book_id.PlaceholderText = "Primary Issued Book ID"
         Txt_primary_issued_book_id.Size = New Size(132, 23)
         Txt_primary_issued_book_id.TabIndex = 28
-        Txt_primary_issued_book_id.Visible = False
         ' 
         ' Fm_returned_books
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(469, 307)
+        ClientSize = New Size(586, 235)
         ControlBox = False
         Controls.Add(Txt_primary_issued_book_id)
         Controls.Add(Txt_primary_book_id)
@@ -203,13 +178,11 @@ Partial Class Fm_returned_books
         Controls.Add(Txt_isbn)
         Controls.Add(Txt_primary_borrower_id)
         Controls.Add(Btn_penalty)
-        Controls.Add(Label4)
         Controls.Add(Label3)
         Controls.Add(Btn_close)
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(Txt_book_name)
-        Controls.Add(Dtp_returned_date)
         Controls.Add(Txt_borrower_id_number)
         Controls.Add(Txt_issued_to)
         FormBorderStyle = FormBorderStyle.FixedSingle
@@ -219,11 +192,9 @@ Partial Class Fm_returned_books
         PerformLayout()
     End Sub
     Friend WithEvents Btn_close As Button
-    Friend WithEvents Dtp_returned_date As DateTimePicker
     Friend WithEvents Txt_issued_to As TextBox
     Friend WithEvents Txt_borrower_id_number As TextBox
     Friend WithEvents Txt_book_name As TextBox
-    Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label

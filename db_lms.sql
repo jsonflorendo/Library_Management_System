@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2025 at 05:57 PM
+-- Generation Time: Mar 30, 2025 at 03:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -50,8 +50,10 @@ CREATE TABLE `tbl_admin` (
 
 INSERT INTO `tbl_admin` (`primary_admin_id`, `first_name`, `middle_name`, `last_name`, `gender`, `birthday`, `contact_no`, `address`, `username`, `email`, `password`, `user_type`) VALUES
 (1, 'PAUL ANDREW', 'BARBARA', 'FLORENDO', 'MALE', 'Jan-02-2004', '09123456789', 'TAGUIG', 'a', 'paf@gmail.com', 'a', 'ASSISTANT LIBRARIAN'),
-(2, 'FATIMA', 'MONTI', 'GUALVEZ', 'FEMALE', 'Jan-31-2003', '09134567896', 'LOWER', 'fati', 'fati@gmail.com', 'fati123', 'STAFF'),
-(3, 'ALEXANDRA', 'LAURORA', 'VOSOTROS', 'FEMALE', 'May-05-2024', '09123456789', 'LOWER BICUTAN', 'alex', 'alex@gmail.com', '12345', 'STAFF');
+(2, 'FATIMA', 'MONTI', 'GUALVEZ', 'FEMALE', 'Jan-31-2003', '09134567896', 'LOWER', 'fati', 'fat', 'fati123', 'STAFF'),
+(3, 'ALEXANDRA', 'LAURORA', 'VOSOTROS', 'FEMALE', 'May-05-2024', '09123456789', 'LOWER BICUTAN', 'alex', 'alex@gmail.com', '12345', 'STAFF'),
+(5, 'XCVXCV', 'XCVXCV', 'XCVXCV', 'MALE', 'May-05-2024', '345', 'CCVB', 'ae', 'alex', 'xcvxcv', 'ASSISTANT LIBRARIAN'),
+(6, 'SDFSD', 'SDFSDF', 'SDF', 'MALE', 'May-05-2024', '43', 'ERTRT', 'ae', 'ae', 'a', 'STAFF');
 
 -- --------------------------------------------------------
 
@@ -66,7 +68,7 @@ CREATE TABLE `tbl_books` (
   `primary_category_id` varchar(11) DEFAULT NULL,
   `qty` varchar(10) DEFAULT NULL,
   `primary_author_id` varchar(11) DEFAULT NULL,
-  `primary_publisher_id` int(11) DEFAULT NULL,
+  `primary_publisher_id` varchar(11) DEFAULT NULL,
   `publish_year` varchar(30) DEFAULT NULL,
   `primary_supplier_id` varchar(11) DEFAULT NULL,
   `acquisition_date` varchar(30) DEFAULT NULL,
@@ -78,10 +80,11 @@ CREATE TABLE `tbl_books` (
 --
 
 INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_category_id`, `qty`, `primary_author_id`, `primary_publisher_id`, `publish_year`, `primary_supplier_id`, `acquisition_date`, `status`) VALUES
-(1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', '1', '2', '1', 3, 'May 08, 2024', '1', 'May 08, 2024', 'Available'),
-(2, '9789710639540', 'CINDERELLLA', '1', '2', '3', 3, 'April 16, 2024', '1', 'May 07, 2024', 'Available'),
-(5, 'AP091GW', 'LIBRO', '1', '24', '1', 1, 'May 06, 2024', '1', 'May 08, 2024', 'Available'),
-(19, '4801981116072', 'ASD', '2', '1', '2', 3, 'March 17, 2025', '2', 'May 08, 2024', 'Available');
+(1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', '1', '1', '1', '3', 'May 08, 2024', '1', 'May 08, 2024', 'Available'),
+(2, '9789710639540', 'CINDERELLLA', '1', '2', '2', '3', 'April 16, 2024', '1', 'May 07, 2024', 'Available'),
+(5, 'AP091GW', 'LIBRO', '1', '22', '1', '1', 'May 06, 2024', '5', 'May 08, 2024', 'Available'),
+(28, '123', 'SADSAD', '2', '2', '1', '1', 'March 30, 2025', '2', 'March 30, 2025', 'Available'),
+(29, 'sadsdf', 'BOOKS', '1', '2', '1', '2', 'March 30, 2025', '1', 'March 30, 2025', 'Available');
 
 -- --------------------------------------------------------
 
@@ -124,6 +127,14 @@ CREATE TABLE `tbl_issued_books` (
   `returned_date` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_issued_books`
+--
+
+INSERT INTO `tbl_issued_books` (`primary_issued_book_id`, `primary_borrower_id`, `primary_book_id`, `issued_date`, `due_date`, `returned_date`) VALUES
+(1, '1', '1', 'Mar-29-2025', 'May-15-2025', ''),
+(3, '3', '5', 'Mar-29-2025', 'Apr-28-2025', '');
+
 -- --------------------------------------------------------
 
 --
@@ -142,9 +153,7 @@ CREATE TABLE `tbl_library_author` (
 INSERT INTO `tbl_library_author` (`primary_author_id`, `author_name`) VALUES
 (1, 'DR. JOSE P. RIZAL'),
 (2, 'WILLIAM SHAKESPEARE'),
-(6, 'JOSE'),
-(10, 'SDFDSG'),
-(11, 'JOSE12');
+(6, 'JOSE');
 
 -- --------------------------------------------------------
 
@@ -162,10 +171,8 @@ CREATE TABLE `tbl_library_category` (
 --
 
 INSERT INTO `tbl_library_category` (`primary_category_id`, `category_name`) VALUES
-(1, 'ROMANCE12'),
-(2, 'FANSTASY'),
-(8, 'LASON'),
-(9, 'GHVBNVBN');
+(1, 'ROMANCE'),
+(2, 'FANSTASY');
 
 -- --------------------------------------------------------
 
@@ -184,7 +191,6 @@ CREATE TABLE `tbl_library_penalty` (
 
 INSERT INTO `tbl_library_penalty` (`primary_penalty_description_id`, `penalty_description`) VALUES
 (1, 'TORN PAGES'),
-(2, '1234'),
 (3, 'Late Return'),
 (4, 'BURN PAGES');
 
@@ -209,8 +215,9 @@ INSERT INTO `tbl_library_publisher` (`primary_publisher_id`, `publisher_name`) V
 (3, 'FATIMA '),
 (4, 'FGHFGH'),
 (5, 'SDFSDF'),
-(6, '1235'),
-(7, '123456');
+(7, '7'),
+(8, 'JHKHK'),
+(11, '123');
 
 -- --------------------------------------------------------
 
@@ -236,16 +243,16 @@ CREATE TABLE `tbl_library_supplier` (
 
 INSERT INTO `tbl_library_supplier` (`primary_supplier_id`, `supplier_id`, `supplier_name`, `last_name`, `first_name`, `email_address`, `contact`, `address`, `source_type`) VALUES
 (1, 'S0001', 'PAULA-ANDREA', 'FLORENDO', 'PAUL', 'paulf5364@gmail.com', '09092522961', 'LOWER BICUTAN', 'Donator'),
-(2, 'S0002', NULL, 'VOSOTROS', 'ALEXANDRA', 'alex@gmail.com', '09121312312', 'TAGUIG CITY', 'Supplier'),
-(5, '1234', 'DAKILA', 'DELA CRUZ', 'JUAN', 'email@gmail.com', '12345', 'TAGUIG', 'Donator');
+(2, 'S0002', 'SAN', 'VOSOTROS', 'ALEXANDRA', 'alex@gmail.com', '09121312312', 'TAGUIG CITY', 'Supplier'),
+(5, 'S0003', 'TAGALIMBAG', 'DELA CRUZ', 'JUAN', 'email@gmail.com', '12345', 'TAGUIG', 'Donator');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_penalty`
+-- Table structure for table `tbl_penalty_report`
 --
 
-CREATE TABLE `tbl_penalty` (
+CREATE TABLE `tbl_penalty_report` (
   `primary_penalty_id` int(11) NOT NULL,
   `primary_borrower_id` varchar(11) DEFAULT NULL,
   `primary_book_id` varchar(11) DEFAULT NULL,
@@ -255,10 +262,10 @@ CREATE TABLE `tbl_penalty` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbl_penalty`
+-- Dumping data for table `tbl_penalty_report`
 --
 
-INSERT INTO `tbl_penalty` (`primary_penalty_id`, `primary_borrower_id`, `primary_book_id`, `penalty_amount`, `primary_penalty_description_id`, `penalty_date`) VALUES
+INSERT INTO `tbl_penalty_report` (`primary_penalty_id`, `primary_borrower_id`, `primary_book_id`, `penalty_amount`, `primary_penalty_description_id`, `penalty_date`) VALUES
 (2, '3', '1', '100', '1', 'May-08-2024'),
 (3, '3', '1', '132', '1', 'May-09-2024'),
 (5, '3', '1', '100', '2', 'May-10-2024');
@@ -322,9 +329,9 @@ ALTER TABLE `tbl_library_supplier`
   ADD PRIMARY KEY (`primary_supplier_id`);
 
 --
--- Indexes for table `tbl_penalty`
+-- Indexes for table `tbl_penalty_report`
 --
-ALTER TABLE `tbl_penalty`
+ALTER TABLE `tbl_penalty_report`
   ADD PRIMARY KEY (`primary_penalty_id`);
 
 --
@@ -335,13 +342,13 @@ ALTER TABLE `tbl_penalty`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `primary_admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `primary_admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_books`
 --
 ALTER TABLE `tbl_books`
-  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_borrower`
@@ -353,19 +360,19 @@ ALTER TABLE `tbl_borrower`
 -- AUTO_INCREMENT for table `tbl_issued_books`
 --
 ALTER TABLE `tbl_issued_books`
-  MODIFY `primary_issued_book_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `primary_issued_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_author`
 --
 ALTER TABLE `tbl_library_author`
-  MODIFY `primary_author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `primary_author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_category`
 --
 ALTER TABLE `tbl_library_category`
-  MODIFY `primary_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `primary_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_penalty`
@@ -377,18 +384,18 @@ ALTER TABLE `tbl_library_penalty`
 -- AUTO_INCREMENT for table `tbl_library_publisher`
 --
 ALTER TABLE `tbl_library_publisher`
-  MODIFY `primary_publisher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `primary_publisher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_supplier`
 --
 ALTER TABLE `tbl_library_supplier`
-  MODIFY `primary_supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `primary_supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `tbl_penalty`
+-- AUTO_INCREMENT for table `tbl_penalty_report`
 --
-ALTER TABLE `tbl_penalty`
+ALTER TABLE `tbl_penalty_report`
   MODIFY `primary_penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
