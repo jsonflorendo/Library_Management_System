@@ -2238,20 +2238,20 @@ Public Class Fm_home_page
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_library_penalty
-                           WHERE primary_penalty_description_id = '" & Lv_penalty_description.SelectedItems(0).SubItems(1).Text & "'"
+                           WHERE primary_penalty_description_id = '" & Lv_penalty_description.SelectedItems(0).SubItems(2).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
                     con.Close()
 
                     MessageBox.Show(penalty_description + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_publisher_data_table()
+                    Load_library_penalty_data_table()
 
                 Else
 
                     con.Close()
 
-                    Load_library_publisher_data_table()
+                    Load_library_penalty_data_table()
 
                 End If
 

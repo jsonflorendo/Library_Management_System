@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2025 at 04:32 PM
+-- Generation Time: Mar 31, 2025 at 11:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -186,7 +186,7 @@ INSERT INTO `tbl_library_category` (`primary_category_id`, `category_name`) VALU
 CREATE TABLE `tbl_library_penalty` (
   `primary_penalty_description_id` int(11) NOT NULL,
   `penalty_description` varchar(100) DEFAULT NULL,
-  `amount` int(11) DEFAULT NULL
+  `amount` varchar(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -194,11 +194,11 @@ CREATE TABLE `tbl_library_penalty` (
 --
 
 INSERT INTO `tbl_library_penalty` (`primary_penalty_description_id`, `penalty_description`, `amount`) VALUES
-(1, 'TORN PAGES', 2200),
-(3, 'Late Return', 1000),
-(4, 'BURN PAGES', 100),
-(8, 'DGDFG', 1),
-(9, 'XZCXCV', 1);
+(3, 'Late Return', '1000'),
+(4, 'BURN PAGES', '100'),
+(8, 'DGDFG', '1'),
+(9, 'XZCXCV', '1'),
+(10, '1234', '1');
 
 -- --------------------------------------------------------
 
@@ -385,7 +385,7 @@ ALTER TABLE `tbl_library_category`
 -- AUTO_INCREMENT for table `tbl_library_penalty`
 --
 ALTER TABLE `tbl_library_penalty`
-  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_publisher`

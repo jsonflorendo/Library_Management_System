@@ -2,6 +2,7 @@
 
 Public Class Fm_penalty_description
 
+    Private isEditing As Boolean = False ' Prevent recursion
     Private Sub Fm_penalty_description_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Clear_error_msg()
@@ -224,4 +225,55 @@ Public Class Fm_penalty_description
 
     End Sub
 
+    Private Sub Txt_penalty_amount_TextChanged(sender As Object, e As EventArgs) Handles Txt_penalty_amount.TextChanged
+
+        If isEditing OrElse Txt_penalty_amount.Text = "" Then Exit Sub
+        isEditing = True
+
+        Dim cursorPos As Integer = Txt_penalty_amount.SelectionStart
+        Dim rawInput As String = Txt_penalty_amount.Text.Replace(",", "")
+
+        ' Handle case where user types just "."
+        If rawInput = "." Then
+            Txt_penalty_amount.Text = "0."
+            Txt_penalty_amount.SelectionStart = 2 ' Move cursor after "0."
+            isEditing = False
+            Exit Sub
+        End If
+
+        ' Preserve decimal places exactly as typed
+        Dim integerPart As String = ""
+        Dim decimalPart As String = ""
+        Dim hasDecimal As Boolean = rawInput.Contains(".")
+
+        If hasDecimal Then
+            Dim parts() As String = rawInput.Split("."c)
+            integerPart = parts(0) ' The part before "."
+            decimalPart = If(parts.Length > 1, parts(1), "") ' The part after "."
+            decimalPart = "." & decimalPart ' Keep the decimal separator
+        Else
+            integerPart = rawInput
+        End If
+
+        ' Format integer part with thousand separators
+        Dim formattedInteger As String = ""
+        If Integer.TryParse(integerPart, Nothing) Then
+            formattedInteger = Convert.ToInt32(integerPart).ToString("#,##0")
+        Else
+            formattedInteger = integerPart ' Keep original if invalid
+        End If
+
+        ' Construct final formatted text
+        Dim formattedText As String = formattedInteger & decimalPart
+
+        ' Update TextBox
+        Txt_penalty_amount.Text = formattedText
+
+        ' Restore cursor position
+        cursorPos += Txt_penalty_amount.Text.Length - rawInput.Length
+        Txt_penalty_amount.SelectionStart = Math.Max(0, cursorPos)
+
+        isEditing = False
+
+    End Sub
 End Class
