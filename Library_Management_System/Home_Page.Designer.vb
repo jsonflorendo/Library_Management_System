@@ -46,6 +46,7 @@ Partial Class Fm_home_page
         Btn_borrow_books = New Button()
         Txt_returned_borrowed_books_search = New RoundCornerTextbox()
         Lv_returned_borrowed_books = New ListView()
+        Returned_borrowed_books0 = New ColumnHeader()
         Returned_borrowed_books1 = New ColumnHeader()
         Returned_borrowed_books2 = New ColumnHeader()
         Returned_borrowed_books3 = New ColumnHeader()
@@ -159,7 +160,6 @@ Partial Class Fm_home_page
         Lv_category = New ListView()
         Listed_Category0 = New ColumnHeader()
         Lbl_date_time = New Label()
-        Returned_borrowed_books0 = New ColumnHeader()
         Panel1_Books.SuspendLayout()
         Panel2_Returned_Issued_Books.SuspendLayout()
         Panel6_Supplier.SuspendLayout()
@@ -373,9 +373,15 @@ Partial Class Fm_home_page
         Lv_returned_borrowed_books.UseCompatibleStateImageBehavior = False
         Lv_returned_borrowed_books.View = View.Details
         ' 
+        ' Returned_borrowed_books0
+        ' 
+        Returned_borrowed_books0.Text = "Transaction No"
+        Returned_borrowed_books0.Width = 225
+        ' 
         ' Returned_borrowed_books1
         ' 
         Returned_borrowed_books1.Text = "ID Number"
+        Returned_borrowed_books1.TextAlign = HorizontalAlignment.Center
         Returned_borrowed_books1.Width = 225
         ' 
         ' Returned_borrowed_books2
@@ -1385,11 +1391,6 @@ Partial Class Fm_home_page
         Lbl_date_time.TabIndex = 30
         Lbl_date_time.Text = "December 31, 2025 | 12:59 PM"
         Lbl_date_time.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' Returned_borrowed_books0
-        ' 
-        Returned_borrowed_books0.Text = "Transaction No"
-        Returned_borrowed_books0.Width = 225
         ' 
         ' Fm_home_page
         ' 

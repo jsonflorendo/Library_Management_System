@@ -209,7 +209,7 @@ Partial Class Fm_issued_books
         Label4.AutoSize = True
         Label4.BackColor = SystemColors.ControlLight
         Label4.Font = New Font("Georgia", 12F, FontStyle.Bold)
-        Label4.Location = New Point(21, 9)
+        Label4.Location = New Point(18, 9)
         Label4.Name = "Label4"
         Label4.Size = New Size(148, 18)
         Label4.TabIndex = 28

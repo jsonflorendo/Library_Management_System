@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2025 at 11:55 AM
+-- Generation Time: Mar 31, 2025 at 10:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -50,7 +50,7 @@ CREATE TABLE `tbl_admin` (
 
 INSERT INTO `tbl_admin` (`primary_admin_id`, `first_name`, `middle_name`, `last_name`, `gender`, `birthday`, `contact_no`, `address`, `username`, `email`, `password`, `user_type`) VALUES
 (1, 'PAUL ANDREW', 'BARBARA', 'FLORENDO', 'MALE', 'Jan-02-2004', '09123456789', 'TAGUIG', 'a', 'paf@gmail.com', 'a', 'ASSISTANT LIBRARIAN'),
-(2, 'FATIMA', 'MONTI', 'GUALVEZ', 'FEMALE', 'Jan-31-2003', '09134567896', 'LOWER', 'fati', 'fat', 'fati123', 'STAFF'),
+(2, 'FATIMA', 'MONTI', 'GUALVEZ', 'FEMALE', 'Jan-31-2003', '09134567896', 'LOWER', 'b', 'fat', '$2a$12$098z7Qz4kSl6njTUIms3DucWzYMwV6dZQznXz5XbkUDBiiIzno95K', 'STAFF'),
 (3, 'ALEXANDRA', 'LAURORA', 'VOSOTROS', 'FEMALE', 'May-05-2024', '09123456789', 'LOWER BICUTAN', 'alex', 'alex@gmail.com', '12345', 'STAFF'),
 (5, 'XCVXCV', 'XCVXCV', 'XCVXCV', 'MALE', 'May-05-2024', '345', 'CCVB', 'ae', 'alex', 'xcvxcv', 'ASSISTANT LIBRARIAN'),
 (6, 'SDFSD', 'SDFSDF', 'SDF', 'MALE', 'May-05-2024', '43', 'ERTRT', 'ae', 'ae', 'a', 'STAFF');
@@ -80,12 +80,9 @@ CREATE TABLE `tbl_books` (
 --
 
 INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_category_id`, `qty`, `primary_author_id`, `primary_publisher_id`, `publish_year`, `primary_supplier_id`, `acquisition_date`, `status`) VALUES
-(1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', '1', '1', '1', '3', 'May 08, 2024', '1', 'May 08, 2024', 'Available'),
-(2, '9789710639540', 'CINDERELLLA', '1', '2', '2', '3', 'April 16, 2024', '1', 'May 07, 2024', 'Available'),
-(5, 'AP091GW', 'LIBRO', '1', '22', '1', '1', 'May 06, 2024', '5', 'May 08, 2024', 'Available'),
-(28, '123', 'SADSAD', '2', '2', '1', '1', 'March 30, 2025', '2', 'March 30, 2025', 'Available'),
-(29, 'sadsdf', 'BOOKS', '1', '2', '1', '2', 'March 30, 2025', '1', 'March 30, 2025', 'Available'),
-(30, 'sddasdasd', 'ASDASD', '16', '23', '19', '12', 'March 30, 2025', '2', 'March 30, 2025', 'Available');
+(1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', '1', '10', '1', '3', 'May 08, 2024', '1', 'May 08, 2024', 'Available'),
+(2, '9789710639540', 'CINDERELLLA', '1', '19', '2', '3', 'April 16, 2024', '1', 'May 07, 2024', 'Available'),
+(5, 'AP091GW', 'LIBRO', '1', '16', '1', '1', 'May 06, 2024', '5', 'May 08, 2024', 'Available');
 
 -- --------------------------------------------------------
 
@@ -121,20 +118,24 @@ INSERT INTO `tbl_borrower` (`primary_borrower_id`, `borrower_id`, `last_name`, `
 
 CREATE TABLE `tbl_issued_books` (
   `primary_issued_book_id` int(11) NOT NULL,
+  `transaction_yyyy_mm` varchar(20) DEFAULT NULL,
+  `transaction_series` varchar(10) DEFAULT NULL,
   `primary_borrower_id` varchar(11) DEFAULT NULL,
   `primary_book_id` varchar(11) DEFAULT NULL,
   `issued_date` varchar(30) DEFAULT NULL,
   `due_date` varchar(30) DEFAULT NULL,
-  `returned_date` varchar(30) NOT NULL
+  `returned_date` varchar(30) NOT NULL,
+  `created_at` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_issued_books`
 --
 
-INSERT INTO `tbl_issued_books` (`primary_issued_book_id`, `primary_borrower_id`, `primary_book_id`, `issued_date`, `due_date`, `returned_date`) VALUES
-(1, '1', '1', 'Mar-29-2025', 'May-15-2025', ''),
-(3, '3', '5', 'Mar-29-2025', 'Apr-28-2025', '');
+INSERT INTO `tbl_issued_books` (`primary_issued_book_id`, `transaction_yyyy_mm`, `transaction_series`, `primary_borrower_id`, `primary_book_id`, `issued_date`, `due_date`, `returned_date`, `created_at`) VALUES
+(1, 'BB2025-04', '00001', '3', '5', 'April 01, 2025', 'May 01, 2025', '', '2025-04-01'),
+(2, 'BB2025-04', '00001', '3', '2', 'April 01, 2025', 'May 01, 2025', '', '2025-04-01'),
+(3, 'BB2025-04', '00002', '3', '1', 'April 01, 2025', 'May 01, 2025', '', '2025-04-01');
 
 -- --------------------------------------------------------
 
@@ -194,11 +195,8 @@ CREATE TABLE `tbl_library_penalty` (
 --
 
 INSERT INTO `tbl_library_penalty` (`primary_penalty_description_id`, `penalty_description`, `amount`) VALUES
-(3, 'Late Return', '1000'),
-(4, 'BURN PAGES', '100'),
-(8, 'DGDFG', '1'),
-(9, 'XZCXCV', '1'),
-(10, '1234', '1');
+(3, 'Late Return', '1,000'),
+(4, 'BURN PAGES', '9,874.99');
 
 -- --------------------------------------------------------
 
@@ -221,9 +219,7 @@ INSERT INTO `tbl_library_publisher` (`primary_publisher_id`, `publisher_name`) V
 (3, 'FATIMA '),
 (4, 'FGHFGH'),
 (5, 'SDFSDF'),
-(7, '7'),
 (8, 'JHKHK'),
-(11, '123'),
 (12, 'SFGF');
 
 -- --------------------------------------------------------
@@ -385,7 +381,7 @@ ALTER TABLE `tbl_library_category`
 -- AUTO_INCREMENT for table `tbl_library_penalty`
 --
 ALTER TABLE `tbl_library_penalty`
-  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_publisher`
