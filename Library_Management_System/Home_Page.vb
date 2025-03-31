@@ -483,7 +483,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -491,13 +497,13 @@ Public Class Fm_home_page
 
     Private Sub Cb_listed_books_category_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_listed_books_category.SelectedIndexChanged
 
-        Try
+        If Cb_listed_books_category.Text = "All Category" Then
 
-            If Cb_listed_books_category.Text = "All Category" Then
+            Load_listed_books_data_table()
 
-                Load_listed_books_data_table()
+        Else
 
-            Else
+            Try
 
                 con.Open()
 
@@ -563,13 +569,19 @@ Public Class Fm_home_page
 
                 Next
 
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+                MsgBox("Error: " & ex.Message)
 
-            MsgBox(ex.Message)
+            Finally
 
-        End Try
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
 
     End Sub
 
@@ -619,16 +631,16 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_books_delete_Click(sender As Object, e As EventArgs) Handles Btn_listed_books_delete.Click
 
-        Try
+        If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            If Lv_listed_books.SelectedItems.Count > 0 Then
+            If Lv_listed_books.SelectedItems(0).SubItems(9).Text = "Borrowed" Then
 
-                If Lv_listed_books.SelectedItems(0).SubItems(9).Text = "Borrowed" Then
+                MessageBox.Show("This book is unable to delete because the status is Borrowed", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Load_listed_books_data_table()
 
-                    MessageBox.Show("This book is unable to delete because the status is Borrowed", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_listed_books_data_table()
+            Else
 
-                Else
+                Try
 
                     con.Open()
 
@@ -657,19 +669,25 @@ Public Class Fm_home_page
 
                     End If
 
-                End If
+                Catch ex As Exception
 
-            Else
+                    MsgBox("Error: " & ex.Message)
 
-                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Finally
+
+                    If con.State = ConnectionState.Open Then
+                        con.Close()
+                    End If
+
+                End Try
 
             End If
 
-        Catch ex As Exception
+        Else
 
-            MsgBox(ex.Message)
+            MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-        End Try
+        End If
 
     End Sub
 
@@ -725,7 +743,8 @@ Public Class Fm_home_page
 
             con.Open()
 
-            sql = "SELECT   tbl_borrower.borrower_id,
+            sql = "SELECT   CONCAT(tbl_issued_books.transaction_yyyy_mm, '-', LPAD(tbl_issued_books.transaction_series, 5, '0')) AS transaction_number,
+                            tbl_borrower.borrower_id,
                             tbl_borrower.last_name,
                             tbl_borrower.first_name,
                             tbl_books.book_name,
@@ -740,7 +759,8 @@ Public Class Fm_home_page
                     INNER JOIN tbl_borrower ON tbl_issued_books.primary_borrower_id = tbl_borrower.primary_borrower_id
                     INNER JOIN tbl_books ON tbl_issued_books.primary_book_id = tbl_books.primary_book_id
 
-                    WHERE borrower_id LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
+                    WHERE   CONCAT(transaction_yyyy_mm, '-', LPAD(transaction_series, 5, '0')) LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
+                            borrower_id LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
                             last_name LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
                             first_name LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
                             book_name LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
@@ -756,7 +776,8 @@ Public Class Fm_home_page
 
             Do While dr.Read
 
-                Dim lv As New ListViewItem({dr("borrower_id").ToString(),
+                Dim lv As New ListViewItem({dr("transaction_number").ToString(),
+                                            dr("borrower_id").ToString(),
                                             dr("last_name").ToString() + ", " + dr("first_name").ToString(),
                                             dr("book_name").ToString(),
                                             dr("issued_date").ToString(),
@@ -788,7 +809,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -907,7 +934,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -923,9 +956,9 @@ Public Class Fm_home_page
 
     Private Sub Btn_student_info_delete_Click(sender As Object, e As EventArgs) Handles Btn_student_info_delete.Click
 
-        Try
+        If Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            If Lv_borrower_info.SelectedItems.Count > 0 Then
+            Try
 
                 con.Open()
 
@@ -954,17 +987,23 @@ Public Class Fm_home_page
 
                 End If
 
-            Else
+            Catch ex As Exception
 
-                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MsgBox("Error: " & ex.Message)
 
-            End If
+            Finally
 
-        Catch ex As Exception
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
-            MsgBox(ex.Message)
+            End Try
 
-        End Try
+        Else
+
+            MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
 
     End Sub
 
@@ -1069,7 +1108,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -1077,19 +1122,19 @@ Public Class Fm_home_page
 
     Private Sub Btn_penalty_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_edit.Click
 
-        Try
+        If Lv_penalty.SelectedItems.Count > 0 Then
 
-            If Lv_penalty.SelectedItems.Count > 0 Then
-
-                If Txt_penalty_id_number.Text = "" Or
+            If Txt_penalty_id_number.Text = "" Or
                 Txt_penalty_name.Text = "" Or
                 Txt_penalty_book_name.Text = "" Or
                 Txt_penalty_amount.Text = "" Or
                 Cb_penalty_description.Text = "" Then
 
-                    MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                Else
+            Else
+
+                Try
 
                     con.Open()
 
@@ -1125,27 +1170,33 @@ Public Class Fm_home_page
 
                     End If
 
-                End If
+                Catch ex As Exception
 
-            Else
+                    MsgBox("Error: " & ex.Message)
 
-                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Finally
+
+                    If con.State = ConnectionState.Open Then
+                        con.Close()
+                    End If
+
+                End Try
 
             End If
 
-        Catch ex As Exception
+        Else
 
-            MsgBox(ex.Message)
+            MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-        End Try
+        End If
 
     End Sub
 
     Private Sub Btn_penalty_delete_Click(sender As Object, e As EventArgs) Handles Btn_penalty_delete.Click
 
-        Try
+        If Lv_penalty.SelectedItems.Count > 0 Then
 
-            If Lv_penalty.SelectedItems.Count > 0 Then
+            Try
 
                 con.Open()
 
@@ -1176,17 +1227,23 @@ Public Class Fm_home_page
 
                 End If
 
-            Else
+            Catch ex As Exception
 
-                MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MsgBox("Error: " & ex.Message)
 
-            End If
+            Finally
 
-        Catch ex As Exception
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
-            MsgBox(ex.Message)
+            End Try
 
-        End Try
+        Else
+
+            MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
 
     End Sub
 
@@ -1350,7 +1407,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -1430,7 +1493,13 @@ Public Class Fm_home_page
 
                 Catch ex As Exception
 
-                    MsgBox(ex.Message)
+                    MsgBox("Error: " & ex.Message)
+
+                Finally
+
+                    If con.State = ConnectionState.Open Then
+                        con.Close()
+                    End If
 
                 End Try
 
@@ -1584,7 +1653,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -1626,7 +1701,6 @@ Public Class Fm_home_page
 
     Private Sub Btn_supplier_delete_Click(sender As Object, e As EventArgs) Handles Btn_supplier_delete.Click
 
-
         If Lv_supplier.SelectedItems.Count > 0 Then
 
             Try
@@ -1659,7 +1733,13 @@ Public Class Fm_home_page
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 
@@ -1791,7 +1871,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -1823,8 +1909,6 @@ Public Class Fm_home_page
     End Sub
 
     Private Sub Btn_author_delete_Click(sender As Object, e As EventArgs) Handles Btn_author_delete.Click
-
-
 
         If Lv_author.SelectedItems.Count > 0 Then
 
@@ -1859,7 +1943,13 @@ Public Class Fm_home_page
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 
@@ -1991,7 +2081,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -2058,7 +2154,13 @@ Public Class Fm_home_page
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 
@@ -2190,7 +2292,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -2257,7 +2365,13 @@ Public Class Fm_home_page
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 
@@ -2389,7 +2503,13 @@ Public Class Fm_home_page
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -2456,7 +2576,13 @@ Public Class Fm_home_page
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 

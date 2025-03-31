@@ -84,7 +84,13 @@ Public Class Fm_login
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 

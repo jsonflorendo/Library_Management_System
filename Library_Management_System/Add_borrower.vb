@@ -46,9 +46,7 @@ Public Class Fm_add_borrower
 
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
-        Try
-
-            If Txt_borrower_id_number.Text = "" Or
+        If Txt_borrower_id_number.Text = "" Or
                 Txt_borrower_last_name.Text = "" Or
                 Txt_borrower_first_name.Text = "" Or
                 Txt_borrower_middle_name.Text = "" Or
@@ -56,9 +54,11 @@ Public Class Fm_add_borrower
                 Txt_borrower_address.Text = "" Or
                 Txt_borrower_contact_no.Text = "" Then
 
-                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            Else
+        Else
+
+            Try
 
                 con.Open()
 
@@ -69,7 +69,8 @@ Public Class Fm_add_borrower
 
                 If dr.Read Then
 
-                    con.Close()
+                    dr.Close()
+
                     MessageBox.Show("ID Number already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
@@ -112,23 +113,29 @@ Public Class Fm_add_borrower
 
                     End If
 
+                    con.Close()
+
                 End If
 
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+                MsgBox("Error: " & ex.Message)
 
-            MsgBox(ex.Message)
+            Finally
 
-        End Try
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
 
     End Sub
 
     Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
 
-        Try
-
-            If Txt_borrower_id_number.Text = "" Or
+        If Txt_borrower_id_number.Text = "" Or
                 Txt_borrower_last_name.Text = "" Or
                 Txt_borrower_first_name.Text = "" Or
                 Txt_borrower_middle_name.Text = "" Or
@@ -136,9 +143,11 @@ Public Class Fm_add_borrower
                 Txt_borrower_address.Text = "" Or
                 Txt_borrower_contact_no.Text = "" Then
 
-                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            Else
+        Else
+
+            Try
 
                 con.Open()
 
@@ -158,7 +167,7 @@ Public Class Fm_add_borrower
 
                 If dr.Read Then
 
-                    con.Close()
+                    dr.Close()
 
                     MessageBox.Show("ID Number already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -201,15 +210,23 @@ Public Class Fm_add_borrower
 
                     End If
 
+                    con.Close()
+
                 End If
 
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+                MsgBox("Error: " & ex.Message)
 
-            MsgBox(ex.Message)
+            Finally
 
-        End Try
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
 
     End Sub
 

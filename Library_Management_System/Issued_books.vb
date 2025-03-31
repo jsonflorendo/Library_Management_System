@@ -13,125 +13,189 @@ Public Class Fm_issued_books
 
         Txt_isbn.Enabled = False
 
+        Clear_error_msg()
+
+        ' Transaction Series Number
+        Try
+            con.Open()
+
+            ' Query to get the last transaction series and year
+            sql = "SELECT MAX(transaction_series), MAX(YEAR(created_at)) FROM tbl_issued_books"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Dim currentYear As String = Date.Now.ToString("yyyy") ' Get current year
+            Dim lastYear As Object = Nothing
+            Dim lastNumber As Object = Nothing
+
+            If dr.Read() Then
+                lastNumber = dr(0) ' Last transaction series
+                lastYear = dr(1) ' Last year
+            End If
+            dr.Close()
+
+            Dim nextNumber As Integer
+
+            ' If no records exist OR the year has changed, reset to 00001
+            If IsDBNull(lastNumber) OrElse IsDBNull(lastYear) OrElse lastYear.ToString() <> currentYear Then
+                nextNumber = 1 ' Reset to 00001
+            Else
+                nextNumber = Convert.ToInt32(lastNumber) + 1 ' Increment series
+            End If
+
+            ' Format series with leading zeros
+            Lbl_transaction_series.Text = nextNumber.ToString("D5") ' Example: 00001
+
+            ' Display formatted year & month
+            Lbl_transaction_yyyy_mm.Text = "BB" & currentYear & "-" & Date.Now.ToString("MM")
+
+            con.Close()
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
     End Sub
 
     Private Sub Txt_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_isbn.KeyPress
 
+        Clear_error_msg()
+
         If e.KeyChar = ChrW(13) Then
 
-            con.Open()
+            Try
 
-            sql = "SELECT * FROM tbl_books
-                            WHERE isbn = '" & Txt_isbn.Text & "'
-                            AND status = '" & "Available" & "'"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
+                con.Open()
 
-            If dr.Read Then
+                sql = "SELECT * FROM tbl_books
+                                WHERE isbn = '" & Txt_isbn.Text & "'
+                                AND status = '" & "Available" & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
 
-                Txt_primary_book_id.Text = dr("primary_book_id")
-                Txt_book_name.Text = dr("book_name")
-                Dim Total_book_qty As Integer = dr("qty") - 1
+                If dr.Read Then
 
-                dr.Close()
+                    If dr("status") = "Available" Then
 
-                Try
-
-                    sql = "SELECT   tbl_borrower.borrower_id,
-                                    tbl_books.book_name,
-                                    tbl_issued_books.returned_date                        
-                        
-                            FROM tbl_issued_books
-
-                            INNER JOIN tbl_borrower ON tbl_issued_books.primary_borrower_id = tbl_borrower.primary_borrower_id
-                            INNER JOIN tbl_books ON tbl_issued_books.primary_book_id = tbl_books.primary_book_id
-
-                            WHERE borrower_id = '" & Txt_borrower_id_number.Text & "'
-                            AND book_name = '" & Txt_book_name.Text & "'
-                            AND returned_date = '" & "" & "'"
-
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
-
-                    If dr.Read Then
-
-                        MessageBox.Show("The book of " + Txt_book_name.Text + " was borrowed by " + Txt_issued_to.Text, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Txt_isbn.Clear()
-
-                    Else
+                        Txt_primary_book_id.Text = dr("primary_book_id")
+                        Txt_book_name.Text = dr("book_name")
+                        Dim Total_book_qty As Integer = dr("qty") - 1
 
                         dr.Close()
 
-                        sql = "INSERT INTO tbl_issued_books (primary_borrower_id,
-                                                            primary_book_id,
-                                                            issued_date,
-                                                            due_date)
-                                        VALUE ('" & Txt_primary_borrower_id.Text & "',
-                                                '" & Txt_primary_book_id.Text & "',
-                                                '" & Date.Now.ToString("MMMM dd, yyyy") & "',
-                                                '" & Dtp_due_date.Value.ToString("MMMM dd, yyyy") & "')"
+                        sql = "SELECT   tbl_borrower.borrower_id,
+                                        tbl_books.book_name,
+                                        tbl_issued_books.returned_date                        
+                        
+                                FROM tbl_issued_books
+
+                                INNER JOIN tbl_borrower ON tbl_issued_books.primary_borrower_id = tbl_borrower.primary_borrower_id
+                                INNER JOIN tbl_books ON tbl_issued_books.primary_book_id = tbl_books.primary_book_id
+
+                                WHERE borrower_id = '" & Txt_borrower_id_number.Text & "'
+                                AND book_name = '" & Txt_book_name.Text & "'
+                                AND returned_date = '" & "" & "'"
+
                         cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
+                        dr = cmd.ExecuteReader()
 
-                        If Total_book_qty = 0 Then
+                        If dr.Read Then
 
-                            sql = "UPDATE tbl_books SET 
-                                            qty = '" & Total_book_qty & "',
-                                            status = '" & "Borrowed" & "'
-                                    WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
+                            MessageBox.Show("The book of " + Txt_book_name.Text + " was borrowed by " + Txt_issued_to.Text, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Txt_isbn.Clear()
+
+                            con.Close()
 
                         Else
 
-                            sql = "UPDATE tbl_books SET 
-                                            qty = '" & Total_book_qty & "'
-                                    WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                            dr.Close()
+
+                            sql = "INSERT INTO tbl_issued_books (primary_borrower_id,
+                                                                    transaction_yyyy_mm,
+                                                                    transaction_series,
+                                                                    primary_book_id,
+                                                                    issued_date,
+                                                                    due_date,
+                                                                    created_at)
+                                            VALUE ('" & Txt_primary_borrower_id.Text & "',
+                                                    '" & Lbl_transaction_yyyy_mm.Text & "',
+                                                    '" & Lbl_transaction_series.Text & "',
+                                                    '" & Txt_primary_book_id.Text & "',
+                                                    '" & Date.Now.ToString("MMMM dd, yyyy") & "',
+                                                    '" & Dtp_due_date.Value.ToString("MMMM dd, yyyy") & "',
+                                                    '" & Date.Now.ToString("yyyy-MM-dd") & "')"
                             cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
+                            cmd.ExecuteNonQuery()
+
+                            If Total_book_qty = 0 Then
+
+                                sql = "UPDATE tbl_books SET 
+                                                qty = '" & Total_book_qty & "',
+                                                status = '" & "Borrowed" & "'
+                                        WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                                cmd = New MySqlCommand(sql, con)
+                                dr = cmd.ExecuteReader
+
+                            Else
+
+                                sql = "UPDATE tbl_books SET 
+                                                qty = '" & Total_book_qty & "'
+                                        WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                                cmd = New MySqlCommand(sql, con)
+                                dr = cmd.ExecuteReader
+
+                            End If
+
+                            con.Close()
+
+                            Load_listed_books_data_table()
+                            Load_returned_borrowed_books_data_table()
+                            Txt_isbn.Clear()
+
+                            ' Removed this line due to Scan Mode
+                            'MessageBox.Show(Txt_book_name.Text + " book has been issued to " + Txt_issued_to.Text, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            'Fm_home_page.Enabled = True
+                            'Me.Close()
 
                         End If
 
+                    Else
+
+                        Lbl_error_msg_1.Text = "Book is not available"
                         con.Close()
-
-                        Load_listed_books_data_table()
-                        Load_returned_borrowed_books_data_table()
-                        Txt_isbn.Clear()
-
-                        ' Removed this line due to Scan Mode
-                        'MessageBox.Show(Txt_book_name.Text + " book has been issued to " + Txt_issued_to.Text, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        'Fm_home_page.Enabled = True
-                        'Me.Close()
 
                     End If
 
+                Else
+
+                    Lbl_error_msg_1.Text = "Invalid Bar Code Number"
+                    Txt_isbn.Clear()
+                    Txt_book_name.Clear()
                     con.Close()
 
-                Catch ex As Exception
+                End If
 
-                    MsgBox(ex.Message)
-                    con.Close()
+            Catch ex As Exception
 
-                End Try
+                MsgBox(ex.Message)
 
-            Else
-
-                MessageBox.Show("The book is not available", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Txt_isbn.Clear()
-                Txt_book_name.Clear()
-                con.Close()
-
-            End If
-
-        Else
-
-            con.Close()
+            End Try
 
         End If
 
     End Sub
 
     Private Sub Txt_borrower_id_number_TextChanged(sender As Object, e As EventArgs) Handles Txt_borrower_id_number.TextChanged
+
+        Clear_error_msg()
 
         Try
 
@@ -149,6 +213,7 @@ Public Class Fm_issued_books
 
             Else
 
+                Lbl_error_msg.Text = "Invalid ID Number"
                 Txt_issued_to.Clear()
                 Txt_primary_borrower_id.Clear()
 

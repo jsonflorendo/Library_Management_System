@@ -146,7 +146,13 @@ Public Class Fm_admin_registration
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 
@@ -284,23 +290,29 @@ Public Class Fm_admin_registration
                                         password = '" & Txt_password.Text & "',
                                         user_type = '" & Cb_user_type.Text & "'
                                 WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
+                        cmd = New MySqlCommand(sql, con)
+                        dr = cmd.ExecuteReader
 
-                            con.Close()
+                        con.Close()
 
-                            Load_listed_accounts_data_table()
-                            MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Fm_home_page.Enabled = True
-                            Me.Close()
+                        Load_listed_accounts_data_table()
+                        MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Fm_home_page.Enabled = True
+                        Me.Close()
 
-                        End If
+                    End If
 
                 End If
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 

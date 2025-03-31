@@ -65,7 +65,13 @@ Public Class Fm_add_books
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -77,15 +83,15 @@ Public Class Fm_add_books
 
     Private Sub Txt_author_TextChanged(sender As Object, e As EventArgs) Handles Txt_author.TextChanged
 
-        Try
+        If Txt_author.Text = "" Then
 
-            If Txt_author.Text = "" Then
+            Load_library_cb_author()
+            Cb_author.Items.Add(Txt_author.Text)
+            Txt_primary_author_id.Clear()
 
-                Load_library_cb_author()
-                Cb_author.Items.Add(Txt_author.Text)
-                Txt_primary_author_id.Clear()
+        Else
 
-            Else
+            Try
 
                 con.Open()
 
@@ -110,27 +116,33 @@ Public Class Fm_add_books
 
                 con.Close()
 
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+                MsgBox("Error: " & ex.Message)
 
-            MsgBox(ex.Message)
+            Finally
 
-        End Try
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
 
     End Sub
 
     Private Sub Txt_publisher_TextChanged(sender As Object, e As EventArgs) Handles Txt_publisher.TextChanged
 
-        Try
+        If Txt_publisher.Text = "" Then
 
-            If Txt_publisher.Text = "" Then
+            Load_library_cb_publisher()
+            Cb_publisher.Items.Add(Txt_publisher.Text)
+            Txt_primary_publisher_id.Clear()
 
-                Load_library_cb_publisher()
-                Cb_publisher.Items.Add(Txt_publisher.Text)
-                Txt_primary_publisher_id.Clear()
+        Else
 
-            Else
+            Try
 
                 con.Open()
 
@@ -155,27 +167,33 @@ Public Class Fm_add_books
 
                 con.Close()
 
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+                MsgBox("Error: " & ex.Message)
 
-            MsgBox(ex.Message)
+            Finally
 
-        End Try
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
 
     End Sub
 
     Private Sub Txt_supplier_name_TextChanged(sender As Object, e As EventArgs) Handles Txt_supplier_name.TextChanged
 
-        Try
+        If Txt_supplier_name.Text = "" Then
 
-            If Txt_supplier_name.Text = "" Then
+            Load_library_cb_supplier()
+            Cb_supplier_name.Items.Add(Txt_supplier_name.Text)
+            Txt_primary_supplier_id.Clear()
 
-                Load_library_cb_supplier()
-                Cb_supplier_name.Items.Add(Txt_supplier_name.Text)
-                Txt_primary_supplier_id.Clear()
+        Else
 
-            Else
+            Try
 
                 con.Open()
 
@@ -200,13 +218,19 @@ Public Class Fm_add_books
 
                 con.Close()
 
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+                MsgBox("Error: " & ex.Message)
 
-            MsgBox(ex.Message)
+            Finally
 
-        End Try
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
 
     End Sub
 
@@ -492,7 +516,13 @@ Public Class Fm_add_books
 
                 Catch ex As Exception
 
-                    MsgBox(ex.Message)
+                    MsgBox("Error: " & ex.Message)
+
+                Finally
+
+                    If con.State = ConnectionState.Open Then
+                        con.Close()
+                    End If
 
                 End Try
 
@@ -573,7 +603,13 @@ Public Class Fm_add_books
 
                 Catch ex As Exception
 
-                    MsgBox(ex.Message)
+                    MsgBox("Error: " & ex.Message)
+
+                Finally
+
+                    If con.State = ConnectionState.Open Then
+                        con.Close()
+                    End If
 
                 End Try
 
@@ -653,7 +689,13 @@ Public Class Fm_add_books
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 

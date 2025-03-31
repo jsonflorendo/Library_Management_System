@@ -54,14 +54,17 @@ Public Class Fm_add_category
 
                 Catch ex As Exception
 
-                    MsgBox(ex.Message)
+                    MsgBox("Error: " & ex.Message)
+
+                Finally
+
+                    If con.State = ConnectionState.Open Then
+                        con.Close()
+                    End If
 
                 End Try
 
             End If
-
-
-
 
         Else
 
@@ -106,7 +109,13 @@ Public Class Fm_add_category
 
                 Catch ex As Exception
 
-                    MsgBox(ex.Message)
+                    MsgBox("Error: " & ex.Message)
+
+                Finally
+
+                    If con.State = ConnectionState.Open Then
+                        con.Close()
+                    End If
 
                 End Try
 
@@ -180,7 +189,13 @@ Public Class Fm_add_category
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
             End Try
 

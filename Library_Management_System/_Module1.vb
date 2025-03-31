@@ -125,7 +125,13 @@ Module Module1
 
                 Catch ex As Exception
 
-                    MsgBox(ex.Message)
+                    MsgBox("Error: " & ex.Message)
+
+                Finally
+
+                    If con.State = ConnectionState.Open Then
+                        con.Close()
+                    End If
 
                 End Try
 
@@ -219,7 +225,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -231,7 +243,8 @@ Module Module1
 
             con.Open()
 
-            sql = "SELECT   tbl_borrower.borrower_id,
+            sql = "SELECT   CONCAT(tbl_issued_books.transaction_yyyy_mm, '-', LPAD(tbl_issued_books.transaction_series, 5, '0')) AS transaction_number,
+                            tbl_borrower.borrower_id,
                             tbl_borrower.last_name,
                             tbl_borrower.first_name,
                             tbl_books.book_name,
@@ -255,7 +268,8 @@ Module Module1
 
             Do While dr.Read
 
-                Dim lv As New ListViewItem({dr("borrower_id").ToString(),
+                Dim lv As New ListViewItem({dr("transaction_number").ToString(),
+                                            dr("borrower_id").ToString(),
                                             dr("last_name").ToString() + ", " + dr("first_name").ToString(),
                                             dr("book_name").ToString(),
                                             dr("issued_date").ToString(),
@@ -287,7 +301,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -341,7 +361,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -414,7 +440,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -470,7 +502,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -524,7 +562,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -571,7 +615,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -618,7 +668,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -666,7 +722,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -713,7 +775,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -745,7 +813,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -774,7 +848,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -808,7 +888,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -841,7 +927,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -870,7 +962,13 @@ Module Module1
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -934,6 +1032,9 @@ Module Module1
         Fm_add_books.Lbl_error_msg_4.Text = ""
         Fm_add_books.Lbl_error_msg_5.Text = ""
         Fm_add_books.Lbl_error_msg_6.Text = ""
+
+        Fm_issued_books.Lbl_error_msg.Text = ""
+        Fm_issued_books.Lbl_error_msg_1.Text = ""
 
         Fm_admin_registration.Lbl_error_msg.Text = ""
         Fm_admin_registration.Lbl_error_msg_1.Text = ""

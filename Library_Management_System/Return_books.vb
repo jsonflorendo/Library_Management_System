@@ -12,36 +12,36 @@ Public Class Fm_returned_books
 
         If e.KeyChar = ChrW(13) Then
 
-            con.Open()
+            Try
 
-            sql = "SELECT   tbl_issued_books.primary_issued_book_id,
-                            tbl_borrower.last_name,
-                            tbl_borrower.first_name,
-                            tbl_books.primary_book_id,
-                            tbl_books.isbn,
-                            tbl_books.book_name
+                con.Open()
 
-                    FROM tbl_issued_books
+                sql = "SELECT   tbl_issued_books.primary_issued_book_id,
+                                tbl_borrower.last_name,
+                                tbl_borrower.first_name,
+                                tbl_books.primary_book_id,
+                                tbl_books.isbn,
+                                tbl_books.book_name
 
-                    INNER JOIN tbl_borrower ON tbl_issued_books.primary_borrower_id = tbl_borrower.primary_borrower_id
-                    INNER JOIN tbl_books ON tbl_issued_books.primary_book_id = tbl_books.primary_book_id
+                        FROM tbl_issued_books
 
-                    WHERE borrower_id = '" & Txt_borrower_id_number.Text & "'
-                    AND isbn = '" & Txt_isbn.Text & "'
-                    AND returned_date = '" & "" & "'"
+                        INNER JOIN tbl_borrower ON tbl_issued_books.primary_borrower_id = tbl_borrower.primary_borrower_id
+                        INNER JOIN tbl_books ON tbl_issued_books.primary_book_id = tbl_books.primary_book_id
 
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
+                        WHERE borrower_id = '" & Txt_borrower_id_number.Text & "'
+                        AND isbn = '" & Txt_isbn.Text & "'
+                        AND returned_date = '" & "" & "'"
 
-            If dr.Read Then
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
 
-                Txt_primary_issued_book_id.Text = dr("primary_issued_book_id")
-                Txt_primary_book_id.Text = dr("primary_book_id")
-                Txt_book_name.Text = dr("book_name")
+                If dr.Read Then
 
-                dr.Close()
+                    Txt_primary_issued_book_id.Text = dr("primary_issued_book_id")
+                    Txt_primary_book_id.Text = dr("primary_book_id")
+                    Txt_book_name.Text = dr("book_name")
 
-                Try
+                    dr.Close()
 
                     sql = "UPDATE tbl_issued_books SET 
                                     returned_date = '" & Date.Now.ToString("MMMM dd, yyyy") & "'
@@ -93,19 +93,25 @@ Public Class Fm_returned_books
 
                     End If
 
-                Catch ex As Exception
+                Else
 
-                    MsgBox(ex.Message)
+                    MessageBox.Show("No data available", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Txt_isbn.Clear()
+                    con.Close()
 
-                End Try
+                End If
 
-            Else
+            Catch ex As Exception
 
-                MessageBox.Show("No data available", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Txt_isbn.Clear()
-                con.Close()
+                MsgBox("Error: " & ex.Message)
 
-            End If
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
 
         Else
 
@@ -142,7 +148,13 @@ Public Class Fm_returned_books
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 

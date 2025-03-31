@@ -46,12 +46,12 @@ Partial Class Fm_home_page
         Btn_borrow_books = New Button()
         Txt_returned_borrowed_books_search = New RoundCornerTextbox()
         Lv_returned_borrowed_books = New ListView()
-        Returned_borrowed_books0 = New ColumnHeader()
         Returned_borrowed_books1 = New ColumnHeader()
         Returned_borrowed_books2 = New ColumnHeader()
         Returned_borrowed_books3 = New ColumnHeader()
         Returned_borrowed_books4 = New ColumnHeader()
         Returned_borrowed_books5 = New ColumnHeader()
+        Returned_borrowed_books6 = New ColumnHeader()
         Panel6_Supplier = New Panel()
         Txt_search_supplier = New TextBox()
         Btn_supplier_delete = New Button()
@@ -150,6 +150,7 @@ Partial Class Fm_home_page
         Btn_penalty_description_add = New Button()
         Lv_penalty_description = New ListView()
         Listed_details0 = New ColumnHeader()
+        Listed_details1 = New ColumnHeader()
         Panel7_Category = New Panel()
         Txt_search_category = New TextBox()
         Btn_category_delete = New Button()
@@ -158,7 +159,7 @@ Partial Class Fm_home_page
         Lv_category = New ListView()
         Listed_Category0 = New ColumnHeader()
         Lbl_date_time = New Label()
-        Listed_details1 = New ColumnHeader()
+        Returned_borrowed_books0 = New ColumnHeader()
         Panel1_Books.SuspendLayout()
         Panel2_Returned_Issued_Books.SuspendLayout()
         Panel6_Supplier.SuspendLayout()
@@ -361,7 +362,7 @@ Partial Class Fm_home_page
         ' Lv_returned_borrowed_books
         ' 
         Lv_returned_borrowed_books.BackColor = SystemColors.ActiveCaption
-        Lv_returned_borrowed_books.Columns.AddRange(New ColumnHeader() {Returned_borrowed_books0, Returned_borrowed_books1, Returned_borrowed_books2, Returned_borrowed_books3, Returned_borrowed_books4, Returned_borrowed_books5})
+        Lv_returned_borrowed_books.Columns.AddRange(New ColumnHeader() {Returned_borrowed_books0, Returned_borrowed_books1, Returned_borrowed_books2, Returned_borrowed_books3, Returned_borrowed_books4, Returned_borrowed_books5, Returned_borrowed_books6})
         Lv_returned_borrowed_books.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_returned_borrowed_books.FullRowSelect = True
         Lv_returned_borrowed_books.HeaderStyle = ColumnHeaderStyle.Nonclickable
@@ -372,40 +373,40 @@ Partial Class Fm_home_page
         Lv_returned_borrowed_books.UseCompatibleStateImageBehavior = False
         Lv_returned_borrowed_books.View = View.Details
         ' 
-        ' Returned_borrowed_books0
-        ' 
-        Returned_borrowed_books0.Text = "ID Number"
-        Returned_borrowed_books0.Width = 225
-        ' 
         ' Returned_borrowed_books1
         ' 
-        Returned_borrowed_books1.Text = "Issued To"
-        Returned_borrowed_books1.TextAlign = HorizontalAlignment.Center
-        Returned_borrowed_books1.Width = 267
+        Returned_borrowed_books1.Text = "ID Number"
+        Returned_borrowed_books1.Width = 225
         ' 
         ' Returned_borrowed_books2
         ' 
-        Returned_borrowed_books2.Text = "Book Name"
+        Returned_borrowed_books2.Text = "Issued To"
         Returned_borrowed_books2.TextAlign = HorizontalAlignment.Center
-        Returned_borrowed_books2.Width = 300
+        Returned_borrowed_books2.Width = 267
         ' 
         ' Returned_borrowed_books3
         ' 
-        Returned_borrowed_books3.Text = "Issued Date"
+        Returned_borrowed_books3.Text = "Book Name"
         Returned_borrowed_books3.TextAlign = HorizontalAlignment.Center
-        Returned_borrowed_books3.Width = 250
+        Returned_borrowed_books3.Width = 300
         ' 
         ' Returned_borrowed_books4
         ' 
-        Returned_borrowed_books4.Text = "Due Date"
+        Returned_borrowed_books4.Text = "Issued Date"
         Returned_borrowed_books4.TextAlign = HorizontalAlignment.Center
         Returned_borrowed_books4.Width = 250
         ' 
         ' Returned_borrowed_books5
         ' 
-        Returned_borrowed_books5.Text = "Returned Date"
+        Returned_borrowed_books5.Text = "Due Date"
         Returned_borrowed_books5.TextAlign = HorizontalAlignment.Center
         Returned_borrowed_books5.Width = 250
+        ' 
+        ' Returned_borrowed_books6
+        ' 
+        Returned_borrowed_books6.Text = "Returned Date"
+        Returned_borrowed_books6.TextAlign = HorizontalAlignment.Center
+        Returned_borrowed_books6.Width = 250
         ' 
         ' Panel6_Supplier
         ' 
@@ -1298,6 +1299,11 @@ Partial Class Fm_home_page
         Listed_details0.Text = "Penalty Description"
         Listed_details0.Width = 503
         ' 
+        ' Listed_details1
+        ' 
+        Listed_details1.Text = "Amount"
+        Listed_details1.Width = 215
+        ' 
         ' Panel7_Category
         ' 
         Panel7_Category.BorderStyle = BorderStyle.FixedSingle
@@ -1380,10 +1386,10 @@ Partial Class Fm_home_page
         Lbl_date_time.Text = "December 31, 2025 | 12:59 PM"
         Lbl_date_time.TextAlign = ContentAlignment.MiddleRight
         ' 
-        ' Listed_details1
+        ' Returned_borrowed_books0
         ' 
-        Listed_details1.Text = "Amount"
-        Listed_details1.Width = 215
+        Returned_borrowed_books0.Text = "Transaction No"
+        Returned_borrowed_books0.Width = 225
         ' 
         ' Fm_home_page
         ' 
@@ -1392,6 +1398,7 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
+        Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
         Controls.Add(Panel6_Supplier)
         Controls.Add(Panel1_Books)
@@ -1399,7 +1406,6 @@ Partial Class Fm_home_page
         Controls.Add(Lbl_date_time)
         Controls.Add(Panel4_User_Acounts)
         Controls.Add(Panel3_Borrower_Info)
-        Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(P_navigation)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
@@ -1448,12 +1454,12 @@ Partial Class Fm_home_page
     Friend WithEvents Listed_books9 As ColumnHeader
     Friend WithEvents Panel2_Returned_Issued_Books As Panel
     Friend WithEvents Lv_returned_borrowed_books As ListView
-    Friend WithEvents Returned_borrowed_books0 As ColumnHeader
     Friend WithEvents Returned_borrowed_books1 As ColumnHeader
     Friend WithEvents Returned_borrowed_books2 As ColumnHeader
     Friend WithEvents Returned_borrowed_books3 As ColumnHeader
     Friend WithEvents Returned_borrowed_books4 As ColumnHeader
     Friend WithEvents Returned_borrowed_books5 As ColumnHeader
+    Friend WithEvents Returned_borrowed_books6 As ColumnHeader
     Friend WithEvents Panel3_Borrower_Info As Panel
     Friend WithEvents Btn_student_info_delete As Button
     Friend WithEvents Btn_student_info_add As Button
@@ -1571,4 +1577,5 @@ Partial Class Fm_home_page
     Friend WithEvents Btn_publisher_add As Button
     Friend WithEvents Lv_publisher As ListView
     Friend WithEvents Listed_details1 As ColumnHeader
+    Friend WithEvents Returned_borrowed_books0 As ColumnHeader
 End Class

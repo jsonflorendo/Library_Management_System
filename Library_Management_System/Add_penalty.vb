@@ -33,7 +33,13 @@ Public Class Fm_add_penalty
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -65,7 +71,13 @@ Public Class Fm_add_penalty
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
 
         End Try
 
@@ -73,14 +85,13 @@ Public Class Fm_add_penalty
 
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
-        Try
+        If Txt_penalty_amount.Text = "" Or Cb_penalty_description.Text = "-Select Description-" Then
 
-            If Txt_penalty_amount.Text = "" Or
-               Cb_penalty_description.Text = "-Select Description-" Then
+            MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
 
-            Else
+            Try
 
                 con.Open()
 
@@ -120,13 +131,19 @@ Public Class Fm_add_penalty
 
                 End If
 
-            End If
+            Catch ex As Exception
 
-        Catch ex As Exception
+                MsgBox("Error: " & ex.Message)
 
-            MsgBox(ex.Message)
+            Finally
 
-        End Try
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
 
     End Sub
 
