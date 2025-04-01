@@ -243,10 +243,9 @@ Module Module1
 
             con.Open()
 
-            sql = "SELECT   CONCAT(tbl_issued_books.transaction_yyyy_mm, '-', LPAD(tbl_issued_books.transaction_series, 5, '0')) AS transaction_number,
+            sql = "SELECT   CONCAT (tbl_issued_books.transaction_yyyy_mm, '-', LPAD(tbl_issued_books.transaction_series, 5, '0')) AS transaction_number,
                             tbl_borrower.borrower_id,
-                            tbl_borrower.last_name,
-                            tbl_borrower.first_name,
+                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) AS full_name,
                             tbl_books.book_name,
                             tbl_issued_books.issued_date,
                             tbl_issued_books.due_date,
@@ -270,7 +269,7 @@ Module Module1
 
                 Dim lv As New ListViewItem({dr("transaction_number").ToString(),
                                             dr("borrower_id").ToString(),
-                                            dr("last_name").ToString() + ", " + dr("first_name").ToString(),
+                                            dr("full_name").ToString(),
                                             dr("book_name").ToString(),
                                             dr("issued_date").ToString(),
                                             dr("due_date").ToString(),
@@ -380,8 +379,7 @@ Module Module1
             con.Open()
 
             sql = "SELECT   tbl_borrower.borrower_id,
-                            tbl_borrower.last_name,
-                            tbl_borrower.first_name,
+                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) AS full_name,
                             tbl_books.book_name,
                             tbl_library_penalty.penalty_description,
                             tbl_penalty_report.penalty_amount,
@@ -407,7 +405,7 @@ Module Module1
             Do While dr.Read
 
                 Dim lv As New ListViewItem({dr("borrower_id").ToString(),
-                                            dr("last_name").ToString() + ", " + dr("first_name").ToString(),
+                                            dr("full_name").ToString(),
                                             dr("book_name").ToString(),
                                             dr("penalty_amount").ToString(),
                                             dr("penalty_description").ToString(),
@@ -1035,6 +1033,9 @@ Module Module1
 
         Fm_issued_books.Lbl_error_msg.Text = ""
         Fm_issued_books.Lbl_error_msg_1.Text = ""
+
+        Fm_returned_books.Lbl_error_msg.Text = ""
+        Fm_returned_books.Lbl_error_msg_1.Text = ""
 
         Fm_admin_registration.Lbl_error_msg.Text = ""
         Fm_admin_registration.Lbl_error_msg_1.Text = ""

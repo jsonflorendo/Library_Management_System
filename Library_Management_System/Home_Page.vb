@@ -743,10 +743,9 @@ Public Class Fm_home_page
 
             con.Open()
 
-            sql = "SELECT   CONCAT(tbl_issued_books.transaction_yyyy_mm, '-', LPAD(tbl_issued_books.transaction_series, 5, '0')) AS transaction_number,
+            sql = "SELECT   CONCAT (tbl_issued_books.transaction_yyyy_mm, '-', LPAD(tbl_issued_books.transaction_series, 5, '0')) AS transaction_number,
                             tbl_borrower.borrower_id,
-                            tbl_borrower.last_name,
-                            tbl_borrower.first_name,
+                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) AS full_name,
                             tbl_books.book_name,
                             tbl_issued_books.issued_date,
                             tbl_issued_books.due_date,
@@ -761,8 +760,7 @@ Public Class Fm_home_page
 
                     WHERE   CONCAT(transaction_yyyy_mm, '-', LPAD(transaction_series, 5, '0')) LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
                             borrower_id LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
-                            last_name LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
-                            first_name LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
+                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
                             book_name LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
                             issued_date LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
                             due_date LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
@@ -778,7 +776,7 @@ Public Class Fm_home_page
 
                 Dim lv As New ListViewItem({dr("transaction_number").ToString(),
                                             dr("borrower_id").ToString(),
-                                            dr("last_name").ToString() + ", " + dr("first_name").ToString(),
+                                            dr("full_name").ToString(),
                                             dr("book_name").ToString(),
                                             dr("issued_date").ToString(),
                                             dr("due_date").ToString(),
@@ -1084,7 +1082,7 @@ Public Class Fm_home_page
     End Sub
 
 
-    ' Penalty
+    ' Penalty Report
 
     Private Sub Cb_penalty_description_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_penalty_description.SelectedIndexChanged
 
@@ -2459,7 +2457,7 @@ Public Class Fm_home_page
     End Sub
 
 
-    ' Library Penalty
+    ' Library Publisher
 
     Private Sub Txt_search_publisher_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_publisher.TextChanged
 

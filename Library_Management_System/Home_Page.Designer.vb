@@ -363,7 +363,7 @@ Partial Class Fm_home_page
         ' 
         Lv_returned_borrowed_books.BackColor = SystemColors.ActiveCaption
         Lv_returned_borrowed_books.Columns.AddRange(New ColumnHeader() {Returned_borrowed_books0, Returned_borrowed_books1, Returned_borrowed_books2, Returned_borrowed_books3, Returned_borrowed_books4, Returned_borrowed_books5, Returned_borrowed_books6})
-        Lv_returned_borrowed_books.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Lv_returned_borrowed_books.Font = New Font("Georgia", 15F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_returned_borrowed_books.FullRowSelect = True
         Lv_returned_borrowed_books.HeaderStyle = ColumnHeaderStyle.Nonclickable
         Lv_returned_borrowed_books.Location = New Point(33, 72)
@@ -776,7 +776,7 @@ Partial Class Fm_home_page
         Btn_student_information.BackColor = Color.Sienna
         Btn_student_information.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Btn_student_information.ForeColor = SystemColors.ControlLightLight
-        Btn_student_information.Location = New Point(8, 407)
+        Btn_student_information.Location = New Point(8, 498)
         Btn_student_information.Name = "Btn_student_information"
         Btn_student_information.Size = New Size(269, 38)
         Btn_student_information.TabIndex = 20
@@ -788,7 +788,7 @@ Partial Class Fm_home_page
         Btn_listed_accounts.BackColor = Color.Sienna
         Btn_listed_accounts.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Btn_listed_accounts.ForeColor = SystemColors.ControlLight
-        Btn_listed_accounts.Location = New Point(8, 532)
+        Btn_listed_accounts.Location = New Point(8, 542)
         Btn_listed_accounts.Name = "Btn_listed_accounts"
         Btn_listed_accounts.Size = New Size(269, 38)
         Btn_listed_accounts.TabIndex = 21
@@ -842,7 +842,7 @@ Partial Class Fm_home_page
         ' 
         Label2.AutoSize = True
         Label2.Font = New Font("Century", 18F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(8, 494)
+        Label2.Location = New Point(8, 462)
         Label2.Name = "Label2"
         Label2.Size = New Size(97, 28)
         Label2.TabIndex = 31
@@ -863,7 +863,7 @@ Partial Class Fm_home_page
         Btn_penalty_report.BackColor = Color.Sienna
         Btn_penalty_report.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Btn_penalty_report.ForeColor = SystemColors.ControlLight
-        Btn_penalty_report.Location = New Point(8, 451)
+        Btn_penalty_report.Location = New Point(8, 407)
         Btn_penalty_report.Name = "Btn_penalty_report"
         Btn_penalty_report.Size = New Size(269, 38)
         Btn_penalty_report.TabIndex = 28
@@ -875,7 +875,7 @@ Partial Class Fm_home_page
         Btn_supplier_maintenance.BackColor = Color.Sienna
         Btn_supplier_maintenance.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Btn_supplier_maintenance.ForeColor = SystemColors.ControlLight
-        Btn_supplier_maintenance.Location = New Point(8, 576)
+        Btn_supplier_maintenance.Location = New Point(8, 586)
         Btn_supplier_maintenance.Name = "Btn_supplier_maintenance"
         Btn_supplier_maintenance.Size = New Size(269, 38)
         Btn_supplier_maintenance.TabIndex = 23
@@ -887,7 +887,7 @@ Partial Class Fm_home_page
         Btn_author_category_penalty_publisher_maintenance.BackColor = Color.Sienna
         Btn_author_category_penalty_publisher_maintenance.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Btn_author_category_penalty_publisher_maintenance.ForeColor = SystemColors.ControlLight
-        Btn_author_category_penalty_publisher_maintenance.Location = New Point(8, 620)
+        Btn_author_category_penalty_publisher_maintenance.Location = New Point(8, 630)
         Btn_author_category_penalty_publisher_maintenance.Name = "Btn_author_category_penalty_publisher_maintenance"
         Btn_author_category_penalty_publisher_maintenance.Size = New Size(269, 69)
         Btn_author_category_penalty_publisher_maintenance.TabIndex = 22
