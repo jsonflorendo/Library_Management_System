@@ -1150,6 +1150,7 @@ Partial Class Fm_home_page
         Lv_publisher.Columns.AddRange(New ColumnHeader() {ColumnHeader1})
         Lv_publisher.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_publisher.FullRowSelect = True
+        Lv_publisher.HeaderStyle = ColumnHeaderStyle.Nonclickable
         Lv_publisher.Location = New Point(16, 77)
         Lv_publisher.Name = "Lv_publisher"
         Lv_publisher.Size = New Size(722, 361)
@@ -1293,6 +1294,7 @@ Partial Class Fm_home_page
         Lv_penalty_description.Columns.AddRange(New ColumnHeader() {Listed_details0, Listed_details1})
         Lv_penalty_description.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_penalty_description.FullRowSelect = True
+        Lv_penalty_description.HeaderStyle = ColumnHeaderStyle.Nonclickable
         Lv_penalty_description.Location = New Point(16, 77)
         Lv_penalty_description.Name = "Lv_penalty_description"
         Lv_penalty_description.Size = New Size(722, 361)
@@ -1368,7 +1370,6 @@ Partial Class Fm_home_page
         Lv_category.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_category.FullRowSelect = True
         Lv_category.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        Lv_category.HideSelection = True
         Lv_category.Location = New Point(16, 77)
         Lv_category.Name = "Lv_category"
         Lv_category.Size = New Size(722, 361)
@@ -1399,8 +1400,8 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
-        Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
+        Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(Panel6_Supplier)
         Controls.Add(Panel1_Books)
         Controls.Add(Panel8_Penalty_Report)

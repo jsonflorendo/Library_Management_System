@@ -364,7 +364,7 @@ Public Class Fm_add_books
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -396,7 +396,7 @@ Public Class Fm_add_books
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -428,7 +428,7 @@ Public Class Fm_add_books
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

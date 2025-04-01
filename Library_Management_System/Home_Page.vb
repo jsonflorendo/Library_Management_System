@@ -716,7 +716,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_author_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
@@ -724,7 +724,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_penalty_data_table()
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -858,7 +858,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_author_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
@@ -866,7 +866,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_penalty_data_table()
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -1063,7 +1063,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_author_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
@@ -1071,7 +1071,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_penalty_data_table()
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -1285,7 +1285,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_author_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
@@ -1293,7 +1293,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_penalty_data_table()
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -1542,7 +1542,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_author_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
@@ -1550,7 +1550,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_penalty_data_table()
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -1774,7 +1774,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_author_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
@@ -1782,7 +1782,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_penalty_data_table()
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -1992,7 +1992,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_penalty_data_table()
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -2199,11 +2199,11 @@ Public Class Fm_home_page
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_author_data_table()
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_penalty_data_table()
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -2410,7 +2410,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_author_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
@@ -2621,7 +2621,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_author_data_table()
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
@@ -2629,7 +2629,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_penalty_data_table()
 
         End If
 

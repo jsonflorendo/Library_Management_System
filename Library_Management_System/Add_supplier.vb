@@ -54,7 +54,7 @@ Public Class Fm_supplier_maintenance
 
                         con.Close()
 
-                        Lbl_error_msg_1.Text = "Supplier already exists"
+                        Lbl_error_msg.Text = "Supplier already exists"
 
                     Else
 
@@ -148,7 +148,7 @@ Public Class Fm_supplier_maintenance
 
                         con.Close()
 
-                        Lbl_error_msg_1.Text = "Supplier already exists"
+                        Lbl_error_msg.Text = "Supplier already exists"
 
                     Else
 
@@ -253,7 +253,7 @@ Public Class Fm_supplier_maintenance
 
                     dr.Close()
 
-                    Lbl_error_msg_1.Text = "Supplier already exists"
+                    Lbl_error_msg.Text = "Supplier already exists"
 
                     'returned previous Supplier ID
                     sql = "UPDATE tbl_library_supplier SET 
@@ -390,7 +390,7 @@ Public Class Fm_supplier_maintenance
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -422,7 +422,7 @@ Public Class Fm_supplier_maintenance
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -454,7 +454,7 @@ Public Class Fm_supplier_maintenance
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
