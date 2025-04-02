@@ -47,7 +47,7 @@ Public Class Fm_add_books
             con.Open()
 
             sql = "SELECT * FROM tbl_library_category
-                            WHERE category_name = '" & Cb_book_category.Text & "'"
+                            WHERE category_name = '" & Cb_book_category.SelectedItem & "'"
             'GROUP BY author_name"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader
@@ -74,10 +74,6 @@ Public Class Fm_add_books
             End If
 
         End Try
-
-    End Sub
-
-    Private Sub Cb_book_category_TextChanged(sender As Object, e As EventArgs) Handles Cb_book_category.TextChanged
 
     End Sub
 
@@ -234,6 +230,12 @@ Public Class Fm_add_books
 
     End Sub
 
+    Private Sub Cb_book_category_Click(sender As Object, e As EventArgs) Handles Cb_book_category.Click
+
+        Cb_book_category.DroppedDown = True
+
+    End Sub
+
     Private Sub Txt_author_Click(sender As Object, e As EventArgs) Handles Txt_author.Click
 
         Cb_author.DroppedDown = True
@@ -249,12 +251,6 @@ Public Class Fm_add_books
     Private Sub Txt_supplier_name_Click(sender As Object, e As EventArgs) Handles Txt_supplier_name.Click
 
         Cb_supplier_name.DroppedDown = True
-
-    End Sub
-
-    Private Sub Cb_book_category_Click(sender As Object, e As EventArgs) Handles Cb_book_category.Click
-
-        Cb_book_category.DroppedDown = True
 
     End Sub
 

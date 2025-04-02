@@ -30,9 +30,6 @@ Public Class Fm_home_page
         Load_library_cb_category()
         Load_library_cb_penalty_description()
 
-        Dtp_penalty_date.Format = DateTimePickerFormat.Custom
-        Dtp_penalty_date.CustomFormat = "MMMM dd, yyyy"
-
     End Sub
 
     Private Sub Tmr_home_page_date_time_Tick(sender As Object, e As EventArgs) Handles Tmr_home_page_date_time.Tick
@@ -1084,25 +1081,76 @@ Public Class Fm_home_page
 
     ' Penalty Report
 
-    Private Sub Cb_penalty_description_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_penalty_description.SelectedIndexChanged
+    Private Sub Txt_search_penalty_report_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_penalty_report.TextChanged
 
         Try
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_library_penalty
-                            WHERE penalty_description = '" & Cb_penalty_description.SelectedItem & "'"
-            'GROUP BY author_name"
+            sql = "SELECT   tbl_borrower.borrower_id,
+                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) AS full_name,
+                            tbl_books.book_name,
+                            tbl_library_penalty.penalty_description,
+                            tbl_library_penalty.amount,
+                            tbl_penalty_report.penalty_date,
+                            tbl_borrower.primary_borrower_id,
+                            tbl_books.primary_book_id,
+                            tbl_penalty_report.primary_penalty_description_id,
+                            tbl_penalty_report.primary_penalty_id
+
+                    FROM tbl_penalty_report
+
+                    INNER JOIN tbl_borrower ON tbl_penalty_report.primary_borrower_id = tbl_borrower.primary_borrower_id
+                    INNER JOIN tbl_books ON tbl_penalty_report.primary_book_id = tbl_books.primary_book_id
+                    INNER JOIN tbl_library_penalty ON tbl_penalty_report.primary_penalty_description_id = tbl_library_penalty.primary_penalty_description_id
+
+                    WHERE   borrower_id LIKE '%" & Txt_search_penalty_report.Text & "%' OR
+                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) LIKE '%" & Txt_search_penalty_report.Text & "%' OR
+                            book_name LIKE '%" & Txt_search_penalty_report.Text & "%' OR                            
+                            penalty_description LIKE '%" & Txt_search_penalty_report.Text & "%' OR
+                            amount LIKE '%" & Txt_search_penalty_report.Text & "%' OR
+                            penalty_date LIKE '%" & Txt_search_penalty_report.Text & "%'
+
+                    ORDER BY primary_penalty_id DESC"
+
             cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
+            dr = cmd.ExecuteReader()
 
-            If dr.Read() Then
+            Lv_penalty.Items.Clear()
 
-                Txt_primary_penalty_description_id.Text = dr("primary_penalty_description_id")
+            Do While dr.Read
 
-            End If
+                Dim lv As New ListViewItem({dr("borrower_id").ToString(),
+                                            dr("full_name").ToString(),
+                                            dr("book_name").ToString(),
+                                            dr("penalty_description").ToString(),
+                                            dr("amount").ToString(),
+                                            dr("penalty_date").ToString(),
+                                            dr("primary_borrower_id").ToString(),
+                                            dr("primary_book_id").ToString(),
+                                            dr("primary_penalty_description_id").ToString(),
+                                            dr("primary_penalty_id").ToString()})
+                Lv_penalty.Items.Add(lv)
+
+            Loop
 
             con.Close()
+
+            For i As Integer = 0 To Lv_penalty.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Lv_penalty.Items(i).BackColor = Color.Azure
+                    Lv_penalty.Items(i).ForeColor = Color.Black
+
+                Else
+
+                    Lv_penalty.Items(i).BackColor = Color.GhostWhite
+                    Lv_penalty.Items(i).ForeColor = Color.Black
+
+                End If
+
+            Next
 
         Catch ex As Exception
 
@@ -1118,109 +1166,60 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_penalty_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_edit.Click
+    Private Sub Btn_penalty_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_report_edit.Click
 
         If Lv_penalty.SelectedItems.Count > 0 Then
 
-            If Txt_penalty_id_number.Text = "" Or
-                Txt_penalty_name.Text = "" Or
-                Txt_penalty_book_name.Text = "" Or
-                Txt_penalty_amount.Text = "" Or
-                Cb_penalty_description.Text = "" Then
+            Fm_add_penalty.Txt_borrower_id.Text = Lv_penalty.SelectedItems(0).Text
+            Fm_add_penalty.Txt_borrower_name.Text = Lv_penalty.SelectedItems(0).SubItems(1).Text
+            Fm_add_penalty.Txt_book_name.Text = Lv_penalty.SelectedItems(0).SubItems(2).Text
+            Fm_add_penalty.Cb_penalty_description.Text = Lv_penalty.SelectedItems(0).SubItems(3).Text
+            Fm_add_penalty.Txt_penalty_amount.Text = Lv_penalty.SelectedItems(0).SubItems(4).Text
 
-                MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Fm_add_penalty.Txt_primary_borrower_id.Text = Lv_penalty.SelectedItems(0).SubItems(6).Text
+            Fm_add_penalty.Txt_primary_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(7).Text
+            Fm_add_penalty.Txt_primary_penalty_description_id.Text = Lv_penalty.SelectedItems(0).SubItems(8).Text
 
-            Else
-
-                Try
-
-                    con.Open()
-
-                    Dim penalty_name = Txt_penalty_name.Text
-                    Dim dialog As DialogResult
-
-                    dialog = MessageBox.Show("Do you want to update this penalty for " + penalty_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-
-                    If dialog = DialogResult.Yes Then
-
-                        sql = "UPDATE tbl_penalty SET 
-                                        primary_borrower_id = '" & Txt_primary_student_name_id.Text & "',                                                                        
-                                        primary_book_id = '" & Txt_primary_book_id.Text & "',
-                                        penalty_amount = '" & Txt_penalty_amount.Text & "',
-                                        primary_penalty_description_id = '" & Txt_primary_penalty_description_id.Text & "',                                    
-                                        penalty_date = '" & Dtp_penalty_date.Value.ToString("MMM-dd-yyyy") & "'
-                                WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(6).Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
-
-                        con.Close()
-
-                        Clear_penalty_fields()
-                        Load_penalty_report_data_table()
-                        MessageBox.Show("Penalty for " + penalty_name + " has been updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Else
-
-                        con.Close()
-
-                        Clear_penalty_fields()
-                        Load_penalty_report_data_table()
-
-                    End If
-
-                Catch ex As Exception
-
-                    MsgBox("Error: " & ex.Message)
-
-                Finally
-
-                    If con.State = ConnectionState.Open Then
-                        con.Close()
-                    End If
-
-                End Try
-
-            End If
+            Fm_add_penalty.Show()
+            Fm_add_penalty.Btn_save.Visible = False
+            Me.Enabled = False
 
         Else
 
-            MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Please select on the list", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End If
 
     End Sub
 
-    Private Sub Btn_penalty_delete_Click(sender As Object, e As EventArgs) Handles Btn_penalty_delete.Click
+    Private Sub Btn_penalty_delete_Click(sender As Object, e As EventArgs) Handles Btn_penalty_report_delete.Click
 
         If Lv_penalty.SelectedItems.Count > 0 Then
 
             Try
-
                 con.Open()
 
-                Dim penalty_name = Txt_penalty_name.Text
+                Dim full_name = Lv_penalty.SelectedItems(0).SubItems(1).Text
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete this penalty for " + penalty_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete the penalty for " + full_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
-                    sql = "DELETE FROM tbl_penalty                                    
-                            WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(6).Text & "'"
+                    sql = "DELETE FROM tbl_penalty_report
+                                  WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(9).Text & "'"
                     cmd = New MySqlCommand(sql, con)
-                    cmd.ExecuteNonQuery()
+                    dr = cmd.ExecuteReader
 
                     con.Close()
 
-                    Clear_penalty_fields()
                     Load_penalty_report_data_table()
-                    MessageBox.Show("Penalty for " + penalty_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Penalty deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
                     con.Close()
 
-                    Clear_penalty_fields()
                     Load_penalty_report_data_table()
 
                 End If
@@ -1239,28 +1238,13 @@ Public Class Fm_home_page
 
         Else
 
-            MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Please select on the list", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End If
 
     End Sub
 
     Private Sub Lv_penalty_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_penalty.SelectedIndexChanged
-
-        If Lv_penalty.SelectedItems.Count > 0 Then
-
-            Txt_penalty_id_number.Text = Lv_penalty.SelectedItems(0).Text
-            Txt_penalty_name.Text = Lv_penalty.SelectedItems(0).SubItems(1).Text
-            Txt_penalty_book_name.Text = Lv_penalty.SelectedItems(0).SubItems(2).Text
-            Txt_penalty_amount.Text = Lv_penalty.SelectedItems(0).SubItems(3).Text
-            Cb_penalty_description.Text = Lv_penalty.SelectedItems(0).SubItems(4).Text
-            Dtp_penalty_date.Text = Lv_penalty.SelectedItems(0).SubItems(5).Text
-
-            Txt_primary_penalty_description_id.Text = Lv_penalty.SelectedItems(0).SubItems(7).Text
-            Txt_primary_student_name_id.Text = Lv_penalty.SelectedItems(0).SubItems(8).Text
-            Txt_primary_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(9).Text
-
-        End If
 
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
@@ -1303,20 +1287,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Cb_penalty_description_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cb_penalty_description.KeyPress
-
-        'No input alphanumeric
-        e.Handled = True
-
-    End Sub
-
-    Private Sub Cb_penalty_description_Click(sender As Object, e As EventArgs) Handles Cb_penalty_description.Click
-
-        Cb_penalty_description.DroppedDown = True
-
-    End Sub
-
-    Private Sub Txt_penalty_amount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_penalty_amount.KeyPress
+    Private Sub Txt_search_penalty_report_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_penalty_report.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -1324,21 +1295,26 @@ Public Class Fm_home_page
             Return
         End If
 
+        ' Convert the entered character to uppercase
+        e.KeyChar = Char.ToUpper(e.KeyChar)
+
         ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 10 ' Change this to the desired maximum length
+        Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_penalty_amount.TextLength >= maxLength Then
+        If Txt_search_penalty_report.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
-        'Input numeric only
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
             e.Handled = True
-
         End If
 
     End Sub

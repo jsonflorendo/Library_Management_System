@@ -6,8 +6,7 @@ Public Class Fm_add_penalty
 
         Load_library_cb_penalty_description()
 
-        Dtp_penalty_date.Format = DateTimePickerFormat.Custom
-        Dtp_penalty_date.CustomFormat = "MMMM dd, yyyy | h:mm tt"
+        Clear_error_msg()
 
     End Sub
 
@@ -26,6 +25,7 @@ Public Class Fm_add_penalty
             If dr.Read() Then
 
                 Txt_primary_penalty_description_id.Text = dr("primary_penalty_description_id")
+                Txt_penalty_amount.Text = dr("amount")
 
             End If
 
@@ -45,49 +45,19 @@ Public Class Fm_add_penalty
 
     End Sub
 
-    Private Sub Txt_borrower_id_TextChanged(sender As Object, e As EventArgs) Handles Txt_borrower_id.TextChanged
+    Private Sub Cb_penalty_description_Click(sender As Object, e As EventArgs) Handles Cb_penalty_description.Click
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_borrower
-                                WHERE borrower_id = '" & Txt_borrower_id.Text & "'"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-
-            If dr.Read() Then
-
-                Txt_primary_borrower_id.Text = dr("primary_borrower_id")
-
-            Else
-
-                Txt_borrower_name.Clear()
-                Txt_primary_borrower_id.Clear()
-
-            End If
-
-            con.Close()
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Cb_penalty_description.DroppedDown = True
 
     End Sub
 
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
-        If Txt_penalty_amount.Text = "" Or Cb_penalty_description.Text = "-Select Description-" Then
+        Clear_error_msg()
 
-            MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If Cb_penalty_description.Text = "-Select Description-" Then
+
+            Lbl_error_msg.Text = "Please select description"
 
         Else
 
@@ -104,23 +74,19 @@ Public Class Fm_add_penalty
 
                     sql = "INSERT INTO tbl_penalty_report (primary_borrower_id, 
                                                             primary_book_id,
-                                                            penalty_amount,
                                                             primary_penalty_description_id,
-                                                            penalty_date,
-                                                            penalty_time)
-                                          VALUE ('" & Txt_primary_borrower_id.Text & "',
-                                                '" & Txt_primary_book_id.Text & "',
-                                                '" & Txt_penalty_amount.Text & "',
-                                                '" & Txt_primary_penalty_description_id.Text & "',
-                                                '" & Dtp_penalty_date.Value.ToString("MMM-dd-yyyy") & "',
-                                                '" & Dtp_penalty_date.Value.ToString("hh:mm tt") & "')"
+                                                            penalty_date)
+                                    VALUE ('" & Txt_primary_borrower_id.Text & "',
+                                            '" & Txt_primary_book_id.Text & "',
+                                            '" & Txt_primary_penalty_description_id.Text & "',
+                                            '" & Date.Now.ToString("MMMM dd, yyyy") & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
 
                     con.Close()
 
                     Load_penalty_report_data_table()
-                    MessageBox.Show("Penalty for " + penalty_name + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Penalty for " + penalty_name + " added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     Fm_returned_books.Enabled = True
                     Me.Close()
@@ -147,41 +113,51 @@ Public Class Fm_add_penalty
 
     End Sub
 
-    Private Sub Cb_penalty_description_Click(sender As Object, e As EventArgs) Handles Cb_penalty_description.Click
+    Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
 
-        Cb_penalty_description.DroppedDown = True
+        Try
+
+            con.Open()
+
+            sql = "UPDATE tbl_penalty_report SET
+                            primary_penalty_description_id = '" & Txt_primary_penalty_description_id.Text & "'
+                    WHERE primary_penalty_id = '" & Fm_home_page.Lv_penalty.SelectedItems(0).SubItems(9).Text & "'"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader
+
+            con.Close()
+
+            MessageBox.Show("Penalty for " + Txt_borrower_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Fm_home_page.Enabled = True
+            Load_penalty_report_data_table() '-> To item selection On the listview
+            Me.Close()
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
 
     End Sub
 
     Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
-        Fm_returned_books.Enabled = True
-        Me.Close()
+        If Fm_home_page.Enabled = False And Fm_returned_books.Enabled = False Then
 
-    End Sub
+            Fm_returned_books.Enabled = True
+            Me.Close()
 
-    Private Sub Txt_penalty_amount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_penalty_amount.KeyPress
+        Else
 
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 10 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_penalty_amount.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        'Input numeric only
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-
-            e.Handled = True
+            Fm_home_page.Enabled = True
+            Load_penalty_report_data_table() '-> To item selection On the listview
+            Me.Close()
 
         End If
 

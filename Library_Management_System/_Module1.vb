@@ -382,12 +382,12 @@ Module Module1
                             CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) AS full_name,
                             tbl_books.book_name,
                             tbl_library_penalty.penalty_description,
-                            tbl_penalty_report.penalty_amount,
+                            tbl_library_penalty.amount,
                             tbl_penalty_report.penalty_date,
-                            tbl_penalty_report.primary_penalty_id,
-                            tbl_penalty_report.primary_penalty_description_id,
                             tbl_borrower.primary_borrower_id,
-                            tbl_books.primary_book_id
+                            tbl_books.primary_book_id,
+                            tbl_penalty_report.primary_penalty_description_id,
+                            tbl_penalty_report.primary_penalty_id
 
                     FROM tbl_penalty_report
 
@@ -407,13 +407,13 @@ Module Module1
                 Dim lv As New ListViewItem({dr("borrower_id").ToString(),
                                             dr("full_name").ToString(),
                                             dr("book_name").ToString(),
-                                            dr("penalty_amount").ToString(),
                                             dr("penalty_description").ToString(),
+                                            dr("amount").ToString(),
                                             dr("penalty_date").ToString(),
-                                            dr("primary_penalty_id").ToString(),
-                                            dr("primary_penalty_description_id").ToString(),
                                             dr("primary_borrower_id").ToString(),
-                                            dr("primary_book_id").ToString()})
+                                            dr("primary_book_id").ToString(),
+                                            dr("primary_penalty_description_id").ToString(),
+                                            dr("primary_penalty_id").ToString()})
                 Fm_home_page.Lv_penalty.Items.Add(lv)
 
             Loop
@@ -909,13 +909,9 @@ Module Module1
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader
 
-            Fm_home_page.Cb_penalty_description.Items.Clear()
-
             Fm_add_penalty.Cb_penalty_description.Items.Clear()
 
             Do While dr.Read()
-
-                Fm_add_penalty.Cb_penalty_description.Items.Add(dr("penalty_description"))
 
                 Fm_add_penalty.Cb_penalty_description.Items.Add(dr("penalty_description"))
 
@@ -1000,21 +996,6 @@ Module Module1
 
     End Sub
 
-    Public Sub Clear_penalty_fields()
-
-        Fm_home_page.Txt_primary_student_name_id.Clear()
-
-        Fm_home_page.Txt_penalty_id_number.Clear()
-        Fm_home_page.Txt_penalty_name.Clear()
-        Fm_home_page.Txt_penalty_book_name.Clear()
-        Fm_home_page.Txt_penalty_amount.Clear()
-
-        Fm_home_page.Txt_primary_penalty_description_id.Clear()
-
-        Fm_home_page.Cb_penalty_description.Text = ""
-
-    End Sub
-
 
     ' Load clear all error messages
 
@@ -1036,6 +1017,8 @@ Module Module1
 
         Fm_returned_books.Lbl_error_msg.Text = ""
         Fm_returned_books.Lbl_error_msg_1.Text = ""
+
+        Fm_add_penalty.Lbl_error_msg.Text = ""
 
         Fm_admin_registration.Lbl_error_msg.Text = ""
         Fm_admin_registration.Lbl_error_msg_1.Text = ""

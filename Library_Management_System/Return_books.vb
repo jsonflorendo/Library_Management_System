@@ -199,9 +199,11 @@ Public Class Fm_returned_books
         Fm_add_penalty.Txt_borrower_name.Text = Txt_issued_to.Text
         Fm_add_penalty.Txt_book_name.Text = Txt_book_name.Text
 
-        Fm_add_penalty.Txt_primary_book_id.Text = Fm_home_page.Lv_returned_borrowed_books.SelectedItems(0).SubItems(7).Text
+        Fm_add_penalty.Txt_primary_borrower_id.Text = Txt_primary_borrower_id.Text
+        Fm_add_penalty.Txt_primary_book_id.Text = Txt_primary_book_id.Text
 
         Fm_add_penalty.Show()
+        Fm_add_penalty.Btn_update.Visible = False
         Me.Enabled = False
 
     End Sub

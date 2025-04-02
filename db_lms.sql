@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2025 at 03:33 PM
+-- Generation Time: Apr 02, 2025 at 12:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -82,7 +82,7 @@ CREATE TABLE `tbl_books` (
 INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_category_id`, `qty`, `primary_author_id`, `primary_publisher_id`, `publish_year`, `primary_supplier_id`, `acquisition_date`, `status`) VALUES
 (1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', '1', '11', '1', '3', 'May 08, 2024', '1', 'May 08, 2024', 'Available'),
 (2, '9789710639540', 'CINDERELLLA', '1', '19', '2', '3', 'April 16, 2024', '1', 'May 07, 2024', 'Available'),
-(5, 'AP091GW', 'LIBRO', '1', '19', '1', '1', 'May 06, 2024', '5', 'May 08, 2024', 'Available');
+(5, 'AP091GW', 'LIBRO', '2', '23', '1', '1', 'May 06, 2024', '5', 'May 08, 2024', 'Available');
 
 -- --------------------------------------------------------
 
@@ -133,8 +133,8 @@ CREATE TABLE `tbl_issued_books` (
 --
 
 INSERT INTO `tbl_issued_books` (`primary_issued_book_id`, `transaction_yyyy_mm`, `transaction_series`, `primary_borrower_id`, `primary_book_id`, `issued_date`, `due_date`, `returned_date`, `created_at`) VALUES
-(1, 'BB2025-04', '00001', '3', '5', 'April 01, 2025', 'May 01, 2025', 'April 01, 2025', '2025-04-01'),
-(3, 'BB2025-04', '00002', '3', '1', 'April 01, 2025', 'May 01, 2025', 'April 01, 2025', '2025-04-01'),
+(1, 'BB2025-04', '00001', '3', '5', 'April 01, 2025', 'May 01, 2025', 'April 02, 2025', '2025-04-01'),
+(3, 'BB2025-04', '00002', '3', '1', 'April 01, 2025', 'May 01, 2025', '', '2025-04-01'),
 (4, 'BB2025-04', '00003', '2', '5', 'April 01, 2025', 'May 01, 2025', '', '2025-04-01');
 
 -- --------------------------------------------------------
@@ -259,10 +259,19 @@ CREATE TABLE `tbl_penalty_report` (
   `primary_penalty_id` int(11) NOT NULL,
   `primary_borrower_id` varchar(11) DEFAULT NULL,
   `primary_book_id` varchar(11) DEFAULT NULL,
-  `penalty_amount` varchar(10) DEFAULT NULL,
   `primary_penalty_description_id` varchar(11) DEFAULT NULL,
   `penalty_date` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_penalty_report`
+--
+
+INSERT INTO `tbl_penalty_report` (`primary_penalty_id`, `primary_borrower_id`, `primary_book_id`, `primary_penalty_description_id`, `penalty_date`) VALUES
+(6, '3', '1', '4', 'April 01, 2025'),
+(7, '2', '5', '4', 'April 01, 2025'),
+(9, '3', '5', '3', 'April 02, 2025'),
+(10, '3', '5', '4', 'April 02, 2025');
 
 --
 -- Indexes for dumped tables
@@ -390,7 +399,7 @@ ALTER TABLE `tbl_library_supplier`
 -- AUTO_INCREMENT for table `tbl_penalty_report`
 --
 ALTER TABLE `tbl_penalty_report`
-  MODIFY `primary_penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `primary_penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

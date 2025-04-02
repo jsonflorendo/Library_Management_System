@@ -19,9 +19,6 @@
     <Compile Update="Add_penalty_description.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Add_penalty_report.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Add_publisher.vb">
       <SubType>Form</SubType>
     </Compile>
