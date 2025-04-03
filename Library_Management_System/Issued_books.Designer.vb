@@ -177,7 +177,7 @@ Partial Class Fm_issued_books
         Lbl_error_msg.AutoSize = True
         Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg.ForeColor = Color.Red
-        Lbl_error_msg.Location = New Point(179, 148)
+        Lbl_error_msg.Location = New Point(180, 148)
         Lbl_error_msg.Name = "Lbl_error_msg"
         Lbl_error_msg.Size = New Size(91, 17)
         Lbl_error_msg.TabIndex = 25
@@ -188,7 +188,7 @@ Partial Class Fm_issued_books
         Lbl_error_msg_1.AutoSize = True
         Lbl_error_msg_1.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg_1.ForeColor = Color.Red
-        Lbl_error_msg_1.Location = New Point(179, 67)
+        Lbl_error_msg_1.Location = New Point(180, 67)
         Lbl_error_msg_1.Name = "Lbl_error_msg_1"
         Lbl_error_msg_1.Size = New Size(101, 17)
         Lbl_error_msg_1.TabIndex = 26

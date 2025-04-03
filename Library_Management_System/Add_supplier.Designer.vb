@@ -149,7 +149,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg.AutoSize = True
         Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg.ForeColor = Color.Red
-        Lbl_error_msg.Location = New Point(26, 58)
+        Lbl_error_msg.Location = New Point(27, 58)
         Lbl_error_msg.Name = "Lbl_error_msg"
         Lbl_error_msg.Size = New Size(81, 15)
         Lbl_error_msg.TabIndex = 10
@@ -160,7 +160,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_1.AutoSize = True
         Lbl_error_msg_1.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_1.ForeColor = Color.Red
-        Lbl_error_msg_1.Location = New Point(26, 108)
+        Lbl_error_msg_1.Location = New Point(27, 108)
         Lbl_error_msg_1.Name = "Lbl_error_msg_1"
         Lbl_error_msg_1.Size = New Size(91, 15)
         Lbl_error_msg_1.TabIndex = 11
@@ -171,7 +171,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_2.AutoSize = True
         Lbl_error_msg_2.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_2.ForeColor = Color.Red
-        Lbl_error_msg_2.Location = New Point(26, 158)
+        Lbl_error_msg_2.Location = New Point(27, 158)
         Lbl_error_msg_2.Name = "Lbl_error_msg_2"
         Lbl_error_msg_2.Size = New Size(93, 15)
         Lbl_error_msg_2.TabIndex = 12
@@ -182,7 +182,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_3.AutoSize = True
         Lbl_error_msg_3.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_3.ForeColor = Color.Red
-        Lbl_error_msg_3.Location = New Point(26, 208)
+        Lbl_error_msg_3.Location = New Point(27, 208)
         Lbl_error_msg_3.Name = "Lbl_error_msg_3"
         Lbl_error_msg_3.Size = New Size(93, 15)
         Lbl_error_msg_3.TabIndex = 13
@@ -193,7 +193,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_4.AutoSize = True
         Lbl_error_msg_4.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_4.ForeColor = Color.Red
-        Lbl_error_msg_4.Location = New Point(26, 258)
+        Lbl_error_msg_4.Location = New Point(27, 258)
         Lbl_error_msg_4.Name = "Lbl_error_msg_4"
         Lbl_error_msg_4.Size = New Size(93, 15)
         Lbl_error_msg_4.TabIndex = 14
@@ -204,7 +204,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_5.AutoSize = True
         Lbl_error_msg_5.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_5.ForeColor = Color.Red
-        Lbl_error_msg_5.Location = New Point(26, 308)
+        Lbl_error_msg_5.Location = New Point(27, 308)
         Lbl_error_msg_5.Name = "Lbl_error_msg_5"
         Lbl_error_msg_5.Size = New Size(93, 15)
         Lbl_error_msg_5.TabIndex = 15
@@ -215,7 +215,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_6.AutoSize = True
         Lbl_error_msg_6.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_6.ForeColor = Color.Red
-        Lbl_error_msg_6.Location = New Point(26, 358)
+        Lbl_error_msg_6.Location = New Point(27, 358)
         Lbl_error_msg_6.Name = "Lbl_error_msg_6"
         Lbl_error_msg_6.Size = New Size(93, 15)
         Lbl_error_msg_6.TabIndex = 16
@@ -226,7 +226,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_7.AutoSize = True
         Lbl_error_msg_7.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_7.ForeColor = Color.Red
-        Lbl_error_msg_7.Location = New Point(26, 410)
+        Lbl_error_msg_7.Location = New Point(27, 410)
         Lbl_error_msg_7.Name = "Lbl_error_msg_7"
         Lbl_error_msg_7.Size = New Size(92, 15)
         Lbl_error_msg_7.TabIndex = 17

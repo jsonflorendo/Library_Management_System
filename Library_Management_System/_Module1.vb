@@ -312,66 +312,6 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_borrower_info_data_table()
-
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_borrower
-                            ORDER BY last_name ASC"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-
-            Fm_home_page.Lv_borrower_info.Items.Clear()
-
-            Do While dr.Read
-
-                'dr("student_name").ToString() + ", " + dr("gender").ToString() '/* concatinate of 2 columns in 1 set column on listview */
-                Dim lv As New ListViewItem({dr("borrower_id").ToString(),
-                                            dr("last_name").ToString(),
-                                            dr("first_name").ToString(),
-                                            dr("middle_name").ToString(),
-                                            dr("gender").ToString(),
-                                            dr("borrower_contact_no").ToString(),
-                                            dr("borrower_address").ToString(),
-                                            dr("primary_borrower_id").ToString()})
-                Fm_home_page.Lv_borrower_info.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i As Integer = 0 To Fm_home_page.Lv_borrower_info.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Fm_home_page.Lv_borrower_info.Items(i).BackColor = Color.Azure
-                    Fm_home_page.Lv_borrower_info.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Fm_home_page.Lv_borrower_info.Items(i).BackColor = Color.GhostWhite
-                    Fm_home_page.Lv_borrower_info.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
-
-    End Sub
-
     Public Sub Load_penalty_report_data_table()
 
         Try
@@ -431,6 +371,66 @@ Module Module1
 
                     Fm_home_page.Lv_penalty.Items(i).BackColor = Color.GhostWhite
                     Fm_home_page.Lv_penalty.Items(i).ForeColor = Color.Black
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
+    End Sub
+
+    Public Sub Load_borrower_info_data_table()
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT * FROM tbl_borrower
+                            ORDER BY last_name ASC"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Fm_home_page.Lv_borrower_info.Items.Clear()
+
+            Do While dr.Read
+
+                'dr("student_name").ToString() + ", " + dr("gender").ToString() '/* concatinate of 2 columns in 1 set column on listview */
+                Dim lv As New ListViewItem({dr("borrower_id").ToString(),
+                                            dr("last_name").ToString(),
+                                            dr("first_name").ToString(),
+                                            dr("middle_name").ToString(),
+                                            dr("gender").ToString(),
+                                            dr("borrower_contact_no").ToString(),
+                                            dr("borrower_address").ToString(),
+                                            dr("primary_borrower_id").ToString()})
+                Fm_home_page.Lv_borrower_info.Items.Add(lv)
+
+            Loop
+
+            con.Close()
+
+            For i As Integer = 0 To Fm_home_page.Lv_borrower_info.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Fm_home_page.Lv_borrower_info.Items(i).BackColor = Color.Azure
+                    Fm_home_page.Lv_borrower_info.Items(i).ForeColor = Color.Black
+
+                Else
+
+                    Fm_home_page.Lv_borrower_info.Items(i).BackColor = Color.GhostWhite
+                    Fm_home_page.Lv_borrower_info.Items(i).ForeColor = Color.Black
 
                 End If
 
@@ -700,7 +700,7 @@ Module Module1
 
             Loop
 
-            con.Close()
+            dr.Close()
 
             For i As Integer = 0 To Fm_home_page.Lv_penalty_description.Items.Count - 1
 
@@ -713,6 +713,42 @@ Module Module1
 
                     Fm_home_page.Lv_penalty_description.Items(i).BackColor = Color.GhostWhite
                     Fm_home_page.Lv_penalty_description.Items(i).ForeColor = Color.Black
+
+                End If
+
+            Next
+
+
+
+            sql = "SELECT * FROM tbl_library_penalty
+                            ORDER BY penalty_description ASC"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Fm_add_penalty.Lv_penalty_description.Items.Clear()
+
+            Do While dr.Read
+
+                Dim lv As New ListViewItem({dr("penalty_description").ToString(),
+                                            dr("amount").ToString(),
+                                            dr("primary_penalty_description_id").ToString()})
+                Fm_add_penalty.Lv_penalty_description.Items.Add(lv)
+
+            Loop
+
+            con.Close()
+
+            For i As Integer = 0 To Fm_add_penalty.Lv_penalty_description.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Fm_add_penalty.Lv_penalty_description.Items(i).BackColor = Color.Azure
+                    Fm_add_penalty.Lv_penalty_description.Items(i).ForeColor = Color.Black
+
+                Else
+
+                    Fm_add_penalty.Lv_penalty_description.Items(i).BackColor = Color.GhostWhite
+                    Fm_add_penalty.Lv_penalty_description.Items(i).ForeColor = Color.Black
 
                 End If
 
@@ -782,6 +818,24 @@ Module Module1
             End If
 
         End Try
+
+    End Sub
+
+
+    ' Remove items selection on the other listview
+
+    Public Sub Load_all_data_tables()
+
+        Load_listed_books_data_table()
+        Load_returned_borrowed_books_data_table()
+        Load_penalty_report_data_table()
+        Load_borrower_info_data_table()
+        Load_listed_accounts_data_table()
+        Load_library_supplier_data_table()
+        Load_library_author_data_table()
+        Load_library_category_data_table()
+        Load_library_penalty_data_table()
+        Load_library_publisher_data_table()
 
     End Sub
 
@@ -898,41 +952,6 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_library_cb_penalty_description()
-
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_penalty"
-            'GROUP BY author_name"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-
-            Fm_add_penalty.Cb_penalty_description.Items.Clear()
-
-            Do While dr.Read()
-
-                Fm_add_penalty.Cb_penalty_description.Items.Add(dr("penalty_description"))
-
-            Loop
-
-            con.Close()
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
-
-    End Sub
-
     Public Sub Load_library_cb_publisher()
 
         Try
@@ -965,23 +984,6 @@ Module Module1
             End If
 
         End Try
-
-    End Sub
-
-
-    ' Remove items selection on the other listview
-
-    Public Sub remove_items_selection()
-
-        Load_listed_books_data_table()
-        Load_returned_borrowed_books_data_table()
-        Load_borrower_info_data_table()
-        Load_listed_accounts_data_table()
-        Load_library_supplier_data_table()
-        Load_library_author_data_table()
-        Load_library_category_data_table()
-        Load_library_penalty_data_table()
-        Load_penalty_report_data_table()
 
     End Sub
 

@@ -248,7 +248,7 @@ Partial Class Fm_admin_registration
         Lbl_error_msg.AutoSize = True
         Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
         Lbl_error_msg.ForeColor = Color.Red
-        Lbl_error_msg.Location = New Point(19, 83)
+        Lbl_error_msg.Location = New Point(20, 83)
         Lbl_error_msg.Name = "Lbl_error_msg"
         Lbl_error_msg.Size = New Size(91, 17)
         Lbl_error_msg.TabIndex = 19
@@ -259,7 +259,7 @@ Partial Class Fm_admin_registration
         Lbl_error_msg_1.AutoSize = True
         Lbl_error_msg_1.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
         Lbl_error_msg_1.ForeColor = Color.Red
-        Lbl_error_msg_1.Location = New Point(19, 129)
+        Lbl_error_msg_1.Location = New Point(20, 129)
         Lbl_error_msg_1.Name = "Lbl_error_msg_1"
         Lbl_error_msg_1.Size = New Size(101, 17)
         Lbl_error_msg_1.TabIndex = 20
@@ -270,7 +270,7 @@ Partial Class Fm_admin_registration
         Lbl_error_msg_2.AutoSize = True
         Lbl_error_msg_2.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
         Lbl_error_msg_2.ForeColor = Color.Red
-        Lbl_error_msg_2.Location = New Point(19, 176)
+        Lbl_error_msg_2.Location = New Point(20, 176)
         Lbl_error_msg_2.Name = "Lbl_error_msg_2"
         Lbl_error_msg_2.Size = New Size(103, 17)
         Lbl_error_msg_2.TabIndex = 21
@@ -281,7 +281,7 @@ Partial Class Fm_admin_registration
         Lbl_error_msg_3.AutoSize = True
         Lbl_error_msg_3.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
         Lbl_error_msg_3.ForeColor = Color.Red
-        Lbl_error_msg_3.Location = New Point(19, 224)
+        Lbl_error_msg_3.Location = New Point(20, 224)
         Lbl_error_msg_3.Name = "Lbl_error_msg_3"
         Lbl_error_msg_3.Size = New Size(103, 17)
         Lbl_error_msg_3.TabIndex = 22
@@ -292,7 +292,7 @@ Partial Class Fm_admin_registration
         Lbl_error_msg_4.AutoSize = True
         Lbl_error_msg_4.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
         Lbl_error_msg_4.ForeColor = Color.Red
-        Lbl_error_msg_4.Location = New Point(19, 290)
+        Lbl_error_msg_4.Location = New Point(20, 290)
         Lbl_error_msg_4.Name = "Lbl_error_msg_4"
         Lbl_error_msg_4.Size = New Size(103, 17)
         Lbl_error_msg_4.TabIndex = 23
@@ -303,7 +303,7 @@ Partial Class Fm_admin_registration
         Lbl_error_msg_5.AutoSize = True
         Lbl_error_msg_5.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
         Lbl_error_msg_5.ForeColor = Color.Red
-        Lbl_error_msg_5.Location = New Point(19, 336)
+        Lbl_error_msg_5.Location = New Point(20, 336)
         Lbl_error_msg_5.Name = "Lbl_error_msg_5"
         Lbl_error_msg_5.Size = New Size(103, 17)
         Lbl_error_msg_5.TabIndex = 24
@@ -314,7 +314,7 @@ Partial Class Fm_admin_registration
         Lbl_error_msg_6.AutoSize = True
         Lbl_error_msg_6.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
         Lbl_error_msg_6.ForeColor = Color.Red
-        Lbl_error_msg_6.Location = New Point(19, 382)
+        Lbl_error_msg_6.Location = New Point(20, 382)
         Lbl_error_msg_6.Name = "Lbl_error_msg_6"
         Lbl_error_msg_6.Size = New Size(103, 17)
         Lbl_error_msg_6.TabIndex = 25
@@ -325,7 +325,7 @@ Partial Class Fm_admin_registration
         Lbl_error_msg_7.AutoSize = True
         Lbl_error_msg_7.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
         Lbl_error_msg_7.ForeColor = Color.Red
-        Lbl_error_msg_7.Location = New Point(257, 83)
+        Lbl_error_msg_7.Location = New Point(258, 83)
         Lbl_error_msg_7.Name = "Lbl_error_msg_7"
         Lbl_error_msg_7.Size = New Size(103, 17)
         Lbl_error_msg_7.TabIndex = 26
@@ -336,7 +336,7 @@ Partial Class Fm_admin_registration
         Lbl_error_msg_8.AutoSize = True
         Lbl_error_msg_8.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold)
         Lbl_error_msg_8.ForeColor = Color.Red
-        Lbl_error_msg_8.Location = New Point(257, 129)
+        Lbl_error_msg_8.Location = New Point(258, 129)
         Lbl_error_msg_8.Name = "Lbl_error_msg_8"
         Lbl_error_msg_8.Size = New Size(103, 17)
         Lbl_error_msg_8.TabIndex = 27

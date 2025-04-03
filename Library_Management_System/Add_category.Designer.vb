@@ -70,7 +70,7 @@ Partial Class Fm_add_category
         Lbl_error_msg.AutoSize = True
         Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg.ForeColor = Color.Red
-        Lbl_error_msg.Location = New Point(9, 44)
+        Lbl_error_msg.Location = New Point(10, 44)
         Lbl_error_msg.Name = "Lbl_error_msg"
         Lbl_error_msg.Size = New Size(91, 17)
         Lbl_error_msg.TabIndex = 8

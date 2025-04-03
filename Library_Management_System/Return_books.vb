@@ -45,7 +45,14 @@ Public Class Fm_returned_books
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader()
 
-                    If dr.Read Then
+                    If Not dr.Read Then
+
+                        MessageBox.Show("No data available", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Txt_isbn.Clear()
+
+                        con.Close()
+
+                    Else
 
                         Txt_primary_issued_book_id.Text = dr("primary_issued_book_id")
                         Txt_primary_book_id.Text = dr("primary_book_id")
@@ -77,7 +84,7 @@ Public Class Fm_returned_books
                             sql = "UPDATE tbl_books SET
                                             qty = '" & book_qty + 1 & "',
                                             status = '" & "Available" & "'
-                                   WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                                    WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
                             cmd = New MySqlCommand(sql, con)
                             dr = cmd.ExecuteReader
 
@@ -91,7 +98,7 @@ Public Class Fm_returned_books
 
                             sql = "UPDATE tbl_books SET
                                             qty = '" & book_qty + 1 & "'
-                                   WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                                    WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
                             cmd = New MySqlCommand(sql, con)
                             dr = cmd.ExecuteReader
 
@@ -103,12 +110,24 @@ Public Class Fm_returned_books
 
                         End If
 
-                    Else
+                        Dim dialog As DialogResult
 
-                        MessageBox.Show("No data available", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Txt_isbn.Clear()
+                        dialog = MessageBox.Show("Do you want to add penalty for " + Txt_issued_to.Text + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
-                        con.Close()
+                        If dialog = DialogResult.Yes Then
+
+                            Fm_add_penalty.Txt_borrower_id.Text = Txt_borrower_id_number.Text
+                            Fm_add_penalty.Txt_borrower_name.Text = Txt_issued_to.Text
+                            Fm_add_penalty.Txt_book_name.Text = Txt_book_name.Text
+
+                            Fm_add_penalty.Txt_primary_borrower_id.Text = Txt_primary_borrower_id.Text
+                            Fm_add_penalty.Txt_primary_book_id.Text = Txt_primary_book_id.Text
+
+                            Fm_add_penalty.Show()
+                            Fm_add_penalty.Btn_update.Visible = False
+                            Me.Enabled = False
+
+                        End If
 
                     End If
 
@@ -190,21 +209,6 @@ Public Class Fm_returned_books
             Txt_isbn.Enabled = True
 
         End If
-
-    End Sub
-
-    Private Sub Btn_penalty_Click(sender As Object, e As EventArgs) Handles Btn_penalty.Click
-
-        Fm_add_penalty.Txt_borrower_id.Text = Txt_borrower_id_number.Text
-        Fm_add_penalty.Txt_borrower_name.Text = Txt_issued_to.Text
-        Fm_add_penalty.Txt_book_name.Text = Txt_book_name.Text
-
-        Fm_add_penalty.Txt_primary_borrower_id.Text = Txt_primary_borrower_id.Text
-        Fm_add_penalty.Txt_primary_book_id.Text = Txt_primary_book_id.Text
-
-        Fm_add_penalty.Show()
-        Fm_add_penalty.Btn_update.Visible = False
-        Me.Enabled = False
 
     End Sub
 

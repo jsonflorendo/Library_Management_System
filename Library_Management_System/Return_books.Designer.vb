@@ -29,7 +29,6 @@ Partial Class Fm_returned_books
         Txt_issued_to = New TextBox()
         Txt_borrower_id_number = New TextBox()
         Txt_book_name = New TextBox()
-        Btn_penalty = New Button()
         Txt_primary_borrower_id = New TextBox()
         Label5 = New Label()
         Txt_isbn = New TextBox()
@@ -111,16 +110,6 @@ Partial Class Fm_returned_books
         Txt_book_name.Size = New Size(242, 21)
         Txt_book_name.TabIndex = 0
         ' 
-        ' Btn_penalty
-        ' 
-        Btn_penalty.Font = New Font("Georgia", 9F)
-        Btn_penalty.Location = New Point(135, 197)
-        Btn_penalty.Name = "Btn_penalty"
-        Btn_penalty.Size = New Size(110, 39)
-        Btn_penalty.TabIndex = 23
-        Btn_penalty.Text = "&Penalty"
-        Btn_penalty.UseVisualStyleBackColor = True
-        ' 
         ' Txt_primary_borrower_id
         ' 
         Txt_primary_borrower_id.Location = New Point(414, 108)
@@ -172,7 +161,7 @@ Partial Class Fm_returned_books
         Lbl_error_msg.AutoSize = True
         Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg.ForeColor = Color.Red
-        Lbl_error_msg.Location = New Point(163, 133)
+        Lbl_error_msg.Location = New Point(164, 133)
         Lbl_error_msg.Name = "Lbl_error_msg"
         Lbl_error_msg.Size = New Size(91, 17)
         Lbl_error_msg.TabIndex = 29
@@ -183,7 +172,7 @@ Partial Class Fm_returned_books
         Lbl_error_msg_1.AutoSize = True
         Lbl_error_msg_1.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg_1.ForeColor = Color.Red
-        Lbl_error_msg_1.Location = New Point(163, 45)
+        Lbl_error_msg_1.Location = New Point(164, 45)
         Lbl_error_msg_1.Name = "Lbl_error_msg_1"
         Lbl_error_msg_1.Size = New Size(101, 17)
         Lbl_error_msg_1.TabIndex = 30
@@ -203,7 +192,6 @@ Partial Class Fm_returned_books
         Controls.Add(Label5)
         Controls.Add(Txt_isbn)
         Controls.Add(Txt_primary_borrower_id)
-        Controls.Add(Btn_penalty)
         Controls.Add(Label3)
         Controls.Add(Btn_close)
         Controls.Add(Label2)
@@ -224,7 +212,6 @@ Partial Class Fm_returned_books
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents Btn_penalty As Button
     Friend WithEvents Txt_primary_borrower_id As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents Txt_isbn As TextBox

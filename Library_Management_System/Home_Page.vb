@@ -2,33 +2,30 @@
 
 Public Class Fm_home_page
 
-    Public selectedButton As Button = Nothing ' Track the currently selected button
-
     Private Sub Fm_home_page_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Connection()
 
         Panel1_Books.Visible = False
         Panel2_Returned_Issued_Books.Visible = False
+        Panel8_Penalty_Report.Visible = False
         Panel3_Borrower_Info.Visible = False
         Panel4_User_Acounts.Visible = False
         Panel6_Supplier.Visible = False
-        Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
 
-        Load_listed_books_data_table()
-        Load_returned_borrowed_books_data_table()
-        Load_borrower_info_data_table()
-        Load_penalty_report_data_table()
-        Load_listed_accounts_data_table()
-        Load_library_category_data_table()
-        Load_library_supplier_data_table()
-        Load_library_category_data_table()
-        Load_library_publisher_data_table()
-        Load_library_publisher_data_table()
+        'Load_listed_books_data_table()
+        'Load_returned_borrowed_books_data_table()
+        'Load_penalty_report_data_table()
+        'Load_borrower_info_data_table()
+        'Load_listed_accounts_data_table()
+        'Load_library_supplier_data_table()
+        'Load_library_category_data_table()
+        'Load_library_category_data_table()
+        'Load_library_publisher_data_table()
+        'Load_library_publisher_data_table()
 
         Load_library_cb_category()
-        Load_library_cb_penalty_description()
 
     End Sub
 
@@ -37,6 +34,8 @@ Public Class Fm_home_page
         Lbl_date_time.Text = Date.Now.ToString("MMMM dd, yyyy | h:mm:ss tt")
 
     End Sub
+
+    Public selectedButton As Button = Nothing ' Track the currently selected button
 
     Private Sub Btn_listed_books_Click(sender As Object, e As EventArgs) Handles Btn_listed_books.Click
 
@@ -51,7 +50,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
 
-        remove_items_selection()
+        Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
         Dim btn As Button = DirectCast(sender, Button)
 
@@ -98,7 +97,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
 
-        remove_items_selection()
+        Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
         Dim btn As Button = DirectCast(sender, Button)
 
@@ -145,7 +144,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
 
-        remove_items_selection()
+        Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
         Dim btn As Button = DirectCast(sender, Button)
 
@@ -192,7 +191,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = True
         Panel10_Author_Category_Penalty_Publisher.Visible = False
 
-        remove_items_selection()
+        Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
         Dim btn As Button = DirectCast(sender, Button)
 
@@ -239,7 +238,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
 
-        remove_items_selection()
+        Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
         Dim btn As Button = DirectCast(sender, Button)
 
@@ -286,7 +285,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
 
-        remove_items_selection()
+        Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
         Dim btn As Button = DirectCast(sender, Button)
 
@@ -333,7 +332,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = True
 
-        remove_items_selection()
+        Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
         Dim btn As Button = DirectCast(sender, Button)
 
@@ -1173,12 +1172,9 @@ Public Class Fm_home_page
             Fm_add_penalty.Txt_borrower_id.Text = Lv_penalty.SelectedItems(0).Text
             Fm_add_penalty.Txt_borrower_name.Text = Lv_penalty.SelectedItems(0).SubItems(1).Text
             Fm_add_penalty.Txt_book_name.Text = Lv_penalty.SelectedItems(0).SubItems(2).Text
-            Fm_add_penalty.Cb_penalty_description.Text = Lv_penalty.SelectedItems(0).SubItems(3).Text
-            Fm_add_penalty.Txt_penalty_amount.Text = Lv_penalty.SelectedItems(0).SubItems(4).Text
 
             Fm_add_penalty.Txt_primary_borrower_id.Text = Lv_penalty.SelectedItems(0).SubItems(6).Text
             Fm_add_penalty.Txt_primary_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(7).Text
-            Fm_add_penalty.Txt_primary_penalty_description_id.Text = Lv_penalty.SelectedItems(0).SubItems(8).Text
 
             Fm_add_penalty.Show()
             Fm_add_penalty.Btn_save.Visible = False

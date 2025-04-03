@@ -969,7 +969,7 @@ Partial Class Fm_home_page
         ' 
         Listed_penalty5.Text = "Date"
         Listed_penalty5.TextAlign = HorizontalAlignment.Center
-        Listed_penalty5.Width = 150
+        Listed_penalty5.Width = 250
         ' 
         ' Panel10_Author_Category_Penalty_Publisher
         ' 
@@ -1291,11 +1291,11 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
-        Controls.Add(Panel4_User_Acounts)
+        Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
+        Controls.Add(Panel4_User_Acounts)
         Controls.Add(Panel6_Supplier)
         Controls.Add(Panel2_Returned_Issued_Books)
-        Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel1_Books)
         Controls.Add(Lbl_date_time)
         Controls.Add(Panel3_Borrower_Info)
