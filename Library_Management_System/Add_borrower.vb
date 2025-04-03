@@ -5,33 +5,6 @@ Public Class Fm_add_borrower
 
     Dim Gender As String
 
-    Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
-
-        If Txt_temp_borrower_id_number.Text = "" Then
-
-            Fm_home_page.Enabled = True
-            Me.Close()
-
-        Else
-
-            'returned previous ID Number
-            con.Close()
-            con.Open()
-            sql = "UPDATE tbl_borrower SET
-                        borrower_id = '" & Txt_temp_borrower_id_number.Text & "'                                        
-                WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text & "'"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-            con.Close()
-            '---------------------------------
-
-            Fm_home_page.Enabled = True
-            Me.Close()
-
-        End If
-
-    End Sub
-
     Private Sub Rb_male_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_male.CheckedChanged
 
         Gender = "MALE"
@@ -171,6 +144,17 @@ Public Class Fm_add_borrower
 
                     MessageBox.Show("ID Number already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+                    'returned previous ID Number
+                    con.Close()
+                    con.Open()
+                    sql = "UPDATE tbl_borrower SET
+                                    borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).Text & "'                                        
+                            WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
+                    con.Close()
+                    '---------------------------------
+
                 Else
 
                     Dim dialog As DialogResult
@@ -227,6 +211,14 @@ Public Class Fm_add_borrower
             End Try
 
         End If
+
+    End Sub
+
+    Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
+
+        Load_borrower_info_data_table()
+        Fm_home_page.Enabled = True
+        Me.Close()
 
     End Sub
 

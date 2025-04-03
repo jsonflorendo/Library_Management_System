@@ -940,7 +940,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_student_info_add_Click(sender As Object, e As EventArgs) Handles Btn_student_info_add.Click
+    Private Sub Btn_borrower_info_add_Click(sender As Object, e As EventArgs) Handles Btn_borrower_info_add.Click
 
         Fm_add_borrower.Show()
         Fm_add_borrower.Btn_update.Visible = False
@@ -948,7 +948,40 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_student_info_delete_Click(sender As Object, e As EventArgs) Handles Btn_student_info_delete.Click
+    Private Sub Btn_borrower_info_edit_Click(sender As Object, e As EventArgs) Handles Btn_borrower_info_edit.Click
+
+        Dim Gender As String
+
+        If Lv_borrower_info.SelectedItems.Count > 0 Then
+
+            Fm_add_borrower.Txt_borrower_id_number.Text = Lv_borrower_info.SelectedItems(0).Text
+            Fm_add_borrower.Txt_borrower_last_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(1).Text
+            Fm_add_borrower.Txt_borrower_first_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(2).Text
+            Fm_add_borrower.Txt_borrower_middle_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(3).Text
+
+            Gender = Lv_borrower_info.SelectedItems(0).SubItems(4).Text
+
+            If Gender = "MALE" Then
+                Fm_add_borrower.Rb_male.Checked = True
+            Else
+                Fm_add_borrower.Rb_female.Checked = True
+            End If
+
+            Fm_add_borrower.Txt_borrower_contact_no.Text = Lv_borrower_info.SelectedItems(0).SubItems(5).Text
+            Fm_add_borrower.Txt_borrower_address.Text = Lv_borrower_info.SelectedItems(0).SubItems(6).Text
+
+            Fm_add_borrower.Show()
+            Me.Enabled = False
+
+        Else
+
+            MessageBox.Show("Please select borrower data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
+
+    End Sub
+
+    Private Sub Btn_borrower_info_delete_Click(sender As Object, e As EventArgs) Handles Btn_borrower_info_delete.Click
 
         If Lv_borrower_info.SelectedItems.Count > 0 Then
 
@@ -995,40 +1028,7 @@ Public Class Fm_home_page
 
         Else
 
-            MessageBox.Show("Please select data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-        End If
-
-    End Sub
-
-    Private Sub Lv_student_info_DoubleClick(sender As Object, e As EventArgs) Handles Lv_borrower_info.DoubleClick
-
-        Dim Gender As String
-
-        If Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Fm_add_borrower.Txt_borrower_id_number.Text = Lv_borrower_info.SelectedItems(0).Text
-            Fm_add_borrower.Txt_borrower_last_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(1).Text
-            Fm_add_borrower.Txt_borrower_first_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(2).Text
-            Fm_add_borrower.Txt_borrower_middle_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(3).Text
-
-            Gender = Lv_borrower_info.SelectedItems(0).SubItems(4).Text
-
-            If Gender = "MALE" Then
-                Fm_add_borrower.Rb_male.Checked = True
-            Else
-                Fm_add_borrower.Rb_female.Checked = True
-            End If
-
-            Fm_add_borrower.Txt_borrower_contact_no.Text = Lv_borrower_info.SelectedItems(0).SubItems(5).Text
-            Fm_add_borrower.Txt_borrower_address.Text = Lv_borrower_info.SelectedItems(0).SubItems(6).Text
-
-
-            Fm_add_borrower.Txt_temp_borrower_id_number.Text = Lv_borrower_info.SelectedItems(0).Text
-
-
-            Fm_add_borrower.Show()
-            Me.Enabled = False
+            MessageBox.Show("Please select borrower data", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End If
 

@@ -40,7 +40,6 @@ Partial Class Fm_add_borrower
         Btn_update = New Button()
         Btn_exit = New Button()
         Btn_save = New Button()
-        Txt_temp_borrower_id_number = New TextBox()
         SuspendLayout()
         ' 
         ' Label7
@@ -227,22 +226,13 @@ Partial Class Fm_add_borrower
         Btn_save.Text = "&Save"
         Btn_save.UseVisualStyleBackColor = True
         ' 
-        ' Txt_temp_borrower_id_number
-        ' 
-        Txt_temp_borrower_id_number.Location = New Point(386, 40)
-        Txt_temp_borrower_id_number.Name = "Txt_temp_borrower_id_number"
-        Txt_temp_borrower_id_number.PlaceholderText = "Temp ID Number"
-        Txt_temp_borrower_id_number.Size = New Size(100, 23)
-        Txt_temp_borrower_id_number.TabIndex = 60
-        ' 
         ' Fm_add_borrower
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(530, 387)
+        ClientSize = New Size(416, 387)
         ControlBox = False
-        Controls.Add(Txt_temp_borrower_id_number)
         Controls.Add(Btn_exit)
         Controls.Add(Label7)
         Controls.Add(Label6)
@@ -286,5 +276,4 @@ Partial Class Fm_add_borrower
     Friend WithEvents Btn_update As Button
     Friend WithEvents Btn_exit As Button
     Friend WithEvents Btn_save As Button
-    Friend WithEvents Txt_temp_borrower_id_number As TextBox
 End Class

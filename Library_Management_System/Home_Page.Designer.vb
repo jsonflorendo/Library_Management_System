@@ -67,9 +67,10 @@ Partial Class Fm_home_page
         Listed_supplier_5 = New ColumnHeader()
         Listed_supplier_6 = New ColumnHeader()
         Panel3_Borrower_Info = New Panel()
+        Btn_borrower_info_edit = New Button()
         Txt_student_info_search = New RoundCornerTextbox()
-        Btn_student_info_delete = New Button()
-        Btn_student_info_add = New Button()
+        Btn_borrower_info_delete = New Button()
+        Btn_borrower_info_add = New Button()
         Lv_borrower_info = New ListView()
         Student_info0 = New ColumnHeader()
         Student_info1 = New ColumnHeader()
@@ -272,7 +273,7 @@ Partial Class Fm_home_page
         Btn_listed_books_edit.Name = "Btn_listed_books_edit"
         Btn_listed_books_edit.Size = New Size(118, 30)
         Btn_listed_books_edit.TabIndex = 11
-        Btn_listed_books_edit.Text = "Edit"
+        Btn_listed_books_edit.Text = "&Edit"
         Btn_listed_books_edit.UseVisualStyleBackColor = False
         ' 
         ' Btn_listed_books_delete
@@ -283,7 +284,7 @@ Partial Class Fm_home_page
         Btn_listed_books_delete.Name = "Btn_listed_books_delete"
         Btn_listed_books_delete.Size = New Size(118, 30)
         Btn_listed_books_delete.TabIndex = 10
-        Btn_listed_books_delete.Text = "Delete"
+        Btn_listed_books_delete.Text = "&Delete"
         Btn_listed_books_delete.UseVisualStyleBackColor = False
         ' 
         ' Btn_listed_books_add
@@ -294,7 +295,7 @@ Partial Class Fm_home_page
         Btn_listed_books_add.Name = "Btn_listed_books_add"
         Btn_listed_books_add.Size = New Size(118, 30)
         Btn_listed_books_add.TabIndex = 9
-        Btn_listed_books_add.Text = "Add"
+        Btn_listed_books_add.Text = "&Add"
         Btn_listed_books_add.UseVisualStyleBackColor = False
         ' 
         ' Txt_listed_books_search
@@ -326,7 +327,7 @@ Partial Class Fm_home_page
         Btn_return_books.Name = "Btn_return_books"
         Btn_return_books.Size = New Size(194, 30)
         Btn_return_books.TabIndex = 19
-        Btn_return_books.Text = "Return Books"
+        Btn_return_books.Text = "&Return Books"
         Btn_return_books.UseVisualStyleBackColor = False
         ' 
         ' Btn_borrow_books
@@ -337,7 +338,7 @@ Partial Class Fm_home_page
         Btn_borrow_books.Name = "Btn_borrow_books"
         Btn_borrow_books.Size = New Size(194, 30)
         Btn_borrow_books.TabIndex = 18
-        Btn_borrow_books.Text = "Borrow Books"
+        Btn_borrow_books.Text = "&Borrow Books"
         Btn_borrow_books.UseVisualStyleBackColor = False
         ' 
         ' Txt_returned_borrowed_books_search
@@ -432,7 +433,7 @@ Partial Class Fm_home_page
         Btn_supplier_delete.Name = "Btn_supplier_delete"
         Btn_supplier_delete.Size = New Size(118, 30)
         Btn_supplier_delete.TabIndex = 5
-        Btn_supplier_delete.Text = "Delete"
+        Btn_supplier_delete.Text = "&Delete"
         Btn_supplier_delete.UseVisualStyleBackColor = True
         ' 
         ' Btn_supplier_edit
@@ -442,7 +443,7 @@ Partial Class Fm_home_page
         Btn_supplier_edit.Name = "Btn_supplier_edit"
         Btn_supplier_edit.Size = New Size(118, 30)
         Btn_supplier_edit.TabIndex = 4
-        Btn_supplier_edit.Text = "Edit"
+        Btn_supplier_edit.Text = "&Edit"
         Btn_supplier_edit.UseVisualStyleBackColor = True
         ' 
         ' Btn_supplier_add
@@ -452,7 +453,7 @@ Partial Class Fm_home_page
         Btn_supplier_add.Name = "Btn_supplier_add"
         Btn_supplier_add.Size = New Size(118, 30)
         Btn_supplier_add.TabIndex = 3
-        Btn_supplier_add.Text = "Add"
+        Btn_supplier_add.Text = "&Add"
         Btn_supplier_add.UseVisualStyleBackColor = True
         ' 
         ' Lv_supplier
@@ -509,14 +510,26 @@ Partial Class Fm_home_page
         ' Panel3_Borrower_Info
         ' 
         Panel3_Borrower_Info.BackgroundImageLayout = ImageLayout.Stretch
+        Panel3_Borrower_Info.Controls.Add(Btn_borrower_info_edit)
         Panel3_Borrower_Info.Controls.Add(Txt_student_info_search)
-        Panel3_Borrower_Info.Controls.Add(Btn_student_info_delete)
-        Panel3_Borrower_Info.Controls.Add(Btn_student_info_add)
+        Panel3_Borrower_Info.Controls.Add(Btn_borrower_info_delete)
+        Panel3_Borrower_Info.Controls.Add(Btn_borrower_info_add)
         Panel3_Borrower_Info.Controls.Add(Lv_borrower_info)
         Panel3_Borrower_Info.Location = New Point(300, 28)
         Panel3_Borrower_Info.Name = "Panel3_Borrower_Info"
         Panel3_Borrower_Info.Size = New Size(1603, 970)
         Panel3_Borrower_Info.TabIndex = 15
+        ' 
+        ' Btn_borrower_info_edit
+        ' 
+        Btn_borrower_info_edit.BackColor = Color.Tan
+        Btn_borrower_info_edit.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_borrower_info_edit.Location = New Point(1336, 32)
+        Btn_borrower_info_edit.Name = "Btn_borrower_info_edit"
+        Btn_borrower_info_edit.Size = New Size(118, 30)
+        Btn_borrower_info_edit.TabIndex = 13
+        Btn_borrower_info_edit.Text = "&Edit"
+        Btn_borrower_info_edit.UseVisualStyleBackColor = False
         ' 
         ' Txt_student_info_search
         ' 
@@ -527,27 +540,27 @@ Partial Class Fm_home_page
         Txt_student_info_search.Size = New Size(246, 38)
         Txt_student_info_search.TabIndex = 12
         ' 
-        ' Btn_student_info_delete
+        ' Btn_borrower_info_delete
         ' 
-        Btn_student_info_delete.BackColor = Color.Tan
-        Btn_student_info_delete.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_student_info_delete.Location = New Point(1461, 32)
-        Btn_student_info_delete.Name = "Btn_student_info_delete"
-        Btn_student_info_delete.Size = New Size(118, 30)
-        Btn_student_info_delete.TabIndex = 10
-        Btn_student_info_delete.Text = "Delete"
-        Btn_student_info_delete.UseVisualStyleBackColor = False
+        Btn_borrower_info_delete.BackColor = Color.Tan
+        Btn_borrower_info_delete.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_borrower_info_delete.Location = New Point(1461, 32)
+        Btn_borrower_info_delete.Name = "Btn_borrower_info_delete"
+        Btn_borrower_info_delete.Size = New Size(118, 30)
+        Btn_borrower_info_delete.TabIndex = 10
+        Btn_borrower_info_delete.Text = "&Delete"
+        Btn_borrower_info_delete.UseVisualStyleBackColor = False
         ' 
-        ' Btn_student_info_add
+        ' Btn_borrower_info_add
         ' 
-        Btn_student_info_add.BackColor = Color.Tan
-        Btn_student_info_add.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_student_info_add.Location = New Point(1317, 32)
-        Btn_student_info_add.Name = "Btn_student_info_add"
-        Btn_student_info_add.Size = New Size(118, 30)
-        Btn_student_info_add.TabIndex = 9
-        Btn_student_info_add.Text = "Add"
-        Btn_student_info_add.UseVisualStyleBackColor = False
+        Btn_borrower_info_add.BackColor = Color.Tan
+        Btn_borrower_info_add.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_borrower_info_add.Location = New Point(1209, 32)
+        Btn_borrower_info_add.Name = "Btn_borrower_info_add"
+        Btn_borrower_info_add.Size = New Size(118, 30)
+        Btn_borrower_info_add.TabIndex = 9
+        Btn_borrower_info_add.Text = "&Add"
+        Btn_borrower_info_add.UseVisualStyleBackColor = False
         ' 
         ' Lv_borrower_info
         ' 
@@ -556,7 +569,7 @@ Partial Class Fm_home_page
         Lv_borrower_info.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_borrower_info.FullRowSelect = True
         Lv_borrower_info.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        Lv_borrower_info.Location = New Point(33, 75)
+        Lv_borrower_info.Location = New Point(33, 88)
         Lv_borrower_info.Name = "Lv_borrower_info"
         Lv_borrower_info.Size = New Size(1546, 874)
         Lv_borrower_info.TabIndex = 6
@@ -624,7 +637,7 @@ Partial Class Fm_home_page
         Btn_listed_accounts_edit.Name = "Btn_listed_accounts_edit"
         Btn_listed_accounts_edit.Size = New Size(118, 30)
         Btn_listed_accounts_edit.TabIndex = 16
-        Btn_listed_accounts_edit.Text = "Edit"
+        Btn_listed_accounts_edit.Text = "&Edit"
         Btn_listed_accounts_edit.UseVisualStyleBackColor = False
         ' 
         ' Lv_listed_accounts
@@ -704,7 +717,7 @@ Partial Class Fm_home_page
         Btn_listed_accounts_delete.Name = "Btn_listed_accounts_delete"
         Btn_listed_accounts_delete.Size = New Size(118, 30)
         Btn_listed_accounts_delete.TabIndex = 15
-        Btn_listed_accounts_delete.Text = "Delete"
+        Btn_listed_accounts_delete.Text = "&Delete"
         Btn_listed_accounts_delete.UseVisualStyleBackColor = False
         ' 
         ' Btn_listed_accounts_add
@@ -715,7 +728,7 @@ Partial Class Fm_home_page
         Btn_listed_accounts_add.Name = "Btn_listed_accounts_add"
         Btn_listed_accounts_add.Size = New Size(118, 30)
         Btn_listed_accounts_add.TabIndex = 14
-        Btn_listed_accounts_add.Text = "Add"
+        Btn_listed_accounts_add.Text = "&Add"
         Btn_listed_accounts_add.UseVisualStyleBackColor = False
         ' 
         ' Txt_listed_accounts_search
@@ -736,7 +749,7 @@ Partial Class Fm_home_page
         Btn_logout.Name = "Btn_logout"
         Btn_logout.Size = New Size(269, 54)
         Btn_logout.TabIndex = 17
-        Btn_logout.Text = "Logout"
+        Btn_logout.Text = "&Logout"
         Btn_logout.UseVisualStyleBackColor = False
         ' 
         ' Btn_listed_books
@@ -913,7 +926,7 @@ Partial Class Fm_home_page
         Btn_penalty_report_delete.Name = "Btn_penalty_report_delete"
         Btn_penalty_report_delete.Size = New Size(118, 30)
         Btn_penalty_report_delete.TabIndex = 10
-        Btn_penalty_report_delete.Text = "Delete"
+        Btn_penalty_report_delete.Text = "&Delete"
         Btn_penalty_report_delete.UseVisualStyleBackColor = True
         ' 
         ' Btn_penalty_report_edit
@@ -923,7 +936,7 @@ Partial Class Fm_home_page
         Btn_penalty_report_edit.Name = "Btn_penalty_report_edit"
         Btn_penalty_report_edit.Size = New Size(118, 30)
         Btn_penalty_report_edit.TabIndex = 9
-        Btn_penalty_report_edit.Text = "Edit"
+        Btn_penalty_report_edit.Text = "&Edit"
         Btn_penalty_report_edit.UseVisualStyleBackColor = True
         ' 
         ' Lv_penalty
@@ -1291,14 +1304,14 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
-        Controls.Add(Panel8_Penalty_Report)
-        Controls.Add(Panel10_Author_Category_Penalty_Publisher)
-        Controls.Add(Panel4_User_Acounts)
+        Controls.Add(Panel3_Borrower_Info)
         Controls.Add(Panel6_Supplier)
+        Controls.Add(Panel4_User_Acounts)
+        Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(Panel1_Books)
+        Controls.Add(Panel10_Author_Category_Penalty_Publisher)
         Controls.Add(Lbl_date_time)
-        Controls.Add(Panel3_Borrower_Info)
         Controls.Add(P_navigation)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
@@ -1354,8 +1367,8 @@ Partial Class Fm_home_page
     Friend WithEvents Returned_borrowed_books5 As ColumnHeader
     Friend WithEvents Returned_borrowed_books6 As ColumnHeader
     Friend WithEvents Panel3_Borrower_Info As Panel
-    Friend WithEvents Btn_student_info_delete As Button
-    Friend WithEvents Btn_student_info_add As Button
+    Friend WithEvents Btn_borrower_info_delete As Button
+    Friend WithEvents Btn_borrower_info_add As Button
     Friend WithEvents Lv_borrower_info As ListView
     Friend WithEvents Student_info0 As ColumnHeader
     Friend WithEvents Student_info1 As ColumnHeader
@@ -1461,4 +1474,5 @@ Partial Class Fm_home_page
     Friend WithEvents Lv_publisher As ListView
     Friend WithEvents Listed_details1 As ColumnHeader
     Friend WithEvents Returned_borrowed_books0 As ColumnHeader
+    Friend WithEvents Btn_borrower_info_edit As Button
 End Class
