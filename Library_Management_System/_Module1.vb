@@ -334,8 +334,12 @@ Module Module1
                     INNER JOIN tbl_borrower ON tbl_penalty_report.primary_borrower_id = tbl_borrower.primary_borrower_id
                     INNER JOIN tbl_books ON tbl_penalty_report.primary_book_id = tbl_books.primary_book_id
                     INNER JOIN tbl_library_penalty ON tbl_penalty_report.primary_penalty_description_id = tbl_library_penalty.primary_penalty_description_id
-
+                    
                     ORDER BY primary_penalty_id DESC"
+
+            'GROUP BY tbl_penalty_report.primary_borrower_id,
+            '         tbl_penalty_report.primary_book_id,
+            '         tbl_penalty_report.penalty_date
 
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()

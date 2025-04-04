@@ -3,17 +3,85 @@ Imports MySql.Data.MySqlClient
 
 Public Class Fm_add_penalty
 
-    Private Sub Fm_add_penalty_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    'Dictionary to store checked items when searching
+    Dim checkedItems As New Dictionary(Of String, Boolean)
 
-        Load_library_penalty_data_table()
+    Private Sub Fm_add_penalty_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Clear_error_msg()
 
+        If Txt_primary_penalty_report_id.Text = "" Then
+
+            Load_library_penalty_data_table()
+
+        Else
+
+            ' Display the selected penalty description in the ListView with check
+            Try
+
+                con.Open()
+
+                ' STEP 1: Fetch previously selected penalties
+                Dim penalty_report_primary_penalty_description_id As New HashSet(Of String)
+
+                sql = "SELECT * FROM tbl_penalty_report
+                                WHERE primary_borrower_id = '" & Txt_primary_borrower_id.Text & "'
+                                AND primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
+
+                While dr.Read()
+                    penalty_report_primary_penalty_description_id.Add(dr("primary_penalty_description_id").ToString())
+                End While
+
+                dr.Close()
+
+
+                ' STEP 2: Fetch all penalties
+                sql = "SELECT * FROM tbl_library_penalty                            
+                                ORDER BY penalty_description ASC"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
+
+                Lv_penalty_description.Items.Clear()
+
+                While dr.Read()
+
+                    Dim lv As New ListViewItem({dr("penalty_description").ToString(),
+                                                dr("amount").ToString(),
+                                                dr("primary_penalty_description_id").ToString()})
+
+                    ' STEP 3: Check if this penalty was selected before
+                    Dim library_penalty_primary_penalty_description_id As String = dr("primary_penalty_description_id").ToString()
+
+                    If penalty_report_primary_penalty_description_id.Contains(library_penalty_primary_penalty_description_id) Then
+                        lv.Checked = True
+                        If Not checkedItems.ContainsKey(library_penalty_primary_penalty_description_id) Then
+                            checkedItems.Add(library_penalty_primary_penalty_description_id, True)
+                        End If
+                    End If
+
+                    Lv_penalty_description.Items.Add(lv)
+
+                End While
+
+                con.Close()
+
+            Catch ex As Exception
+
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
+
     End Sub
-
-
-    'Dictionary to store checked items when searching
-    Dim checkedItems As New Dictionary(Of String, Boolean)
 
     Private Sub Txt_search_penalty_description_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_penalty_description.TextChanged
 
@@ -97,7 +165,7 @@ Public Class Fm_add_penalty
 
         If checkedItems.Count = 0 Then
 
-            Lbl_error_msg.Text = "Please select description"
+            Lbl_error_msg.Text = "Please select penalty description"
 
         Else
 
@@ -159,34 +227,79 @@ Public Class Fm_add_penalty
 
     Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
 
-        Try
+        If checkedItems.Count = 0 Then
 
-            con.Open()
+            Lbl_error_msg.Text = "Please select penalty description"
 
-            sql = "UPDATE tbl_penalty_report SET
-                            primary_penalty_description_id = '" & Lv_penalty_description.SelectedItems(0).SubItems(0).Text & "'
-                    WHERE primary_penalty_id = '" & Fm_home_page.Lv_penalty.SelectedItems(0).SubItems(9).Text & "'"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
+        Else
 
-            con.Close()
+            Try
 
-            MessageBox.Show("Penalty for " + Txt_borrower_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Fm_home_page.Enabled = True
-            Load_penalty_report_data_table() '-> To item selection On the listview
-            Me.Close()
+                con.Open()
 
-        Catch ex As Exception
+                ' Step 1: Get existing penalty record (if any)
+                sql = "SELECT * FROM tbl_penalty_report
+                                WHERE primary_borrower_id = '" & Txt_primary_borrower_id.Text & "'
+                                AND primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
 
-            MsgBox("Error: " & ex.Message)
+                Dim primary_penalty_IDs As New List(Of String)
 
-        Finally
+                While dr.Read()
+                    primary_penalty_IDs.Add(dr("primary_penalty_id").ToString())
+                End While
 
-            If con.State = ConnectionState.Open Then
+                dr.Close()
+
+
+                ' STEP 1: Delete all penalties for this borrower and book
+                For Each id As String In primary_penalty_IDs
+
+                    sql = "DELETE FROM tbl_penalty_report
+                                  WHERE primary_penalty_id = '" & id & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    cmd.ExecuteNonQuery()
+
+                Next
+
+
+                For Each primary_penalty_description_id As String In checkedItems.Keys 'Selecting checked items from checkedItems
+
+                    sql = "INSERT INTO tbl_penalty_report (primary_borrower_id, 
+                                                                primary_book_id,
+                                                                primary_penalty_description_id,
+                                                                penalty_date)
+                                        VALUE ('" & Txt_primary_borrower_id.Text & "',
+                                                '" & Txt_primary_book_id.Text & "',
+                                                '" & primary_penalty_description_id & "',
+                                                '" & Date.Now.ToString("MMMM dd, yyyy") & "')"
+                    cmd = New MySqlCommand(sql, con)
+                    cmd.ExecuteNonQuery()
+
+                Next
+
                 con.Close()
-            End If
 
-        End Try
+                MessageBox.Show("Penalty for " + Txt_borrower_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Fm_home_page.Enabled = True
+                Load_penalty_report_data_table()
+                Me.Close()
+
+            Catch ex As Exception
+
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+
+        End If
 
     End Sub
 

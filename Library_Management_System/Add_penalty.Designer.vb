@@ -38,6 +38,7 @@ Partial Class Fm_add_penalty
         Listed_details0 = New ColumnHeader()
         Listed_details1 = New ColumnHeader()
         Txt_search_penalty_description = New TextBox()
+        Txt_primary_penalty_report_id = New TextBox()
         SuspendLayout()
         ' 
         ' Txt_borrower_id
@@ -113,6 +114,7 @@ Partial Class Fm_add_penalty
         Txt_primary_borrower_id.PlaceholderText = "Primary Borrower ID"
         Txt_primary_borrower_id.Size = New Size(168, 21)
         Txt_primary_borrower_id.TabIndex = 28
+        Txt_primary_borrower_id.Visible = False
         ' 
         ' Txt_book_name
         ' 
@@ -143,6 +145,7 @@ Partial Class Fm_add_penalty
         Txt_primary_book_id.PlaceholderText = "Primary Book ID"
         Txt_primary_book_id.Size = New Size(168, 21)
         Txt_primary_book_id.TabIndex = 31
+        Txt_primary_book_id.Visible = False
         ' 
         ' Btn_update
         ' 
@@ -199,13 +202,23 @@ Partial Class Fm_add_penalty
         Txt_search_penalty_description.Size = New Size(158, 23)
         Txt_search_penalty_description.TabIndex = 47
         ' 
+        ' Txt_primary_penalty_report_id
+        ' 
+        Txt_primary_penalty_report_id.Location = New Point(442, 115)
+        Txt_primary_penalty_report_id.Name = "Txt_primary_penalty_report_id"
+        Txt_primary_penalty_report_id.PlaceholderText = "Primary Penalty Report ID"
+        Txt_primary_penalty_report_id.Size = New Size(168, 23)
+        Txt_primary_penalty_report_id.TabIndex = 48
+        Txt_primary_penalty_report_id.Visible = False
+        ' 
         ' Fm_add_penalty
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(618, 452)
+        ClientSize = New Size(447, 452)
         ControlBox = False
+        Controls.Add(Txt_primary_penalty_report_id)
         Controls.Add(Txt_search_penalty_description)
         Controls.Add(Lv_penalty_description)
         Controls.Add(Lbl_error_msg)
@@ -243,4 +256,5 @@ Partial Class Fm_add_penalty
     Friend WithEvents Listed_details0 As ColumnHeader
     Friend WithEvents Listed_details1 As ColumnHeader
     Friend WithEvents Txt_search_penalty_description As TextBox
+    Friend WithEvents Txt_primary_penalty_report_id As TextBox
 End Class

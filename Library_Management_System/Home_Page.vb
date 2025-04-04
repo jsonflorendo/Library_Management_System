@@ -1176,6 +1176,8 @@ Public Class Fm_home_page
             Fm_add_penalty.Txt_primary_borrower_id.Text = Lv_penalty.SelectedItems(0).SubItems(6).Text
             Fm_add_penalty.Txt_primary_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(7).Text
 
+            Fm_add_penalty.Txt_primary_penalty_report_id.Text = Lv_penalty.SelectedItems(0).SubItems(9).Text
+
             Fm_add_penalty.Show()
             Fm_add_penalty.Btn_save.Visible = False
             Me.Enabled = False

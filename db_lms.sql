@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2025 at 12:24 PM
+-- Generation Time: Apr 04, 2025 at 12:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -82,7 +82,7 @@ CREATE TABLE `tbl_books` (
 INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_category_id`, `qty`, `primary_author_id`, `primary_publisher_id`, `publish_year`, `primary_supplier_id`, `acquisition_date`, `status`) VALUES
 (1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', '1', '11', '1', '3', 'May 08, 2024', '1', 'May 08, 2024', 'Available'),
 (2, '9789710639540', 'CINDERELLLA', '1', '19', '2', '3', 'April 16, 2024', '1', 'May 07, 2024', 'Available'),
-(5, 'AP091GW', 'LIBRO', '2', '23', '1', '1', 'May 06, 2024', '5', 'May 08, 2024', 'Available');
+(5, 'AP091GW', 'LIBRO', '2', '32', '1', '1', 'May 06, 2024', '5', 'May 08, 2024', 'Available');
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE `tbl_borrower` (
 INSERT INTO `tbl_borrower` (`primary_borrower_id`, `borrower_id`, `last_name`, `first_name`, `middle_name`, `gender`, `borrower_contact_no`, `borrower_address`) VALUES
 (1, '4221517', 'GUALVEZ', 'FATIMA', 'MONTI', 'FEMALE', '09123654789', 'LOWER BICUTAN'),
 (2, '1234567', 'BELLO', 'KREYVEN', 'GUALVVEZ', 'MALE', '09123654987', 'LOWER BICUTAN'),
-(3, '100056', 'FATI', 'GALVEZ', 'GOGO', 'FEMALE', '09231294934', 'TAGUIG CITY');
+(3, '100056', 'GALVEZ', 'FATI', 'GOGO', 'FEMALE', '09231294934', 'TAGUIG CITY');
 
 -- --------------------------------------------------------
 
@@ -133,9 +133,9 @@ CREATE TABLE `tbl_issued_books` (
 --
 
 INSERT INTO `tbl_issued_books` (`primary_issued_book_id`, `transaction_yyyy_mm`, `transaction_series`, `primary_borrower_id`, `primary_book_id`, `issued_date`, `due_date`, `returned_date`, `created_at`) VALUES
-(1, 'BB2025-04', '00001', '3', '5', 'April 01, 2025', 'May 01, 2025', 'April 02, 2025', '2025-04-01'),
+(1, 'BB2025-04', '00001', '3', '5', 'April 01, 2025', 'May 01, 2025', 'April 04, 2025', '2025-04-01'),
 (3, 'BB2025-04', '00002', '3', '1', 'April 01, 2025', 'May 01, 2025', '', '2025-04-01'),
-(4, 'BB2025-04', '00003', '2', '5', 'April 01, 2025', 'May 01, 2025', '', '2025-04-01');
+(4, 'BB2025-04', '00003', '2', '5', 'April 01, 2025', 'May 01, 2025', 'April 04, 2025', '2025-04-01');
 
 -- --------------------------------------------------------
 
@@ -196,7 +196,10 @@ CREATE TABLE `tbl_library_penalty` (
 
 INSERT INTO `tbl_library_penalty` (`primary_penalty_description_id`, `penalty_description`, `amount`) VALUES
 (3, 'Late Return', '1,000'),
-(4, 'BURN PAGES', '9,874.99');
+(4, 'BURN PAGES', '9,874.99'),
+(12, 'PENALTY 1', '100'),
+(13, 'PENALTY 2', '200'),
+(14, 'PENALTY 3', '300');
 
 -- --------------------------------------------------------
 
@@ -268,10 +271,13 @@ CREATE TABLE `tbl_penalty_report` (
 --
 
 INSERT INTO `tbl_penalty_report` (`primary_penalty_id`, `primary_borrower_id`, `primary_book_id`, `primary_penalty_description_id`, `penalty_date`) VALUES
-(6, '3', '1', '4', 'April 01, 2025'),
-(7, '2', '5', '4', 'April 01, 2025'),
-(9, '3', '5', '3', 'April 02, 2025'),
-(10, '3', '5', '4', 'April 02, 2025');
+(32, '3', '5', '4', 'April 04, 2025'),
+(33, '3', '5', '3', 'April 04, 2025'),
+(34, '3', '5', '13', 'April 04, 2025'),
+(35, '3', '5', '12', 'April 04, 2025'),
+(42, '2', '5', '12', 'April 04, 2025'),
+(43, '2', '5', '13', 'April 04, 2025'),
+(44, '2', '5', '14', 'April 04, 2025');
 
 --
 -- Indexes for dumped tables
@@ -381,7 +387,7 @@ ALTER TABLE `tbl_library_category`
 -- AUTO_INCREMENT for table `tbl_library_penalty`
 --
 ALTER TABLE `tbl_library_penalty`
-  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_publisher`
@@ -399,7 +405,7 @@ ALTER TABLE `tbl_library_supplier`
 -- AUTO_INCREMENT for table `tbl_penalty_report`
 --
 ALTER TABLE `tbl_penalty_report`
-  MODIFY `primary_penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `primary_penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
