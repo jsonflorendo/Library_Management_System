@@ -492,9 +492,9 @@ Partial Class Fm_home_page
         ' 
         ' Listed_supplier_4
         ' 
-        Listed_supplier_4.Text = "Contact no."
+        Listed_supplier_4.Text = "Contact No."
         Listed_supplier_4.TextAlign = HorizontalAlignment.Center
-        Listed_supplier_4.Width = 200
+        Listed_supplier_4.Width = 180
         ' 
         ' Listed_supplier_5
         ' 
@@ -505,7 +505,7 @@ Partial Class Fm_home_page
         ' 
         Listed_supplier_6.Text = "Source Type"
         Listed_supplier_6.TextAlign = HorizontalAlignment.Center
-        Listed_supplier_6.Width = 120
+        Listed_supplier_6.Width = 140
         ' 
         ' Panel3_Borrower_Info
         ' 
@@ -976,7 +976,7 @@ Partial Class Fm_home_page
         ' 
         Listed_penalty4.Text = "Penalty Amount"
         Listed_penalty4.TextAlign = HorizontalAlignment.Center
-        Listed_penalty4.Width = 180
+        Listed_penalty4.Width = 210
         ' 
         ' Listed_penalty5
         ' 
@@ -1304,10 +1304,10 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
-        Controls.Add(Panel8_Penalty_Report)
-        Controls.Add(Panel3_Borrower_Info)
         Controls.Add(Panel6_Supplier)
         Controls.Add(Panel4_User_Acounts)
+        Controls.Add(Panel3_Borrower_Info)
+        Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(Panel1_Books)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)

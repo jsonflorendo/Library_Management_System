@@ -195,15 +195,17 @@ Module Module1
 
             Loop
 
-            'Fm_home_page.Lv_listed_books.Columns(0).Text = "BOOK NAME" '- create title of column header
-            'Fm_home_page.Lv_listed_books.Columns(1).Text = "CATEGORY"
-            'Fm_home_page.Lv_listed_books.Columns(2).Text = "QUANTITY"
-            'Fm_home_page.Lv_listed_books.Columns(3).Text = "AUTHOR"
-            'Fm_home_page.Lv_listed_books.Columns(4).Text = "PUBLISHER"
-            'Fm_home_page.Lv_listed_books.Columns(5).Text = "PUBLISH YEAR"
-            'Fm_home_page.Lv_listed_books.Columns(6).Text = "SUPPLIER"
-            'Fm_home_page.Lv_listed_books.Columns(7).Text = "AQUISITION DATE"
-            'Fm_home_page.Lv_listed_books.Columns(8).Text = "STATUS"
+            'Listview column header title
+            Fm_home_page.Lv_listed_books.Columns(0).Text = "ISBN"
+            Fm_home_page.Lv_listed_books.Columns(1).Text = "BOOK NAME"
+            Fm_home_page.Lv_listed_books.Columns(2).Text = "GENRE"
+            Fm_home_page.Lv_listed_books.Columns(3).Text = "QTY"
+            Fm_home_page.Lv_listed_books.Columns(4).Text = "AUTHOR"
+            Fm_home_page.Lv_listed_books.Columns(5).Text = "PUBLISH"
+            Fm_home_page.Lv_listed_books.Columns(6).Text = "PUBLISH YEAR"
+            Fm_home_page.Lv_listed_books.Columns(7).Text = "SUPPLIER"
+            Fm_home_page.Lv_listed_books.Columns(8).Text = "AQUISITION DATE"
+            Fm_home_page.Lv_listed_books.Columns(9).Text = "STATUS"
 
             con.Close()
 
@@ -279,6 +281,15 @@ Module Module1
                 Fm_home_page.Lv_returned_borrowed_books.Items.Add(lv)
 
             Loop
+
+            'Listview column header title
+            Fm_home_page.Lv_returned_borrowed_books.Columns(0).Text = "TRANSACTION NO"
+            Fm_home_page.Lv_returned_borrowed_books.Columns(1).Text = "ID NUMBER"
+            Fm_home_page.Lv_returned_borrowed_books.Columns(2).Text = "ISSUED TO"
+            Fm_home_page.Lv_returned_borrowed_books.Columns(3).Text = "BOOK NAME"
+            Fm_home_page.Lv_returned_borrowed_books.Columns(4).Text = "ISSUED DATE"
+            Fm_home_page.Lv_returned_borrowed_books.Columns(5).Text = "DUE DATE"
+            Fm_home_page.Lv_returned_borrowed_books.Columns(6).Text = "RETURNED DATE"
 
             con.Close()
 
@@ -362,6 +373,14 @@ Module Module1
 
             Loop
 
+            'Listview column header title
+            Fm_home_page.Lv_penalty.Columns(0).Text = "ID NUMBER"
+            Fm_home_page.Lv_penalty.Columns(1).Text = "NAME"
+            Fm_home_page.Lv_penalty.Columns(2).Text = "BOOK NAME"
+            Fm_home_page.Lv_penalty.Columns(3).Text = "PENALTY DESCRIPTION"
+            Fm_home_page.Lv_penalty.Columns(4).Text = "PENALTY AMOUNT"
+            Fm_home_page.Lv_penalty.Columns(5).Text = "DATE"
+
             con.Close()
 
             For i As Integer = 0 To Fm_home_page.Lv_penalty.Items.Count - 1
@@ -421,6 +440,15 @@ Module Module1
                 Fm_home_page.Lv_borrower_info.Items.Add(lv)
 
             Loop
+
+            'Listview column header title
+            Fm_home_page.Lv_borrower_info.Columns(0).Text = "ID NUMBER"
+            Fm_home_page.Lv_borrower_info.Columns(1).Text = "LAST NAME"
+            Fm_home_page.Lv_borrower_info.Columns(2).Text = "FIRST NAME"
+            Fm_home_page.Lv_borrower_info.Columns(3).Text = "MIDDLE NAME"
+            Fm_home_page.Lv_borrower_info.Columns(4).Text = "GENDER"
+            Fm_home_page.Lv_borrower_info.Columns(5).Text = "CONTACT NO"
+            Fm_home_page.Lv_borrower_info.Columns(6).Text = "ADDRESS"
 
             con.Close()
 
@@ -484,6 +512,18 @@ Module Module1
 
             Loop
 
+            'Listview column header title
+            Fm_home_page.Lv_listed_accounts.Columns(0).Text = "FIRST NAME"
+            Fm_home_page.Lv_listed_accounts.Columns(1).Text = "MIDDLE NAME"
+            Fm_home_page.Lv_listed_accounts.Columns(2).Text = "LAST NAME"
+            Fm_home_page.Lv_listed_accounts.Columns(3).Text = "GENDER"
+            Fm_home_page.Lv_listed_accounts.Columns(4).Text = "BIRTHDAY"
+            Fm_home_page.Lv_listed_accounts.Columns(5).Text = "CONTACT NO"
+            Fm_home_page.Lv_listed_accounts.Columns(6).Text = "ADDRESS"
+            Fm_home_page.Lv_listed_accounts.Columns(7).Text = "USERNAME"
+            Fm_home_page.Lv_listed_accounts.Columns(8).Text = "EMAIL"
+            Fm_home_page.Lv_listed_accounts.Columns(9).Text = "USER TYPE"
+
             con.Close()
 
             For i As Integer = 0 To Fm_home_page.Lv_listed_accounts.Items.Count - 1
@@ -544,6 +584,15 @@ Module Module1
 
             Loop
 
+            'Listview column header title
+            Fm_home_page.Lv_supplier.Columns(0).Text = "SUPPLIER ID"
+            Fm_home_page.Lv_supplier.Columns(1).Text = "SUPPLIER NAME"
+            Fm_home_page.Lv_supplier.Columns(2).Text = "FULL NAME"
+            Fm_home_page.Lv_supplier.Columns(3).Text = "EMAIL ADDRESS"
+            Fm_home_page.Lv_supplier.Columns(4).Text = "CONTACT NO"
+            Fm_home_page.Lv_supplier.Columns(5).Text = "ADDRESS"
+            Fm_home_page.Lv_supplier.Columns(6).Text = "SOURCE TYPE"
+
             con.Close()
 
             For i As Integer = 0 To Fm_home_page.Lv_supplier.Items.Count - 1
@@ -597,6 +646,9 @@ Module Module1
 
             Loop
 
+            'Listview column header title
+            Fm_home_page.Lv_author.Columns(0).Text = "AUTHOR NAME"
+
             con.Close()
 
             For i As Integer = 0 To Fm_home_page.Lv_author.Items.Count - 1
@@ -649,6 +701,9 @@ Module Module1
                 Fm_home_page.Lv_category.Items.Add(lv)
 
             Loop
+
+            'Listview column header title
+            Fm_home_page.Lv_category.Columns(0).Text = "CATEGORY NAME"
 
             con.Close()
 
@@ -704,6 +759,10 @@ Module Module1
 
             Loop
 
+            'Listview column header title
+            Fm_home_page.Lv_penalty_description.Columns(0).Text = "PENALTY DESCRIPTION"
+            Fm_home_page.Lv_penalty_description.Columns(1).Text = "AMOUNT"
+
             dr.Close()
 
             For i As Integer = 0 To Fm_home_page.Lv_penalty_description.Items.Count - 1
@@ -739,6 +798,10 @@ Module Module1
                 Fm_add_penalty.Lv_penalty_description.Items.Add(lv)
 
             Loop
+
+            'Listview column header title
+            Fm_add_penalty.Lv_penalty_description.Columns(0).Text = "PENALTY DESCRIPTION"
+            Fm_add_penalty.Lv_penalty_description.Columns(1).Text = "AMOUNT"
 
             con.Close()
 
@@ -792,6 +855,9 @@ Module Module1
                 Fm_home_page.Lv_publisher.Items.Add(lv)
 
             Loop
+
+            'Listview column header title
+            Fm_home_page.Lv_publisher.Columns(0).Text = "PUBLISHER NAME"
 
             con.Close()
 
