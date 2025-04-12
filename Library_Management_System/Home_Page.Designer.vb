@@ -1304,10 +1304,10 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
+        Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel6_Supplier)
         Controls.Add(Panel4_User_Acounts)
         Controls.Add(Panel3_Borrower_Info)
-        Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(Panel1_Books)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)

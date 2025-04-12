@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2025 at 12:06 PM
+-- Generation Time: Apr 11, 2025 at 12:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,12 +65,12 @@ CREATE TABLE `tbl_books` (
   `primary_book_id` int(11) NOT NULL,
   `isbn` varchar(100) DEFAULT NULL,
   `book_name` varchar(100) DEFAULT NULL,
-  `primary_category_id` varchar(11) DEFAULT NULL,
+  `primary_category_id` int(11) DEFAULT NULL,
   `qty` varchar(10) DEFAULT NULL,
-  `primary_author_id` varchar(11) DEFAULT NULL,
-  `primary_publisher_id` varchar(11) DEFAULT NULL,
+  `primary_author_id` int(11) DEFAULT NULL,
+  `primary_publisher_id` int(11) DEFAULT NULL,
   `publish_year` varchar(30) DEFAULT NULL,
-  `primary_supplier_id` varchar(11) DEFAULT NULL,
+  `primary_supplier_id` int(11) DEFAULT NULL,
   `acquisition_date` varchar(30) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -80,9 +80,9 @@ CREATE TABLE `tbl_books` (
 --
 
 INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_category_id`, `qty`, `primary_author_id`, `primary_publisher_id`, `publish_year`, `primary_supplier_id`, `acquisition_date`, `status`) VALUES
-(1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', '1', '11', '1', '3', 'May 08, 2024', '1', 'May 08, 2024', 'Available'),
-(2, '9789710639540', 'CINDERELLLA', '1', '19', '2', '3', 'April 16, 2024', '1', 'May 07, 2024', 'Available'),
-(5, 'AP091GW', 'LIBRO', '2', '32', '1', '1', 'May 06, 2024', '5', 'May 08, 2024', 'Available');
+(1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', 1, '11', 1, 3, 'May 08, 2024', 1, 'May 08, 2024', 'Available'),
+(2, '9789710639540', 'CINDERELLLA', 1, '19', 2, 3, 'April 16, 2024', 1, 'May 07, 2024', 'Available'),
+(5, 'AP091GW', 'LIBRO', 2, '32', 1, 1, 'May 06, 2024', 5, 'May 08, 2024', 'Available');
 
 -- --------------------------------------------------------
 
@@ -120,8 +120,8 @@ CREATE TABLE `tbl_issued_books` (
   `primary_issued_book_id` int(11) NOT NULL,
   `transaction_yyyy_mm` varchar(20) DEFAULT NULL,
   `transaction_series` varchar(10) DEFAULT NULL,
-  `primary_borrower_id` varchar(11) DEFAULT NULL,
-  `primary_book_id` varchar(11) DEFAULT NULL,
+  `primary_borrower_id` int(11) DEFAULT NULL,
+  `primary_book_id` int(11) DEFAULT NULL,
   `issued_date` varchar(30) DEFAULT NULL,
   `due_date` varchar(30) DEFAULT NULL,
   `returned_date` varchar(30) NOT NULL,
@@ -133,9 +133,9 @@ CREATE TABLE `tbl_issued_books` (
 --
 
 INSERT INTO `tbl_issued_books` (`primary_issued_book_id`, `transaction_yyyy_mm`, `transaction_series`, `primary_borrower_id`, `primary_book_id`, `issued_date`, `due_date`, `returned_date`, `created_at`) VALUES
-(1, 'BB2025-04', '00001', '3', '5', 'April 01, 2025', 'May 01, 2025', 'April 04, 2025', '2025-04-01'),
-(3, 'BB2025-04', '00002', '3', '1', 'April 01, 2025', 'May 01, 2025', '', '2025-04-01'),
-(4, 'BB2025-04', '00003', '2', '5', 'April 01, 2025', 'May 01, 2025', 'April 04, 2025', '2025-04-01');
+(1, 'BB2025-04', '00001', 3, 5, 'April 01, 2025', 'May 01, 2025', 'April 04, 2025', '2025-04-01'),
+(3, 'BB2025-04', '00002', 3, 1, 'April 01, 2025', 'May 01, 2025', '', '2025-04-01'),
+(4, 'BB2025-04', '00003', 2, 5, 'April 01, 2025', 'May 01, 2025', 'April 04, 2025', '2025-04-01');
 
 -- --------------------------------------------------------
 
@@ -260,9 +260,9 @@ INSERT INTO `tbl_library_supplier` (`primary_supplier_id`, `supplier_id`, `suppl
 
 CREATE TABLE `tbl_penalty_report` (
   `primary_penalty_id` int(11) NOT NULL,
-  `primary_borrower_id` varchar(11) DEFAULT NULL,
-  `primary_book_id` varchar(11) DEFAULT NULL,
-  `primary_penalty_description_id` varchar(11) DEFAULT NULL,
+  `primary_borrower_id` int(11) DEFAULT NULL,
+  `primary_book_id` int(11) DEFAULT NULL,
+  `primary_penalty_description_id` int(11) DEFAULT NULL,
   `penalty_date` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -271,13 +271,13 @@ CREATE TABLE `tbl_penalty_report` (
 --
 
 INSERT INTO `tbl_penalty_report` (`primary_penalty_id`, `primary_borrower_id`, `primary_book_id`, `primary_penalty_description_id`, `penalty_date`) VALUES
-(32, '3', '5', '4', 'April 04, 2025'),
-(33, '3', '5', '3', 'April 04, 2025'),
-(34, '3', '5', '13', 'April 04, 2025'),
-(35, '3', '5', '12', 'April 04, 2025'),
-(42, '2', '5', '12', 'April 04, 2025'),
-(43, '2', '5', '13', 'April 04, 2025'),
-(44, '2', '5', '14', 'April 04, 2025');
+(32, 3, 5, 4, 'April 04, 2025'),
+(33, 3, 5, 3, 'April 04, 2025'),
+(34, 3, 5, 13, 'April 04, 2025'),
+(35, 3, 5, 12, 'April 04, 2025'),
+(42, 2, 5, 12, 'April 04, 2025'),
+(43, 2, 5, 13, 'April 04, 2025'),
+(44, 2, 5, 14, 'April 04, 2025');
 
 --
 -- Indexes for dumped tables
@@ -293,7 +293,11 @@ ALTER TABLE `tbl_admin`
 -- Indexes for table `tbl_books`
 --
 ALTER TABLE `tbl_books`
-  ADD PRIMARY KEY (`primary_book_id`);
+  ADD PRIMARY KEY (`primary_book_id`),
+  ADD KEY `books_library_author_fk_key` (`primary_author_id`),
+  ADD KEY `books_library_category_fk_key` (`primary_category_id`),
+  ADD KEY `books_library_publisher_fk_key` (`primary_publisher_id`),
+  ADD KEY `books_library_supplier_fk_key` (`primary_supplier_id`);
 
 --
 -- Indexes for table `tbl_borrower`
@@ -305,7 +309,9 @@ ALTER TABLE `tbl_borrower`
 -- Indexes for table `tbl_issued_books`
 --
 ALTER TABLE `tbl_issued_books`
-  ADD PRIMARY KEY (`primary_issued_book_id`);
+  ADD PRIMARY KEY (`primary_issued_book_id`),
+  ADD KEY `issued_books_books_fk_key` (`primary_book_id`),
+  ADD KEY `issued_books_borrower_fk_key` (`primary_borrower_id`);
 
 --
 -- Indexes for table `tbl_library_author`
@@ -341,7 +347,10 @@ ALTER TABLE `tbl_library_supplier`
 -- Indexes for table `tbl_penalty_report`
 --
 ALTER TABLE `tbl_penalty_report`
-  ADD PRIMARY KEY (`primary_penalty_id`);
+  ADD PRIMARY KEY (`primary_penalty_id`),
+  ADD KEY `penalty_report_borrower_fk_key` (`primary_borrower_id`),
+  ADD KEY `penalty_report_book_fk_key` (`primary_book_id`),
+  ADD KEY `penalty_report_library_penalty_fk_key` (`primary_penalty_description_id`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -406,6 +415,34 @@ ALTER TABLE `tbl_library_supplier`
 --
 ALTER TABLE `tbl_penalty_report`
   MODIFY `primary_penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_books`
+--
+ALTER TABLE `tbl_books`
+  ADD CONSTRAINT `books_library_author_fk_key` FOREIGN KEY (`primary_author_id`) REFERENCES `tbl_library_author` (`primary_author_id`),
+  ADD CONSTRAINT `books_library_category_fk_key` FOREIGN KEY (`primary_category_id`) REFERENCES `tbl_library_category` (`primary_category_id`),
+  ADD CONSTRAINT `books_library_publisher_fk_key` FOREIGN KEY (`primary_publisher_id`) REFERENCES `tbl_library_publisher` (`primary_publisher_id`),
+  ADD CONSTRAINT `books_library_supplier_fk_key` FOREIGN KEY (`primary_supplier_id`) REFERENCES `tbl_library_supplier` (`primary_supplier_id`);
+
+--
+-- Constraints for table `tbl_issued_books`
+--
+ALTER TABLE `tbl_issued_books`
+  ADD CONSTRAINT `issued_books_books_fk_key` FOREIGN KEY (`primary_book_id`) REFERENCES `tbl_books` (`primary_book_id`),
+  ADD CONSTRAINT `issued_books_borrower_fk_key` FOREIGN KEY (`primary_borrower_id`) REFERENCES `tbl_borrower` (`primary_borrower_id`);
+
+--
+-- Constraints for table `tbl_penalty_report`
+--
+ALTER TABLE `tbl_penalty_report`
+  ADD CONSTRAINT `penalty_report_book_fk_key` FOREIGN KEY (`primary_book_id`) REFERENCES `tbl_books` (`primary_book_id`),
+  ADD CONSTRAINT `penalty_report_borrower_fk_key` FOREIGN KEY (`primary_borrower_id`) REFERENCES `tbl_borrower` (`primary_borrower_id`),
+  ADD CONSTRAINT `penalty_report_lib_penalty_fk_key` FOREIGN KEY (`primary_penalty_description_id`) REFERENCES `tbl_library_penalty` (`primary_penalty_description_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -114,7 +114,6 @@ Partial Class Fm_add_penalty
         Txt_primary_borrower_id.PlaceholderText = "Primary Borrower ID"
         Txt_primary_borrower_id.Size = New Size(168, 21)
         Txt_primary_borrower_id.TabIndex = 28
-        Txt_primary_borrower_id.Visible = False
         ' 
         ' Txt_book_name
         ' 
@@ -145,7 +144,6 @@ Partial Class Fm_add_penalty
         Txt_primary_book_id.PlaceholderText = "Primary Book ID"
         Txt_primary_book_id.Size = New Size(168, 21)
         Txt_primary_book_id.TabIndex = 31
-        Txt_primary_book_id.Visible = False
         ' 
         ' Btn_update
         ' 
@@ -209,14 +207,13 @@ Partial Class Fm_add_penalty
         Txt_primary_penalty_report_id.PlaceholderText = "Primary Penalty Report ID"
         Txt_primary_penalty_report_id.Size = New Size(168, 23)
         Txt_primary_penalty_report_id.TabIndex = 48
-        Txt_primary_penalty_report_id.Visible = False
         ' 
         ' Fm_add_penalty
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(447, 452)
+        ClientSize = New Size(619, 452)
         ControlBox = False
         Controls.Add(Txt_primary_penalty_report_id)
         Controls.Add(Txt_search_penalty_description)
