@@ -22,7 +22,7 @@ Public Class Fm_add_borrower
         {"%"c, "101001001001"}, {"*"c, "100101101101"} ' * is the start/stop character
     }
 
-    Private Sub Fm_add_borrower_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub generate_barcode()
 
         Dim borrower_id_number As String = Txt_borrower_id_number.Text.ToUpper()
         Dim encoded As String = "*" & borrower_id_number & "*"
@@ -50,6 +50,20 @@ Public Class Fm_add_borrower
         End Using
 
         Pb_id_no_barcode.Image = bmp
+
+    End Sub
+
+    Private Sub Fm_add_borrower_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        If Txt_borrower_id_number.Text = "" Then
+
+            Pb_id_no_barcode.Image = Nothing
+
+        Else
+
+            generate_barcode()
+
+        End If
 
     End Sub
 
@@ -309,32 +323,15 @@ Public Class Fm_add_borrower
         End If
 
 
-        Dim borrower_id_number As String = Txt_borrower_id_number.Text.ToUpper()
-        Dim encoded As String = "*" & borrower_id_number & "*"
+        If Txt_borrower_id_number.Text = "" Then
 
-        Dim pattern As String = ""
-        For Each ch As Char In encoded
-            If code39Table.ContainsKey(ch) Then
-                pattern &= code39Table(ch) & "0" ' add narrow space between characters
-            End If
-        Next
+            Pb_id_no_barcode.Image = Nothing
 
-        ' Draw barcode
-        Dim widthPerBar As Integer = 2
-        Dim height As Integer = 100
-        Dim totalWidth As Integer = pattern.Length * widthPerBar
-        Dim bmp As New Bitmap(totalWidth, height)
-        Using g As Graphics = Graphics.FromImage(bmp)
-            g.Clear(Color.White)
-            Dim x As Integer = 0
-            For Each bit As Char In pattern
-                Dim brush As Brush = If(bit = "1"c, Brushes.Black, Brushes.White)
-                g.FillRectangle(brush, x, 0, widthPerBar, height)
-                x += widthPerBar
-            Next
-        End Using
+        Else
 
-        Pb_id_no_barcode.Image = bmp
+            generate_barcode()
+
+        End If
 
     End Sub
 
