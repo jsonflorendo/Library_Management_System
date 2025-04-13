@@ -79,6 +79,8 @@ Partial Class Fm_home_page
         Student_info4 = New ColumnHeader()
         Student_info5 = New ColumnHeader()
         Student_info6 = New ColumnHeader()
+        Student_info7 = New ColumnHeader()
+        Student_info8 = New ColumnHeader()
         Panel4_User_Acounts = New Panel()
         Btn_listed_accounts_edit = New Button()
         Lv_listed_accounts = New ListView()
@@ -565,7 +567,7 @@ Partial Class Fm_home_page
         ' Lv_borrower_info
         ' 
         Lv_borrower_info.BackColor = SystemColors.ActiveCaption
-        Lv_borrower_info.Columns.AddRange(New ColumnHeader() {Student_info0, Student_info1, Student_info2, Student_info3, Student_info4, Student_info5, Student_info6})
+        Lv_borrower_info.Columns.AddRange(New ColumnHeader() {Student_info0, Student_info1, Student_info2, Student_info3, Student_info4, Student_info5, Student_info6, Student_info7, Student_info8})
         Lv_borrower_info.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_borrower_info.FullRowSelect = True
         Lv_borrower_info.HeaderStyle = ColumnHeaderStyle.Nonclickable
@@ -601,20 +603,31 @@ Partial Class Fm_home_page
         ' 
         ' Student_info4
         ' 
-        Student_info4.Text = "Gender"
+        Student_info4.Text = "Category Type"
         Student_info4.TextAlign = HorizontalAlignment.Center
-        Student_info4.Width = 132
+        Student_info4.Width = 200
         ' 
         ' Student_info5
         ' 
-        Student_info5.Text = "Contact No."
+        Student_info5.Text = "Gender"
         Student_info5.TextAlign = HorizontalAlignment.Center
-        Student_info5.Width = 200
+        Student_info5.Width = 132
         ' 
         ' Student_info6
         ' 
-        Student_info6.Text = "Address"
-        Student_info6.Width = 400
+        Student_info6.Text = "Contact No."
+        Student_info6.TextAlign = HorizontalAlignment.Center
+        Student_info6.Width = 200
+        ' 
+        ' Student_info7
+        ' 
+        Student_info7.Text = "Email"
+        Student_info7.Width = 400
+        ' 
+        ' Student_info8
+        ' 
+        Student_info8.Text = "Address"
+        Student_info8.Width = 400
         ' 
         ' Panel4_User_Acounts
         ' 
@@ -1304,10 +1317,10 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
+        Controls.Add(Panel3_Borrower_Info)
         Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel6_Supplier)
         Controls.Add(Panel4_User_Acounts)
-        Controls.Add(Panel3_Borrower_Info)
         Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(Panel1_Books)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
@@ -1372,9 +1385,9 @@ Partial Class Fm_home_page
     Friend WithEvents Lv_borrower_info As ListView
     Friend WithEvents Student_info0 As ColumnHeader
     Friend WithEvents Student_info1 As ColumnHeader
-    Friend WithEvents Student_info4 As ColumnHeader
     Friend WithEvents Student_info5 As ColumnHeader
     Friend WithEvents Student_info6 As ColumnHeader
+    Friend WithEvents Student_info8 As ColumnHeader
     Friend WithEvents Panel4_User_Acounts As Panel
     Friend WithEvents Btn_logout As Button
     Friend WithEvents Btn_listed_accounts_delete As Button
@@ -1475,4 +1488,6 @@ Partial Class Fm_home_page
     Friend WithEvents Listed_details1 As ColumnHeader
     Friend WithEvents Returned_borrowed_books0 As ColumnHeader
     Friend WithEvents Btn_borrower_info_edit As Button
+    Friend WithEvents Student_info7 As ColumnHeader
+    Friend WithEvents Student_info4 As ColumnHeader
 End Class

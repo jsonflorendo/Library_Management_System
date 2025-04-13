@@ -433,8 +433,10 @@ Module Module1
                                             dr("last_name").ToString(),
                                             dr("first_name").ToString(),
                                             dr("middle_name").ToString(),
+                                            dr("category_type").ToString(),
                                             dr("gender").ToString(),
                                             dr("borrower_contact_no").ToString(),
+                                            dr("email").ToString(),
                                             dr("borrower_address").ToString(),
                                             dr("primary_borrower_id").ToString()})
                 Fm_home_page.Lv_borrower_info.Items.Add(lv)
@@ -446,9 +448,11 @@ Module Module1
             Fm_home_page.Lv_borrower_info.Columns(1).Text = "LAST NAME"
             Fm_home_page.Lv_borrower_info.Columns(2).Text = "FIRST NAME"
             Fm_home_page.Lv_borrower_info.Columns(3).Text = "MIDDLE NAME"
-            Fm_home_page.Lv_borrower_info.Columns(4).Text = "GENDER"
-            Fm_home_page.Lv_borrower_info.Columns(5).Text = "CONTACT NO"
-            Fm_home_page.Lv_borrower_info.Columns(6).Text = "ADDRESS"
+            Fm_home_page.Lv_borrower_info.Columns(4).Text = "CATEGORY TYPE"
+            Fm_home_page.Lv_borrower_info.Columns(5).Text = "GENDER"
+            Fm_home_page.Lv_borrower_info.Columns(6).Text = "CONTACT NO"
+            Fm_home_page.Lv_borrower_info.Columns(7).Text = "EMAIL"
+            Fm_home_page.Lv_borrower_info.Columns(8).Text = "ADDRESS"
 
             con.Close()
 

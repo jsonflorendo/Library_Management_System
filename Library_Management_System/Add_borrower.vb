@@ -1,7 +1,57 @@
 ﻿Imports MySql.Data.MySqlClient
-Imports Org.BouncyCastle.Asn1.Cmp
+Imports System.Drawing
 
 Public Class Fm_add_borrower
+
+    ' Mapping Code 39 characters to barcode patterns
+    Dim code39Table As New Dictionary(Of Char, String) From {
+        {"0"c, "101001101101"}, {"1"c, "110100101011"}, {"2"c, "101100101011"},
+        {"3"c, "110110010101"}, {"4"c, "101001101011"}, {"5"c, "110100110101"},
+        {"6"c, "101100110101"}, {"7"c, "101001011011"}, {"8"c, "110100101101"},
+        {"9"c, "101100101101"}, {"A"c, "110101001011"}, {"B"c, "101101001011"},
+        {"C"c, "110110100101"}, {"D"c, "101011001011"}, {"E"c, "110101100101"},
+        {"F"c, "101101100101"}, {"G"c, "101010011011"}, {"H"c, "110101001101"},
+        {"I"c, "101101001101"}, {"J"c, "101011001101"}, {"K"c, "110101010011"},
+        {"L"c, "101101010011"}, {"M"c, "110110101001"}, {"N"c, "101011010011"},
+        {"O"c, "110101101001"}, {"P"c, "101101101001"}, {"Q"c, "101010110011"},
+        {"R"c, "110101011001"}, {"S"c, "101101011001"}, {"T"c, "101011011001"},
+        {"U"c, "110010101011"}, {"V"c, "100110101011"}, {"W"c, "110011010101"},
+        {"X"c, "100101101011"}, {"Y"c, "110010110101"}, {"Z"c, "100110110101"},
+        {"-"c, "100101011011"}, {"."c, "110010101101"}, {" "c, "100110101101"},
+        {"$"c, "100100100101"}, {"/"c, "100100101001"}, {"+"c, "100101001001"},
+        {"%"c, "101001001001"}, {"*"c, "100101101101"} ' * is the start/stop character
+    }
+
+    Private Sub Fm_add_borrower_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Dim borrower_id_number As String = Txt_borrower_id_number.Text.ToUpper()
+        Dim encoded As String = "*" & borrower_id_number & "*"
+
+        Dim pattern As String = ""
+        For Each ch As Char In encoded
+            If code39Table.ContainsKey(ch) Then
+                pattern &= code39Table(ch) & "0" ' add narrow space between characters
+            End If
+        Next
+
+        ' Draw barcode
+        Dim widthPerBar As Integer = 2
+        Dim height As Integer = 100
+        Dim totalWidth As Integer = pattern.Length * widthPerBar
+        Dim bmp As New Bitmap(totalWidth, height)
+        Using g As Graphics = Graphics.FromImage(bmp)
+            g.Clear(Color.White)
+            Dim x As Integer = 0
+            For Each bit As Char In pattern
+                Dim brush As Brush = If(bit = "1"c, Brushes.Black, Brushes.White)
+                g.FillRectangle(brush, x, 0, widthPerBar, height)
+                x += widthPerBar
+            Next
+        End Using
+
+        Pb_id_no_barcode.Image = bmp
+
+    End Sub
 
     Dim Gender As String
 
@@ -60,15 +110,19 @@ Public Class Fm_add_borrower
                                                         last_name,
                                                         first_name,
                                                         middle_name,
+                                                        category_type,
                                                         gender,
                                                         borrower_contact_no,
+                                                        email,
                                                         borrower_address)
                                         VALUE ('" & Txt_borrower_id_number.Text & "',
                                                 '" & Txt_borrower_last_name.Text & "',
                                                 '" & Txt_borrower_first_name.Text & "',
                                                 '" & Txt_borrower_middle_name.Text & "',
+                                                '" & Cb_borrower_category_type.Text & "',
                                                 '" & Gender & "',
                                                 '" & Txt_borrower_contact_no.Text & "',
+                                                '" & Txt_borrower_email.Text & "',
                                                 '" & Txt_borrower_address.Text & "')"
                         cmd = New MySqlCommand(sql, con)
                         cmd.ExecuteNonQuery()
@@ -127,7 +181,7 @@ Public Class Fm_add_borrower
                 'to make sure ID Number not exists while in update process
                 sql = "UPDATE tbl_borrower SET
                                         borrower_id = '" & "" & "'                                        
-                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text & "'"
+                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(9).Text & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -149,7 +203,7 @@ Public Class Fm_add_borrower
                     con.Open()
                     sql = "UPDATE tbl_borrower SET
                                     borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).Text & "'                                        
-                            WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text & "'"
+                            WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(9).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
                     con.Close()
@@ -172,10 +226,12 @@ Public Class Fm_add_borrower
                                         last_name = '" & Txt_borrower_last_name.Text & "',
                                         first_name = '" & Txt_borrower_first_name.Text & "',
                                         middle_name = '" & Txt_borrower_middle_name.Text & "',
+                                        category_type = '" & Cb_borrower_category_type.Text & "',
                                         gender = '" & Gender & "',
                                         borrower_contact_no = '" & Txt_borrower_contact_no.Text & "',
+                                        email = '" & Txt_borrower_email.Text & "',
                                         borrower_address = '" & Txt_borrower_address.Text & "'
-                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text & "'"
+                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(9).Text & "'"
                         cmd = New MySqlCommand(sql, con)
                         dr = cmd.ExecuteReader
 
@@ -251,6 +307,34 @@ Public Class Fm_add_borrower
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
+
+
+        Dim borrower_id_number As String = Txt_borrower_id_number.Text.ToUpper()
+        Dim encoded As String = "*" & borrower_id_number & "*"
+
+        Dim pattern As String = ""
+        For Each ch As Char In encoded
+            If code39Table.ContainsKey(ch) Then
+                pattern &= code39Table(ch) & "0" ' add narrow space between characters
+            End If
+        Next
+
+        ' Draw barcode
+        Dim widthPerBar As Integer = 2
+        Dim height As Integer = 100
+        Dim totalWidth As Integer = pattern.Length * widthPerBar
+        Dim bmp As New Bitmap(totalWidth, height)
+        Using g As Graphics = Graphics.FromImage(bmp)
+            g.Clear(Color.White)
+            Dim x As Integer = 0
+            For Each bit As Char In pattern
+                Dim brush As Brush = If(bit = "1"c, Brushes.Black, Brushes.White)
+                g.FillRectangle(brush, x, 0, widthPerBar, height)
+                x += widthPerBar
+            Next
+        End Using
+
+        Pb_id_no_barcode.Image = bmp
 
     End Sub
 
@@ -330,7 +414,7 @@ Public Class Fm_add_borrower
         e.KeyChar = Char.ToUpper(e.KeyChar)
 
         ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
+        Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
         If Txt_borrower_middle_name.TextLength >= maxLength Then
@@ -340,13 +424,20 @@ Public Class Fm_add_borrower
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
+
+    End Sub
+
+    Private Sub Cb_borrower_category_type_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cb_borrower_category_type.KeyPress
+
+        'No input alphanumeric
+        e.Handled = True
 
     End Sub
 
@@ -373,6 +464,35 @@ Public Class Fm_add_borrower
 
             e.Handled = True
 
+        End If
+
+    End Sub
+
+    Private Sub Txt_borrower_email_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_borrower_email.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_borrower_email.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+'<>,.?/""" ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
         End If
 
     End Sub

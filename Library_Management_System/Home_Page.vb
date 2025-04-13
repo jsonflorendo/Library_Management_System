@@ -900,8 +900,10 @@ Public Class Fm_home_page
                                             dr("last_name").ToString(),
                                             dr("first_name").ToString(),
                                             dr("middle_name").ToString(),
+                                            dr("category_type").ToString(),
                                             dr("gender").ToString(),
                                             dr("borrower_contact_no").ToString(),
+                                            dr("email").ToString(),
                                             dr("borrower_address").ToString(),
                                             dr("primary_borrower_id").ToString()})
                 Lv_borrower_info.Items.Add(lv)
@@ -958,8 +960,10 @@ Public Class Fm_home_page
             Fm_add_borrower.Txt_borrower_last_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(1).Text
             Fm_add_borrower.Txt_borrower_first_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(2).Text
             Fm_add_borrower.Txt_borrower_middle_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(3).Text
+            Fm_add_borrower.Cb_borrower_category_type.Text = Lv_borrower_info.SelectedItems(0).SubItems(4).Text
 
-            Gender = Lv_borrower_info.SelectedItems(0).SubItems(4).Text
+
+            Gender = Lv_borrower_info.SelectedItems(0).SubItems(5).Text
 
             If Gender = "MALE" Then
                 Fm_add_borrower.Rb_male.Checked = True
@@ -967,8 +971,9 @@ Public Class Fm_home_page
                 Fm_add_borrower.Rb_female.Checked = True
             End If
 
-            Fm_add_borrower.Txt_borrower_contact_no.Text = Lv_borrower_info.SelectedItems(0).SubItems(5).Text
-            Fm_add_borrower.Txt_borrower_address.Text = Lv_borrower_info.SelectedItems(0).SubItems(6).Text
+            Fm_add_borrower.Txt_borrower_contact_no.Text = Lv_borrower_info.SelectedItems(0).SubItems(6).Text
+            Fm_add_borrower.Txt_borrower_email.Text = Lv_borrower_info.SelectedItems(0).SubItems(7).Text
+            Fm_add_borrower.Txt_borrower_address.Text = Lv_borrower_info.SelectedItems(0).SubItems(8).Text
 
             Fm_add_borrower.Show()
             Me.Enabled = False
@@ -997,7 +1002,7 @@ Public Class Fm_home_page
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_borrower
-                                  WHERE primary_borrower_id = '" & Lv_borrower_info.SelectedItems(0).SubItems(7).Text & "'"
+                                  WHERE primary_borrower_id = '" & Lv_borrower_info.SelectedItems(0).SubItems(9).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 

@@ -40,13 +40,20 @@ Partial Class Fm_add_borrower
         Btn_update = New Button()
         Btn_exit = New Button()
         Btn_save = New Button()
+        Txt_borrower_email = New TextBox()
+        Label1 = New Label()
+        Label2 = New Label()
+        Label3 = New Label()
+        Cb_borrower_category_type = New ComboBox()
+        Pb_id_no_barcode = New PictureBox()
+        CType(Pb_id_no_barcode, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
         Label7.BackColor = SystemColors.ControlLight
-        Label7.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label7.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Label7.Location = New Point(39, 152)
         Label7.Name = "Label7"
         Label7.Size = New Size(120, 18)
@@ -57,7 +64,7 @@ Partial Class Fm_add_borrower
         ' 
         Label6.AutoSize = True
         Label6.BackColor = SystemColors.ControlLight
-        Label6.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label6.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Label6.Location = New Point(39, 114)
         Label6.Name = "Label6"
         Label6.Size = New Size(103, 18)
@@ -66,7 +73,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_middle_name
         ' 
-        Txt_borrower_middle_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_middle_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
         Txt_borrower_middle_name.Location = New Point(180, 152)
         Txt_borrower_middle_name.Name = "Txt_borrower_middle_name"
         Txt_borrower_middle_name.PlaceholderText = "Middle Name"
@@ -75,7 +82,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_first_name
         ' 
-        Txt_borrower_first_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_first_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
         Txt_borrower_first_name.Location = New Point(180, 114)
         Txt_borrower_first_name.Name = "Txt_borrower_first_name"
         Txt_borrower_first_name.PlaceholderText = "First Name"
@@ -86,8 +93,8 @@ Partial Class Fm_add_borrower
         ' 
         Label5.AutoSize = True
         Label5.BackColor = SystemColors.ControlLight
-        Label5.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label5.Location = New Point(39, 190)
+        Label5.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Label5.Location = New Point(39, 224)
         Label5.Name = "Label5"
         Label5.Size = New Size(70, 18)
         Label5.TabIndex = 54
@@ -96,8 +103,8 @@ Partial Class Fm_add_borrower
         ' Rb_female
         ' 
         Rb_female.AutoSize = True
-        Rb_female.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Rb_female.Location = New Point(276, 188)
+        Rb_female.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Rb_female.Location = New Point(276, 222)
         Rb_female.Name = "Rb_female"
         Rb_female.Size = New Size(81, 22)
         Rb_female.TabIndex = 51
@@ -108,8 +115,8 @@ Partial Class Fm_add_borrower
         ' Rb_male
         ' 
         Rb_male.AutoSize = True
-        Rb_male.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Rb_male.Location = New Point(180, 188)
+        Rb_male.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Rb_male.Location = New Point(180, 222)
         Rb_male.Name = "Rb_male"
         Rb_male.Size = New Size(63, 22)
         Rb_male.TabIndex = 50
@@ -119,7 +126,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_last_name
         ' 
-        Txt_borrower_last_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_last_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
         Txt_borrower_last_name.Location = New Point(180, 78)
         Txt_borrower_last_name.Name = "Txt_borrower_last_name"
         Txt_borrower_last_name.PlaceholderText = "Last Name"
@@ -128,8 +135,8 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_address
         ' 
-        Txt_borrower_address.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_borrower_address.Location = New Point(180, 261)
+        Txt_borrower_address.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Txt_borrower_address.Location = New Point(180, 335)
         Txt_borrower_address.Name = "Txt_borrower_address"
         Txt_borrower_address.PlaceholderText = "Address"
         Txt_borrower_address.Size = New Size(200, 21)
@@ -137,8 +144,8 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_contact_no
         ' 
-        Txt_borrower_contact_no.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_borrower_contact_no.Location = New Point(180, 225)
+        Txt_borrower_contact_no.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Txt_borrower_contact_no.Location = New Point(180, 259)
         Txt_borrower_contact_no.Name = "Txt_borrower_contact_no"
         Txt_borrower_contact_no.PlaceholderText = "Contact No."
         Txt_borrower_contact_no.Size = New Size(200, 21)
@@ -146,7 +153,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_id_number
         ' 
-        Txt_borrower_id_number.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_id_number.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
         Txt_borrower_id_number.Location = New Point(180, 40)
         Txt_borrower_id_number.Name = "Txt_borrower_id_number"
         Txt_borrower_id_number.PlaceholderText = "ID Number"
@@ -157,8 +164,8 @@ Partial Class Fm_add_borrower
         ' 
         Label8.AutoSize = True
         Label8.BackColor = SystemColors.ControlLight
-        Label8.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label8.Location = New Point(39, 261)
+        Label8.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Label8.Location = New Point(39, 335)
         Label8.Name = "Label8"
         Label8.Size = New Size(79, 18)
         Label8.TabIndex = 48
@@ -168,8 +175,8 @@ Partial Class Fm_add_borrower
         ' 
         Label9.AutoSize = True
         Label9.BackColor = SystemColors.ControlLight
-        Label9.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.Location = New Point(39, 225)
+        Label9.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Label9.Location = New Point(39, 259)
         Label9.Name = "Label9"
         Label9.Size = New Size(108, 18)
         Label9.TabIndex = 45
@@ -179,7 +186,7 @@ Partial Class Fm_add_borrower
         ' 
         Label10.AutoSize = True
         Label10.BackColor = SystemColors.ControlLight
-        Label10.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label10.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Label10.Location = New Point(39, 78)
         Label10.Name = "Label10"
         Label10.Size = New Size(100, 18)
@@ -190,7 +197,7 @@ Partial Class Fm_add_borrower
         ' 
         Label11.AutoSize = True
         Label11.BackColor = SystemColors.ControlLight
-        Label11.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label11.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Label11.Location = New Point(39, 40)
         Label11.Name = "Label11"
         Label11.Size = New Size(106, 18)
@@ -199,8 +206,8 @@ Partial Class Fm_add_borrower
         ' 
         ' Btn_update
         ' 
-        Btn_update.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_update.Location = New Point(61, 312)
+        Btn_update.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Btn_update.Location = New Point(61, 451)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(124, 44)
         Btn_update.TabIndex = 57
@@ -209,8 +216,8 @@ Partial Class Fm_add_borrower
         ' 
         ' Btn_exit
         ' 
-        Btn_exit.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_exit.Location = New Point(233, 312)
+        Btn_exit.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Btn_exit.Location = New Point(233, 451)
         Btn_exit.Name = "Btn_exit"
         Btn_exit.Size = New Size(124, 44)
         Btn_exit.TabIndex = 59
@@ -219,20 +226,85 @@ Partial Class Fm_add_borrower
         ' 
         ' Btn_save
         ' 
-        Btn_save.Location = New Point(61, 312)
+        Btn_save.Location = New Point(61, 451)
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(124, 44)
         Btn_save.TabIndex = 58
         Btn_save.Text = "&Save"
         Btn_save.UseVisualStyleBackColor = True
         ' 
+        ' Txt_borrower_email
+        ' 
+        Txt_borrower_email.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Txt_borrower_email.Location = New Point(180, 297)
+        Txt_borrower_email.Name = "Txt_borrower_email"
+        Txt_borrower_email.PlaceholderText = "Email"
+        Txt_borrower_email.Size = New Size(200, 21)
+        Txt_borrower_email.TabIndex = 60
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.BackColor = SystemColors.ControlLight
+        Label1.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Label1.Location = New Point(39, 300)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(63, 18)
+        Label1.TabIndex = 61
+        Label1.Text = "Email :"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.BackColor = SystemColors.ControlLight
+        Label2.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Label2.Location = New Point(39, 188)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(128, 18)
+        Label2.TabIndex = 63
+        Label2.Text = "Category Type :"
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.BackColor = SystemColors.ControlLight
+        Label3.Font = New Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
+        Label3.Location = New Point(39, 378)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(81, 18)
+        Label3.TabIndex = 64
+        Label3.Text = "Barcode :"
+        ' 
+        ' Cb_borrower_category_type
+        ' 
+        Cb_borrower_category_type.FormattingEnabled = True
+        Cb_borrower_category_type.Items.AddRange(New Object() {"STUDENT", "TEACHER", "FACULTY MEMBER"})
+        Cb_borrower_category_type.Location = New Point(180, 188)
+        Cb_borrower_category_type.Name = "Cb_borrower_category_type"
+        Cb_borrower_category_type.Size = New Size(200, 23)
+        Cb_borrower_category_type.TabIndex = 65
+        ' 
+        ' Pb_id_no_barcode
+        ' 
+        Pb_id_no_barcode.Location = New Point(180, 378)
+        Pb_id_no_barcode.Name = "Pb_id_no_barcode"
+        Pb_id_no_barcode.Size = New Size(200, 59)
+        Pb_id_no_barcode.TabIndex = 66
+        Pb_id_no_barcode.TabStop = False
+        ' 
         ' Fm_add_borrower
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(416, 387)
+        ClientSize = New Size(416, 533)
         ControlBox = False
+        Controls.Add(Pb_id_no_barcode)
+        Controls.Add(Cb_borrower_category_type)
+        Controls.Add(Label3)
+        Controls.Add(Label2)
+        Controls.Add(Label1)
+        Controls.Add(Txt_borrower_email)
         Controls.Add(Btn_exit)
         Controls.Add(Label7)
         Controls.Add(Label6)
@@ -254,6 +326,7 @@ Partial Class Fm_add_borrower
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Fm_add_borrower"
         StartPosition = FormStartPosition.CenterScreen
+        CType(Pb_id_no_barcode, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -276,4 +349,10 @@ Partial Class Fm_add_borrower
     Friend WithEvents Btn_update As Button
     Friend WithEvents Btn_exit As Button
     Friend WithEvents Btn_save As Button
+    Friend WithEvents Txt_borrower_email As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Cb_borrower_category_type As ComboBox
+    Friend WithEvents Pb_id_no_barcode As PictureBox
 End Class
