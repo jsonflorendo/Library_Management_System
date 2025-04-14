@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2025 at 12:40 PM
+-- Generation Time: Apr 14, 2025 at 04:48 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -96,8 +96,10 @@ CREATE TABLE `tbl_borrower` (
   `last_name` varchar(100) DEFAULT NULL,
   `first_name` varchar(100) DEFAULT NULL,
   `middle_name` varchar(100) DEFAULT NULL,
+  `category_type` varchar(100) DEFAULT NULL,
   `gender` varchar(100) DEFAULT NULL,
   `borrower_contact_no` varchar(11) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `borrower_address` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -105,10 +107,10 @@ CREATE TABLE `tbl_borrower` (
 -- Dumping data for table `tbl_borrower`
 --
 
-INSERT INTO `tbl_borrower` (`primary_borrower_id`, `borrower_id`, `last_name`, `first_name`, `middle_name`, `gender`, `borrower_contact_no`, `borrower_address`) VALUES
-(1, '4221517', 'GUALVEZ', 'FATIMA', 'MONTI', 'FEMALE', '09123654789', 'LOWER BICUTAN'),
-(2, '1234567', 'BELLO', 'KREYVEN', 'GUALVVEZ', 'MALE', '09123654987', 'LOWER BICUTAN'),
-(3, '100056', 'GALVEZ', 'FATI', 'GOGO', 'FEMALE', '09231294934', 'TAGUIG CITY');
+INSERT INTO `tbl_borrower` (`primary_borrower_id`, `borrower_id`, `last_name`, `first_name`, `middle_name`, `category_type`, `gender`, `borrower_contact_no`, `email`, `borrower_address`) VALUES
+(1, '4221517', 'GUALVEZ', 'FATIMA', 'MONTI', NULL, 'FEMALE', '09123654789', NULL, 'LOWER BICUTAN'),
+(2, '1234567', 'BELLO', 'KREYVEN', 'GUALVVEZ', 'STUDENT', 'MALE', '09123654987', 'paul@gmail.com', 'LOWER BICUTAN'),
+(3, '100056', 'GALVEZ', 'FATI', 'GOGO', NULL, 'FEMALE', '09231294934', NULL, 'TAGUIG CITY');
 
 -- --------------------------------------------------------
 
