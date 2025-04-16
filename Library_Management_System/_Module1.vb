@@ -229,32 +229,31 @@ Module Module1
 
     ' Load email function
 
-    Public Sub SendBorrowerEmail(id_number As String, first_name As String, middle_name As String, last_name As String, email_address As String, barcode_image As Image)
+    Public Sub SendBorrowerEmail(id_number As String, first_name As String, last_name As String, email_address As String, barcode_image As Image)
 
         Try
 
             ' Save barcode image temporarily
-            Dim tempPath As String = Path.Combine(Path.GetTempPath(), $"{id_number}_barcode.png")
+            Dim tempPath As String = Path.Combine(Path.GetTempPath(), $"Barcode_ID_Number_{id_number}.png")
             barcode_image.Save(tempPath, Imaging.ImageFormat.Png)
 
             ' Prepare email
             Dim mail As New MailMessage()
-            mail.From = New MailAddress("jsonflorendo@gmail.com")
+            mail.From = New MailAddress("LMS <jsonflorendo@gmail.com>")
             mail.To.Add(email_address)
             mail.Subject = "Barcode Details"
-            mail.Body = $"Hello {first_name} {middle_name} {last_name},{vbCrLf}{vbCrLf}" &
-                        $"Here is your borrower ID number: {id_number}{vbCrLf}" &
-                        $"Attached is your barcode for reference."
-
+            mail.Body = $"Dear Mr/Ms {first_name} {last_name},{vbCrLf}{vbCrLf}" &
+                        $"Here is your ID number: {id_number}{vbCrLf}" &
+                        $"Attached is your Barcode ID for reference."
             mail.Attachments.Add(New Attachment(tempPath))
 
-            Dim smtp As New SmtpClient("smtp.gmail.com")
+            Dim smtp As New SmtpClient("smtp-relay.brevo.com")
             smtp.Port = 587
-            smtp.Credentials = New Net.NetworkCredential("jsonflorendo@gmail.com", "json0826904")
+            smtp.Credentials = New Net.NetworkCredential("8a9275002@smtp-brevo.com", "CSqORnDdxgvYQJsk")
             smtp.EnableSsl = True
 
             smtp.Send(mail)
-            MessageBox.Show("Email sent successfully!", "Email", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Email sent successfully", "Email", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Catch ex As Exception
 

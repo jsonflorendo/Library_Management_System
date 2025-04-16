@@ -133,7 +133,7 @@ Public Class Fm_add_borrower
 
                     dr.Close()
 
-                    MessageBox.Show("ID Number already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg.Text = "ID Number already exists"
 
                 Else
 
@@ -174,7 +174,6 @@ Public Class Fm_add_borrower
                         SendBorrowerEmail(
                             Txt_borrower_id_number.Text,
                             Txt_borrower_first_name.Text,
-                            Txt_borrower_middle_name.Text,
                             Txt_borrower_last_name.Text,
                             Txt_borrower_email.Text,
                             Pb_id_no_barcode.Image)
@@ -267,7 +266,7 @@ Public Class Fm_add_borrower
 
                     dr.Close()
 
-                    MessageBox.Show("ID Number already exists", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Lbl_error_msg.Text = "ID Number already exists"
 
                     'returned previous ID Number
                     con.Close()
@@ -282,6 +281,7 @@ Public Class Fm_add_borrower
 
                 Else
 
+                    Dim id_numnber As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).Text
                     Dim dialog As DialogResult
 
                     dialog = MessageBox.Show("Do you want to update " + Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
@@ -312,6 +312,18 @@ Public Class Fm_add_borrower
                         Load_returned_borrowed_books_data_table()
                         Load_penalty_report_data_table()
                         MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                        If id_numnber <> Txt_borrower_id_number.Text Then
+
+                            SendBorrowerEmail(
+                            Txt_borrower_id_number.Text,
+                            Txt_borrower_first_name.Text,
+                            Txt_borrower_last_name.Text,
+                            Txt_borrower_email.Text,
+                            Pb_id_no_barcode.Image)
+
+                        End If
+
                         Fm_home_page.Enabled = True
                         Me.Close()
 
