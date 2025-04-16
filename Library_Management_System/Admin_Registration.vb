@@ -7,13 +7,10 @@ Public Class Fm_admin_registration
 
     Private Sub Fm_admin_registration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Connection()
-
         Clear_error_msg()
 
         Txt_password.UseSystemPasswordChar = True
         Txt_confirmpassword.UseSystemPasswordChar = True
-
 
         Dtp_birthdate.Format = DateTimePickerFormat.Custom
         Dtp_birthdate.CustomFormat = "MMMM dd, yyyy"

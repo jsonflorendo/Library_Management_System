@@ -55,6 +55,8 @@ Public Class Fm_add_borrower
 
     Private Sub Fm_add_borrower_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Clear_error_msg()
+
         If Txt_borrower_id_number.Text = "" Then
 
             Pb_id_no_barcode.Image = Nothing
@@ -83,15 +85,38 @@ Public Class Fm_add_borrower
 
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
-        If Txt_borrower_id_number.Text = "" Or
-                Txt_borrower_last_name.Text = "" Or
-                Txt_borrower_first_name.Text = "" Or
-                Txt_borrower_middle_name.Text = "" Or
-                Gender = "" Or
-                Txt_borrower_address.Text = "" Or
-                Txt_borrower_contact_no.Text = "" Then
+        Clear_error_msg()
 
-            MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If Txt_borrower_id_number.Text = "" Or
+            Txt_borrower_last_name.Text = "" Or
+            Txt_borrower_first_name.Text = "" Or
+            Txt_borrower_middle_name.Text = "" Or
+            Cb_borrower_category_type.Text = "" Or
+            Gender = "" Or
+            Txt_borrower_contact_no.Text = "" Or
+            Txt_borrower_email.Text = "" Or
+            Txt_borrower_address.Text = "" Then
+
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {Txt_borrower_id_number, Txt_borrower_last_name, Txt_borrower_first_name, Txt_borrower_middle_name, Txt_borrower_contact_no, Txt_borrower_email, Txt_borrower_address}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_6, Lbl_error_msg_7, Lbl_error_msg_8}
+
+            ' Validate TextBoxes
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                End If
+            Next
+
+            ' Validate the ComboBox (Dropdown)
+            If Cb_borrower_category_type.SelectedIndex = -1 Then
+                Lbl_error_msg_4.Text = "This field is required"
+            End If
+
+            ' Validate the RadioButtons (Check if at least one is selected)
+            If Not (Rb_male.Checked Or Rb_female.Checked) Then
+                Lbl_error_msg_5.Text = "Please select a gender"
+            End If
 
         Else
 
@@ -145,6 +170,15 @@ Public Class Fm_add_borrower
 
                         Load_borrower_info_data_table()
                         MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                        SendBorrowerEmail(
+                            Txt_borrower_id_number.Text,
+                            Txt_borrower_first_name.Text,
+                            Txt_borrower_middle_name.Text,
+                            Txt_borrower_last_name.Text,
+                            Txt_borrower_email.Text,
+                            Pb_id_no_barcode.Image)
+
                         Fm_home_page.Enabled = True
                         Me.Close()
 
@@ -176,15 +210,38 @@ Public Class Fm_add_borrower
 
     Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
 
-        If Txt_borrower_id_number.Text = "" Or
-                Txt_borrower_last_name.Text = "" Or
-                Txt_borrower_first_name.Text = "" Or
-                Txt_borrower_middle_name.Text = "" Or
-                Gender = "" Or
-                Txt_borrower_address.Text = "" Or
-                Txt_borrower_contact_no.Text = "" Then
+        Clear_error_msg()
 
-            MessageBox.Show("Please filled all fields", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If Txt_borrower_id_number.Text = "" Or
+            Txt_borrower_last_name.Text = "" Or
+            Txt_borrower_first_name.Text = "" Or
+            Txt_borrower_middle_name.Text = "" Or
+            Cb_borrower_category_type.Text = "" Or
+            Gender = "" Or
+            Txt_borrower_contact_no.Text = "" Or
+            Txt_borrower_email.Text = "" Or
+            Txt_borrower_address.Text = "" Then
+
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {Txt_borrower_id_number, Txt_borrower_last_name, Txt_borrower_first_name, Txt_borrower_middle_name, Txt_borrower_contact_no, Txt_borrower_email, Txt_borrower_address}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_6, Lbl_error_msg_7, Lbl_error_msg_8}
+
+            ' Validate TextBoxes
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                End If
+            Next
+
+            ' Validate the ComboBox (Dropdown)
+            If Cb_borrower_category_type.SelectedIndex = -1 Then
+                Lbl_error_msg_4.Text = "This field is required"
+            End If
+
+            ' Validate the RadioButtons (Check if at least one is selected)
+            If Not (Rb_male.Checked Or Rb_female.Checked) Then
+                Lbl_error_msg_5.Text = "Please select a gender"
+            End If
 
         Else
 
@@ -435,6 +492,12 @@ Public Class Fm_add_borrower
 
         'No input alphanumeric
         e.Handled = True
+
+    End Sub
+
+    Private Sub Cb_borrower_category_type_Click(sender As Object, e As EventArgs) Handles Cb_borrower_category_type.Click
+
+        Cb_borrower_category_type.DroppedDown = True
 
     End Sub
 

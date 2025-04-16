@@ -14,17 +14,6 @@ Public Class Fm_home_page
         Panel6_Supplier.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
 
-        'Load_listed_books_data_table()
-        'Load_returned_borrowed_books_data_table()
-        'Load_penalty_report_data_table()
-        'Load_borrower_info_data_table()
-        'Load_listed_accounts_data_table()
-        'Load_library_supplier_data_table()
-        'Load_library_category_data_table()
-        'Load_library_category_data_table()
-        'Load_library_publisher_data_table()
-        'Load_library_publisher_data_table()
-
         Load_library_cb_category()
 
     End Sub
@@ -369,7 +358,7 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_logout_Click_1(sender As Object, e As EventArgs) Handles Btn_logout.Click
+    Private Sub Btn_logout_Click(sender As Object, e As EventArgs) Handles Btn_logout.Click
 
         If Btn_logout.Enabled = True Then
 

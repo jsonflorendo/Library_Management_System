@@ -10,91 +10,16 @@ Public Class Fm_login
         Clear_error_msg()
 
         RoundCorners(Me)
+
         Connection()
+
         Txt_password.UseSystemPasswordChar = True
 
     End Sub
 
     Private Sub Btn_login_Click(sender As Object, e As EventArgs) Handles Btn_login.Click
 
-        If Txt_username.Text = "" And Txt_password.Text = "" Then
-
-            Lbl_error_msg_1.Text = ""
-            Lbl_error_msg.Text = "Please input your Username and Password"
-
-        ElseIf Txt_username.Text = "" Then
-
-            Lbl_error_msg.Text = ""
-            Lbl_error_msg_1.Text = "Please input your username"
-
-        ElseIf Txt_password.Text = "" Then
-
-            Lbl_error_msg_1.Text = ""
-            Lbl_error_msg.Text = "Please input your password"
-
-        Else
-
-            Try
-
-                con.Open()
-
-                sql = "SELECT * FROM tbl_admin
-                                WHERE username = '" & Txt_username.Text & "'
-                                AND password = '" & Txt_password.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
-
-                If dr.Read() = True Then
-
-                    Dim name As String = dr("first_name") + " " + dr("last_name")
-                    Dim user_type As String = dr("user_type")
-
-                    If dr("user_type") = "ASSISTANT LIBRARIAN" Then
-
-                        Fm_home_page.Show()
-                        Fm_home_page.Lbl_name_logged_in.Text = name
-                        Fm_home_page.Lbl_user_type_logged_in.Text = user_type
-                        Clear_login_fields()
-                        Clear_error_msg()
-                        Me.Hide()
-
-                    Else
-
-                        Fm_home_page.Show()
-                        Fm_home_page.Lbl_name_logged_in.Text = name
-                        Fm_home_page.Lbl_user_type_logged_in.Text = user_type
-                        Fm_home_page.Btn_listed_accounts.Visible = False
-                        Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
-                        Fm_home_page.Btn_supplier_maintenance.Visible = False
-                        Clear_login_fields()
-                        Clear_error_msg()
-                        Me.Hide()
-
-                    End If
-
-                Else
-
-                    Lbl_error_msg_1.Text = ""
-                    Lbl_error_msg.Text = "Incorrect username or password"
-                    Clear_login_fields()
-
-                End If
-
-                con.Close()
-
-            Catch ex As Exception
-
-                MsgBox("Error: " & ex.Message)
-
-            Finally
-
-                If con.State = ConnectionState.Open Then
-                    con.Close()
-                End If
-
-            End Try
-
-        End If
+        Load_login_click(Txt_username.Text, Txt_password.Text)
 
     End Sub
 
@@ -164,7 +89,7 @@ Public Class Fm_login
 
     Private Sub Txt_username_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_username.KeyPress
 
-        Load_login(e)
+        Load_login_keypress(e, Txt_username.Text, Txt_password.Text)
 
 
         ' Check if the entered key is a control key (e.g., Backspace)
@@ -196,7 +121,7 @@ Public Class Fm_login
 
     Private Sub Txt_password_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_password.KeyPress
 
-        Load_login(e)
+        Load_login_keypress(e, Txt_username.Text, Txt_password.Text)
 
 
         ' Check if the entered key is a control key (e.g., Backspace)

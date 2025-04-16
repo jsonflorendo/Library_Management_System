@@ -1,4 +1,6 @@
 ﻿'Database Connection
+Imports System.IO
+Imports System.Net.Mail
 Imports MySql.Data.MySqlClient
 
 Module Module1
@@ -54,21 +56,21 @@ Module Module1
 
     ' Load login function
 
-    Public Sub Load_login(e As KeyPressEventArgs)
+    Public Sub Load_login_keypress(e As KeyPressEventArgs, username As String, password As String)
 
         If e.KeyChar = ChrW(13) Then 'No. 13 is the number code "Enter" from keyboard by ASC code value
 
-            If Fm_login.Txt_username.Text = "" And Fm_login.Txt_password.Text = "" Then
+            If username = "" And password = "" Then
 
                 Fm_login.Lbl_error_msg_1.Text = ""
                 Fm_login.Lbl_error_msg.Text = "Please input your Username and Password"
 
-            ElseIf Fm_login.Txt_username.Text = "" Then
+            ElseIf username = "" Then
 
                 Fm_login.Lbl_error_msg.Text = ""
                 Fm_login.Lbl_error_msg_1.Text = "Please input your username"
 
-            ElseIf Fm_login.Txt_password.Text = "" Then
+            ElseIf password = "" Then
 
                 Fm_login.Lbl_error_msg_1.Text = ""
                 Fm_login.Lbl_error_msg.Text = "Please input your password"
@@ -80,8 +82,8 @@ Module Module1
                     con.Open()
 
                     sql = "SELECT * FROM tbl_admin
-                                    WHERE username = '" & Fm_login.Txt_username.Text & "'
-                                    AND password = '" & Fm_login.Txt_password.Text & "'"
+                                    WHERE username = '" & username & "'
+                                    AND password = '" & password & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader()
 
@@ -138,6 +140,127 @@ Module Module1
             End If
 
         End If
+
+    End Sub
+
+    Public Sub Load_login_click(username As String, password As String)
+
+        If username = "" And password = "" Then
+
+            Fm_login.Lbl_error_msg_1.Text = ""
+            Fm_login.Lbl_error_msg.Text = "Please input your Username and Password"
+
+        ElseIf username = "" Then
+
+            Fm_login.Lbl_error_msg.Text = ""
+            Fm_login.Lbl_error_msg_1.Text = "Please input your username"
+
+        ElseIf password = "" Then
+
+            Fm_login.Lbl_error_msg_1.Text = ""
+            Fm_login.Lbl_error_msg.Text = "Please input your password"
+
+        Else
+
+            Try
+
+                con.Open()
+
+                sql = "SELECT * FROM tbl_admin
+                                WHERE username = '" & username & "'
+                                AND password = '" & password & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
+
+                If dr.Read() = True Then
+
+                    Dim name As String = dr("first_name") + " " + dr("last_name")
+                    Dim user_type As String = dr("user_type")
+
+                    If dr("user_type") = "ASSISTANT LIBRARIAN" Then
+
+                        Fm_home_page.Show()
+                        Fm_home_page.Lbl_name_logged_in.Text = name
+                        Fm_home_page.Lbl_user_type_logged_in.Text = user_type
+                        Clear_login_fields()
+                        Clear_error_msg()
+                        Fm_login.Hide()
+
+                    Else
+
+                        Fm_home_page.Show()
+                        Fm_home_page.Lbl_name_logged_in.Text = name
+                        Fm_home_page.Lbl_user_type_logged_in.Text = user_type
+                        Fm_home_page.Btn_listed_accounts.Visible = False
+                        Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
+                        Fm_home_page.Btn_supplier_maintenance.Visible = False
+                        Clear_login_fields()
+                        Clear_error_msg()
+                        Fm_login.Hide()
+
+                    End If
+
+                Else
+
+                    Fm_login.Lbl_error_msg_1.Text = ""
+                    Fm_login.Lbl_error_msg.Text = "Incorrect username or password"
+                    Clear_login_fields()
+
+                End If
+
+                con.Close()
+
+            Catch ex As Exception
+
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
+
+    End Sub
+
+
+    ' Load email function
+
+    Public Sub SendBorrowerEmail(id_number As String, first_name As String, middle_name As String, last_name As String, email_address As String, barcode_image As Image)
+
+        Try
+
+            ' Save barcode image temporarily
+            Dim tempPath As String = Path.Combine(Path.GetTempPath(), $"{id_number}_barcode.png")
+            barcode_image.Save(tempPath, Imaging.ImageFormat.Png)
+
+            ' Prepare email
+            Dim mail As New MailMessage()
+            mail.From = New MailAddress("jsonflorendo@gmail.com")
+            mail.To.Add(email_address)
+            mail.Subject = "Barcode Details"
+            mail.Body = $"Hello {first_name} {middle_name} {last_name},{vbCrLf}{vbCrLf}" &
+                        $"Here is your borrower ID number: {id_number}{vbCrLf}" &
+                        $"Attached is your barcode for reference."
+
+            mail.Attachments.Add(New Attachment(tempPath))
+
+            Dim smtp As New SmtpClient("smtp.gmail.com")
+            smtp.Port = 587
+            smtp.Credentials = New Net.NetworkCredential("jsonflorendo@gmail.com", "json0826904")
+            smtp.EnableSsl = True
+
+            smtp.Send(mail)
+            MessageBox.Show("Email sent successfully!", "Email", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+
+            MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
 
     End Sub
 
@@ -1095,6 +1218,16 @@ Module Module1
         Fm_returned_books.Lbl_error_msg_1.Text = ""
 
         Fm_add_penalty.Lbl_error_msg.Text = ""
+
+        Fm_add_borrower.Lbl_error_msg.Text = ""
+        Fm_add_borrower.Lbl_error_msg_1.Text = ""
+        Fm_add_borrower.Lbl_error_msg_2.Text = ""
+        Fm_add_borrower.Lbl_error_msg_3.Text = ""
+        Fm_add_borrower.Lbl_error_msg_4.Text = ""
+        Fm_add_borrower.Lbl_error_msg_5.Text = ""
+        Fm_add_borrower.Lbl_error_msg_6.Text = ""
+        Fm_add_borrower.Lbl_error_msg_7.Text = ""
+        Fm_add_borrower.Lbl_error_msg_8.Text = ""
 
         Fm_admin_registration.Lbl_error_msg.Text = ""
         Fm_admin_registration.Lbl_error_msg_1.Text = ""
