@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2025 at 04:48 PM
+-- Generation Time: Apr 20, 2025 at 05:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -110,7 +110,27 @@ CREATE TABLE `tbl_borrower` (
 INSERT INTO `tbl_borrower` (`primary_borrower_id`, `borrower_id`, `last_name`, `first_name`, `middle_name`, `category_type`, `gender`, `borrower_contact_no`, `email`, `borrower_address`) VALUES
 (1, '4221517', 'GUALVEZ', 'FATIMA', 'MONTI', NULL, 'FEMALE', '09123654789', NULL, 'LOWER BICUTAN'),
 (2, '1234567', 'BELLO', 'KREYVEN', 'GUALVVEZ', 'STUDENT', 'MALE', '09123654987', 'paul@gmail.com', 'LOWER BICUTAN'),
-(3, '100056', 'GALVEZ', 'FATI', 'GOGO', NULL, 'FEMALE', '09231294934', NULL, 'TAGUIG CITY');
+(3, '100056', 'GALVEZ', 'FATI', 'GOGO', NULL, 'FEMALE', '09231294934', NULL, 'TAGUIG CITY'),
+(32, '4221462', 'FLORENDO', 'PAUL ANDREW', 'BARBARA', 'STUDENT', 'MALE', '09092522961', 'paulf5364@gmail.com', 'LOWER BICUTAN'),
+(33, '4221507', 'VOSOTROS', 'ALEXANDRA', 'LAURORA', 'STUDENT', 'FEMALE', '09211231135', 'lvardnaxela@gmail.com', 'LOWER BICUTAN');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_delivery`
+--
+
+CREATE TABLE `tbl_delivery` (
+  `delivery_id` int(10) NOT NULL,
+  `book_id` varchar(10) NOT NULL,
+  `quantity` varchar(10) DEFAULT NULL,
+  `from_location` varchar(100) DEFAULT NULL,
+  `to_location` varchar(100) DEFAULT NULL,
+  `delivered_by` varchar(100) DEFAULT NULL,
+  `delivery_date` varchar(30) NOT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `received_by` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -281,6 +301,31 @@ INSERT INTO `tbl_penalty_report` (`primary_penalty_id`, `primary_borrower_id`, `
 (43, 2, 5, 13, 'April 04, 2025'),
 (44, 2, 5, 14, 'April 04, 2025');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_shelf`
+--
+
+CREATE TABLE `tbl_shelf` (
+  `primary_shelf_id` int(11) NOT NULL,
+  `shelf_id` varchar(100) DEFAULT NULL,
+  `shelf_name` varchar(100) DEFAULT NULL,
+  `section` varchar(100) DEFAULT NULL,
+  `floor_number` varchar(10) DEFAULT NULL,
+  `capacity` varchar(10) DEFAULT NULL,
+  `current_load` varchar(10) DEFAULT NULL,
+  `created_at` varchar(30) NOT NULL,
+  `updated_at` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_shelf`
+--
+
+INSERT INTO `tbl_shelf` (`primary_shelf_id`, `shelf_id`, `shelf_name`, `section`, `floor_number`, `capacity`, `current_load`, `created_at`, `updated_at`) VALUES
+(3, '123456', 'Shelf Name', 'Section', '1st Floor', '13', '12', 'April 20, 2025', 'April 21, 2025');
+
 --
 -- Indexes for dumped tables
 --
@@ -306,6 +351,12 @@ ALTER TABLE `tbl_books`
 --
 ALTER TABLE `tbl_borrower`
   ADD PRIMARY KEY (`primary_borrower_id`);
+
+--
+-- Indexes for table `tbl_delivery`
+--
+ALTER TABLE `tbl_delivery`
+  ADD PRIMARY KEY (`delivery_id`);
 
 --
 -- Indexes for table `tbl_issued_books`
@@ -355,6 +406,12 @@ ALTER TABLE `tbl_penalty_report`
   ADD KEY `penalty_report_library_penalty_fk_key` (`primary_penalty_description_id`) USING BTREE;
 
 --
+-- Indexes for table `tbl_shelf`
+--
+ALTER TABLE `tbl_shelf`
+  ADD PRIMARY KEY (`primary_shelf_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -374,7 +431,13 @@ ALTER TABLE `tbl_books`
 -- AUTO_INCREMENT for table `tbl_borrower`
 --
 ALTER TABLE `tbl_borrower`
-  MODIFY `primary_borrower_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `primary_borrower_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `tbl_delivery`
+--
+ALTER TABLE `tbl_delivery`
+  MODIFY `delivery_id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_issued_books`
@@ -417,6 +480,12 @@ ALTER TABLE `tbl_library_supplier`
 --
 ALTER TABLE `tbl_penalty_report`
   MODIFY `primary_penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT for table `tbl_shelf`
+--
+ALTER TABLE `tbl_shelf`
+  MODIFY `primary_shelf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

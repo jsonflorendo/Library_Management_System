@@ -1017,6 +1017,75 @@ Module Module1
 
     End Sub
 
+    Public Sub Load_shelf_data_table()
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT * FROM tbl_shelf
+                            ORDER BY shelf_name ASC"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Fm_home_page.Lv_shelf.Items.Clear()
+
+            Do While dr.Read
+
+                Dim lv As New ListViewItem({dr("shelf_id").ToString(),
+                                            dr("shelf_name").ToString(),
+                                            dr("section").ToString(),
+                                            dr("floor_number").ToString(),
+                                            dr("capacity").ToString(),
+                                            dr("current_load").ToString(),
+                                            dr("created_at").ToString(),
+                                            dr("updated_at").ToString(),
+                                            dr("primary_shelf_id").ToString()})
+                Fm_home_page.Lv_shelf.Items.Add(lv)
+
+            Loop
+
+            'Listview column header title
+            Fm_home_page.Lv_shelf.Columns(0).Text = "SHELF ID"
+            Fm_home_page.Lv_shelf.Columns(1).Text = "SHELF NAME"
+            Fm_home_page.Lv_shelf.Columns(2).Text = "SECTION"
+            Fm_home_page.Lv_shelf.Columns(3).Text = "FLOOR NUMBER"
+            Fm_home_page.Lv_shelf.Columns(4).Text = "CAPACITY"
+            Fm_home_page.Lv_shelf.Columns(5).Text = "CURRENT LOAD"
+            Fm_home_page.Lv_shelf.Columns(6).Text = "CREATED AT"
+            Fm_home_page.Lv_shelf.Columns(7).Text = "UPDATED AT"
+
+            con.Close()
+
+            For i As Integer = 0 To Fm_home_page.Lv_shelf.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Fm_home_page.Lv_shelf.Items(i).BackColor = Color.Azure
+                    Fm_home_page.Lv_shelf.Items(i).ForeColor = Color.Black
+
+                Else
+
+                    Fm_home_page.Lv_shelf.Items(i).BackColor = Color.GhostWhite
+                    Fm_home_page.Lv_shelf.Items(i).ForeColor = Color.Black
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
+    End Sub
 
     ' Remove items selection on the other listview
 
@@ -1032,6 +1101,7 @@ Module Module1
         Load_library_category_data_table()
         Load_library_penalty_data_table()
         Load_library_publisher_data_table()
+        Load_shelf_data_table()
 
     End Sub
 
@@ -1259,6 +1329,13 @@ Module Module1
         Fm_penalty_description.Lbl_error_msg_1.Text = ""
 
         Fm_publisher.Lbl_error_msg.Text = ""
+
+        Fm_add_shelf.Lbl_error_msg.Text = ""
+        Fm_add_shelf.Lbl_error_msg_1.Text = ""
+        Fm_add_shelf.Lbl_error_msg_2.Text = ""
+        Fm_add_shelf.Lbl_error_msg_3.Text = ""
+        Fm_add_shelf.Lbl_error_msg_4.Text = ""
+        Fm_add_shelf.Lbl_error_msg_5.Text = ""
 
     End Sub
 

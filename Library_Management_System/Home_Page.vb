@@ -14,6 +14,7 @@ Public Class Fm_home_page
         Panel6_Supplier.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = False
 
         Load_library_cb_category()
 
@@ -37,6 +38,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -85,6 +87,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -133,6 +136,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -181,6 +185,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = True
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -229,6 +234,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -277,6 +283,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -325,6 +332,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = True
         Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -373,6 +381,7 @@ Public Class Fm_home_page
         Panel8_Penalty_Report.Visible = False
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = True
+        Panel13_Delivery.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -401,6 +410,55 @@ Public Class Fm_home_page
     End Sub
 
     Private Sub Btn_shelf_MouseLeave(sender As Object, e As EventArgs) Handles Btn_shelf.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Sienna
+        End If
+
+    End Sub
+
+    Private Sub Btn_delivery_Click(sender As Object, e As EventArgs) Handles Btn_delivery.Click
+
+        Panel1_Books.Visible = False
+        Panel2_Returned_Issued_Books.Visible = False
+        Panel3_Borrower_Info.Visible = False
+        Panel4_User_Acounts.Visible = False
+        Panel6_Supplier.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel10_Author_Category_Penalty_Publisher.Visible = False
+        Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = True
+
+        Load_all_data_tables() 'To load data tables and remove items selection on the listview
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Reset the previously selected button's color
+        If selectedButton IsNot Nothing Then
+            selectedButton.BackColor = Color.Sienna
+        End If
+
+        ' Set the new selected button and change its color
+        btn.BackColor = Color.RoyalBlue
+        selectedButton = btn
+
+    End Sub
+
+    Private Sub Btn_delivery_MouseEnter(sender As Object, e As EventArgs) Handles Btn_delivery.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_delivery_MouseLeave(sender As Object, e As EventArgs) Handles Btn_delivery.MouseLeave
 
         Dim btn As Button = DirectCast(sender, Button)
 
@@ -3300,6 +3358,224 @@ Public Class Fm_home_page
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
+        End If
+
+    End Sub
+
+
+    ' Shelf
+
+    Private Sub Txt_search_shelf_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_shelf.TextChanged
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT * FROM tbl_shelf
+                            WHERE shelf_name LIKE '%" & Txt_search_shelf.Text & "%' OR
+                                  section LIKE '%" & Txt_search_shelf.Text & "%' OR
+                                  floor_number LIKE '%" & Txt_search_shelf.Text & "%' OR
+                                  capacity LIKE '%" & Txt_search_shelf.Text & "%' OR
+                                  current_load LIKE '%" & Txt_search_shelf.Text & "%' OR
+                                  created_at LIKE '%" & Txt_search_shelf.Text & "%' OR
+                                  updated_at LIKE '%" & Txt_search_shelf.Text & "%'
+                            ORDER BY shelf_name ASC"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Lv_shelf.Items.Clear()
+
+            Do While dr.Read
+
+                Dim lv As New ListViewItem({dr("shelf_name").ToString(),
+                                            dr("section").ToString(),
+                                            dr("floor_number").ToString(),
+                                            dr("capacity").ToString(),
+                                            dr("current_load").ToString(),
+                                            dr("created_at").ToString(),
+                                            dr("updated_at").ToString(),
+                                            dr("primary_shelf_id").ToString()})
+                Lv_shelf.Items.Add(lv)
+
+            Loop
+
+            con.Close()
+
+            For i As Integer = 0 To Lv_shelf.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Lv_shelf.Items(i).BackColor = Color.Azure
+                    Lv_shelf.Items(i).ForeColor = Color.Black
+
+                Else
+
+                    Lv_shelf.Items(i).BackColor = Color.GhostWhite
+                    Lv_shelf.Items(i).ForeColor = Color.Black
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
+    End Sub
+
+    Private Sub Btn_shelf_add_Click(sender As Object, e As EventArgs) Handles Btn_shelf_add.Click
+
+        Fm_add_shelf.Show()
+        Fm_add_shelf.Btn_update.Visible = False
+        Me.Enabled = False
+
+    End Sub
+
+    Private Sub Btn_shelf_add_MouseEnter(sender As Object, e As EventArgs) Handles Btn_shelf_add.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_shelf_add_MouseLeave(sender As Object, e As EventArgs) Handles Btn_shelf_add.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
+
+    End Sub
+
+    Private Sub Btn_shelf_edit_Click(sender As Object, e As EventArgs) Handles Btn_shelf_edit.Click
+
+        If Lv_shelf.SelectedItems.Count > 0 Then
+
+            Fm_add_shelf.Show()
+            Fm_add_shelf.Txt_shelf_id.Text = Lv_shelf.SelectedItems(0).Text
+            Fm_add_shelf.Txt_shelf_name.Text = Lv_shelf.SelectedItems(0).SubItems(1).Text
+            Fm_add_shelf.Txt_shelf_section.Text = Lv_shelf.SelectedItems(0).SubItems(2).Text
+            Fm_add_shelf.Txt_shelf_floor_number.Text = Lv_shelf.SelectedItems(0).SubItems(3).Text
+            Fm_add_shelf.Txt_shelf_capacity.Text = Lv_shelf.SelectedItems(0).SubItems(4).Text
+            Fm_add_shelf.Txt_shelf_current_load.Text = Lv_shelf.SelectedItems(0).SubItems(5).Text
+            Fm_add_shelf.Btn_save.Visible = False
+            Enabled = False
+
+        Else
+
+            MessageBox.Show("Please select shelf", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
+
+    End Sub
+
+    Private Sub Btn_shelf_edit_MouseEnter(sender As Object, e As EventArgs) Handles Btn_shelf_edit.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_shelf_edit_MouseLeave(sender As Object, e As EventArgs) Handles Btn_shelf_edit.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
+
+    End Sub
+
+    Private Sub Btn_shelf_delete_Click(sender As Object, e As EventArgs) Handles Btn_shelf_delete.Click
+
+        If Lv_shelf.SelectedItems.Count > 0 Then
+
+            Try
+
+                con.Open()
+
+                Dim shelf_name = Lv_shelf.SelectedItems(0).SubItems(1).Text
+                Dim dialog As DialogResult
+
+                dialog = MessageBox.Show("Do you want to delete " + shelf_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+
+                If dialog = DialogResult.Yes Then
+
+                    sql = "DELETE FROM tbl_shelf
+                            WHERE primary_shelf_id = '" & Lv_shelf.SelectedItems(0).SubItems(8).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
+
+                    con.Close()
+
+                    MessageBox.Show(shelf_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Load_shelf_data_table()
+
+                Else
+
+                    con.Close()
+
+                    Load_shelf_data_table()
+
+                End If
+
+            Catch ex As Exception
+
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        Else
+
+            MessageBox.Show("Please select shelf", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
+
+    End Sub
+
+    Private Sub Btn_shelf_delete_MouseEnter(sender As Object, e As EventArgs) Handles Btn_shelf_delete.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_shelf_delete_MouseLeave(sender As Object, e As EventArgs) Handles Btn_shelf_delete.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
         End If
 
     End Sub

@@ -94,3 +94,5 @@ C:\Users\jsonf\Desktop\Library_Management_System\Library_Management_System\bin\D
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\bin\Debug\net8.0-windows7.0\System.Text.Encodings.Web.dll
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\bin\Debug\net8.0-windows7.0\System.Text.Json.dll
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\bin\Debug\net8.0-windows7.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\jsonf\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows7.0\Library_Management_System.Add_delivery.resources
+C:\Users\jsonf\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows7.0\Library_Management_System.Fm_add_shelf.resources

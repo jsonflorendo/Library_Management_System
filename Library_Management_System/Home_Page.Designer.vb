@@ -83,10 +83,10 @@ Partial Class Fm_home_page
         Student_info8 = New ColumnHeader()
         Panel12_Shelf = New Panel()
         Btn_shelf_edit = New Button()
-        Txt_shelf_search = New RoundCornerTextbox()
+        Txt_search_shelf = New RoundCornerTextbox()
         Btn_shelf_delete = New Button()
         Btn_shelf_add = New Button()
-        ListView1 = New ListView()
+        Lv_shelf = New ListView()
         Shelf_table0 = New ColumnHeader()
         Shelf_table1 = New ColumnHeader()
         Shelf_table2 = New ColumnHeader()
@@ -123,7 +123,7 @@ Partial Class Fm_home_page
         Button3 = New Button()
         Btn_shelf = New Button()
         GroupBox2 = New GroupBox()
-        Button1 = New Button()
+        Btn_delivery = New Button()
         Btn_penalty_report = New Button()
         GroupBox1 = New GroupBox()
         Btn_supplier_maintenance = New Button()
@@ -173,6 +173,21 @@ Partial Class Fm_home_page
         Lv_category = New ListView()
         Listed_Category0 = New ColumnHeader()
         Lbl_date_time = New Label()
+        Panel13_Delivery = New Panel()
+        Btn_delivery_edit = New Button()
+        Txt_delivery_search = New RoundCornerTextbox()
+        Btn_delivery_delete = New Button()
+        Btn_delivery_add = New Button()
+        Lv_delivery = New ListView()
+        Delivery_table0 = New ColumnHeader()
+        Delivery_table1 = New ColumnHeader()
+        Delivery_table2 = New ColumnHeader()
+        Delivery_table3 = New ColumnHeader()
+        Delivery_table4 = New ColumnHeader()
+        Delivery_table5 = New ColumnHeader()
+        Delivery_table6 = New ColumnHeader()
+        Delivery_table7 = New ColumnHeader()
+        Delivery_table8 = New ColumnHeader()
         Panel1_Books.SuspendLayout()
         Panel2_Returned_Issued_Books.SuspendLayout()
         Panel6_Supplier.SuspendLayout()
@@ -191,6 +206,7 @@ Partial Class Fm_home_page
         Panel5_Author.SuspendLayout()
         Panel9_Penalty.SuspendLayout()
         Panel7_Category.SuspendLayout()
+        Panel13_Delivery.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1_Books
@@ -661,11 +677,11 @@ Partial Class Fm_home_page
         ' 
         Panel12_Shelf.BackgroundImageLayout = ImageLayout.Stretch
         Panel12_Shelf.Controls.Add(Btn_shelf_edit)
-        Panel12_Shelf.Controls.Add(Txt_shelf_search)
+        Panel12_Shelf.Controls.Add(Txt_search_shelf)
         Panel12_Shelf.Controls.Add(Btn_shelf_delete)
         Panel12_Shelf.Controls.Add(Btn_shelf_add)
-        Panel12_Shelf.Controls.Add(ListView1)
-        Panel12_Shelf.Location = New Point(300, 25)
+        Panel12_Shelf.Controls.Add(Lv_shelf)
+        Panel12_Shelf.Location = New Point(300, 28)
         Panel12_Shelf.Name = "Panel12_Shelf"
         Panel12_Shelf.Size = New Size(1603, 970)
         Panel12_Shelf.TabIndex = 16
@@ -681,14 +697,14 @@ Partial Class Fm_home_page
         Btn_shelf_edit.Text = "&Edit"
         Btn_shelf_edit.UseVisualStyleBackColor = False
         ' 
-        ' Txt_shelf_search
+        ' Txt_search_shelf
         ' 
-        Txt_shelf_search.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_shelf_search.Location = New Point(33, 24)
-        Txt_shelf_search.Name = "Txt_shelf_search"
-        Txt_shelf_search.PlaceholderText = "Search"
-        Txt_shelf_search.Size = New Size(246, 38)
-        Txt_shelf_search.TabIndex = 12
+        Txt_search_shelf.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_search_shelf.Location = New Point(33, 24)
+        Txt_search_shelf.Name = "Txt_search_shelf"
+        Txt_search_shelf.PlaceholderText = "Search"
+        Txt_search_shelf.Size = New Size(246, 38)
+        Txt_search_shelf.TabIndex = 12
         ' 
         ' Btn_shelf_delete
         ' 
@@ -712,36 +728,35 @@ Partial Class Fm_home_page
         Btn_shelf_add.Text = "&Add"
         Btn_shelf_add.UseVisualStyleBackColor = False
         ' 
-        ' ListView1
+        ' Lv_shelf
         ' 
-        ListView1.BackColor = SystemColors.ActiveCaption
-        ListView1.Columns.AddRange(New ColumnHeader() {Shelf_table0, Shelf_table1, Shelf_table2, Shelf_table3, Shelf_table4, Shelf_table5, Shelf_table6, Shelf_table7})
-        ListView1.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ListView1.FullRowSelect = True
-        ListView1.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        ListView1.Location = New Point(33, 88)
-        ListView1.Name = "ListView1"
-        ListView1.Size = New Size(1546, 874)
-        ListView1.TabIndex = 6
-        ListView1.UseCompatibleStateImageBehavior = False
-        ListView1.View = View.Details
+        Lv_shelf.BackColor = SystemColors.ActiveCaption
+        Lv_shelf.Columns.AddRange(New ColumnHeader() {Shelf_table0, Shelf_table1, Shelf_table2, Shelf_table3, Shelf_table4, Shelf_table5, Shelf_table6, Shelf_table7})
+        Lv_shelf.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Lv_shelf.FullRowSelect = True
+        Lv_shelf.HeaderStyle = ColumnHeaderStyle.Nonclickable
+        Lv_shelf.Location = New Point(33, 88)
+        Lv_shelf.Name = "Lv_shelf"
+        Lv_shelf.Size = New Size(1546, 874)
+        Lv_shelf.TabIndex = 6
+        Lv_shelf.UseCompatibleStateImageBehavior = False
+        Lv_shelf.View = View.Details
         ' 
         ' Shelf_table0
         ' 
         Shelf_table0.Text = "Shelf ID"
-        Shelf_table0.Width = 180
+        Shelf_table0.Width = 200
         ' 
         ' Shelf_table1
         ' 
         Shelf_table1.Text = "Shelf Name"
-        Shelf_table1.TextAlign = HorizontalAlignment.Center
-        Shelf_table1.Width = 250
+        Shelf_table1.Width = 200
         ' 
         ' Shelf_table2
         ' 
         Shelf_table2.Text = "Section"
         Shelf_table2.TextAlign = HorizontalAlignment.Center
-        Shelf_table2.Width = 210
+        Shelf_table2.Width = 250
         ' 
         ' Shelf_table3
         ' 
@@ -753,13 +768,13 @@ Partial Class Fm_home_page
         ' 
         Shelf_table4.Text = "Capacity"
         Shelf_table4.TextAlign = HorizontalAlignment.Center
-        Shelf_table4.Width = 150
+        Shelf_table4.Width = 130
         ' 
         ' Shelf_table5
         ' 
         Shelf_table5.Text = "Current Load"
         Shelf_table5.TextAlign = HorizontalAlignment.Center
-        Shelf_table5.Width = 150
+        Shelf_table5.Width = 200
         ' 
         ' Shelf_table6
         ' 
@@ -1027,7 +1042,7 @@ Partial Class Fm_home_page
         ' 
         ' GroupBox2
         ' 
-        GroupBox2.Controls.Add(Button1)
+        GroupBox2.Controls.Add(Btn_delivery)
         GroupBox2.Controls.Add(Btn_returned_books)
         GroupBox2.Controls.Add(Btn_penalty_report)
         GroupBox2.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
@@ -1038,17 +1053,17 @@ Partial Class Fm_home_page
         GroupBox2.TabStop = False
         GroupBox2.Text = "Transaction"
         ' 
-        ' Button1
+        ' Btn_delivery
         ' 
-        Button1.BackColor = Color.Sienna
-        Button1.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button1.ForeColor = SystemColors.ControlLight
-        Button1.Location = New Point(5, 100)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(260, 30)
-        Button1.TabIndex = 36
-        Button1.Text = "Delivery Maintenance"
-        Button1.UseVisualStyleBackColor = False
+        Btn_delivery.BackColor = Color.Sienna
+        Btn_delivery.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Btn_delivery.ForeColor = SystemColors.ControlLight
+        Btn_delivery.Location = New Point(5, 100)
+        Btn_delivery.Name = "Btn_delivery"
+        Btn_delivery.Size = New Size(260, 30)
+        Btn_delivery.TabIndex = 36
+        Btn_delivery.Text = "Delivery Maintenance"
+        Btn_delivery.UseVisualStyleBackColor = False
         ' 
         ' Btn_penalty_report
         ' 
@@ -1540,6 +1555,128 @@ Partial Class Fm_home_page
         Lbl_date_time.Text = "December 31, 2025 | 12:59 PM"
         Lbl_date_time.TextAlign = ContentAlignment.MiddleRight
         ' 
+        ' Panel13_Delivery
+        ' 
+        Panel13_Delivery.BackgroundImageLayout = ImageLayout.Stretch
+        Panel13_Delivery.Controls.Add(Btn_delivery_edit)
+        Panel13_Delivery.Controls.Add(Txt_delivery_search)
+        Panel13_Delivery.Controls.Add(Btn_delivery_delete)
+        Panel13_Delivery.Controls.Add(Btn_delivery_add)
+        Panel13_Delivery.Controls.Add(Lv_delivery)
+        Panel13_Delivery.Location = New Point(300, 28)
+        Panel13_Delivery.Name = "Panel13_Delivery"
+        Panel13_Delivery.Size = New Size(1603, 970)
+        Panel13_Delivery.TabIndex = 17
+        ' 
+        ' Btn_delivery_edit
+        ' 
+        Btn_delivery_edit.BackColor = Color.Tan
+        Btn_delivery_edit.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_delivery_edit.Location = New Point(1336, 32)
+        Btn_delivery_edit.Name = "Btn_delivery_edit"
+        Btn_delivery_edit.Size = New Size(118, 30)
+        Btn_delivery_edit.TabIndex = 13
+        Btn_delivery_edit.Text = "&Edit"
+        Btn_delivery_edit.UseVisualStyleBackColor = False
+        ' 
+        ' Txt_delivery_search
+        ' 
+        Txt_delivery_search.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_delivery_search.Location = New Point(33, 24)
+        Txt_delivery_search.Name = "Txt_delivery_search"
+        Txt_delivery_search.PlaceholderText = "Search"
+        Txt_delivery_search.Size = New Size(246, 38)
+        Txt_delivery_search.TabIndex = 12
+        ' 
+        ' Btn_delivery_delete
+        ' 
+        Btn_delivery_delete.BackColor = Color.Tan
+        Btn_delivery_delete.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_delivery_delete.Location = New Point(1461, 32)
+        Btn_delivery_delete.Name = "Btn_delivery_delete"
+        Btn_delivery_delete.Size = New Size(118, 30)
+        Btn_delivery_delete.TabIndex = 10
+        Btn_delivery_delete.Text = "&Delete"
+        Btn_delivery_delete.UseVisualStyleBackColor = False
+        ' 
+        ' Btn_delivery_add
+        ' 
+        Btn_delivery_add.BackColor = Color.Tan
+        Btn_delivery_add.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_delivery_add.Location = New Point(1209, 32)
+        Btn_delivery_add.Name = "Btn_delivery_add"
+        Btn_delivery_add.Size = New Size(118, 30)
+        Btn_delivery_add.TabIndex = 9
+        Btn_delivery_add.Text = "&Add"
+        Btn_delivery_add.UseVisualStyleBackColor = False
+        ' 
+        ' Lv_delivery
+        ' 
+        Lv_delivery.BackColor = SystemColors.ActiveCaption
+        Lv_delivery.Columns.AddRange(New ColumnHeader() {Delivery_table0, Delivery_table1, Delivery_table2, Delivery_table3, Delivery_table4, Delivery_table5, Delivery_table6, Delivery_table7, Delivery_table8})
+        Lv_delivery.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Lv_delivery.FullRowSelect = True
+        Lv_delivery.HeaderStyle = ColumnHeaderStyle.Nonclickable
+        Lv_delivery.Location = New Point(33, 88)
+        Lv_delivery.Name = "Lv_delivery"
+        Lv_delivery.Size = New Size(1546, 874)
+        Lv_delivery.TabIndex = 6
+        Lv_delivery.UseCompatibleStateImageBehavior = False
+        Lv_delivery.View = View.Details
+        ' 
+        ' Delivery_table0
+        ' 
+        Delivery_table0.Text = "Delivery ID"
+        Delivery_table0.Width = 180
+        ' 
+        ' Delivery_table1
+        ' 
+        Delivery_table1.Text = "Book ID"
+        Delivery_table1.TextAlign = HorizontalAlignment.Center
+        Delivery_table1.Width = 250
+        ' 
+        ' Delivery_table2
+        ' 
+        Delivery_table2.Text = "Quantity"
+        Delivery_table2.TextAlign = HorizontalAlignment.Center
+        Delivery_table2.Width = 100
+        ' 
+        ' Delivery_table3
+        ' 
+        Delivery_table3.Text = "From Location"
+        Delivery_table3.TextAlign = HorizontalAlignment.Center
+        Delivery_table3.Width = 300
+        ' 
+        ' Delivery_table4
+        ' 
+        Delivery_table4.Text = "To Location"
+        Delivery_table4.TextAlign = HorizontalAlignment.Center
+        Delivery_table4.Width = 300
+        ' 
+        ' Delivery_table5
+        ' 
+        Delivery_table5.Text = "Delivered By"
+        Delivery_table5.TextAlign = HorizontalAlignment.Center
+        Delivery_table5.Width = 300
+        ' 
+        ' Delivery_table6
+        ' 
+        Delivery_table6.Text = "Delivery Date"
+        Delivery_table6.TextAlign = HorizontalAlignment.Center
+        Delivery_table6.Width = 150
+        ' 
+        ' Delivery_table7
+        ' 
+        Delivery_table7.Text = "Status"
+        Delivery_table7.TextAlign = HorizontalAlignment.Center
+        Delivery_table7.Width = 200
+        ' 
+        ' Delivery_table8
+        ' 
+        Delivery_table8.Text = "Received By"
+        Delivery_table8.TextAlign = HorizontalAlignment.Center
+        Delivery_table8.Width = 120
+        ' 
         ' Fm_home_page
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -1547,6 +1684,8 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
+        Controls.Add(Panel12_Shelf)
+        Controls.Add(Panel13_Delivery)
         Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel6_Supplier)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
@@ -1556,7 +1695,6 @@ Partial Class Fm_home_page
         Controls.Add(Panel1_Books)
         Controls.Add(Lbl_date_time)
         Controls.Add(P_navigation)
-        Controls.Add(Panel12_Shelf)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         MaximumSize = New Size(1920, 1042)
@@ -1594,6 +1732,8 @@ Partial Class Fm_home_page
         Panel9_Penalty.PerformLayout()
         Panel7_Category.ResumeLayout(False)
         Panel7_Category.PerformLayout()
+        Panel13_Delivery.ResumeLayout(False)
+        Panel13_Delivery.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -1731,15 +1871,14 @@ Partial Class Fm_home_page
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Btn_shelf As Button
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents Btn_delivery As Button
     Friend WithEvents Button3 As Button
     Friend WithEvents Panel12_Shelf As Panel
     Friend WithEvents Btn_shelf_edit As Button
-    Friend WithEvents Txt_shelf_search As RoundCornerTextbox
+    Friend WithEvents Txt_search_shelf As RoundCornerTextbox
     Friend WithEvents Btn_shelf_delete As Button
     Friend WithEvents Btn_shelf_add As Button
-    Friend WithEvents ListView1 As ListView
-    Friend WithEvents Shelf_table0 As ColumnHeader
+    Friend WithEvents Lv_shelf As ListView
     Friend WithEvents Shelf_table1 As ColumnHeader
     Friend WithEvents Shelf_table2 As ColumnHeader
     Friend WithEvents Shelf_table3 As ColumnHeader
@@ -1747,4 +1886,20 @@ Partial Class Fm_home_page
     Friend WithEvents Shelf_table5 As ColumnHeader
     Friend WithEvents Shelf_table6 As ColumnHeader
     Friend WithEvents Shelf_table7 As ColumnHeader
+    Friend WithEvents Panel13_Delivery As Panel
+    Friend WithEvents Btn_delivery_edit As Button
+    Friend WithEvents Txt_delivery_search As RoundCornerTextbox
+    Friend WithEvents Btn_delivery_delete As Button
+    Friend WithEvents Btn_delivery_add As Button
+    Friend WithEvents Lv_delivery As ListView
+    Friend WithEvents Delivery_table0 As ColumnHeader
+    Friend WithEvents Delivery_table1 As ColumnHeader
+    Friend WithEvents Delivery_table2 As ColumnHeader
+    Friend WithEvents Delivery_table3 As ColumnHeader
+    Friend WithEvents Delivery_table4 As ColumnHeader
+    Friend WithEvents Delivery_table5 As ColumnHeader
+    Friend WithEvents Delivery_table6 As ColumnHeader
+    Friend WithEvents Delivery_table7 As ColumnHeader
+    Friend WithEvents Delivery_table8 As ColumnHeader
+    Friend WithEvents Shelf_table0 As ColumnHeader
 End Class
