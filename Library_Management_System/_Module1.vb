@@ -51,6 +51,7 @@ Module Module1
         DGP.CloseFigure()
 
         obj.Region = New Region(DGP)
+
     End Sub
 
 
@@ -275,13 +276,9 @@ Module Module1
             sql = "SELECT   tbl_books.isbn,
                             tbl_books.book_name,
                             tbl_library_category.category_name,
-                            tbl_books.qty,
                             tbl_library_author.author_name,
                             tbl_library_publisher.publisher_name,
                             tbl_books.publish_year,
-                            tbl_library_supplier.supplier_name,
-                            tbl_books.acquisition_date,
-                            tbl_books.status,
                             tbl_books.primary_book_id,
                             tbl_books.primary_category_id
 
@@ -290,7 +287,6 @@ Module Module1
                     INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
                     INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
                     INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
-                    INNER JOIN tbl_library_supplier ON tbl_books.primary_supplier_id = tbl_library_supplier.primary_supplier_id
 
                     ORDER BY primary_book_id DESC"
 
@@ -304,13 +300,9 @@ Module Module1
                 Dim lv As New ListViewItem({dr("isbn").ToString(),
                                             dr("book_name").ToString(),
                                             dr("category_name").ToString(),
-                                            dr("qty").ToString(),
                                             dr("author_name").ToString(),
                                             dr("publisher_name").ToString(),
                                             dr("publish_year").ToString(),
-                                            dr("supplier_name").ToString(),
-                                            dr("acquisition_date").ToString(),
-                                            dr("status").ToString(),
                                             dr("primary_book_id").ToString(),
                                             dr("primary_category_id")})
                 Fm_home_page.Lv_listed_books.Items.Add(lv)
@@ -321,13 +313,9 @@ Module Module1
             Fm_home_page.Lv_listed_books.Columns(0).Text = "ISBN"
             Fm_home_page.Lv_listed_books.Columns(1).Text = "BOOK NAME"
             Fm_home_page.Lv_listed_books.Columns(2).Text = "GENRE"
-            Fm_home_page.Lv_listed_books.Columns(3).Text = "QTY"
-            Fm_home_page.Lv_listed_books.Columns(4).Text = "AUTHOR"
-            Fm_home_page.Lv_listed_books.Columns(5).Text = "PUBLISH"
-            Fm_home_page.Lv_listed_books.Columns(6).Text = "PUBLISH YEAR"
-            Fm_home_page.Lv_listed_books.Columns(7).Text = "SUPPLIER"
-            Fm_home_page.Lv_listed_books.Columns(8).Text = "AQUISITION DATE"
-            Fm_home_page.Lv_listed_books.Columns(9).Text = "STATUS"
+            Fm_home_page.Lv_listed_books.Columns(3).Text = "AUTHOR"
+            Fm_home_page.Lv_listed_books.Columns(4).Text = "PUBLISHER"
+            Fm_home_page.Lv_listed_books.Columns(5).Text = "PUBLISH YEAR"
 
             con.Close()
 
@@ -1190,7 +1178,7 @@ Module Module1
             dr = cmd.ExecuteReader
 
             Fm_home_page.Cb_listed_books_category.Items.Clear()
-            Fm_home_page.Cb_listed_books_category.Items.Add("All Category")
+            Fm_home_page.Cb_listed_books_category.Items.Add("All Genre")
 
             Fm_add_books.Cb_book_category.Items.Clear()
 
@@ -1277,8 +1265,6 @@ Module Module1
         Fm_add_books.Lbl_error_msg_2.Text = ""
         Fm_add_books.Lbl_error_msg_3.Text = ""
         Fm_add_books.Lbl_error_msg_4.Text = ""
-        Fm_add_books.Lbl_error_msg_5.Text = ""
-        Fm_add_books.Lbl_error_msg_6.Text = ""
 
         Fm_issued_books.Lbl_error_msg.Text = ""
         Fm_issued_books.Lbl_error_msg_1.Text = ""

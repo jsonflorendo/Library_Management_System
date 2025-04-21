@@ -32,10 +32,6 @@ Partial Class Fm_home_page
         Listed_books3 = New ColumnHeader()
         Listed_books4 = New ColumnHeader()
         Listed_books5 = New ColumnHeader()
-        Listed_books6 = New ColumnHeader()
-        Listed_books7 = New ColumnHeader()
-        Listed_books8 = New ColumnHeader()
-        Listed_books9 = New ColumnHeader()
         Cb_listed_books_category = New ComboBox()
         Btn_listed_books_edit = New Button()
         Btn_listed_books_delete = New Button()
@@ -188,6 +184,24 @@ Partial Class Fm_home_page
         Delivery_table6 = New ColumnHeader()
         Delivery_table7 = New ColumnHeader()
         Delivery_table8 = New ColumnHeader()
+        Delivery_table9 = New ColumnHeader()
+        Panel14_Book_Inventory = New Panel()
+        ListView1 = New ListView()
+        Book_inventory0 = New ColumnHeader()
+        Book_inventory1 = New ColumnHeader()
+        Book_inventory2 = New ColumnHeader()
+        Book_inventory3 = New ColumnHeader()
+        Book_inventory4 = New ColumnHeader()
+        Book_inventory5 = New ColumnHeader()
+        Book_inventory6 = New ColumnHeader()
+        Book_inventory7 = New ColumnHeader()
+        Book_inventory8 = New ColumnHeader()
+        Book_inventory9 = New ColumnHeader()
+        ComboBox1 = New ComboBox()
+        Button1 = New Button()
+        Button2 = New Button()
+        Button4 = New Button()
+        TextBox1 = New TextBox()
         Panel1_Books.SuspendLayout()
         Panel2_Returned_Issued_Books.SuspendLayout()
         Panel6_Supplier.SuspendLayout()
@@ -207,6 +221,7 @@ Partial Class Fm_home_page
         Panel9_Penalty.SuspendLayout()
         Panel7_Category.SuspendLayout()
         Panel13_Delivery.SuspendLayout()
+        Panel14_Book_Inventory.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1_Books
@@ -220,13 +235,13 @@ Partial Class Fm_home_page
         Panel1_Books.Controls.Add(Txt_listed_books_search)
         Panel1_Books.Location = New Point(300, 28)
         Panel1_Books.Name = "Panel1_Books"
-        Panel1_Books.Size = New Size(1603, 973)
+        Panel1_Books.Size = New Size(1603, 970)
         Panel1_Books.TabIndex = 13
         ' 
         ' Lv_listed_books
         ' 
         Lv_listed_books.BackColor = SystemColors.ActiveCaption
-        Lv_listed_books.Columns.AddRange(New ColumnHeader() {Listed_books0, Listed_books1, Listed_books2, Listed_books3, Listed_books4, Listed_books5, Listed_books6, Listed_books7, Listed_books8, Listed_books9})
+        Lv_listed_books.Columns.AddRange(New ColumnHeader() {Listed_books0, Listed_books1, Listed_books2, Listed_books3, Listed_books4, Listed_books5})
         Lv_listed_books.Font = New Font("Georgia", 12.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_listed_books.ForeColor = SystemColors.WindowText
         Lv_listed_books.FullRowSelect = True
@@ -245,68 +260,44 @@ Partial Class Fm_home_page
         ' 
         ' Listed_books1
         ' 
-        Listed_books1.Text = "Book Name"
-        Listed_books1.Width = 290
+        Listed_books1.Text = "Title"
+        Listed_books1.TextAlign = HorizontalAlignment.Center
+        Listed_books1.Width = 300
         ' 
         ' Listed_books2
         ' 
         Listed_books2.Text = "Genre"
         Listed_books2.TextAlign = HorizontalAlignment.Center
-        Listed_books2.Width = 180
+        Listed_books2.Width = 250
         ' 
         ' Listed_books3
         ' 
-        Listed_books3.Text = "Quantity"
+        Listed_books3.Text = "Author"
         Listed_books3.TextAlign = HorizontalAlignment.Center
-        Listed_books3.Width = 80
+        Listed_books3.Width = 250
         ' 
         ' Listed_books4
         ' 
-        Listed_books4.Text = "Author"
+        Listed_books4.Text = "Publish Year"
         Listed_books4.TextAlign = HorizontalAlignment.Center
-        Listed_books4.Width = 270
+        Listed_books4.Width = 280
         ' 
         ' Listed_books5
         ' 
         Listed_books5.Text = "Publisher"
         Listed_books5.TextAlign = HorizontalAlignment.Center
-        Listed_books5.Width = 260
-        ' 
-        ' Listed_books6
-        ' 
-        Listed_books6.Text = "Publish Year"
-        Listed_books6.TextAlign = HorizontalAlignment.Center
-        Listed_books6.Width = 180
-        ' 
-        ' Listed_books7
-        ' 
-        Listed_books7.Text = "Supplier"
-        Listed_books7.TextAlign = HorizontalAlignment.Center
-        Listed_books7.Width = 197
-        ' 
-        ' Listed_books8
-        ' 
-        Listed_books8.Text = "Acquisition Date"
-        Listed_books8.TextAlign = HorizontalAlignment.Center
-        Listed_books8.Width = 180
-        ' 
-        ' Listed_books9
-        ' 
-        Listed_books9.Text = "Status"
-        Listed_books9.TextAlign = HorizontalAlignment.Center
-        Listed_books9.Width = 145
+        Listed_books5.Width = 280
         ' 
         ' Cb_listed_books_category
         ' 
         Cb_listed_books_category.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Cb_listed_books_category.ForeColor = Color.Black
         Cb_listed_books_category.FormattingEnabled = True
-        Cb_listed_books_category.Items.AddRange(New Object() {"Adventure fiction", "Biographies", "Books", "Chapter books", "Childrens literature", "Classics", "Comics", "Cooking", "Fantasy", "Fiction", "General fiction", "History", "Horror", "Humor", "Memoir", "Mystery", "Non-fiction", "Poetry", "Religion", "Romance", "Satire", "Science fiction", "Self-help book", "Thriller"})
         Cb_listed_books_category.Location = New Point(298, 26)
         Cb_listed_books_category.Name = "Cb_listed_books_category"
         Cb_listed_books_category.Size = New Size(273, 26)
         Cb_listed_books_category.TabIndex = 23
-        Cb_listed_books_category.Text = "All Category"
+        Cb_listed_books_category.Text = "All Genre"
         ' 
         ' Btn_listed_books_edit
         ' 
@@ -1613,7 +1604,7 @@ Partial Class Fm_home_page
         ' Lv_delivery
         ' 
         Lv_delivery.BackColor = SystemColors.ActiveCaption
-        Lv_delivery.Columns.AddRange(New ColumnHeader() {Delivery_table0, Delivery_table1, Delivery_table2, Delivery_table3, Delivery_table4, Delivery_table5, Delivery_table6, Delivery_table7, Delivery_table8})
+        Lv_delivery.Columns.AddRange(New ColumnHeader() {Delivery_table0, Delivery_table1, Delivery_table2, Delivery_table3, Delivery_table4, Delivery_table5, Delivery_table6, Delivery_table7, Delivery_table8, Delivery_table9})
         Lv_delivery.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_delivery.FullRowSelect = True
         Lv_delivery.HeaderStyle = ColumnHeaderStyle.Nonclickable
@@ -1626,56 +1617,200 @@ Partial Class Fm_home_page
         ' 
         ' Delivery_table0
         ' 
-        Delivery_table0.Text = "Delivery ID"
-        Delivery_table0.Width = 180
+        Delivery_table0.Text = "Transaction Number"
+        Delivery_table0.Width = 250
         ' 
         ' Delivery_table1
         ' 
-        Delivery_table1.Text = "Book ID"
+        Delivery_table1.Text = "ISBN"
         Delivery_table1.TextAlign = HorizontalAlignment.Center
-        Delivery_table1.Width = 250
+        Delivery_table1.Width = 300
         ' 
         ' Delivery_table2
         ' 
-        Delivery_table2.Text = "Quantity"
+        Delivery_table2.Text = "Book Name"
         Delivery_table2.TextAlign = HorizontalAlignment.Center
-        Delivery_table2.Width = 100
+        Delivery_table2.Width = 300
         ' 
         ' Delivery_table3
         ' 
-        Delivery_table3.Text = "From Location"
+        Delivery_table3.Text = "Quantity"
         Delivery_table3.TextAlign = HorizontalAlignment.Center
-        Delivery_table3.Width = 300
+        Delivery_table3.Width = 100
         ' 
         ' Delivery_table4
         ' 
-        Delivery_table4.Text = "To Location"
+        Delivery_table4.Text = "From Location"
         Delivery_table4.TextAlign = HorizontalAlignment.Center
         Delivery_table4.Width = 300
         ' 
         ' Delivery_table5
         ' 
-        Delivery_table5.Text = "Delivered By"
+        Delivery_table5.Text = "To Location"
         Delivery_table5.TextAlign = HorizontalAlignment.Center
         Delivery_table5.Width = 300
         ' 
         ' Delivery_table6
         ' 
-        Delivery_table6.Text = "Delivery Date"
+        Delivery_table6.Text = "Delivered By"
         Delivery_table6.TextAlign = HorizontalAlignment.Center
-        Delivery_table6.Width = 150
+        Delivery_table6.Width = 300
         ' 
         ' Delivery_table7
         ' 
-        Delivery_table7.Text = "Status"
+        Delivery_table7.Text = "Delivery Date"
         Delivery_table7.TextAlign = HorizontalAlignment.Center
-        Delivery_table7.Width = 200
+        Delivery_table7.Width = 150
         ' 
         ' Delivery_table8
         ' 
-        Delivery_table8.Text = "Received By"
+        Delivery_table8.Text = "Status"
         Delivery_table8.TextAlign = HorizontalAlignment.Center
-        Delivery_table8.Width = 120
+        Delivery_table8.Width = 200
+        ' 
+        ' Delivery_table9
+        ' 
+        Delivery_table9.Text = "Received By"
+        Delivery_table9.TextAlign = HorizontalAlignment.Center
+        Delivery_table9.Width = 120
+        ' 
+        ' Panel14_Book_Inventory
+        ' 
+        Panel14_Book_Inventory.BackgroundImageLayout = ImageLayout.Stretch
+        Panel14_Book_Inventory.Controls.Add(ListView1)
+        Panel14_Book_Inventory.Controls.Add(ComboBox1)
+        Panel14_Book_Inventory.Controls.Add(Button1)
+        Panel14_Book_Inventory.Controls.Add(Button2)
+        Panel14_Book_Inventory.Controls.Add(Button4)
+        Panel14_Book_Inventory.Controls.Add(TextBox1)
+        Panel14_Book_Inventory.Location = New Point(300, 28)
+        Panel14_Book_Inventory.Name = "Panel14_Book_Inventory"
+        Panel14_Book_Inventory.Size = New Size(1603, 973)
+        Panel14_Book_Inventory.TabIndex = 24
+        ' 
+        ' ListView1
+        ' 
+        ListView1.BackColor = SystemColors.ActiveCaption
+        ListView1.Columns.AddRange(New ColumnHeader() {Book_inventory0, Book_inventory1, Book_inventory2, Book_inventory3, Book_inventory4, Book_inventory5, Book_inventory6, Book_inventory7, Book_inventory8, Book_inventory9})
+        ListView1.Font = New Font("Georgia", 12.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        ListView1.ForeColor = SystemColors.WindowText
+        ListView1.FullRowSelect = True
+        ListView1.HeaderStyle = ColumnHeaderStyle.Nonclickable
+        ListView1.Location = New Point(29, 74)
+        ListView1.Name = "ListView1"
+        ListView1.Size = New Size(1546, 874)
+        ListView1.TabIndex = 6
+        ListView1.UseCompatibleStateImageBehavior = False
+        ListView1.View = View.Details
+        ' 
+        ' Book_inventory0
+        ' 
+        Book_inventory0.Text = "ISBN"
+        Book_inventory0.Width = 180
+        ' 
+        ' Book_inventory1
+        ' 
+        Book_inventory1.Text = "Title"
+        Book_inventory1.TextAlign = HorizontalAlignment.Center
+        Book_inventory1.Width = 300
+        ' 
+        ' Book_inventory2
+        ' 
+        Book_inventory2.Text = "Author"
+        Book_inventory2.TextAlign = HorizontalAlignment.Center
+        Book_inventory2.Width = 250
+        ' 
+        ' Book_inventory3
+        ' 
+        Book_inventory3.Text = "Genre"
+        Book_inventory3.TextAlign = HorizontalAlignment.Center
+        Book_inventory3.Width = 250
+        ' 
+        ' Book_inventory4
+        ' 
+        Book_inventory4.Text = "Publication Year"
+        Book_inventory4.TextAlign = HorizontalAlignment.Center
+        Book_inventory4.Width = 280
+        ' 
+        ' Book_inventory5
+        ' 
+        Book_inventory5.Text = "Publisher"
+        Book_inventory5.TextAlign = HorizontalAlignment.Center
+        Book_inventory5.Width = 280
+        ' 
+        ' Book_inventory6
+        ' 
+        Book_inventory6.Text = "Quantity"
+        Book_inventory6.TextAlign = HorizontalAlignment.Center
+        ' 
+        ' Book_inventory7
+        ' 
+        Book_inventory7.Text = "Acquisition Date"
+        Book_inventory7.TextAlign = HorizontalAlignment.Center
+        ' 
+        ' Book_inventory8
+        ' 
+        Book_inventory8.Text = "Supplier"
+        Book_inventory8.TextAlign = HorizontalAlignment.Center
+        ' 
+        ' Book_inventory9
+        ' 
+        Book_inventory9.Text = "Status"
+        Book_inventory9.TextAlign = HorizontalAlignment.Center
+        ' 
+        ' ComboBox1
+        ' 
+        ComboBox1.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        ComboBox1.ForeColor = Color.Black
+        ComboBox1.FormattingEnabled = True
+        ComboBox1.Items.AddRange(New Object() {"Adventure fiction", "Biographies", "Books", "Chapter books", "Childrens literature", "Classics", "Comics", "Cooking", "Fantasy", "Fiction", "General fiction", "History", "Horror", "Humor", "Memoir", "Mystery", "Non-fiction", "Poetry", "Religion", "Romance", "Satire", "Science fiction", "Self-help book", "Thriller"})
+        ComboBox1.Location = New Point(298, 26)
+        ComboBox1.Name = "ComboBox1"
+        ComboBox1.Size = New Size(273, 26)
+        ComboBox1.TabIndex = 23
+        ComboBox1.Text = "All Genre"
+        ' 
+        ' Button1
+        ' 
+        Button1.BackColor = Color.Tan
+        Button1.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Button1.Location = New Point(1336, 29)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(118, 30)
+        Button1.TabIndex = 11
+        Button1.Text = "&Edit"
+        Button1.UseVisualStyleBackColor = False
+        ' 
+        ' Button2
+        ' 
+        Button2.BackColor = Color.Tan
+        Button2.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Button2.Location = New Point(1460, 29)
+        Button2.Name = "Button2"
+        Button2.Size = New Size(118, 30)
+        Button2.TabIndex = 10
+        Button2.Text = "&Delete"
+        Button2.UseVisualStyleBackColor = False
+        ' 
+        ' Button4
+        ' 
+        Button4.BackColor = Color.Tan
+        Button4.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Button4.Location = New Point(1212, 29)
+        Button4.Name = "Button4"
+        Button4.Size = New Size(118, 30)
+        Button4.TabIndex = 9
+        Button4.Text = "&Add"
+        Button4.UseVisualStyleBackColor = False
+        ' 
+        ' TextBox1
+        ' 
+        TextBox1.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        TextBox1.Location = New Point(29, 18)
+        TextBox1.Name = "TextBox1"
+        TextBox1.PlaceholderText = "Search"
+        TextBox1.Size = New Size(246, 38)
+        TextBox1.TabIndex = 7
         ' 
         ' Fm_home_page
         ' 
@@ -1684,17 +1819,18 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
-        Controls.Add(Panel12_Shelf)
+        Controls.Add(Panel1_Books)
         Controls.Add(Panel13_Delivery)
+        Controls.Add(Panel12_Shelf)
         Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel6_Supplier)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
         Controls.Add(Panel4_User_Acounts)
         Controls.Add(Panel3_Borrower_Info)
         Controls.Add(Panel2_Returned_Issued_Books)
-        Controls.Add(Panel1_Books)
         Controls.Add(Lbl_date_time)
         Controls.Add(P_navigation)
+        Controls.Add(Panel14_Book_Inventory)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         MaximumSize = New Size(1920, 1042)
@@ -1734,6 +1870,8 @@ Partial Class Fm_home_page
         Panel7_Category.PerformLayout()
         Panel13_Delivery.ResumeLayout(False)
         Panel13_Delivery.PerformLayout()
+        Panel14_Book_Inventory.ResumeLayout(False)
+        Panel14_Book_Inventory.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -1746,8 +1884,6 @@ Partial Class Fm_home_page
     Friend WithEvents Listed_books1 As ColumnHeader
     Friend WithEvents Listed_books4 As ColumnHeader
     Friend WithEvents Listed_books5 As ColumnHeader
-    Friend WithEvents Listed_books6 As ColumnHeader
-    Friend WithEvents Listed_books9 As ColumnHeader
     Friend WithEvents Panel2_Returned_Issued_Books As Panel
     Friend WithEvents Lv_returned_borrowed_books As ListView
     Friend WithEvents Returned_borrowed_books1 As ColumnHeader
@@ -1786,12 +1922,11 @@ Partial Class Fm_home_page
     Friend WithEvents Btn_student_information As Button
     Friend WithEvents Btn_listed_accounts As Button
     Friend WithEvents Cb_listed_books_category As ComboBox
-    Friend WithEvents Listed_books2 As ColumnHeader
+    Friend WithEvents Listed_books3 As ColumnHeader
     Friend WithEvents Student_info2 As ColumnHeader
     Friend WithEvents Student_info3 As ColumnHeader
-    Friend WithEvents Listed_books3 As ColumnHeader
+    Friend WithEvents Listed_books2 As ColumnHeader
     Friend WithEvents Tmr_home_page_date_time As Timer
-    Friend WithEvents Listed_books7 As ColumnHeader
     Friend WithEvents P_navigation As Panel
     Friend WithEvents Txt_student_info_search As RoundCornerTextbox
     Friend WithEvents Txt_returned_borrowed_books_search As RoundCornerTextbox
@@ -1821,7 +1956,6 @@ Partial Class Fm_home_page
     Friend WithEvents Listed_penalty1 As ColumnHeader
     Friend WithEvents Btn_penalty_report_delete As Button
     Friend WithEvents Btn_penalty_report_edit As Button
-    Friend WithEvents Listed_books8 As ColumnHeader
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Listed_books0 As ColumnHeader
     Friend WithEvents Btn_borrow_books As Button
@@ -1894,12 +2028,31 @@ Partial Class Fm_home_page
     Friend WithEvents Lv_delivery As ListView
     Friend WithEvents Delivery_table0 As ColumnHeader
     Friend WithEvents Delivery_table1 As ColumnHeader
-    Friend WithEvents Delivery_table2 As ColumnHeader
-    Friend WithEvents Delivery_table3 As ColumnHeader
     Friend WithEvents Delivery_table4 As ColumnHeader
     Friend WithEvents Delivery_table5 As ColumnHeader
     Friend WithEvents Delivery_table6 As ColumnHeader
     Friend WithEvents Delivery_table7 As ColumnHeader
     Friend WithEvents Delivery_table8 As ColumnHeader
+    Friend WithEvents Delivery_table9 As ColumnHeader
+    Friend WithEvents Delivery_table10 As ColumnHeader
     Friend WithEvents Shelf_table0 As ColumnHeader
+    Friend WithEvents Delivery_table2 As ColumnHeader
+    Friend WithEvents Delivery_table3 As ColumnHeader
+    Friend WithEvents Panel14_Book_Inventory As Panel
+    Friend WithEvents ListView1 As ListView
+    Friend WithEvents Book_inventory0 As ColumnHeader
+    Friend WithEvents Book_inventory1 As ColumnHeader
+    Friend WithEvents Book_inventory2 As ColumnHeader
+    Friend WithEvents Book_inventory3 As ColumnHeader
+    Friend WithEvents Book_inventory4 As ColumnHeader
+    Friend WithEvents Book_inventory5 As ColumnHeader
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Book_inventory6 As ColumnHeader
+    Friend WithEvents Book_inventory7 As ColumnHeader
+    Friend WithEvents Book_inventory8 As ColumnHeader
+    Friend WithEvents Book_inventory9 As ColumnHeader
 End Class

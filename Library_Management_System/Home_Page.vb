@@ -512,29 +512,23 @@ Public Class Fm_home_page
             sql = "SELECT   tbl_books.isbn,
                             tbl_books.book_name,
                             tbl_library_category.category_name,
-                            tbl_books.qty,
                             tbl_library_author.author_name,
                             tbl_library_publisher.publisher_name,
                             tbl_books.publish_year,
-                            tbl_library_supplier.supplier_name,
-                            tbl_books.acquisition_date,
-                            tbl_books.status,
-                            tbl_books.primary_book_id
+                            tbl_books.primary_book_id,
+                            tbl_books.primary_category_id
 
                     FROM tbl_books
 
                     INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
                     INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
                     INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
-                    INNER JOIN tbl_library_supplier ON tbl_books.primary_supplier_id = tbl_library_supplier.primary_supplier_id
 
                     WHERE   isbn LIKE '%" & Txt_listed_books_search.Text & "%' OR
                             book_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
                             category_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
                             author_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
-                            publisher_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
-                            supplier_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
-                            status LIKE '%" & Txt_listed_books_search.Text & "%'
+                            publisher_name LIKE '%" & Txt_listed_books_search.Text & "%'
 
                     ORDER BY primary_book_id DESC"
 
@@ -547,21 +541,18 @@ Public Class Fm_home_page
                 Dim lv As New ListViewItem({dr("isbn").ToString(),
                                             dr("book_name").ToString(),
                                             dr("category_name").ToString(),
-                                            dr("qty").ToString(),
                                             dr("author_name").ToString(),
                                             dr("publisher_name").ToString(),
                                             dr("publish_year").ToString(),
-                                            dr("supplier_name").ToString(),
-                                            dr("acquisition_date").ToString(),
-                                            dr("status").ToString(),
-                                            dr("primary_book_id").ToString()})
+                                            dr("primary_book_id").ToString(),
+                                            dr("primary_category_id").ToString()})
                 Lv_listed_books.Items.Add(lv)
 
             Loop
 
             con.Close()
 
-            For i As Integer = 0 To Lv_listed_books.Items.Count - 1
+            For i = 0 To Lv_listed_books.Items.Count - 1
 
                 If i Mod 2 = 0 Then
 
@@ -593,7 +584,7 @@ Public Class Fm_home_page
 
     Private Sub Cb_listed_books_category_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_listed_books_category.SelectedIndexChanged
 
-        If Cb_listed_books_category.Text = "All Category" Then
+        If Cb_listed_books_category.Text = "All Genre" Then
 
             Load_listed_books_data_table()
 
@@ -606,21 +597,17 @@ Public Class Fm_home_page
                 sql = "SELECT   tbl_books.isbn,
                                 tbl_books.book_name,
                                 tbl_library_category.category_name,
-                                tbl_books.qty,
                                 tbl_library_author.author_name,
                                 tbl_library_publisher.publisher_name,
                                 tbl_books.publish_year,
-                                tbl_library_supplier.supplier_name,
-                                tbl_books.acquisition_date,
-                                tbl_books.status,
-                                tbl_books.primary_book_id
+                                tbl_books.primary_book_id,
+                                tbl_books.primary_category_id
 
-                        FROM tbl_books
+                    FROM tbl_books
 
-                        INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
-                        INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
-                        INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
-                        INNER JOIN tbl_library_supplier ON tbl_books.primary_supplier_id = tbl_library_supplier.primary_supplier_id
+                    INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
+                    INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
+                    INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
 
                         WHERE category_name LIKE '%" & Cb_listed_books_category.Text & "%'
 
@@ -635,21 +622,18 @@ Public Class Fm_home_page
                     Dim lv As New ListViewItem({dr("isbn").ToString(),
                                                 dr("book_name").ToString(),
                                                 dr("category_name").ToString(),
-                                                dr("qty").ToString(),
                                                 dr("author_name").ToString(),
                                                 dr("publisher_name").ToString(),
                                                 dr("publish_year").ToString(),
-                                                dr("supplier_name").ToString(),
-                                                dr("acquisition_date").ToString(),
-                                                dr("status").ToString(),
-                                                dr("primary_book_id").ToString()})
+                                                dr("primary_book_id").ToString(),
+                                                dr("primary_category_id")})
                     Lv_listed_books.Items.Add(lv)
 
                 Loop
 
                 con.Close()
 
-                For i As Integer = 0 To Lv_listed_books.Items.Count - 1
+                For i = 0 To Lv_listed_books.Items.Count - 1
 
                     If i Mod 2 = 0 Then
 
@@ -692,13 +676,13 @@ Public Class Fm_home_page
         Fm_add_books.update_Txt_isbn.Visible = False
         Fm_add_books.Show()
         Fm_add_books.Btn_update.Visible = False
-        Me.Enabled = False
+        Enabled = False
 
     End Sub
 
     Private Sub Btn_listed_books_add_MouseEnter(sender As Object, e As EventArgs) Handles Btn_listed_books_add.MouseEnter
 
-        Dim btn As Button = DirectCast(sender, Button)
+        Dim btn = DirectCast(sender, Button)
 
         ' Change color on hover only if it's not selected
         If btn IsNot selectedButton Then
@@ -709,7 +693,7 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_books_add_MouseLeave(sender As Object, e As EventArgs) Handles Btn_listed_books_add.MouseLeave
 
-        Dim btn As Button = DirectCast(sender, Button)
+        Dim btn = DirectCast(sender, Button)
 
         ' Revert color when the mouse leaves, unless it's the selected button
         If btn IsNot selectedButton Then
@@ -727,17 +711,14 @@ Public Class Fm_home_page
             Fm_add_books.update_Txt_isbn.Text = Lv_listed_books.SelectedItems(0).Text
             Fm_add_books.Txt_book_name.Text = Lv_listed_books.SelectedItems(0).SubItems(1).Text
             Fm_add_books.Cb_book_category.Text = Lv_listed_books.SelectedItems(0).SubItems(2).Text
-            Fm_add_books.Txt_book_qty.Text = Lv_listed_books.SelectedItems(0).SubItems(3).Text
-            Fm_add_books.Txt_author.Text = Lv_listed_books.SelectedItems(0).SubItems(4).Text
-            Fm_add_books.Txt_publisher.Text = Lv_listed_books.SelectedItems(0).SubItems(5).Text
-            Fm_add_books.Dtp_publish_date.Value = Lv_listed_books.SelectedItems(0).SubItems(6).Text
-            Fm_add_books.Txt_supplier_name.Text = Lv_listed_books.SelectedItems(0).SubItems(7).Text
-            Fm_add_books.Dtp_acquisition_date.Value = Lv_listed_books.SelectedItems(0).SubItems(8).Text
+            Fm_add_books.Txt_author.Text = Lv_listed_books.SelectedItems(0).SubItems(3).Text
+            Fm_add_books.Txt_publisher.Text = Lv_listed_books.SelectedItems(0).SubItems(4).Text
+            Fm_add_books.Dtp_publish_date.Value = Lv_listed_books.SelectedItems(0).SubItems(5).Text
 
-            Fm_add_books.Txt_primary_category_id.Text = Lv_listed_books.SelectedItems(0).SubItems(11).Text
+            Fm_add_books.Txt_primary_category_id.Text = Lv_listed_books.SelectedItems(0).SubItems(7).Text
 
             Fm_add_books.Show()
-            Me.Enabled = False
+            Enabled = False
 
         Else
 
@@ -749,7 +730,7 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_books_edit_MouseEnter(sender As Object, e As EventArgs) Handles Btn_listed_books_edit.MouseEnter
 
-        Dim btn As Button = DirectCast(sender, Button)
+        Dim btn = DirectCast(sender, Button)
 
         ' Change color on hover only if it's not selected
         If btn IsNot selectedButton Then
@@ -760,7 +741,7 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_books_edit_MouseLeave(sender As Object, e As EventArgs) Handles Btn_listed_books_edit.MouseLeave
 
-        Dim btn As Button = DirectCast(sender, Button)
+        Dim btn = DirectCast(sender, Button)
 
         ' Revert color when the mouse leaves, unless it's the selected button
         If btn IsNot selectedButton Then
@@ -773,55 +754,46 @@ Public Class Fm_home_page
 
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            If Lv_listed_books.SelectedItems(0).SubItems(9).Text = "Borrowed" Then
+            Try
 
-                MessageBox.Show("This book is unable to delete because the status is Borrowed", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Load_listed_books_data_table()
+                con.Open()
 
-            Else
+                Dim book_name = Lv_listed_books.SelectedItems(0).SubItems(1).Text 'nagkakaroon ng syntax error pag ginamit mismo yung "Lv_listed_books.SelectedItems(0).Text"
+                Dim dialog As DialogResult
 
-                Try
+                dialog = MessageBox.Show("Do you want to delete " + book_name + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
-                    con.Open()
+                If dialog = DialogResult.Yes Then
 
-                    Dim book_name = Lv_listed_books.SelectedItems(0).SubItems(1).Text 'nagkakaroon ng syntax error pag ginamit mismo yung "Lv_listed_books.SelectedItems(0).Text"
-                    Dim dialog As DialogResult
+                    sql = "DELETE FROM tbl_books
+                                    WHERE primary_book_id = '" & Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
 
-                    dialog = MessageBox.Show("Do you want to delete " + Lv_listed_books.SelectedItems(0).SubItems(1).Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                    con.Close()
 
-                    If dialog = DialogResult.Yes Then
+                    Load_listed_books_data_table()
+                    MessageBox.Show(book_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                        sql = "DELETE FROM tbl_books
-                                      WHERE primary_book_id = '" & Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader
+                Else
 
-                        con.Close()
+                    con.Close()
 
-                        Load_listed_books_data_table()
-                        MessageBox.Show(book_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Load_listed_books_data_table()
 
-                    Else
+                End If
 
-                        con.Close()
+            Catch ex As Exception
 
-                        Load_listed_books_data_table()
+                MsgBox("Error: " & ex.Message)
 
-                    End If
+            Finally
 
-                Catch ex As Exception
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
-                    MsgBox("Error: " & ex.Message)
-
-                Finally
-
-                    If con.State = ConnectionState.Open Then
-                        con.Close()
-                    End If
-
-                End Try
-
-            End If
+            End Try
 
         Else
 
@@ -833,7 +805,7 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_books_delete_MouseEnter(sender As Object, e As EventArgs) Handles Btn_listed_books_delete.MouseEnter
 
-        Dim btn As Button = DirectCast(sender, Button)
+        Dim btn = DirectCast(sender, Button)
 
         ' Change color on hover only if it's not selected
         If btn IsNot selectedButton Then
@@ -844,7 +816,7 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_books_delete_MouseLeave(sender As Object, e As EventArgs) Handles Btn_listed_books_delete.MouseLeave
 
-        Dim btn As Button = DirectCast(sender, Button)
+        Dim btn = DirectCast(sender, Button)
 
         ' Revert color when the mouse leaves, unless it's the selected button
         If btn IsNot selectedButton Then

@@ -30,7 +30,7 @@ Partial Class Add_delivery
         Lbl_error_msg_2 = New Label()
         Lbl_error_msg_1 = New Label()
         Lbl_error_msg = New Label()
-        Txt_delivery_book_id = New TextBox()
+        Txt_delivery_isbn = New TextBox()
         Btn_update = New Button()
         Btn_cancel = New Button()
         Btn_save = New Button()
@@ -133,14 +133,14 @@ Partial Class Add_delivery
         Lbl_error_msg.TabIndex = 48
         Lbl_error_msg.Text = "Lbl_error_msg"
         ' 
-        ' Txt_delivery_book_id
+        ' Txt_delivery_isbn
         ' 
-        Txt_delivery_book_id.Font = New Font("Georgia", 14.25F)
-        Txt_delivery_book_id.Location = New Point(30, 70)
-        Txt_delivery_book_id.Name = "Txt_delivery_book_id"
-        Txt_delivery_book_id.PlaceholderText = "Enter Book ID"
-        Txt_delivery_book_id.Size = New Size(302, 29)
-        Txt_delivery_book_id.TabIndex = 43
+        Txt_delivery_isbn.Font = New Font("Georgia", 14.25F)
+        Txt_delivery_isbn.Location = New Point(30, 70)
+        Txt_delivery_isbn.Name = "Txt_delivery_isbn"
+        Txt_delivery_isbn.PlaceholderText = "Enter ISBN"
+        Txt_delivery_isbn.Size = New Size(302, 29)
+        Txt_delivery_isbn.TabIndex = 43
         ' 
         ' Btn_update
         ' 
@@ -270,7 +270,7 @@ Partial Class Add_delivery
         Controls.Add(Lbl_error_msg_2)
         Controls.Add(Lbl_error_msg_1)
         Controls.Add(Lbl_error_msg)
-        Controls.Add(Txt_delivery_book_id)
+        Controls.Add(Txt_delivery_isbn)
         Controls.Add(Btn_update)
         Controls.Add(Btn_cancel)
         Controls.Add(Btn_save)
@@ -293,7 +293,7 @@ Partial Class Add_delivery
     Friend WithEvents Lbl_error_msg_2 As Label
     Friend WithEvents Lbl_error_msg_1 As Label
     Friend WithEvents Lbl_error_msg As Label
-    Friend WithEvents Txt_delivery_book_id As TextBox
+    Friend WithEvents Txt_delivery_isbn As TextBox
     Friend WithEvents Btn_update As Button
     Friend WithEvents Btn_cancel As Button
     Friend WithEvents Btn_save As Button

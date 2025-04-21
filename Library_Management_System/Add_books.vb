@@ -1,21 +1,14 @@
-﻿Imports System.ComponentModel
-Imports System.Diagnostics.Eventing
-Imports System.Runtime.InteropServices
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
 
 Public Class Fm_add_books
 
     Private Sub Fm_add_books_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Load_library_cb_supplier()
         Load_library_cb_author()
         Load_library_cb_category()
         Load_library_cb_publisher()
 
         Clear_error_msg()
-
-        Dtp_acquisition_date.Format = DateTimePickerFormat.Custom
-        Dtp_acquisition_date.CustomFormat = "MMMM dd, yyyy"
 
         Dtp_publish_date.Format = DateTimePickerFormat.Custom
         Dtp_publish_date.CustomFormat = "MMMM dd, yyyy"
@@ -28,9 +21,6 @@ Public Class Fm_add_books
 
         Dim tooltip_add_publisher As New ToolTip()
         tooltip_add_publisher.SetToolTip(Btn_add_publisher, "Add Publisher")
-
-        Dim tooltip_add_supplier As New ToolTip()
-        tooltip_add_supplier.SetToolTip(Btn_add_supplier, "Add Supplier")
 
     End Sub
 
@@ -179,57 +169,6 @@ Public Class Fm_add_books
 
     End Sub
 
-    Private Sub Txt_supplier_name_TextChanged(sender As Object, e As EventArgs) Handles Txt_supplier_name.TextChanged
-
-        If Txt_supplier_name.Text = "" Then
-
-            Load_library_cb_supplier()
-            Cb_supplier_name.Items.Add(Txt_supplier_name.Text)
-            Txt_primary_supplier_id.Clear()
-
-        Else
-
-            Try
-
-                con.Open()
-
-                sql = "SELECT * FROM tbl_library_supplier
-                                WHERE supplier_name LIKE '%" & Txt_supplier_name.Text & "%'"
-                'GROUP BY supplier_name"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                Cb_supplier_name.Items.Clear()
-
-                If dr.Read() Then
-
-                    Cb_supplier_name.Items.Add(dr("supplier_name"))
-                    Txt_primary_supplier_id.Text = dr("primary_supplier_id")
-
-                Else
-
-                    Cb_supplier_name.Items.Add(Txt_supplier_name.Text)
-                    Txt_primary_supplier_id.Clear()
-
-                End If
-
-                con.Close()
-
-            Catch ex As Exception
-
-                MsgBox("Error: " & ex.Message)
-
-            Finally
-
-                If con.State = ConnectionState.Open Then
-                    con.Close()
-                End If
-
-            End Try
-
-        End If
-
-    End Sub
-
     Private Sub Cb_book_category_Click(sender As Object, e As EventArgs) Handles Cb_book_category.Click
 
         Cb_book_category.DroppedDown = True
@@ -248,12 +187,6 @@ Public Class Fm_add_books
 
     End Sub
 
-    Private Sub Txt_supplier_name_Click(sender As Object, e As EventArgs) Handles Txt_supplier_name.Click
-
-        Cb_supplier_name.DroppedDown = True
-
-    End Sub
-
     Private Sub Cb_author_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_author.SelectedIndexChanged
 
         Txt_author.Text = Cb_author.Text
@@ -263,12 +196,6 @@ Public Class Fm_add_books
     Private Sub Cb_publisher_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_publisher.SelectedIndexChanged
 
         Txt_publisher.Text = Cb_publisher.Text
-
-    End Sub
-
-    Private Sub Cb_supplier_name_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_supplier_name.SelectedIndexChanged
-
-        Txt_supplier_name.Text = Cb_supplier_name.Text
 
     End Sub
 
@@ -307,33 +234,6 @@ Public Class Fm_add_books
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
-        End If
-
-    End Sub
-
-    Private Sub Txt_book_qty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_book_qty.KeyPress
-
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 10 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_book_qty.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        'Input numeric only
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-
-            e.Handled = True
-
         End If
 
     End Sub
@@ -402,55 +302,21 @@ Public Class Fm_add_books
 
     End Sub
 
-    Private Sub Txt_supplier_name_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_supplier_name.KeyPress
-
-        ' Check if the entered key is a control key (e.g., Backspace)
-        If Char.IsControl(e.KeyChar) Then
-            ' Allow control keys
-            Return
-        End If
-
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
-        ' Define the maximum length for the TextBox
-        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
-
-        ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_supplier_name.TextLength >= maxLength Then
-            ' Cancel the key press if the maximum length is reached
-            e.Handled = True
-            Return
-        End If
-
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
-
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
-            e.Handled = True
-        End If
-
-    End Sub
-
     Private Sub save_Txt_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles save_Txt_isbn.KeyPress
 
         Clear_error_msg()
 
         If e.KeyChar = ChrW(13) Then
 
-            If Txt_book_name.Text = "" Or
-                Cb_book_category.Text = "-Select Category-" Or
-                Txt_book_qty.Text = "" Or
+            If save_Txt_isbn.Text = "" Or
+                Txt_book_name.Text = "" Or
+                Cb_book_category.Text = "-Select Genre-" Or
                 Txt_author.Text = "" Or
-                Txt_publisher.Text = "" Or
-                Txt_supplier_name.Text = "" Or
-                save_Txt_isbn.Text = "" Then
+                Txt_publisher.Text = "" Then
 
                 ' Store TextBoxes and their corresponding Labels
-                Dim textBoxes As TextBox() = {Txt_book_name, Txt_book_qty, Txt_author, Txt_publisher, Txt_supplier_name, save_Txt_isbn}
-                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+                Dim textBoxes As TextBox() = {save_Txt_isbn, Txt_book_name, Txt_author, Txt_publisher}
+                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_3, Lbl_error_msg_4}
 
                 ' Loop through each TextBox and validate
                 For i As Integer = 0 To textBoxes.Length - 1
@@ -461,17 +327,17 @@ Public Class Fm_add_books
 
                 ' Validate the ComboBox (Dropdown)
                 If Cb_book_category.SelectedIndex = -1 Then
-                    Lbl_error_msg_1.Text = "This field is required"
+                    Lbl_error_msg_2.Text = "This field is required"
                 End If
 
-            ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_supplier_id.Text = "" Then
+            ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_publisher_id.Text = "" Then
 
                 If Txt_primary_author_id.Text = "" Then
                     Lbl_error_msg_3.Text = "Invalid Author Name"
                 End If
 
-                If Txt_primary_supplier_id.Text = "" Then
-                    Lbl_error_msg_5.Text = "Invalid Supplier Name"
+                If Txt_primary_author_id.Text = "" Then
+                    Lbl_error_msg_4.Text = "Invalid Publisher Name"
                 End If
 
             Else
@@ -482,24 +348,16 @@ Public Class Fm_add_books
 
                     sql = "INSERT INTO tbl_books (isbn,
                                                     book_name,
-                                                    primary_category_id,                                                    
-                                                    qty,
+                                                    primary_category_id,
                                                     primary_author_id,
                                                     primary_publisher_id,
-                                                    publish_year,
-                                                    primary_supplier_id,
-                                                    acquisition_date,
-                                                    status)
+                                                    publish_year)
                                     VALUE ('" & save_Txt_isbn.Text & "',
                                             '" & Txt_book_name.Text & "',
                                             '" & Txt_primary_category_id.Text & "',                                            
-                                            '" & Txt_book_qty.Text & "',
                                             '" & Txt_primary_author_id.Text & "',
                                             '" & Txt_primary_publisher_id.Text & "',
-                                            '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "',
-                                            '" & Txt_primary_supplier_id.Text & "',                                            
-                                            '" & Dtp_acquisition_date.Value.ToString("MMMM dd, yyyy") & "',
-                                            '" & "Available" & "')"
+                                            '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
 
@@ -536,15 +394,13 @@ Public Class Fm_add_books
 
             If update_Txt_isbn.Text = "" Or
                Txt_book_name.Text = "" Or
-               Cb_book_category.Text = "-Select Category-" Or
-               Txt_book_qty.Text = "" Or
+               Cb_book_category.Text = "-Select Genre-" Or
                Txt_author.Text = "" Or
-               Txt_publisher.Text = "" Or
-               Txt_supplier_name.Text = "" Then
+               Txt_publisher.Text = "" Then
 
                 ' Store TextBoxes and their corresponding Labels
-                Dim textBoxes As TextBox() = {Txt_book_name, Txt_book_qty, Txt_author, Txt_publisher, Txt_supplier_name, save_Txt_isbn}
-                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+                Dim textBoxes As TextBox() = {update_Txt_isbn, Txt_book_name, Txt_author, Txt_publisher}
+                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_3, Lbl_error_msg_4}
 
                 ' Loop through each TextBox and validate
                 For i As Integer = 0 To textBoxes.Length - 1
@@ -555,17 +411,17 @@ Public Class Fm_add_books
 
                 ' Validate the ComboBox (Dropdown)
                 If Cb_book_category.SelectedIndex = -1 Then
-                    Lbl_error_msg_1.Text = "This field is required"
+                    Lbl_error_msg_2.Text = "This field is required"
                 End If
 
-            ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_supplier_id.Text = "" Then
+            ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_publisher_id.Text = "" Then
 
                 If Txt_primary_author_id.Text = "" Then
                     Lbl_error_msg_3.Text = "Invalid Author Name"
                 End If
 
-                If Txt_primary_supplier_id.Text = "" Then
-                    Lbl_error_msg_5.Text = "Invalid Supplier Name"
+                If Txt_primary_author_id.Text = "" Then
+                    Lbl_error_msg_4.Text = "Invalid Publisher Name"
                 End If
 
             Else
@@ -578,13 +434,10 @@ Public Class Fm_add_books
                                     isbn = '" & update_Txt_isbn.Text & "',
                                     book_name = '" & Txt_book_name.Text & "',
                                     primary_category_id = '" & Txt_primary_category_id.Text & "',
-                                    qty = '" & Txt_book_qty.Text & "',
                                     primary_author_id = '" & Txt_primary_author_id.Text & "',
                                     primary_publisher_id = '" & Txt_primary_publisher_id.Text & "',
-                                    publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "',
-                                    primary_supplier_id = '" & Txt_primary_supplier_id.Text & "',
-                                    acquisition_date = '" & Dtp_acquisition_date.Value.ToString("MMMM dd, yyyy") & "'
-                            WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
+                                    publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "'
+                            WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
@@ -621,15 +474,13 @@ Public Class Fm_add_books
 
         If update_Txt_isbn.Text = "" Or
            Txt_book_name.Text = "" Or
-           Cb_book_category.Text = "-Select Category-" Or
-           Txt_book_qty.Text = "" Or
+           Cb_book_category.Text = "-Select Genre-" Or
            Txt_author.Text = "" Or
-           Txt_publisher.Text = "" Or
-           Txt_supplier_name.Text = "" Then
+           Txt_publisher.Text = "" Then
 
             ' Store TextBoxes and their corresponding Labels
-            Dim textBoxes As TextBox() = {Txt_book_name, Txt_book_qty, Txt_author, Txt_publisher, Txt_supplier_name, save_Txt_isbn}
-            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_2, Lbl_error_msg_3, Lbl_error_msg_4, Lbl_error_msg_5, Lbl_error_msg_6}
+            Dim textBoxes As TextBox() = {update_Txt_isbn, Txt_book_name, Txt_author, Txt_publisher}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_3, Lbl_error_msg_4}
 
             ' Loop through each TextBox and validate
             For i As Integer = 0 To textBoxes.Length - 1
@@ -640,17 +491,17 @@ Public Class Fm_add_books
 
             ' Validate the ComboBox (Dropdown)
             If Cb_book_category.SelectedIndex = -1 Then
-                Lbl_error_msg_1.Text = "This field is required"
+                Lbl_error_msg_2.Text = "This field is required"
             End If
 
-        ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_supplier_id.Text = "" Then
+        ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_publisher_id.Text = "" Then
 
             If Txt_primary_author_id.Text = "" Then
                 Lbl_error_msg_3.Text = "Invalid Author Name"
             End If
 
-            If Txt_primary_supplier_id.Text = "" Then
-                Lbl_error_msg_5.Text = "Invalid Supplier Name"
+            If Txt_primary_author_id.Text = "" Then
+                Lbl_error_msg_4.Text = "Invalid Publisher Name"
             End If
 
         Else
@@ -663,13 +514,10 @@ Public Class Fm_add_books
                                 isbn = '" & update_Txt_isbn.Text & "',
                                 book_name = '" & Txt_book_name.Text & "',
                                 primary_category_id = '" & Txt_primary_category_id.Text & "',
-                                qty = '" & Txt_book_qty.Text & "',
                                 primary_author_id = '" & Txt_primary_author_id.Text & "',
                                 primary_publisher_id = '" & Txt_primary_publisher_id.Text & "',
-                                publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "',
-                                primary_supplier_id = '" & Txt_primary_supplier_id.Text & "',
-                                acquisition_date = '" & Dtp_acquisition_date.Value.ToString("MMMM dd, yyyy") & "'
-                        WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(10).Text & "'"
+                                publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "'
+                        WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
 
@@ -699,11 +547,35 @@ Public Class Fm_add_books
 
     End Sub
 
+    Public selectedButton As Button = Nothing ' Track the currently selected button
+
     Private Sub Btn_add_category_Click(sender As Object, e As EventArgs) Handles Btn_add_category.Click
 
         Fm_add_category.Show()
         Fm_add_category.Btn_update.Visible = False
         Me.Enabled = False
+
+    End Sub
+
+    Private Sub Btn_add_category_MouseEnter(sender As Object, e As EventArgs) Handles Btn_add_category.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_add_category_MouseLeave(sender As Object, e As EventArgs) Handles Btn_add_category.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
 
     End Sub
 
@@ -715,6 +587,28 @@ Public Class Fm_add_books
 
     End Sub
 
+    Private Sub Btn_add_author_MouseEnter(sender As Object, e As EventArgs) Handles Btn_add_author.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_add_author_MouseLeave(sender As Object, e As EventArgs) Handles Btn_add_author.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
+
+    End Sub
+
     Private Sub Btn_add_publisher_Click(sender As Object, e As EventArgs) Handles Btn_add_publisher.Click
 
         Fm_publisher.Show()
@@ -723,11 +617,25 @@ Public Class Fm_add_books
 
     End Sub
 
-    Private Sub Btn_add_supplier_Click(sender As Object, e As EventArgs) Handles Btn_add_supplier.Click
+    Private Sub Btn_add_publisher_MouseEnter(sender As Object, e As EventArgs) Handles Btn_add_publisher.MouseEnter
 
-        Fm_supplier_maintenance.Show()
-        Fm_supplier_maintenance.Btn_update.Visible = False
-        Me.Enabled = False
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_add_publisher_MouseLeave(sender As Object, e As EventArgs) Handles Btn_add_publisher.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
 
     End Sub
 
