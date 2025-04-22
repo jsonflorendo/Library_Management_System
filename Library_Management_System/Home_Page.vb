@@ -15,6 +15,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
         Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = False
 
         Load_library_cb_category()
 
@@ -39,6 +40,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
         Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -88,6 +90,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
         Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -137,6 +140,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
         Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -186,6 +190,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
         Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -235,6 +240,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
         Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -284,6 +290,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
         Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -333,6 +340,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = True
         Panel12_Shelf.Visible = False
         Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -382,6 +390,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = True
         Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -431,6 +440,7 @@ Public Class Fm_home_page
         Panel10_Author_Category_Penalty_Publisher.Visible = False
         Panel12_Shelf.Visible = False
         Panel13_Delivery.Visible = True
+        Panel14_Book_Inventory.Visible = False
 
         Load_all_data_tables() 'To load data tables and remove items selection on the listview
 
@@ -459,6 +469,56 @@ Public Class Fm_home_page
     End Sub
 
     Private Sub Btn_delivery_MouseLeave(sender As Object, e As EventArgs) Handles Btn_delivery.MouseLeave
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Sienna
+        End If
+
+    End Sub
+
+    Private Sub Btn_book_inventory_Click(sender As Object, e As EventArgs) Handles Btn_book_inventory.Click
+
+        Panel1_Books.Visible = False
+        Panel2_Returned_Issued_Books.Visible = False
+        Panel3_Borrower_Info.Visible = False
+        Panel4_User_Acounts.Visible = False
+        Panel6_Supplier.Visible = False
+        Panel8_Penalty_Report.Visible = False
+        Panel10_Author_Category_Penalty_Publisher.Visible = False
+        Panel12_Shelf.Visible = False
+        Panel13_Delivery.Visible = False
+        Panel14_Book_Inventory.Visible = True
+
+        Load_all_data_tables() 'To load data tables and remove items selection on the listview
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Reset the previously selected button's color
+        If selectedButton IsNot Nothing Then
+            selectedButton.BackColor = Color.Sienna
+        End If
+
+        ' Set the new selected button and change its color
+        btn.BackColor = Color.RoyalBlue
+        selectedButton = btn
+
+    End Sub
+
+    Private Sub Btn_book_inventory_MouseEnter(sender As Object, e As EventArgs) Handles Btn_book_inventory.MouseEnter
+
+        Dim btn As Button = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_book_inventory_MouseLeave(sender As Object, e As EventArgs) Handles Btn_book_inventory.MouseLeave
 
         Dim btn As Button = DirectCast(sender, Button)
 
@@ -505,80 +565,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_listed_books_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_listed_books_search.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT   tbl_books.isbn,
-                            tbl_books.book_name,
-                            tbl_library_category.category_name,
-                            tbl_library_author.author_name,
-                            tbl_library_publisher.publisher_name,
-                            tbl_books.publish_year,
-                            tbl_books.primary_book_id,
-                            tbl_books.primary_category_id
-
-                    FROM tbl_books
-
-                    INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
-                    INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
-                    INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
-
-                    WHERE   isbn LIKE '%" & Txt_listed_books_search.Text & "%' OR
-                            book_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
-                            category_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
-                            author_name LIKE '%" & Txt_listed_books_search.Text & "%' OR
-                            publisher_name LIKE '%" & Txt_listed_books_search.Text & "%'
-
-                    ORDER BY primary_book_id DESC"
-
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-            Lv_listed_books.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("isbn").ToString(),
-                                            dr("book_name").ToString(),
-                                            dr("category_name").ToString(),
-                                            dr("author_name").ToString(),
-                                            dr("publisher_name").ToString(),
-                                            dr("publish_year").ToString(),
-                                            dr("primary_book_id").ToString(),
-                                            dr("primary_category_id").ToString()})
-                Lv_listed_books.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i = 0 To Lv_listed_books.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_listed_books.Items(i).BackColor = Color.Azure
-                    Lv_listed_books.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_listed_books.Items(i).BackColor = Color.GhostWhite
-                    Lv_listed_books.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_listed_books_data_table(Txt_listed_books_search.Text)
 
     End Sub
 
@@ -586,7 +573,7 @@ Public Class Fm_home_page
 
         If Cb_listed_books_category.Text = "All Genre" Then
 
-            Load_listed_books_data_table()
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         Else
 
@@ -772,14 +759,14 @@ Public Class Fm_home_page
 
                     con.Close()
 
-                    Load_listed_books_data_table()
+                    Load_listed_books_data_table(Txt_listed_books_search.Text)
                     MessageBox.Show(book_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
                     con.Close()
 
-                    Load_listed_books_data_table()
+                    Load_listed_books_data_table(Txt_listed_books_search.Text)
 
                 End If
 
@@ -830,35 +817,35 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
 
-            Load_returned_borrowed_books_data_table()
+            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
         ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Load_borrower_info_data_table()
+            Load_borrower_info_data_table(Txt_student_info_search.Text)
 
         ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_penalty_report_data_table()
+            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Load_listed_accounts_data_table()
+            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_library_supplier_data_table()
+            Load_library_supplier_data_table(Txt_search_supplier.Text)
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_author_data_table()
+            Load_library_author_data_table(Txt_search_author.Text)
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_category_data_table(Txt_search_category.Text)
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_penalty_data_table()
+            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -873,83 +860,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_returned_borrowed_books_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_returned_borrowed_books_search.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT   CONCAT (tbl_issued_books.transaction_yyyy_mm, '-', LPAD(tbl_issued_books.transaction_series, 5, '0')) AS transaction_number,
-                            tbl_borrower.borrower_id,
-                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) AS full_name,
-                            tbl_books.book_name,
-                            tbl_issued_books.issued_date,
-                            tbl_issued_books.due_date,
-                            tbl_issued_books.returned_date,
-                            tbl_issued_books.primary_issued_book_id,
-                            tbl_books.primary_book_id
-                    
-                    FROM tbl_issued_books
-
-                    INNER JOIN tbl_borrower ON tbl_issued_books.primary_borrower_id = tbl_borrower.primary_borrower_id
-                    INNER JOIN tbl_books ON tbl_issued_books.primary_book_id = tbl_books.primary_book_id
-
-                    WHERE   CONCAT(transaction_yyyy_mm, '-', LPAD(transaction_series, 5, '0')) LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
-                            borrower_id LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
-                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
-                            book_name LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
-                            issued_date LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
-                            due_date LIKE '%" & Txt_returned_borrowed_books_search.Text & "%' OR
-                            returned_date LIKE '%" & Txt_returned_borrowed_books_search.Text & "%'
-
-                    ORDER BY primary_issued_book_id DESC"
-
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-            Lv_returned_borrowed_books.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("transaction_number").ToString(),
-                                            dr("borrower_id").ToString(),
-                                            dr("full_name").ToString(),
-                                            dr("book_name").ToString(),
-                                            dr("issued_date").ToString(),
-                                            dr("due_date").ToString(),
-                                            dr("returned_date").ToString(),
-                                            dr("primary_issued_book_id").ToString(),
-                                            dr("primary_book_id").ToString()})
-                Lv_returned_borrowed_books.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i As Integer = 0 To Lv_returned_borrowed_books.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_returned_borrowed_books.Items(i).BackColor = Color.Azure
-                    Lv_returned_borrowed_books.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_returned_borrowed_books.Items(i).BackColor = Color.GhostWhite
-                    Lv_returned_borrowed_books.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
     End Sub
 
@@ -1016,35 +927,35 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Load_listed_books_data_table()
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Load_borrower_info_data_table()
+            Load_borrower_info_data_table(Txt_student_info_search.Text)
 
         ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_penalty_report_data_table()
+            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Load_listed_accounts_data_table()
+            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_library_supplier_data_table()
+            Load_library_supplier_data_table(Txt_search_supplier.Text)
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_author_data_table()
+            Load_library_author_data_table(Txt_search_author.Text)
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_category_data_table(Txt_search_category.Text)
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_penalty_data_table()
+            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -1059,68 +970,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_student_info_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_student_info_search.TextChanged
 
-        Try
-
-            con.Open
-
-            sql = "SELECT * FROM tbl_borrower
-                            WHERE borrower_id LIKE '%" & Txt_student_info_search.Text & "%' OR
-                                    last_name LIKE '%" & Txt_student_info_search.Text & "%' OR
-                                    first_name LIKE '%" & Txt_student_info_search.Text & "%' OR
-                                    middle_name LIKE '%" & Txt_student_info_search.Text & "%' OR
-                                    gender = '" & Txt_student_info_search.Text & "' OR
-                                    borrower_contact_no LIKE '%" & Txt_student_info_search.Text & "%' OR
-                                    borrower_address LIKE '%" & Txt_student_info_search.Text & "%'
-                            ORDER BY last_name ASC"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-            Lv_borrower_info.Items.Clear
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("borrower_id").ToString,
-                                            dr("last_name").ToString,
-                                            dr("first_name").ToString,
-                                            dr("middle_name").ToString,
-                                            dr("category_type").ToString,
-                                            dr("gender").ToString,
-                                            dr("borrower_contact_no").ToString,
-                                            dr("email").ToString,
-                                            dr("borrower_address").ToString,
-                                            dr("primary_borrower_id").ToString})
-                Lv_borrower_info.Items.Add(lv)
-
-            Loop
-
-            con.Close
-
-            For i = 0 To Lv_borrower_info.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_borrower_info.Items(i).BackColor = Color.Azure
-                    Lv_borrower_info.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_borrower_info.Items(i).BackColor = Color.GhostWhite
-                    Lv_borrower_info.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close
-            End If
-
-        End Try
+        Load_borrower_info_data_table(Txt_student_info_search.Text)
 
     End Sub
 
@@ -1234,14 +1084,14 @@ Public Class Fm_home_page
 
                     con.Close
 
-                    Load_borrower_info_data_table
+                    Load_borrower_info_data_table(Txt_student_info_search.Text)
                     MessageBox.Show(student_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
                     con.Close
 
-                    Load_borrower_info_data_table
+                    Load_borrower_info_data_table(Txt_student_info_search.Text)
 
                 End If
 
@@ -1292,35 +1142,35 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Load_listed_books_data_table
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
 
-            Load_returned_borrowed_books_data_table
+            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
         ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_penalty_report_data_table
+            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Load_listed_accounts_data_table
+            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_library_supplier_data_table
+            Load_library_supplier_data_table(Txt_search_supplier.Text)
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_author_data_table
+            Load_library_author_data_table(Txt_search_author.Text)
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table
+            Load_library_category_data_table(Txt_search_category.Text)
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_penalty_data_table
+            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -1335,86 +1185,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_search_penalty_report_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_penalty_report.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT   tbl_borrower.borrower_id,
-                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) AS full_name,
-                            tbl_books.book_name,
-                            tbl_library_penalty.penalty_description,
-                            tbl_library_penalty.amount,
-                            tbl_penalty_report.penalty_date,
-                            tbl_borrower.primary_borrower_id,
-                            tbl_books.primary_book_id,
-                            tbl_penalty_report.primary_penalty_description_id,
-                            tbl_penalty_report.primary_penalty_id
-
-                    FROM tbl_penalty_report
-
-                    INNER JOIN tbl_borrower ON tbl_penalty_report.primary_borrower_id = tbl_borrower.primary_borrower_id
-                    INNER JOIN tbl_books ON tbl_penalty_report.primary_book_id = tbl_books.primary_book_id
-                    INNER JOIN tbl_library_penalty ON tbl_penalty_report.primary_penalty_description_id = tbl_library_penalty.primary_penalty_description_id
-
-                    WHERE   borrower_id LIKE '%" & Txt_search_penalty_report.Text & "%' OR
-                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) LIKE '%" & Txt_search_penalty_report.Text & "%' OR
-                            book_name LIKE '%" & Txt_search_penalty_report.Text & "%' OR                            
-                            penalty_description LIKE '%" & Txt_search_penalty_report.Text & "%' OR
-                            amount LIKE '%" & Txt_search_penalty_report.Text & "%' OR
-                            penalty_date LIKE '%" & Txt_search_penalty_report.Text & "%'
-
-                    ORDER BY primary_penalty_id DESC"
-
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-
-            Lv_penalty.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("borrower_id").ToString(),
-                                            dr("full_name").ToString(),
-                                            dr("book_name").ToString(),
-                                            dr("penalty_description").ToString(),
-                                            dr("amount").ToString(),
-                                            dr("penalty_date").ToString(),
-                                            dr("primary_borrower_id").ToString(),
-                                            dr("primary_book_id").ToString(),
-                                            dr("primary_penalty_description_id").ToString(),
-                                            dr("primary_penalty_id").ToString()})
-                Lv_penalty.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i As Integer = 0 To Lv_penalty.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_penalty.Items(i).BackColor = Color.Azure
-                    Lv_penalty.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_penalty.Items(i).BackColor = Color.GhostWhite
-                    Lv_penalty.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
     End Sub
 
@@ -1486,14 +1257,14 @@ Public Class Fm_home_page
 
                     con.Close()
 
-                    Load_penalty_report_data_table()
+                    Load_penalty_report_data_table(Txt_search_penalty_report.Text)
                     MessageBox.Show("Penalty deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
                     con.Close()
 
-                    Load_penalty_report_data_table()
+                    Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
                 End If
 
@@ -1544,35 +1315,35 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Load_listed_books_data_table()
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
 
-            Load_returned_borrowed_books_data_table()
+            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
         ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Load_borrower_info_data_table()
+            Load_borrower_info_data_table(Txt_student_info_search.Text)
 
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Load_listed_accounts_data_table()
+            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_library_supplier_data_table()
+            Load_library_supplier_data_table(Txt_search_supplier.Text)
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_author_data_table()
+            Load_library_author_data_table(Txt_search_author.Text)
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_category_data_table(Txt_search_category.Text)
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_penalty_data_table()
+            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -1619,72 +1390,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_listed_accounts_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_listed_accounts_search.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_admin
-                            WHERE first_name LIKE '%" & Txt_listed_accounts_search.Text & "%' OR
-                                    middle_name LIKE '%" & Txt_listed_accounts_search.Text & "%' OR
-                                    last_name LIKE '%" & Txt_listed_accounts_search.Text & "%' OR
-                                    gender = '" & Txt_listed_accounts_search.Text & "' OR
-                                    birthday LIKE '%" & Txt_listed_accounts_search.Text & "%' OR
-                                    contact_no Like '%" & Txt_listed_accounts_search.Text & "%' OR
-                                    address Like '%" & Txt_listed_accounts_search.Text & "%' OR
-                                    username Like '%" & Txt_listed_accounts_search.Text & "%' OR
-                                    email Like '%" & Txt_listed_accounts_search.Text & "%' OR
-                                    user_type Like '%" & Txt_listed_accounts_search.Text & "%'"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-            Lv_listed_accounts.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("first_name").ToString(),
-                                            dr("middle_name").ToString(),
-                                            dr("last_name").ToString(),
-                                            dr("gender").ToString(),
-                                            dr("birthday").ToString(),
-                                            dr("contact_no").ToString(),
-                                            dr("address").ToString(),
-                                            dr("username").ToString(),
-                                            dr("email").ToString(),
-                                            dr("user_type").ToString(),
-                                            dr("password").ToString(),
-                                            dr("primary_admin_id").ToString()})
-                Lv_listed_accounts.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i As Integer = 0 To Lv_listed_accounts.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_listed_accounts.Items(i).BackColor = Color.Azure
-                    Lv_listed_accounts.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_listed_accounts.Items(i).BackColor = Color.GhostWhite
-                    Lv_listed_accounts.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
     End Sub
 
@@ -1800,7 +1506,7 @@ Public Class Fm_home_page
 
                     con.Close()
 
-                    Load_listed_accounts_data_table()
+                    Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
                     MessageBox.Show(full_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
@@ -1820,7 +1526,7 @@ Public Class Fm_home_page
 
                 con.Close()
 
-                Load_listed_accounts_data_table()
+                Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
             End If
 
@@ -1859,35 +1565,35 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Load_listed_books_data_table()
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
 
-            Load_returned_borrowed_books_data_table()
+            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
         ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Load_borrower_info_data_table()
+            Load_borrower_info_data_table(Txt_student_info_search.Text)
 
         ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_penalty_report_data_table()
+            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_library_supplier_data_table()
+            Load_library_supplier_data_table(Txt_search_supplier.Text)
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_author_data_table()
+            Load_library_author_data_table(Txt_search_author.Text)
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_category_data_table(Txt_search_category.Text)
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_penalty_data_table()
+            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -1934,69 +1640,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_search_supplier_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_supplier.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_supplier
-                            WHERE supplier_id LIKE '%" & Txt_search_supplier.Text & "%' OR
-                                  supplier_name LIKE '%" & Txt_search_supplier.Text & "%' OR
-                                  last_name LIKE '%" & Txt_search_supplier.Text & "%' OR
-                                  first_name LIKE '%" & Txt_search_supplier.Text & "%' OR
-                                  email_address LIKE '%" & Txt_search_supplier.Text & "%' OR
-                                  contact LIKE '%" & Txt_search_supplier.Text & "%' OR
-                                  address LIKE '%" & Txt_search_supplier.Text & "%' OR
-                                  source_type LIKE '%" & Txt_search_supplier.Text & "%'"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-
-            Lv_supplier.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("supplier_id").ToString,
-                                            dr("supplier_name").ToString,
-                                            dr("last_name").ToString + ", " + dr("first_name").ToString,
-                                            dr("email_address").ToString,
-                                            dr("contact").ToString,
-                                            dr("address").ToString,
-                                            dr("source_type").ToString,
-                                            dr("primary_supplier_id").ToString,
-                                            dr("first_name").ToString,
-                                            dr("last_name").ToString})
-                Lv_supplier.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i = 0 To Lv_supplier.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_supplier.Items(i).BackColor = Color.Azure
-                    Lv_supplier.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_supplier.Items(i).BackColor = Color.GhostWhite
-                    Lv_supplier.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_library_supplier_data_table(Txt_search_supplier.Text)
 
     End Sub
 
@@ -2099,14 +1743,14 @@ Public Class Fm_home_page
 
                     con.Close()
 
-                    Load_library_supplier_data_table()
+                    Load_library_supplier_data_table(Txt_search_supplier.Text)
                     MessageBox.Show(supplier_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
                     con.Close()
 
-                    Load_library_supplier_data_table()
+                    Load_library_supplier_data_table(Txt_search_supplier.Text)
 
                 End If
 
@@ -2157,35 +1801,35 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Load_listed_books_data_table()
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
 
-            Load_returned_borrowed_books_data_table()
+            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
         ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Load_borrower_info_data_table()
+            Load_borrower_info_data_table(Txt_student_info_search.Text)
 
         ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_penalty_report_data_table()
+            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Load_listed_accounts_data_table()
+            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_author_data_table()
+            Load_library_author_data_table(Txt_search_author.Text)
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_category_data_table(Txt_search_category.Text)
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_penalty_data_table()
+            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -2232,55 +1876,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_search_author_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_author.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_author
-                            WHERE author_name LIKE '%" & Txt_search_author.Text & "%'
-                            ORDER BY author_name ASC"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-
-            Lv_author.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("author_name").ToString(),
-                                            dr("primary_author_id").ToString()})
-                Lv_author.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i As Integer = 0 To Lv_author.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_author.Items(i).BackColor = Color.Azure
-                    Lv_author.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_author.Items(i).BackColor = Color.GhostWhite
-                    Lv_author.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_library_author_data_table(Txt_search_author.Text)
 
     End Sub
 
@@ -2376,13 +1972,13 @@ Public Class Fm_home_page
                     con.Close()
 
                     MessageBox.Show(author_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_category_data_table()
+                    Load_library_category_data_table(Txt_search_category.Text)
 
                 Else
 
                     con.Close()
 
-                    Load_library_category_data_table()
+                    Load_library_category_data_table(Txt_search_category.Text)
 
                 End If
 
@@ -2433,35 +2029,35 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Load_listed_books_data_table()
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
 
-            Load_returned_borrowed_books_data_table()
+            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
         ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Load_borrower_info_data_table()
+            Load_borrower_info_data_table(Txt_student_info_search.Text)
 
         ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_penalty_report_data_table()
+            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Load_listed_accounts_data_table()
+            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_library_supplier_data_table()
+            Load_library_supplier_data_table(Txt_search_supplier.Text)
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_category_data_table(Txt_search_category.Text)
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_penalty_data_table()
+            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -2508,55 +2104,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_category_description_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_category.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_category
-                            WHERE category_name LIKE '%" & Txt_search_category.Text & "%'
-                            ORDER BY category_name ASC"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-
-            Lv_category.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("category_name").ToString(),
-                                            dr("primary_category_id").ToString()})
-                Lv_category.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i As Integer = 0 To Lv_category.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_category.Items(i).BackColor = Color.Azure
-                    Lv_category.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_category.Items(i).BackColor = Color.GhostWhite
-                    Lv_category.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_library_category_data_table(Txt_search_category.Text)
 
     End Sub
 
@@ -2652,14 +2200,14 @@ Public Class Fm_home_page
                     con.Close()
 
                     MessageBox.Show(category_description + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_category_data_table()
+                    Load_library_category_data_table(Txt_search_category.Text)
                     Load_library_cb_category()
 
                 Else
 
                     con.Close()
 
-                    Load_library_category_data_table()
+                    Load_library_category_data_table(Txt_search_category.Text)
 
                 End If
 
@@ -2710,35 +2258,35 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Load_listed_books_data_table()
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
 
-            Load_returned_borrowed_books_data_table()
+            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
         ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Load_borrower_info_data_table()
+            Load_borrower_info_data_table(Txt_student_info_search.Text)
 
         ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_penalty_report_data_table()
+            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Load_listed_accounts_data_table()
+            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_library_supplier_data_table()
+            Load_library_supplier_data_table(Txt_search_supplier.Text)
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_author_data_table()
+            Load_library_author_data_table(Txt_search_author.Text)
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_penalty_data_table()
+            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -2785,55 +2333,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_search_penalty_description_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_penalty_description.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_penalty
-                            WHERE penalty_description LIKE '%" & Txt_search_penalty_description.Text & "%'
-                            ORDER BY penalty_description ASC"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-
-            Lv_penalty_description.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("penalty_description").ToString,
-                                            dr("primary_penalty_description_id").ToString})
-                Lv_penalty_description.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i = 0 To Lv_penalty_description.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_penalty_description.Items(i).BackColor = Color.Azure
-                    Lv_penalty_description.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_penalty_description.Items(i).BackColor = Color.GhostWhite
-                    Lv_penalty_description.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
     End Sub
 
@@ -2930,13 +2430,13 @@ Public Class Fm_home_page
                     con.Close()
 
                     MessageBox.Show(penalty_description + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_penalty_data_table()
+                    Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
                 Else
 
                     con.Close()
 
-                    Load_library_penalty_data_table()
+                    Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
                 End If
 
@@ -2987,35 +2487,35 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Load_listed_books_data_table()
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
 
-            Load_returned_borrowed_books_data_table()
+            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
         ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Load_borrower_info_data_table()
+            Load_borrower_info_data_table(Txt_student_info_search.Text)
 
         ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_penalty_report_data_table()
+            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Load_listed_accounts_data_table()
+            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_library_supplier_data_table()
+            Load_library_supplier_data_table(Txt_search_supplier.Text)
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_author_data_table()
+            Load_library_author_data_table(Txt_search_author.Text)
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_category_data_table(Txt_search_category.Text)
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
@@ -3264,39 +2764,39 @@ Public Class Fm_home_page
         'Remove items selection on the other listview
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Load_listed_books_data_table()
+            Load_listed_books_data_table(Txt_listed_books_search.Text)
 
         ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
 
-            Load_returned_borrowed_books_data_table()
+            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
 
         ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Load_borrower_info_data_table()
+            Load_borrower_info_data_table(Txt_student_info_search.Text)
 
         ElseIf Lv_penalty.SelectedItems.Count > 0 Then
 
-            Load_penalty_report_data_table()
+            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
 
         ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Load_listed_accounts_data_table()
+            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
         ElseIf Lv_supplier.SelectedItems.Count > 0 Then
 
-            Load_library_supplier_data_table()
+            Load_library_supplier_data_table(Txt_search_supplier.Text)
 
         ElseIf Lv_author.SelectedItems.Count > 0 Then
 
-            Load_library_author_data_table()
+            Load_library_author_data_table(Txt_search_author.Text)
 
         ElseIf Lv_category.SelectedItems.Count > 0 Then
 
-            Load_library_category_data_table()
+            Load_library_category_data_table(Txt_search_category.Text)
 
         ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Load_library_penalty_data_table()
+            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
         End If
 

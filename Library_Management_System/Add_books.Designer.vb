@@ -56,7 +56,7 @@ Partial Class Fm_add_books
         ' 
         Txt_publisher.BorderStyle = BorderStyle.None
         Txt_publisher.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_publisher.Location = New Point(162, 222)
+        Txt_publisher.Location = New Point(162, 230)
         Txt_publisher.Multiline = True
         Txt_publisher.Name = "Txt_publisher"
         Txt_publisher.PlaceholderText = "Pubisher"
@@ -90,9 +90,9 @@ Partial Class Fm_add_books
         Label3.Font = New Font("Georgia", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label3.Location = New Point(15, 58)
         Label3.Name = "Label3"
-        Label3.Size = New Size(42, 16)
+        Label3.Size = New Size(47, 16)
         Label3.TabIndex = 7
-        Label3.Text = "Title"
+        Label3.Text = "Title:"
         ' 
         ' Label4
         ' 
@@ -110,7 +110,7 @@ Partial Class Fm_add_books
         Label5.AutoSize = True
         Label5.BackColor = SystemColors.ControlLight
         Label5.Font = New Font("Georgia", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label5.Location = New Point(15, 223)
+        Label5.Location = New Point(15, 231)
         Label5.Name = "Label5"
         Label5.Size = New Size(85, 16)
         Label5.TabIndex = 9
@@ -130,7 +130,7 @@ Partial Class Fm_add_books
         ' Btn_exit
         ' 
         Btn_exit.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_exit.Location = New Point(284, 274)
+        Btn_exit.Location = New Point(284, 282)
         Btn_exit.Name = "Btn_exit"
         Btn_exit.Size = New Size(129, 40)
         Btn_exit.TabIndex = 8
@@ -140,7 +140,7 @@ Partial Class Fm_add_books
         ' Btn_update
         ' 
         Btn_update.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_update.Location = New Point(4, 273)
+        Btn_update.Location = New Point(6, 281)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(129, 40)
         Btn_update.TabIndex = 0
@@ -160,7 +160,7 @@ Partial Class Fm_add_books
         ' Cb_publisher
         ' 
         Cb_publisher.FormattingEnabled = True
-        Cb_publisher.Location = New Point(160, 219)
+        Cb_publisher.Location = New Point(160, 227)
         Cb_publisher.Name = "Cb_publisher"
         Cb_publisher.Size = New Size(232, 23)
         Cb_publisher.TabIndex = 0
@@ -172,9 +172,9 @@ Partial Class Fm_add_books
         Label1.Font = New Font("Georgia", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.Location = New Point(15, 102)
         Label1.Name = "Label1"
-        Label1.Size = New Size(51, 16)
+        Label1.Size = New Size(56, 16)
         Label1.TabIndex = 18
-        Label1.Text = "Genre"
+        Label1.Text = "Genre:"
         ' 
         ' Cb_book_category
         ' 
@@ -197,7 +197,7 @@ Partial Class Fm_add_books
         ' 
         ' Txt_primary_publisher_id
         ' 
-        Txt_primary_publisher_id.Location = New Point(429, 219)
+        Txt_primary_publisher_id.Location = New Point(429, 227)
         Txt_primary_publisher_id.Name = "Txt_primary_publisher_id"
         Txt_primary_publisher_id.PlaceholderText = "Primary Publisher ID"
         Txt_primary_publisher_id.Size = New Size(120, 23)
@@ -275,7 +275,7 @@ Partial Class Fm_add_books
         Lbl_error_msg_4.AutoSize = True
         Lbl_error_msg_4.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_4.ForeColor = Color.Red
-        Lbl_error_msg_4.Location = New Point(160, 245)
+        Lbl_error_msg_4.Location = New Point(160, 253)
         Lbl_error_msg_4.Name = "Lbl_error_msg_4"
         Lbl_error_msg_4.Size = New Size(93, 15)
         Lbl_error_msg_4.TabIndex = 39
@@ -307,7 +307,7 @@ Partial Class Fm_add_books
         ' 
         Btn_add_publisher.BackColor = Color.Tan
         Btn_add_publisher.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
-        Btn_add_publisher.Location = New Point(398, 218)
+        Btn_add_publisher.Location = New Point(398, 226)
         Btn_add_publisher.Name = "Btn_add_publisher"
         Btn_add_publisher.Size = New Size(25, 25)
         Btn_add_publisher.TabIndex = 45
@@ -341,7 +341,7 @@ Partial Class Fm_add_books
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(560, 329)
+        ClientSize = New Size(553, 330)
         ControlBox = False
         Controls.Add(Lbl_error_msg_2)
         Controls.Add(Lbl_error_msg)

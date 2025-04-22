@@ -168,8 +168,8 @@ Public Class Fm_add_borrower
 
                         con.Close()
 
-                        Load_borrower_info_data_table()
                         MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
 
                         SendBorrowerEmail(
                             Txt_borrower_id_number.Text,
@@ -308,10 +308,8 @@ Public Class Fm_add_borrower
 
                         con.Close()
 
-                        Load_borrower_info_data_table()
-                        Load_returned_borrowed_books_data_table()
-                        Load_penalty_report_data_table()
                         MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
 
                         If id_numnber <> Txt_borrower_id_number.Text Then
 
@@ -355,7 +353,7 @@ Public Class Fm_add_borrower
 
     Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
 
-        Load_borrower_info_data_table()
+        Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
         Fm_home_page.Enabled = True
         Me.Close()
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2025 at 03:39 AM
+-- Generation Time: Apr 22, 2025 at 12:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -117,7 +117,8 @@ INSERT INTO `tbl_borrower` (`primary_borrower_id`, `borrower_id`, `last_name`, `
 --
 
 CREATE TABLE `tbl_delivery` (
-  `delivery_id` int(10) NOT NULL,
+  `primary_delivery_id` int(10) NOT NULL,
+  `transaction_number` varchar(100) DEFAULT NULL,
   `isbn` varchar(100) DEFAULT NULL,
   `quantity` varchar(10) DEFAULT NULL,
   `from_location` varchar(100) DEFAULT NULL,
@@ -173,8 +174,8 @@ CREATE TABLE `tbl_library_author` (
 INSERT INTO `tbl_library_author` (`primary_author_id`, `author_name`) VALUES
 (1, 'DR. JOSE P. RIZAL'),
 (2, 'WILLIAM SHAKESPEARE'),
-(6, 'JOSE'),
-(19, 'ASD');
+(6, 'JUAN DELA CRUZ'),
+(19, 'EMILIO JACINTO');
 
 -- --------------------------------------------------------
 
@@ -194,7 +195,7 @@ CREATE TABLE `tbl_library_category` (
 INSERT INTO `tbl_library_category` (`primary_category_id`, `category_name`) VALUES
 (1, 'ROMANCE'),
 (2, 'FANSTASY'),
-(16, 'MAMA MO');
+(16, 'HORROR');
 
 -- --------------------------------------------------------
 
@@ -235,13 +236,9 @@ CREATE TABLE `tbl_library_publisher` (
 --
 
 INSERT INTO `tbl_library_publisher` (`primary_publisher_id`, `publisher_name`) VALUES
-(1, 'Zarah Dela Cruz'),
-(2, 'ALEXANDRA'),
-(3, 'FATIMA '),
-(4, 'FGHFGH'),
-(5, 'SDFSDF'),
-(8, 'JHKHK'),
-(12, 'SFGF');
+(1, 'ZARAH DELA CRUZ'),
+(2, 'ALEXANDRA SANTOS'),
+(3, 'FATIMA GALVEZ');
 
 -- --------------------------------------------------------
 
@@ -351,7 +348,7 @@ ALTER TABLE `tbl_borrower`
 -- Indexes for table `tbl_delivery`
 --
 ALTER TABLE `tbl_delivery`
-  ADD PRIMARY KEY (`delivery_id`);
+  ADD PRIMARY KEY (`primary_delivery_id`);
 
 --
 -- Indexes for table `tbl_issued_books`
@@ -432,7 +429,7 @@ ALTER TABLE `tbl_borrower`
 -- AUTO_INCREMENT for table `tbl_delivery`
 --
 ALTER TABLE `tbl_delivery`
-  MODIFY `delivery_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `primary_delivery_id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_issued_books`

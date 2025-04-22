@@ -197,9 +197,8 @@ Public Class Fm_add_penalty
 
                     con.Close()
 
-                    Load_penalty_report_data_table()
                     MessageBox.Show("Penalty for " + penalty_name + " added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+                    Load_penalty_report_data_table(Fm_home_page.Txt_search_penalty_report.Text)
                     Fm_returned_books.Enabled = True
                     Me.Close()
 
@@ -282,8 +281,8 @@ Public Class Fm_add_penalty
                 con.Close()
 
                 MessageBox.Show("Penalty for " + Txt_borrower_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Load_penalty_report_data_table(Fm_home_page.Txt_search_penalty_report.Text)
                 Fm_home_page.Enabled = True
-                Load_penalty_report_data_table()
                 Me.Close()
 
             Catch ex As Exception
@@ -313,7 +312,7 @@ Public Class Fm_add_penalty
         Else
 
             Fm_home_page.Enabled = True
-            Load_penalty_report_data_table() '-> To item selection On the listview
+            Load_penalty_report_data_table(Fm_home_page.Txt_search_penalty_report.Text) '-> To item selection On the listview
             Me.Close()
 
         End If

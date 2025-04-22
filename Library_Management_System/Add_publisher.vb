@@ -44,7 +44,6 @@ Public Class Fm_publisher
                         con.Close()
 
                         MessageBox.Show("Publisher added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_library_publisher_data_table()
                         Load_library_cb_publisher()
                         Fm_add_books.Enabled = True
                         Fm_add_books.Txt_publisher.Text = Txt_publisher_name.Text

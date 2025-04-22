@@ -44,7 +44,7 @@ Public Class Fm_add_category
                         con.Close()
 
                         MessageBox.Show("Genre added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_library_category_data_table()
+                        Load_library_category_data_table(Fm_home_page.Txt_search_category.Text)
                         Load_library_cb_category()
                         Fm_add_books.Enabled = True
                         Fm_add_books.Cb_book_category.Text = Txt_category_name.Text
@@ -100,7 +100,7 @@ Public Class Fm_add_category
                         con.Close()
 
                         MessageBox.Show("Genre added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_library_category_data_table()
+                        Load_library_category_data_table(Fm_home_page.Txt_search_category.Text)
                         Load_library_cb_category()
                         Fm_home_page.Enabled = True
                         Me.Close()
@@ -159,7 +159,7 @@ Public Class Fm_add_category
 
                     'returned previous Category Name
                     sql = "UPDATE tbl_library_category SET 
-                                  category_name = '" & Fm_home_page.Lv_category.SelectedItems(0).Text & "'                                       
+                                  category_name = '" & Fm_home_page.Lv_category.SelectedItems(0).Text & "'
                            WHERE primary_category_id = '" & Fm_home_page.Lv_category.SelectedItems(0).SubItems(1).Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
@@ -180,7 +180,7 @@ Public Class Fm_add_category
                     con.Close()
 
                     MessageBox.Show("Genre updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_category_data_table()
+                    Load_library_category_data_table(Fm_home_page.Txt_search_category.Text)
                     Load_library_cb_category()
                     Fm_home_page.Enabled = True
                     Me.Close()
@@ -213,7 +213,7 @@ Public Class Fm_add_category
         Else
 
             Fm_home_page.Enabled = True
-            Load_library_category_data_table() '-> To item selection On the listview
+            Load_library_category_data_table(Fm_home_page.Txt_search_category.Text) '-> To item selection On the listview
             Me.Close()
 
         End If

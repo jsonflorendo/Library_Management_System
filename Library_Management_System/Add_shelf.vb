@@ -71,8 +71,8 @@ Public Class Fm_add_shelf
                     con.Close()
 
                     MessageBox.Show("Shelf added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Fm_home_page.Enabled = True
                     Load_shelf_data_table()
+                    Fm_home_page.Enabled = True
                     Me.Close()
 
                 End If
@@ -169,8 +169,8 @@ Public Class Fm_add_shelf
                     con.Close()
 
                     MessageBox.Show("Shelf updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Fm_home_page.Enabled = True
                     Load_shelf_data_table()
+                    Fm_home_page.Enabled = True
                     Me.Close()
 
                 End If

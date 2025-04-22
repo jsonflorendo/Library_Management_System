@@ -91,8 +91,7 @@ Public Class Fm_returned_books
                             con.Close()
 
                             Txt_isbn.Clear()
-                            Load_listed_books_data_table()
-                            Load_returned_borrowed_books_data_table()
+                            Load_returned_borrowed_books_data_table(Fm_home_page.Txt_returned_borrowed_books_search.Text)
 
                         Else
 
@@ -105,8 +104,7 @@ Public Class Fm_returned_books
                             con.Close()
 
                             Txt_isbn.Clear()
-                            Load_listed_books_data_table()
-                            Load_returned_borrowed_books_data_table()
+                            Load_returned_borrowed_books_data_table(Fm_home_page.Txt_returned_borrowed_books_search.Text)
 
                         End If
 
@@ -201,20 +199,16 @@ Public Class Fm_returned_books
     Private Sub Txt_issued_to_TextChanged(sender As Object, e As EventArgs) Handles Txt_issued_to.TextChanged
 
         If Txt_issued_to.Text = "" Then
-
             Txt_isbn.Enabled = False
-
         Else
-
             Txt_isbn.Enabled = True
-
         End If
 
     End Sub
 
     Private Sub Btn_close_Click(sender As Object, e As EventArgs) Handles Btn_close.Click
 
-        Load_returned_borrowed_books_data_table()
+        Load_returned_borrowed_books_data_table(Fm_home_page.Txt_returned_borrowed_books_search.Text)
         Fm_home_page.Enabled = True
         Me.Close()
 

@@ -117,24 +117,24 @@ Public Class Fm_admin_registration
                                                         password,
                                                         user_type)
                                         VALUE ('" & Txt_firstname.Text & "',
-                                        '" & Txt_middlename.Text & "',
-                                        '" & Txt_lastname.Text & "',
-                                        '" & Gender & "',
-                                        '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
-                                        '" & Txt_contact.Text & "',
-                                        '" & Txt_address.Text & "',
-                                        '" & Txt_username.Text & "',
-                                        '" & Txt_email.Text & "',
-                                        '" & Txt_password.Text & "',
-                                        '" & Cb_user_type.Text & "')"
+                                                '" & Txt_middlename.Text & "',
+                                                '" & Txt_lastname.Text & "',
+                                                '" & Gender & "',
+                                                '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
+                                                '" & Txt_contact.Text & "',
+                                                '" & Txt_address.Text & "',
+                                                '" & Txt_username.Text & "',
+                                                '" & Txt_email.Text & "',
+                                                '" & Txt_password.Text & "',
+                                                '" & Cb_user_type.Text & "')"
                         cmd = New MySqlCommand(sql, con)
                         cmd.ExecuteNonQuery()
 
                         con.Close()
 
-                        Fm_home_page.Enabled = True
-                        Load_listed_accounts_data_table()
                         MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " added successfully")
+                        Load_listed_accounts_data_table(Fm_home_page.Txt_listed_accounts_search.Text)
+                        Fm_home_page.Enabled = True
                         Me.Close()
 
                     End If
@@ -292,8 +292,8 @@ Public Class Fm_admin_registration
 
                         con.Close()
 
-                        Load_listed_accounts_data_table()
                         MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_listed_accounts_data_table(Fm_home_page.Txt_listed_accounts_search.Text)
                         Fm_home_page.Enabled = True
                         Me.Close()
 
@@ -320,7 +320,7 @@ Public Class Fm_admin_registration
     Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
         Fm_home_page.Enabled = True
-        Load_listed_accounts_data_table() '-> To item selection On the listview
+        Load_listed_accounts_data_table(Fm_home_page.Txt_listed_accounts_search.Text) '-> To item selection On the listview
         Me.Close()
 
     End Sub

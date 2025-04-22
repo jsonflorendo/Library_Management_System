@@ -116,7 +116,7 @@ Partial Class Fm_home_page
         P_navigation = New Panel()
         GroupBox4 = New GroupBox()
         GroupBox3 = New GroupBox()
-        Button3 = New Button()
+        Btn_book_inventory = New Button()
         Btn_shelf = New Button()
         GroupBox2 = New GroupBox()
         Btn_delivery = New Button()
@@ -997,7 +997,7 @@ Partial Class Fm_home_page
         ' 
         ' GroupBox3
         ' 
-        GroupBox3.Controls.Add(Button3)
+        GroupBox3.Controls.Add(Btn_book_inventory)
         GroupBox3.Controls.Add(Btn_shelf)
         GroupBox3.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox3.Location = New Point(8, 520)
@@ -1007,17 +1007,17 @@ Partial Class Fm_home_page
         GroupBox3.TabStop = False
         GroupBox3.Text = "Inventory Maintenance"
         ' 
-        ' Button3
+        ' Btn_book_inventory
         ' 
-        Button3.BackColor = Color.Sienna
-        Button3.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button3.ForeColor = SystemColors.ControlLight
-        Button3.Location = New Point(5, 64)
-        Button3.Name = "Button3"
-        Button3.Size = New Size(260, 30)
-        Button3.TabIndex = 24
-        Button3.Text = "Book Inventory"
-        Button3.UseVisualStyleBackColor = False
+        Btn_book_inventory.BackColor = Color.Sienna
+        Btn_book_inventory.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Btn_book_inventory.ForeColor = SystemColors.ControlLight
+        Btn_book_inventory.Location = New Point(5, 64)
+        Btn_book_inventory.Name = "Btn_book_inventory"
+        Btn_book_inventory.Size = New Size(260, 30)
+        Btn_book_inventory.TabIndex = 24
+        Btn_book_inventory.Text = "Book Inventory"
+        Btn_book_inventory.UseVisualStyleBackColor = False
         ' 
         ' Btn_shelf
         ' 
@@ -1819,18 +1819,18 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
-        Controls.Add(Panel1_Books)
-        Controls.Add(Panel13_Delivery)
-        Controls.Add(Panel12_Shelf)
-        Controls.Add(Panel8_Penalty_Report)
-        Controls.Add(Panel6_Supplier)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
+        Controls.Add(Panel6_Supplier)
         Controls.Add(Panel4_User_Acounts)
         Controls.Add(Panel3_Borrower_Info)
+        Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel2_Returned_Issued_Books)
+        Controls.Add(Panel1_Books)
+        Controls.Add(Panel13_Delivery)
+        Controls.Add(Panel14_Book_Inventory)
+        Controls.Add(Panel12_Shelf)
         Controls.Add(Lbl_date_time)
         Controls.Add(P_navigation)
-        Controls.Add(Panel14_Book_Inventory)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         MaximumSize = New Size(1920, 1042)
@@ -2006,7 +2006,7 @@ Partial Class Fm_home_page
     Friend WithEvents Btn_shelf As Button
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents Btn_delivery As Button
-    Friend WithEvents Button3 As Button
+    Friend WithEvents Btn_book_inventory As Button
     Friend WithEvents Panel12_Shelf As Panel
     Friend WithEvents Btn_shelf_edit As Button
     Friend WithEvents Txt_search_shelf As RoundCornerTextbox

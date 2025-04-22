@@ -22,26 +22,308 @@ Public Class Fm_add_books
         Dim tooltip_add_publisher As New ToolTip()
         tooltip_add_publisher.SetToolTip(Btn_add_publisher, "Add Publisher")
 
+        save_Txt_isbn.Enabled = False
+
+    End Sub
+
+    Private Sub Fm_add_books_MouseHover(sender As Object, e As EventArgs) Handles Me.MouseHover
+
+        If Txt_book_name.Text = "" Or Cb_book_category.Text = "-Select Genre-" Or Txt_author.Text = "" Or Txt_publisher.Text = "" Then
+            save_Txt_isbn.Enabled = False
+        Else
+            save_Txt_isbn.Enabled = True
+        End If
+
+    End Sub
+
+    Private Sub save_Txt_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles save_Txt_isbn.KeyPress
+
+        Clear_error_msg()
+
+        If e.KeyChar = ChrW(13) Then
+
+            If save_Txt_isbn.Text = "" Or
+                Txt_book_name.Text = "" Or
+                Cb_book_category.Text = "-Select Genre-" Or
+                Txt_author.Text = "" Or
+                Txt_publisher.Text = "" Then
+
+                ' Store TextBoxes and their corresponding Labels
+                Dim textBoxes As TextBox() = {save_Txt_isbn, Txt_book_name, Txt_author, Txt_publisher}
+                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_3, Lbl_error_msg_4}
+
+                ' Loop through each TextBox and validate
+                For i As Integer = 0 To textBoxes.Length - 1
+                    If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                        labels(i).Text = "This field is required"
+                    End If
+                Next
+
+                ' Validate the ComboBox (Dropdown)
+                If Cb_book_category.SelectedIndex = -1 Then
+                    Lbl_error_msg_2.Text = "This field is required"
+                End If
+
+            ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_publisher_id.Text = "" Then
+
+                If Txt_primary_author_id.Text = "" Then
+                    Lbl_error_msg_3.Text = "Invalid Author Name"
+                End If
+
+                If Txt_primary_author_id.Text = "" Then
+                    Lbl_error_msg_4.Text = "Invalid Publisher Name"
+                End If
+
+            Else
+
+                Try
+
+                    con.Open()
+
+                    sql = "SELECT * FROM tbl_books
+                                    WHERE isbn = '" & save_Txt_isbn.Text & "' AND book_name = '" & Txt_book_name.Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader()
+
+                    If dr.Read Then
+
+                        con.Close()
+
+                        Lbl_error_msg.Text = "ISBN already exists"
+                        Lbl_error_msg_1.Text = "Book name already exists"
+
+                    Else
+
+                        sql = "INSERT INTO tbl_books (isbn,
+                                                        book_name,
+                                                        primary_category_id,
+                                                        primary_author_id,
+                                                        primary_publisher_id,
+                                                        publish_year)
+                                        VALUE ('" & save_Txt_isbn.Text & "',
+                                                '" & Txt_book_name.Text & "',
+                                                '" & Txt_primary_category_id.Text & "',                                            
+                                                '" & Txt_primary_author_id.Text & "',
+                                                '" & Txt_primary_publisher_id.Text & "',
+                                                '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "')"
+                        cmd = New MySqlCommand(sql, con)
+                        cmd.ExecuteNonQuery()
+
+                        con.Close()
+
+                        MessageBox.Show(Txt_book_name.Text + " added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
+                        Fm_home_page.Enabled = True
+                        Me.Close()
+
+                    End If
+
+                Catch ex As Exception
+
+                    MsgBox("Error: " & ex.Message)
+
+                Finally
+
+                    If con.State = ConnectionState.Open Then
+                        con.Close()
+                    End If
+
+                End Try
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub Load_update_books_function()
+
+        If update_Txt_isbn.Text = "" Or
+               Txt_book_name.Text = "" Or
+               Cb_book_category.Text = "-Select Genre-" Or
+               Txt_author.Text = "" Or
+               Txt_publisher.Text = "" Then
+
+            ' Store TextBoxes and their corresponding Labels
+            Dim textBoxes As TextBox() = {update_Txt_isbn, Txt_book_name, Txt_author, Txt_publisher}
+            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_3, Lbl_error_msg_4}
+
+            ' Loop through each TextBox and validate
+            For i As Integer = 0 To textBoxes.Length - 1
+                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
+                    labels(i).Text = "This field is required"
+                End If
+            Next
+
+            ' Validate the ComboBox (Dropdown)
+            If Cb_book_category.SelectedIndex = -1 Then
+                Lbl_error_msg_2.Text = "This field is required"
+            End If
+
+        ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_publisher_id.Text = "" Then
+
+            If Txt_primary_author_id.Text = "" Then
+                Lbl_error_msg_3.Text = "Invalid Author Name"
+            End If
+
+            If Txt_primary_author_id.Text = "" Then
+                Lbl_error_msg_4.Text = "Invalid Publisher Name"
+            End If
+
+        Else
+
+            Try
+
+                con.Open()
+
+                'to make sure ISBN and Book Name are not exists while in update process
+                sql = "UPDATE tbl_books SET 
+                                  isbn = '" & "" & "',
+                                  book_name = '" & "" & "'
+                           WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader
+                dr.Close()
+                '---------------------------------
+
+                sql = "SELECT * FROM tbl_books
+                                WHERE isbn = '" & update_Txt_isbn.Text & "'"
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader
+
+                If dr.Read Then
+
+                    dr.Close()
+
+                    Lbl_error_msg.Text = "ISBN already exists"
+                    Lbl_error_msg_1.Text = "Book name already exists"
+
+                    'returned previous ISBN and Book Name
+                    sql = "UPDATE tbl_books SET 
+                                  isbn = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).Text & "',
+                                  book_name = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(1).Text & "'
+                           WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
+                    con.Close()
+                    '---------------------------------
+
+                Else
+
+                    dr.Close()
+
+                    sql = "UPDATE tbl_books SET
+                                    isbn = '" & update_Txt_isbn.Text & "',
+                                    book_name = '" & Txt_book_name.Text & "',
+                                    primary_category_id = '" & Txt_primary_category_id.Text & "',
+                                    primary_author_id = '" & Txt_primary_author_id.Text & "',
+                                    primary_publisher_id = '" & Txt_primary_publisher_id.Text & "',
+                                    publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "'
+                            WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
+
+                    con.Close()
+
+                    MessageBox.Show(Txt_book_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
+                    Fm_home_page.Enabled = True
+                    Me.Close()
+
+                End If
+
+            Catch ex As Exception
+
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
+
+    End Sub
+
+    Private Sub update_Txt_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles update_Txt_isbn.KeyPress
+
+        Clear_error_msg()
+
+        If e.KeyChar = ChrW(13) Then
+
+            Load_update_books_function()
+
+        End If
+
+    End Sub
+
+    Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
+
+        Clear_error_msg()
+
+        Load_update_books_function()
+
+    End Sub
+
+    Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
+
+        Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
+        Fm_home_page.Enabled = True
+        Me.Close()
+
+    End Sub
+
+    Private Sub Cb_book_category_Click(sender As Object, e As EventArgs) Handles Cb_book_category.Click
+
+        Cb_book_category.DroppedDown = True
+
+    End Sub
+
+    Private Sub Txt_author_Click(sender As Object, e As EventArgs) Handles Txt_author.Click
+
+        Cb_author.DroppedDown = True
+
+    End Sub
+
+    Private Sub Txt_publisher_Click(sender As Object, e As EventArgs) Handles Txt_publisher.Click
+
+        Cb_publisher.DroppedDown = True
+
+    End Sub
+
+    Private Sub Cb_author_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_author.SelectedIndexChanged
+
+        Txt_author.Text = Cb_author.Text
+
+    End Sub
+
+    Private Sub Cb_publisher_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_publisher.SelectedIndexChanged
+
+        Txt_publisher.Text = Cb_publisher.Text
+
+    End Sub
+
+    Private Sub Cb_book_category_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cb_book_category.KeyPress
+
+        'No input alphanumeric
+        e.Handled = True
+
     End Sub
 
     Private Sub Cb_book_category_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_book_category.SelectedIndexChanged
 
         Try
 
-            'If Cb_book_category.Text = "-Select Category-" Then
-
-            '    Load_library_category_data_table()
-
-            'Else
-
             con.Open()
 
             sql = "SELECT * FROM tbl_library_category
-                            WHERE category_name = '" & Cb_book_category.SelectedItem & "'"
-            'GROUP BY author_name"
+                            WHERE category_name = '" & Cb_book_category.SelectedItem & "'
+                            ORDER BY category_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader
-            'Cb_book_category.Items.Clear()
 
             If dr.Read() Then
 
@@ -82,8 +364,8 @@ Public Class Fm_add_books
                 con.Open()
 
                 sql = "SELECT * FROM tbl_library_author
-                                WHERE author_name LIKE '%" & Txt_author.Text & "%'"
-                'GROUP BY author_name"
+                                WHERE author_name LIKE '%" & Txt_author.Text & "%'
+                                ORDER BY author_name ASC"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
                 Cb_author.Items.Clear()
@@ -133,8 +415,8 @@ Public Class Fm_add_books
                 con.Open()
 
                 sql = "SELECT * FROM tbl_library_publisher
-                                WHERE publisher_name LIKE '%" & Txt_publisher.Text & "%'"
-                'GROUP BY publisher_name"
+                                WHERE publisher_name LIKE '%" & Txt_publisher.Text & "%'
+                                ORDER BY publisher_name ASC"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
                 Cb_publisher.Items.Clear()
@@ -166,43 +448,6 @@ Public Class Fm_add_books
             End Try
 
         End If
-
-    End Sub
-
-    Private Sub Cb_book_category_Click(sender As Object, e As EventArgs) Handles Cb_book_category.Click
-
-        Cb_book_category.DroppedDown = True
-
-    End Sub
-
-    Private Sub Txt_author_Click(sender As Object, e As EventArgs) Handles Txt_author.Click
-
-        Cb_author.DroppedDown = True
-
-    End Sub
-
-    Private Sub Txt_publisher_Click(sender As Object, e As EventArgs) Handles Txt_publisher.Click
-
-        Cb_publisher.DroppedDown = True
-
-    End Sub
-
-    Private Sub Cb_author_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_author.SelectedIndexChanged
-
-        Txt_author.Text = Cb_author.Text
-
-    End Sub
-
-    Private Sub Cb_publisher_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_publisher.SelectedIndexChanged
-
-        Txt_publisher.Text = Cb_publisher.Text
-
-    End Sub
-
-    Private Sub Cb_book_category_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cb_book_category.KeyPress
-
-        'No input alphanumeric
-        e.Handled = True
 
     End Sub
 
@@ -302,251 +547,6 @@ Public Class Fm_add_books
 
     End Sub
 
-    Private Sub save_Txt_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles save_Txt_isbn.KeyPress
-
-        Clear_error_msg()
-
-        If e.KeyChar = ChrW(13) Then
-
-            If save_Txt_isbn.Text = "" Or
-                Txt_book_name.Text = "" Or
-                Cb_book_category.Text = "-Select Genre-" Or
-                Txt_author.Text = "" Or
-                Txt_publisher.Text = "" Then
-
-                ' Store TextBoxes and their corresponding Labels
-                Dim textBoxes As TextBox() = {save_Txt_isbn, Txt_book_name, Txt_author, Txt_publisher}
-                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_3, Lbl_error_msg_4}
-
-                ' Loop through each TextBox and validate
-                For i As Integer = 0 To textBoxes.Length - 1
-                    If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
-                        labels(i).Text = "This field is required"
-                    End If
-                Next
-
-                ' Validate the ComboBox (Dropdown)
-                If Cb_book_category.SelectedIndex = -1 Then
-                    Lbl_error_msg_2.Text = "This field is required"
-                End If
-
-            ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_publisher_id.Text = "" Then
-
-                If Txt_primary_author_id.Text = "" Then
-                    Lbl_error_msg_3.Text = "Invalid Author Name"
-                End If
-
-                If Txt_primary_author_id.Text = "" Then
-                    Lbl_error_msg_4.Text = "Invalid Publisher Name"
-                End If
-
-            Else
-
-                Try
-
-                    con.Open()
-
-                    sql = "INSERT INTO tbl_books (isbn,
-                                                    book_name,
-                                                    primary_category_id,
-                                                    primary_author_id,
-                                                    primary_publisher_id,
-                                                    publish_year)
-                                    VALUE ('" & save_Txt_isbn.Text & "',
-                                            '" & Txt_book_name.Text & "',
-                                            '" & Txt_primary_category_id.Text & "',                                            
-                                            '" & Txt_primary_author_id.Text & "',
-                                            '" & Txt_primary_publisher_id.Text & "',
-                                            '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "')"
-                    cmd = New MySqlCommand(sql, con)
-                    cmd.ExecuteNonQuery()
-
-                    con.Close()
-
-                    Load_listed_books_data_table()
-                    MessageBox.Show(Txt_book_name.Text + " added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Fm_home_page.Enabled = True
-                    Me.Close()
-
-                Catch ex As Exception
-
-                    MsgBox("Error: " & ex.Message)
-
-                Finally
-
-                    If con.State = ConnectionState.Open Then
-                        con.Close()
-                    End If
-
-                End Try
-
-            End If
-
-        End If
-
-    End Sub
-
-    Private Sub update_Txt_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles update_Txt_isbn.KeyPress
-
-        Clear_error_msg()
-
-        If e.KeyChar = ChrW(13) Then
-
-            If update_Txt_isbn.Text = "" Or
-               Txt_book_name.Text = "" Or
-               Cb_book_category.Text = "-Select Genre-" Or
-               Txt_author.Text = "" Or
-               Txt_publisher.Text = "" Then
-
-                ' Store TextBoxes and their corresponding Labels
-                Dim textBoxes As TextBox() = {update_Txt_isbn, Txt_book_name, Txt_author, Txt_publisher}
-                Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_3, Lbl_error_msg_4}
-
-                ' Loop through each TextBox and validate
-                For i As Integer = 0 To textBoxes.Length - 1
-                    If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
-                        labels(i).Text = "This field is required"
-                    End If
-                Next
-
-                ' Validate the ComboBox (Dropdown)
-                If Cb_book_category.SelectedIndex = -1 Then
-                    Lbl_error_msg_2.Text = "This field is required"
-                End If
-
-            ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_publisher_id.Text = "" Then
-
-                If Txt_primary_author_id.Text = "" Then
-                    Lbl_error_msg_3.Text = "Invalid Author Name"
-                End If
-
-                If Txt_primary_author_id.Text = "" Then
-                    Lbl_error_msg_4.Text = "Invalid Publisher Name"
-                End If
-
-            Else
-
-                Try
-
-                    con.Open()
-
-                    sql = "UPDATE tbl_books SET
-                                    isbn = '" & update_Txt_isbn.Text & "',
-                                    book_name = '" & Txt_book_name.Text & "',
-                                    primary_category_id = '" & Txt_primary_category_id.Text & "',
-                                    primary_author_id = '" & Txt_primary_author_id.Text & "',
-                                    primary_publisher_id = '" & Txt_primary_publisher_id.Text & "',
-                                    publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "'
-                            WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-
-                    con.Close()
-
-                    Load_listed_books_data_table()
-                    Load_returned_borrowed_books_data_table()
-                    Load_penalty_report_data_table()
-                    MessageBox.Show(Txt_book_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Fm_home_page.Enabled = True
-                    Me.Close()
-
-                Catch ex As Exception
-
-                    MsgBox("Error: " & ex.Message)
-
-                Finally
-
-                    If con.State = ConnectionState.Open Then
-                        con.Close()
-                    End If
-
-                End Try
-
-            End If
-
-        End If
-
-    End Sub
-
-    Private Sub Btn_update_Click(sender As Object, e As EventArgs) Handles Btn_update.Click
-
-        Clear_error_msg()
-
-        If update_Txt_isbn.Text = "" Or
-           Txt_book_name.Text = "" Or
-           Cb_book_category.Text = "-Select Genre-" Or
-           Txt_author.Text = "" Or
-           Txt_publisher.Text = "" Then
-
-            ' Store TextBoxes and their corresponding Labels
-            Dim textBoxes As TextBox() = {update_Txt_isbn, Txt_book_name, Txt_author, Txt_publisher}
-            Dim labels As Label() = {Lbl_error_msg, Lbl_error_msg_1, Lbl_error_msg_3, Lbl_error_msg_4}
-
-            ' Loop through each TextBox and validate
-            For i As Integer = 0 To textBoxes.Length - 1
-                If String.IsNullOrWhiteSpace(textBoxes(i).Text) Then
-                    labels(i).Text = "This field is required"
-                End If
-            Next
-
-            ' Validate the ComboBox (Dropdown)
-            If Cb_book_category.SelectedIndex = -1 Then
-                Lbl_error_msg_2.Text = "This field is required"
-            End If
-
-        ElseIf Txt_primary_author_id.Text = "" Or Txt_primary_publisher_id.Text = "" Then
-
-            If Txt_primary_author_id.Text = "" Then
-                Lbl_error_msg_3.Text = "Invalid Author Name"
-            End If
-
-            If Txt_primary_author_id.Text = "" Then
-                Lbl_error_msg_4.Text = "Invalid Publisher Name"
-            End If
-
-        Else
-
-            Try
-
-                con.Open()
-
-                sql = "UPDATE tbl_books SET
-                                isbn = '" & update_Txt_isbn.Text & "',
-                                book_name = '" & Txt_book_name.Text & "',
-                                primary_category_id = '" & Txt_primary_category_id.Text & "',
-                                primary_author_id = '" & Txt_primary_author_id.Text & "',
-                                primary_publisher_id = '" & Txt_primary_publisher_id.Text & "',
-                                publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "'
-                        WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-
-                con.Close()
-
-                Load_listed_books_data_table()
-
-                Load_returned_borrowed_books_data_table()
-                Load_penalty_report_data_table()
-                MessageBox.Show(Txt_book_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Fm_home_page.Enabled = True
-                Me.Close()
-
-            Catch ex As Exception
-
-                MsgBox("Error: " & ex.Message)
-
-            Finally
-
-                If con.State = ConnectionState.Open Then
-                    con.Close()
-                End If
-
-            End Try
-
-        End If
-
-    End Sub
-
     Public selectedButton As Button = Nothing ' Track the currently selected button
 
     Private Sub Btn_add_category_Click(sender As Object, e As EventArgs) Handles Btn_add_category.Click
@@ -636,14 +636,6 @@ Public Class Fm_add_books
         If btn IsNot selectedButton Then
             btn.BackColor = Color.Tan
         End If
-
-    End Sub
-
-    Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
-
-        Load_listed_books_data_table()
-        Fm_home_page.Enabled = True
-        Me.Close()
 
     End Sub
 

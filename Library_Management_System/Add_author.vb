@@ -44,7 +44,6 @@ Public Class Fm_add_author
                         con.Close()
 
                         MessageBox.Show("Author added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_library_author_data_table()
                         Load_library_cb_author()
                         Fm_add_books.Enabled = True
                         Fm_add_books.Txt_author.Text = Txt_author_name.Text
@@ -100,7 +99,7 @@ Public Class Fm_add_author
                         con.Close()
 
                         MessageBox.Show("Author added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_library_author_data_table()
+                        Load_library_author_data_table(Fm_home_page.Txt_search_author.Text)
                         Fm_home_page.Enabled = True
                         Me.Close()
 
@@ -179,7 +178,7 @@ Public Class Fm_add_author
                     con.Close()
 
                     MessageBox.Show("Author updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_author_data_table()
+                    Load_library_author_data_table(Fm_home_page.Txt_search_author.Text)
                     Fm_home_page.Enabled = True
                     Me.Close()
 
@@ -211,7 +210,7 @@ Public Class Fm_add_author
         Else
 
             Fm_home_page.Enabled = True
-            Load_library_author_data_table() '-> To item selection On the listview
+            Load_library_author_data_table(Fm_home_page.Txt_search_author.Text) '-> To item selection On the listview
             Me.Close()
 
         End If

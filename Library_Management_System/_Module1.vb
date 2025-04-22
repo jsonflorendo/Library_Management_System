@@ -267,7 +267,7 @@ Module Module1
 
     ' Load all Listviews
 
-    Public Sub Load_listed_books_data_table()
+    Public Sub Load_listed_books_data_table(listed_books_search As String)
 
         Try
 
@@ -287,6 +287,12 @@ Module Module1
                     INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
                     INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
                     INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
+
+                    WHERE   isbn LIKE '%" & listed_books_search & "%' OR
+                            book_name LIKE '%" & listed_books_search & "%' OR
+                            category_name LIKE '%" & listed_books_search & "%' OR
+                            author_name LIKE '%" & listed_books_search & "%' OR
+                            publisher_name LIKE '%" & listed_books_search & "%'
 
                     ORDER BY primary_book_id DESC"
 
@@ -349,7 +355,7 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_returned_borrowed_books_data_table()
+    Public Sub Load_returned_borrowed_books_data_table(returned_borrowed_books_search As String)
 
         Try
 
@@ -369,6 +375,14 @@ Module Module1
 
                     INNER JOIN tbl_borrower ON tbl_issued_books.primary_borrower_id = tbl_borrower.primary_borrower_id
                     INNER JOIN tbl_books ON tbl_issued_books.primary_book_id = tbl_books.primary_book_id
+
+                    WHERE   CONCAT(transaction_yyyy_mm, '-', LPAD(transaction_series, 5, '0')) LIKE '%" & returned_borrowed_books_search & "%' OR
+                            borrower_id LIKE '%" & returned_borrowed_books_search & "%' OR
+                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) LIKE '%" & returned_borrowed_books_search & "%' OR
+                            book_name LIKE '%" & returned_borrowed_books_search & "%' OR
+                            issued_date LIKE '%" & returned_borrowed_books_search & "%' OR
+                            due_date LIKE '%" & returned_borrowed_books_search & "%' OR
+                            returned_date LIKE '%" & returned_borrowed_books_search & "%'
                             
                     ORDER BY primary_issued_book_id DESC"
 
@@ -433,7 +447,7 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_penalty_report_data_table()
+    Public Sub Load_penalty_report_data_table(penalty_report_search As String)
 
         Try
 
@@ -455,6 +469,13 @@ Module Module1
                     INNER JOIN tbl_borrower ON tbl_penalty_report.primary_borrower_id = tbl_borrower.primary_borrower_id
                     INNER JOIN tbl_books ON tbl_penalty_report.primary_book_id = tbl_books.primary_book_id
                     INNER JOIN tbl_library_penalty ON tbl_penalty_report.primary_penalty_description_id = tbl_library_penalty.primary_penalty_description_id
+
+                    WHERE   borrower_id LIKE '%" & penalty_report_search & "%' OR
+                            CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) LIKE '%" & penalty_report_search & "%' OR
+                            book_name LIKE '%" & penalty_report_search & "%' OR                            
+                            penalty_description LIKE '%" & penalty_report_search & "%' OR
+                            amount LIKE '%" & penalty_report_search & "%' OR
+                            penalty_date LIKE '%" & penalty_report_search & "%'
                     
                     ORDER BY primary_penalty_id DESC"
 
@@ -523,13 +544,22 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_borrower_info_data_table()
+    Public Sub Load_borrower_info_data_table(student_info_search As String)
 
         Try
 
             con.Open()
 
             sql = "SELECT * FROM tbl_borrower
+
+                            WHERE   borrower_id LIKE '%" & student_info_search & "%' OR
+                                    last_name LIKE '%" & student_info_search & "%' OR
+                                    first_name LIKE '%" & student_info_search & "%' OR
+                                    middle_name LIKE '%" & student_info_search & "%' OR
+                                    gender = '" & student_info_search & "' OR
+                                    borrower_contact_no LIKE '%" & student_info_search & "%' OR
+                                    borrower_address LIKE '%" & student_info_search & "%'
+
                             ORDER BY last_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
@@ -596,13 +626,25 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_listed_accounts_data_table()
+    Public Sub Load_listed_accounts_data_table(listed_accounts_search As String)
 
         Try
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_admin"
+            sql = "SELECT * FROM tbl_admin
+
+                            WHERE   first_name Like '%" & listed_accounts_search & "%' OR
+                                    middle_name Like '%" & listed_accounts_search & "%' OR
+                                    last_name Like '%" & listed_accounts_search & "%' OR
+                                    gender = '" & listed_accounts_search & "' OR
+                                    birthday Like '%" & listed_accounts_search & "%' OR
+                                    contact_no Like '%" & listed_accounts_search & "%' OR
+                                    address Like '%" & listed_accounts_search & "%' OR
+                                    username Like '%" & listed_accounts_search & "%' OR
+                                    email Like '%" & listed_accounts_search & "%' OR
+                                    user_type Like '%" & listed_accounts_search & "%'"
+
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
 
@@ -670,13 +712,23 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_library_supplier_data_table()
+    Public Sub Load_library_supplier_data_table(supplier_search As String)
 
         Try
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_library_supplier"
+            sql = "SELECT * FROM tbl_library_supplier
+
+                            WHERE   supplier_id Like '%" & supplier_search & "%' OR
+                                    supplier_name Like '%" & supplier_search & "%' OR
+                                    last_name Like '%" & supplier_search & "%' OR
+                                    first_name Like '%" & supplier_search & "%' OR
+                                    email_address Like '%" & supplier_search & "%' OR
+                                    contact Like '%" & supplier_search & "%' OR
+                                    address Like '%" & supplier_search & "%' OR
+                                    source_type Like '%" & supplier_search & "%'"
+
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
 
@@ -739,13 +791,16 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_library_author_data_table()
+    Public Sub Load_library_author_data_table(author_search As String)
 
         Try
 
             con.Open()
 
             sql = "SELECT * FROM tbl_library_author
+
+                            WHERE author_name LIKE '%" & author_search & "%'
+
                             ORDER BY author_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
@@ -795,13 +850,16 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_library_category_data_table()
+    Public Sub Load_library_category_data_table(genre_search As String)
 
         Try
 
             con.Open()
 
             sql = "SELECT * FROM tbl_library_category
+
+                            WHERE category_name LIKE '%" & genre_search & "%'
+
                             ORDER BY category_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
@@ -851,13 +909,16 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_library_penalty_data_table()
+    Public Sub Load_library_penalty_data_table(penalty_description_search As String)
 
         Try
 
             con.Open()
 
             sql = "SELECT * FROM tbl_library_penalty
+
+                            WHERE penalty_description LIKE '%" & penalty_description_search & "%'
+
                             ORDER BY penalty_description ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
@@ -1079,15 +1140,15 @@ Module Module1
 
     Public Sub Load_all_data_tables()
 
-        Load_listed_books_data_table()
-        Load_returned_borrowed_books_data_table()
-        Load_penalty_report_data_table()
-        Load_borrower_info_data_table()
-        Load_listed_accounts_data_table()
-        Load_library_supplier_data_table()
-        Load_library_author_data_table()
-        Load_library_category_data_table()
-        Load_library_penalty_data_table()
+        Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
+        Load_returned_borrowed_books_data_table(Fm_home_page.Txt_returned_borrowed_books_search.Text)
+        Load_penalty_report_data_table(Fm_home_page.Txt_search_penalty_report.Text)
+        Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
+        Load_listed_accounts_data_table(Fm_home_page.Txt_listed_accounts_search.Text)
+        Load_library_supplier_data_table(Fm_home_page.Txt_search_supplier.Text)
+        Load_library_author_data_table(Fm_home_page.Txt_search_author.Text)
+        Load_library_category_data_table(Fm_home_page.Txt_search_category.Text)
+        Load_library_penalty_data_table(Fm_home_page.Txt_search_penalty_description.Text)
         Load_library_publisher_data_table()
         Load_shelf_data_table()
 
@@ -1096,84 +1157,14 @@ Module Module1
 
     ' Load all cb list
 
-    Public Sub Load_library_cb_supplier()
-
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_supplier"
-            'GROUP BY supplier_name"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-
-            Fm_add_books.Cb_supplier_name.Items.Clear()
-
-            Do While dr.Read()
-
-                Fm_add_books.Cb_supplier_name.Items.Add(dr("supplier_name"))
-
-            Loop
-
-            con.Close()
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
-
-    End Sub
-
-    Public Sub Load_library_cb_author()
-
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_author"
-            'GROUP BY author_name"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-
-            Fm_add_books.Cb_author.Items.Clear()
-
-            Do While dr.Read()
-
-                Fm_add_books.Cb_author.Items.Add(dr("author_name"))
-
-            Loop
-
-            con.Close()
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
-
-    End Sub
-
     Public Sub Load_library_cb_category()
 
         Try
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_library_category"
-            'GROUP BY author_name"
+            sql = "SELECT * FROM tbl_library_category
+                            ORDER BY category_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader
 
@@ -1206,14 +1197,49 @@ Module Module1
 
     End Sub
 
+    Public Sub Load_library_cb_author()
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT * FROM tbl_library_author
+                            GROUP BY author_name ASC"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader
+
+            Fm_add_books.Cb_author.Items.Clear()
+
+            Do While dr.Read()
+
+                Fm_add_books.Cb_author.Items.Add(dr("author_name"))
+
+            Loop
+
+            con.Close()
+
+        Catch ex As Exception
+
+            MsgBox("Error:   " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
+    End Sub
+
     Public Sub Load_library_cb_publisher()
 
         Try
 
             con.Open()
 
-            sql = "SELECT * FROM tbl_library_publisher"
-            'GROUP BY publisher_name"
+            sql = "SELECT * FROM tbl_library_publisher
+                            ORDER BY publisher_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader
 

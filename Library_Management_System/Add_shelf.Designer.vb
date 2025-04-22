@@ -110,17 +110,17 @@ Partial Class Fm_add_shelf
         Txt_shelf_name.Font = New Font("Georgia", 14.25F)
         Txt_shelf_name.Location = New Point(30, 71)
         Txt_shelf_name.Name = "Txt_shelf_name"
-        Txt_shelf_name.PlaceholderText = "Enter Shelf Name"
+        Txt_shelf_name.PlaceholderText = "Shelf Name"
         Txt_shelf_name.Size = New Size(302, 29)
-        Txt_shelf_name.TabIndex = 22
+        Txt_shelf_name.TabIndex = 2
         ' 
         ' Btn_update
         ' 
         Btn_update.Location = New Point(30, 343)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(125, 30)
-        Btn_update.TabIndex = 18
-        Btn_update.Text = "Update"
+        Btn_update.TabIndex = 0
+        Btn_update.Text = "&Update"
         Btn_update.UseVisualStyleBackColor = True
         ' 
         ' Btn_cancel
@@ -128,8 +128,8 @@ Partial Class Fm_add_shelf
         Btn_cancel.Location = New Point(207, 343)
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(125, 30)
-        Btn_cancel.TabIndex = 20
-        Btn_cancel.Text = "Cancel"
+        Btn_cancel.TabIndex = 7
+        Btn_cancel.Text = "&Cancel"
         Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Btn_save
@@ -137,8 +137,8 @@ Partial Class Fm_add_shelf
         Btn_save.Location = New Point(30, 343)
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(125, 30)
-        Btn_save.TabIndex = 19
-        Btn_save.Text = "Save"
+        Btn_save.TabIndex = 0
+        Btn_save.Text = "&Save"
         Btn_save.UseVisualStyleBackColor = True
         ' 
         ' Txt_shelf_current_load
@@ -146,45 +146,45 @@ Partial Class Fm_add_shelf
         Txt_shelf_current_load.Font = New Font("Georgia", 14.25F)
         Txt_shelf_current_load.Location = New Point(30, 279)
         Txt_shelf_current_load.Name = "Txt_shelf_current_load"
-        Txt_shelf_current_load.PlaceholderText = "Enter Current Load"
+        Txt_shelf_current_load.PlaceholderText = "Current Load"
         Txt_shelf_current_load.Size = New Size(302, 29)
-        Txt_shelf_current_load.TabIndex = 26
+        Txt_shelf_current_load.TabIndex = 6
         ' 
         ' Txt_shelf_capacity
         ' 
         Txt_shelf_capacity.Font = New Font("Georgia", 14.25F)
         Txt_shelf_capacity.Location = New Point(30, 227)
         Txt_shelf_capacity.Name = "Txt_shelf_capacity"
-        Txt_shelf_capacity.PlaceholderText = "Enter Capacity"
+        Txt_shelf_capacity.PlaceholderText = "Capacity"
         Txt_shelf_capacity.Size = New Size(302, 29)
-        Txt_shelf_capacity.TabIndex = 25
+        Txt_shelf_capacity.TabIndex = 5
         ' 
         ' Txt_shelf_floor_number
         ' 
         Txt_shelf_floor_number.Font = New Font("Georgia", 14.25F)
         Txt_shelf_floor_number.Location = New Point(30, 175)
         Txt_shelf_floor_number.Name = "Txt_shelf_floor_number"
-        Txt_shelf_floor_number.PlaceholderText = "Enter Floor Number"
+        Txt_shelf_floor_number.PlaceholderText = "Floor Number"
         Txt_shelf_floor_number.Size = New Size(302, 29)
-        Txt_shelf_floor_number.TabIndex = 24
+        Txt_shelf_floor_number.TabIndex = 4
         ' 
         ' Txt_shelf_section
         ' 
         Txt_shelf_section.Font = New Font("Georgia", 14.25F)
         Txt_shelf_section.Location = New Point(30, 123)
         Txt_shelf_section.Name = "Txt_shelf_section"
-        Txt_shelf_section.PlaceholderText = "Enter Section"
+        Txt_shelf_section.PlaceholderText = "Section"
         Txt_shelf_section.Size = New Size(302, 29)
-        Txt_shelf_section.TabIndex = 23
+        Txt_shelf_section.TabIndex = 3
         ' 
         ' Txt_shelf_id
         ' 
         Txt_shelf_id.Font = New Font("Georgia", 14.25F)
         Txt_shelf_id.Location = New Point(30, 19)
         Txt_shelf_id.Name = "Txt_shelf_id"
-        Txt_shelf_id.PlaceholderText = "Enter Shelf ID"
+        Txt_shelf_id.PlaceholderText = "Shelf ID"
         Txt_shelf_id.Size = New Size(302, 29)
-        Txt_shelf_id.TabIndex = 21
+        Txt_shelf_id.TabIndex = 1
         ' 
         ' Fm_add_shelf
         ' 
@@ -200,14 +200,14 @@ Partial Class Fm_add_shelf
         Controls.Add(Lbl_error_msg_1)
         Controls.Add(Lbl_error_msg)
         Controls.Add(Txt_shelf_name)
-        Controls.Add(Btn_update)
         Controls.Add(Btn_cancel)
-        Controls.Add(Btn_save)
         Controls.Add(Txt_shelf_current_load)
         Controls.Add(Txt_shelf_capacity)
         Controls.Add(Txt_shelf_floor_number)
         Controls.Add(Txt_shelf_section)
         Controls.Add(Txt_shelf_id)
+        Controls.Add(Btn_update)
+        Controls.Add(Btn_save)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Fm_add_shelf"
         StartPosition = FormStartPosition.CenterScreen

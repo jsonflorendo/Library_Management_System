@@ -156,8 +156,7 @@ Public Class Fm_issued_books
 
                             con.Close()
 
-                            Load_listed_books_data_table()
-                            Load_returned_borrowed_books_data_table()
+                            Load_returned_borrowed_books_data_table(Fm_home_page.Txt_returned_borrowed_books_search.Text)
                             Txt_isbn.Clear()
 
                             ' Removed this line due to Scan Mode
@@ -245,7 +244,7 @@ Public Class Fm_issued_books
 
     Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
 
-        Load_listed_books_data_table()
+        Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
         Fm_home_page.Enabled = True
         Me.Close()
 

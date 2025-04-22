@@ -2,7 +2,6 @@
 
 Public Class Fm_penalty_description
 
-    Private isEditing As Boolean = False ' Prevent recursion
     Private Sub Fm_penalty_description_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Clear_error_msg()
@@ -236,6 +235,8 @@ Public Class Fm_penalty_description
         End If
 
     End Sub
+
+    Private isEditing As Boolean = False ' Prevent recursion
 
     Private Sub Txt_penalty_amount_TextChanged(sender As Object, e As EventArgs) Handles Txt_penalty_amount.TextChanged
 
