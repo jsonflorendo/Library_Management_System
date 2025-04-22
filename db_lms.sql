@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2025 at 05:58 PM
+-- Generation Time: Apr 22, 2025 at 03:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -66,23 +66,19 @@ CREATE TABLE `tbl_books` (
   `isbn` varchar(100) DEFAULT NULL,
   `book_name` varchar(100) DEFAULT NULL,
   `primary_category_id` int(11) DEFAULT NULL,
-  `qty` varchar(10) DEFAULT NULL,
   `primary_author_id` int(11) DEFAULT NULL,
   `primary_publisher_id` int(11) DEFAULT NULL,
-  `publish_year` varchar(30) DEFAULT NULL,
-  `primary_supplier_id` int(11) DEFAULT NULL,
-  `acquisition_date` varchar(30) DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL
+  `publish_year` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_books`
 --
 
-INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_category_id`, `qty`, `primary_author_id`, `primary_publisher_id`, `publish_year`, `primary_supplier_id`, `acquisition_date`, `status`) VALUES
-(1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', 1, '11', 1, 3, 'May 08, 2024', 1, 'May 08, 2024', 'Available'),
-(2, '9789710639540', 'CINDERELLLA', 1, '19', 2, 3, 'April 16, 2024', 1, 'May 07, 2024', 'Available'),
-(5, 'AP091GW', 'LIBRO', 2, '32', 1, 1, 'May 06, 2024', 5, 'May 08, 2024', 'Available');
+INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_category_id`, `primary_author_id`, `primary_publisher_id`, `publish_year`) VALUES
+(1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', 1, 1, 3, 'May 08, 2024'),
+(2, '9789710639540', 'CINDERELLLA', 1, 2, 3, 'April 16, 2024'),
+(5, 'AP091GW', 'LIBRO', 2, 1, 1, 'May 06, 2024');
 
 -- --------------------------------------------------------
 
@@ -122,7 +118,7 @@ INSERT INTO `tbl_borrower` (`primary_borrower_id`, `borrower_id`, `last_name`, `
 
 CREATE TABLE `tbl_delivery` (
   `delivery_id` int(10) NOT NULL,
-  `book_id` varchar(10) NOT NULL,
+  `isbn` varchar(100) DEFAULT NULL,
   `quantity` varchar(10) DEFAULT NULL,
   `from_location` varchar(100) DEFAULT NULL,
   `to_location` varchar(100) DEFAULT NULL,
@@ -324,7 +320,7 @@ CREATE TABLE `tbl_shelf` (
 --
 
 INSERT INTO `tbl_shelf` (`primary_shelf_id`, `shelf_id`, `shelf_name`, `section`, `floor_number`, `capacity`, `current_load`, `created_at`, `updated_at`) VALUES
-(3, '123456', 'Shelf Name', 'Section', '1st Floor', '13', '12', 'April 20, 2025', 'April 21, 2025');
+(3, '123456', 'FIC-A2', 'Section', '1st Floor', '13', '12', 'April 20, 2025', 'April 21, 2025');
 
 --
 -- Indexes for dumped tables
@@ -343,8 +339,7 @@ ALTER TABLE `tbl_books`
   ADD PRIMARY KEY (`primary_book_id`),
   ADD KEY `books_library_author_fk_key` (`primary_author_id`),
   ADD KEY `books_library_category_fk_key` (`primary_category_id`),
-  ADD KEY `books_library_publisher_fk_key` (`primary_publisher_id`),
-  ADD KEY `books_library_supplier_fk_key` (`primary_supplier_id`);
+  ADD KEY `books_library_publisher_fk_key` (`primary_publisher_id`);
 
 --
 -- Indexes for table `tbl_borrower`
@@ -425,7 +420,7 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_books`
 --
 ALTER TABLE `tbl_books`
-  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tbl_borrower`
@@ -497,8 +492,7 @@ ALTER TABLE `tbl_shelf`
 ALTER TABLE `tbl_books`
   ADD CONSTRAINT `books_library_author_fk_key` FOREIGN KEY (`primary_author_id`) REFERENCES `tbl_library_author` (`primary_author_id`),
   ADD CONSTRAINT `books_library_category_fk_key` FOREIGN KEY (`primary_category_id`) REFERENCES `tbl_library_category` (`primary_category_id`),
-  ADD CONSTRAINT `books_library_publisher_fk_key` FOREIGN KEY (`primary_publisher_id`) REFERENCES `tbl_library_publisher` (`primary_publisher_id`),
-  ADD CONSTRAINT `books_library_supplier_fk_key` FOREIGN KEY (`primary_supplier_id`) REFERENCES `tbl_library_supplier` (`primary_supplier_id`);
+  ADD CONSTRAINT `books_library_publisher_fk_key` FOREIGN KEY (`primary_publisher_id`) REFERENCES `tbl_library_publisher` (`primary_publisher_id`);
 
 --
 -- Constraints for table `tbl_issued_books`
