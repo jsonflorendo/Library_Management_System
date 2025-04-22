@@ -12,7 +12,7 @@ Public Class Fm_add_penalty
 
         If Txt_primary_penalty_report_id.Text = "" Then
 
-            Load_library_penalty_data_table()
+            Load_library_penalty_data_table(Fm_home_page.Txt_search_penalty_description.Text)
 
         Else
 

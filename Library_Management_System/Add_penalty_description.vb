@@ -55,7 +55,7 @@ Public Class Fm_penalty_description
                     con.Close()
 
                     MessageBox.Show("Penalty Description added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_penalty_data_table()
+                    Load_library_penalty_data_table(Fm_home_page.Txt_search_penalty_description.Text)
                     Fm_home_page.Enabled = True
                     Me.Close()
 
@@ -145,7 +145,7 @@ Public Class Fm_penalty_description
                     con.Close()
 
                     MessageBox.Show("Penalty Description updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_penalty_data_table()
+                    Load_library_penalty_data_table(Fm_home_page.Txt_search_penalty_description.Text)
                     Fm_home_page.Enabled = True
                     Me.Close()
 
@@ -170,7 +170,7 @@ Public Class Fm_penalty_description
     Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
         Fm_home_page.Enabled = True
-        Load_library_penalty_data_table() '-> To item selection On the listview
+        Load_library_penalty_data_table(Fm_home_page.Txt_search_penalty_description.Text) '-> To item selection On the listview
         Me.Close()
 
     End Sub
