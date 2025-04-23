@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2025 at 07:54 PM
+-- Generation Time: Apr 23, 2025 at 08:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -346,7 +346,8 @@ ALTER TABLE `tbl_borrower`
 -- Indexes for table `tbl_delivery`
 --
 ALTER TABLE `tbl_delivery`
-  ADD PRIMARY KEY (`primary_delivery_id`);
+  ADD PRIMARY KEY (`primary_delivery_id`),
+  ADD KEY `delivery_books_fk_key` (`primary_book_id`) USING BTREE;
 
 --
 -- Indexes for table `tbl_issued_books`
