@@ -99,7 +99,7 @@ Public Class Fm_publisher
                         con.Close()
 
                         MessageBox.Show("Publisher added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_library_publisher_data_table()
+                        Load_library_publisher_data_table(Fm_home_page.Txt_search_publisher.Text)
                         Fm_home_page.Enabled = True
                         Me.Close()
 
@@ -178,7 +178,7 @@ Public Class Fm_publisher
                     con.Close()
 
                     MessageBox.Show("Publisher updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_publisher_data_table()
+                    Load_library_publisher_data_table(Fm_home_page.Txt_search_publisher.Text)
                     Fm_home_page.Enabled = True
                     Me.Close()
 
@@ -210,7 +210,7 @@ Public Class Fm_publisher
         Else
 
             Fm_home_page.Enabled = True
-            Load_library_publisher_data_table() '-> To item selection On the listview
+            Load_library_publisher_data_table(Fm_home_page.Txt_search_publisher.Text) '-> To item selection On the listview
             Me.Close()
 
         End If

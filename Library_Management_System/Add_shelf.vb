@@ -71,7 +71,7 @@ Public Class Fm_add_shelf
                     con.Close()
 
                     MessageBox.Show("Shelf added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_shelf_data_table()
+                    Load_shelf_data_table(Fm_home_page.Txt_search_shelf.Text)
                     Fm_home_page.Enabled = True
                     Me.Close()
 
@@ -169,7 +169,7 @@ Public Class Fm_add_shelf
                     con.Close()
 
                     MessageBox.Show("Shelf updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_shelf_data_table()
+                    Load_shelf_data_table(Fm_home_page.Txt_search_shelf.Text)
                     Fm_home_page.Enabled = True
                     Me.Close()
 
@@ -194,7 +194,7 @@ Public Class Fm_add_shelf
     Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
         Fm_home_page.Enabled = True
-        Load_shelf_data_table() '-> To item selection On the listview
+        Load_shelf_data_table(Fm_home_page.Txt_search_shelf.Text) '-> To item selection On the listview
         Me.Close()
 
     End Sub

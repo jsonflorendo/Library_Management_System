@@ -1010,13 +1010,16 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_library_publisher_data_table()
+    Public Sub Load_library_publisher_data_table(publisher_search As String)
 
         Try
 
             con.Open()
 
             sql = "SELECT * FROM tbl_library_publisher
+
+                            WHERE publisher_name LIKE '%" & publisher_search & "%'
+
                             ORDER BY publisher_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
@@ -1066,13 +1069,22 @@ Module Module1
 
     End Sub
 
-    Public Sub Load_shelf_data_table()
+    Public Sub Load_shelf_data_table(shelf_search As String)
 
         Try
 
             con.Open()
 
             sql = "SELECT * FROM tbl_shelf
+
+                            WHERE shelf_name LIKE '%" & shelf_search & "%' OR
+                                  section LIKE '%" & shelf_search & "%' OR
+                                  floor_number LIKE '%" & shelf_search & "%' OR
+                                  capacity LIKE '%" & shelf_search & "%' OR
+                                  current_load LIKE '%" & shelf_search & "%' OR
+                                  created_at LIKE '%" & shelf_search & "%' OR
+                                  updated_at LIKE '%" & shelf_search & "%'
+
                             ORDER BY shelf_name ASC"
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
@@ -1149,8 +1161,8 @@ Module Module1
         Load_library_author_data_table(Fm_home_page.Txt_search_author.Text)
         Load_library_category_data_table(Fm_home_page.Txt_search_category.Text)
         Load_library_penalty_data_table(Fm_home_page.Txt_search_penalty_description.Text)
-        Load_library_publisher_data_table()
-        Load_shelf_data_table()
+        Load_library_publisher_data_table(Fm_home_page.Txt_search_publisher.Text)
+        Load_shelf_data_table(Fm_home_page.Txt_search_shelf.Text)
 
     End Sub
 

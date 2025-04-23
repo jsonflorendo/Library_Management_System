@@ -849,7 +849,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_publisher_data_table(Txt_search_publisher.Text)
 
         End If
 
@@ -959,7 +959,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_publisher_data_table(Txt_search_publisher.Text)
 
         End If
 
@@ -1174,7 +1174,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table
+            Load_library_publisher_data_table(Txt_search_publisher.Text)
 
         End If
 
@@ -1347,7 +1347,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_publisher_data_table(Txt_search_publisher.Text)
 
         End If
 
@@ -1597,7 +1597,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_publisher_data_table(Txt_search_publisher.Text)
 
         End If
 
@@ -1833,7 +1833,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_publisher_data_table(Txt_search_publisher.Text)
 
         End If
 
@@ -2061,7 +2061,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_publisher_data_table(Txt_search_publisher.Text)
 
         End If
 
@@ -2290,7 +2290,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_publisher_data_table(Txt_search_publisher.Text)
 
         End If
 
@@ -2519,7 +2519,7 @@ Public Class Fm_home_page
 
         ElseIf Lv_publisher.SelectedItems.Count > 0 Then
 
-            Load_library_publisher_data_table()
+            Load_library_publisher_data_table(Txt_search_publisher.Text)
 
         End If
 
@@ -2562,55 +2562,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_search_publisher_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_publisher.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_library_publisher
-                            WHERE publisher_name LIKE '%" & Txt_search_publisher.Text & "%'
-                            ORDER BY publisher_name ASC"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-
-            Lv_publisher.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("publisher_name").ToString(),
-                                            dr("primary_publisher_id").ToString()})
-                Lv_publisher.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i As Integer = 0 To Lv_publisher.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_publisher.Items(i).BackColor = Color.Azure
-                    Lv_publisher.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_publisher.Items(i).BackColor = Color.GhostWhite
-                    Lv_publisher.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_library_publisher_data_table(Txt_search_publisher.Text)
 
     End Sub
 
@@ -2707,13 +2659,13 @@ Public Class Fm_home_page
                     con.Close()
 
                     MessageBox.Show(publisher_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_publisher_data_table()
+                    Load_library_publisher_data_table(Txt_search_publisher.Text)
 
                 Else
 
                     con.Close()
 
-                    Load_library_publisher_data_table()
+                    Load_library_publisher_data_table(Txt_search_publisher.Text)
 
                 End If
 
@@ -2839,67 +2791,7 @@ Public Class Fm_home_page
 
     Private Sub Txt_search_shelf_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_shelf.TextChanged
 
-        Try
-
-            con.Open()
-
-            sql = "SELECT * FROM tbl_shelf
-                            WHERE shelf_name LIKE '%" & Txt_search_shelf.Text & "%' OR
-                                  section LIKE '%" & Txt_search_shelf.Text & "%' OR
-                                  floor_number LIKE '%" & Txt_search_shelf.Text & "%' OR
-                                  capacity LIKE '%" & Txt_search_shelf.Text & "%' OR
-                                  current_load LIKE '%" & Txt_search_shelf.Text & "%' OR
-                                  created_at LIKE '%" & Txt_search_shelf.Text & "%' OR
-                                  updated_at LIKE '%" & Txt_search_shelf.Text & "%'
-                            ORDER BY shelf_name ASC"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader()
-
-            Lv_shelf.Items.Clear()
-
-            Do While dr.Read
-
-                Dim lv As New ListViewItem({dr("shelf_name").ToString(),
-                                            dr("section").ToString(),
-                                            dr("floor_number").ToString(),
-                                            dr("capacity").ToString(),
-                                            dr("current_load").ToString(),
-                                            dr("created_at").ToString(),
-                                            dr("updated_at").ToString(),
-                                            dr("primary_shelf_id").ToString()})
-                Lv_shelf.Items.Add(lv)
-
-            Loop
-
-            con.Close()
-
-            For i As Integer = 0 To Lv_shelf.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_shelf.Items(i).BackColor = Color.Azure
-                    Lv_shelf.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_shelf.Items(i).BackColor = Color.GhostWhite
-                    Lv_shelf.Items(i).ForeColor = Color.Black
-
-                End If
-
-            Next
-
-        Catch ex As Exception
-
-            MsgBox("Error: " & ex.Message)
-
-        Finally
-
-            If con.State = ConnectionState.Open Then
-                con.Close()
-            End If
-
-        End Try
+        Load_shelf_data_table(Txt_search_shelf.Text)
 
     End Sub
 
@@ -3000,13 +2892,13 @@ Public Class Fm_home_page
                     con.Close()
 
                     MessageBox.Show(shelf_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_shelf_data_table()
+                    Load_shelf_data_table(Txt_search_shelf.Text)
 
                 Else
 
                     con.Close()
 
-                    Load_shelf_data_table()
+                    Load_shelf_data_table(Txt_search_shelf.Text)
 
                 End If
 
