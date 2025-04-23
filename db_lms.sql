@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2025 at 12:22 PM
+-- Generation Time: Apr 23, 2025 at 07:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -78,7 +78,8 @@ CREATE TABLE `tbl_books` (
 INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_category_id`, `primary_author_id`, `primary_publisher_id`, `publish_year`) VALUES
 (1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', 1, 1, 3, 'May 08, 2024'),
 (2, '9789710639540', 'CINDERELLLA', 1, 2, 3, 'April 16, 2024'),
-(5, 'AP091GW', 'LIBRO', 2, 1, 1, 'May 06, 2024');
+(5, 'AP091GW', 'LIBRO', 2, 1, 1, 'May 06, 2024'),
+(32, '234', 'HKJHK', 1, 19, 1, 'April 24, 2025');
 
 -- --------------------------------------------------------
 
@@ -119,13 +120,10 @@ INSERT INTO `tbl_borrower` (`primary_borrower_id`, `borrower_id`, `last_name`, `
 CREATE TABLE `tbl_delivery` (
   `primary_delivery_id` int(10) NOT NULL,
   `transaction_number` varchar(100) DEFAULT NULL,
-  `isbn` varchar(100) DEFAULT NULL,
+  `primary_book_id` int(11) DEFAULT NULL,
   `quantity` varchar(10) DEFAULT NULL,
-  `from_location` varchar(100) DEFAULT NULL,
-  `to_location` varchar(100) DEFAULT NULL,
   `delivered_by` varchar(100) DEFAULT NULL,
   `delivery_date` varchar(30) NOT NULL,
-  `status` varchar(100) DEFAULT NULL,
   `received_by` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -417,7 +415,7 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_books`
 --
 ALTER TABLE `tbl_books`
-  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `tbl_borrower`
