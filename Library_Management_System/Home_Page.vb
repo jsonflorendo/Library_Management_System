@@ -2590,4 +2590,99 @@ Public Class Fm_home_page
 
     End Sub
 
+
+    ' Delivery
+
+    Private Sub Txt_search_delivery_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_delivery.TextChanged
+
+        Load_delivery_data_table(Txt_search_delivery.Text)
+
+    End Sub
+
+    Private Sub Btn_delivery_add_Click(sender As Object, e As EventArgs) Handles Btn_delivery_add.Click
+
+        Fm_add_delivery.Show()
+        Fm_add_delivery.Btn_update.Visible = False
+        Me.Enabled = False
+
+    End Sub
+
+    Private Sub Btn_delivery_add_MouseEnter(sender As Object, e As EventArgs) Handles Btn_delivery_add.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_delivery_add_MouseLeave(sender As Object, e As EventArgs) Handles Btn_delivery_add.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
+
+    End Sub
+
+    Private Sub Btn_delivery_edit_Click(sender As Object, e As EventArgs) Handles Btn_delivery_edit.Click
+
+
+
+    End Sub
+
+    Private Sub Btn_delivery_edit_MouseEnter(sender As Object, e As EventArgs) Handles Btn_delivery_edit.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_delivery_edit_MouseLeave(sender As Object, e As EventArgs) Handles Btn_delivery_edit.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
+
+    End Sub
+
+    Private Sub Btn_delivery_delete_Click(sender As Object, e As EventArgs) Handles Btn_delivery_delete.Click
+
+
+
+    End Sub
+
+    Private Sub Btn_delivery_delete_MouseEnter(sender As Object, e As EventArgs) Handles Btn_delivery_delete.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_delivery_delete_MouseLeave(sender As Object, e As EventArgs) Handles Btn_delivery_delete.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
+
+    End Sub
+
 End Class

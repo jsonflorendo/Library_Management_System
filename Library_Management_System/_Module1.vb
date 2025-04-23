@@ -1148,6 +1148,95 @@ Module Module1
 
     End Sub
 
+
+    Public Sub Load_delivery_data_table(delivery_search As String)
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT   tbl_delivery.transaction_number,
+                            tbl_books.isbn,
+                            tbl_books.book_name,
+                            tbl_delivery.quantity,
+                            tbl_delivery.delivered_by,
+                            tbl_delivery.delivery_date,
+                            tbl_delivery.received_by                            
+
+                    FROM tbl_delivery
+
+                    INNER JOIN tbl_books ON tbl_books.primary_book_id = tbl_delivery.primary_book_id
+
+                    WHERE   transaction_number LIKE '%" & delivery_search & "%' OR
+                            isbn LIKE '%" & delivery_search & "%' OR
+                            book_name LIKE '%" & delivery_search & "%' OR
+                            quantity LIKE '%" & delivery_search & "%' OR
+                            delivered_by LIKE '%" & delivery_search & "%' OR
+                            delivery_date LIKE '%" & delivery_search & "%' OR
+                            received_by LIKE '%" & delivery_search & "%'
+
+                    ORDER BY delivery_date DESC"
+
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Fm_home_page.Lv_delivery.Items.Clear()
+
+            Do While dr.Read
+
+                Dim lv As New ListViewItem({dr("transaction_number").ToString(),
+                                            dr("isbn").ToString(),
+                                            dr("book_name").ToString(),
+                                            dr("quantity").ToString(),
+                                            dr("delivered_by").ToString(),
+                                            dr("delivery_date").ToString(),
+                                            dr("received_by").ToString(),
+                                            dr("primary_delivery_id")})
+                Fm_home_page.Lv_delivery.Items.Add(lv)
+
+            Loop
+
+            'Listview column header title
+            Fm_home_page.Lv_delivery.Columns(0).Text = "TRANSACTION NUMBER"
+            Fm_home_page.Lv_delivery.Columns(1).Text = "ISBN"
+            Fm_home_page.Lv_delivery.Columns(2).Text = "BOOK NAME"
+            Fm_home_page.Lv_delivery.Columns(3).Text = "QUANTITY"
+            Fm_home_page.Lv_delivery.Columns(4).Text = "DELIVERED BY"
+            Fm_home_page.Lv_delivery.Columns(5).Text = "DELIVERY DATE"
+            Fm_home_page.Lv_delivery.Columns(6).Text = "RECEIVED BY"
+
+            con.Close()
+
+            For i As Integer = 0 To Fm_home_page.Lv_delivery.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Fm_home_page.Lv_delivery.Items(i).BackColor = Color.Azure
+                    Fm_home_page.Lv_delivery.Items(i).ForeColor = Color.Black
+
+                Else
+
+                    Fm_home_page.Lv_delivery.Items(i).BackColor = Color.GhostWhite
+                    Fm_home_page.Lv_delivery.Items(i).ForeColor = Color.Black
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
+    End Sub
+
     ' Remove items selection on the other listview
 
     Public Sub Load_all_data_tables()
@@ -1163,6 +1252,7 @@ Module Module1
         Load_library_penalty_data_table(Fm_home_page.Txt_search_penalty_description.Text)
         Load_library_publisher_data_table(Fm_home_page.Txt_search_publisher.Text)
         Load_shelf_data_table(Fm_home_page.Txt_search_shelf.Text)
+        Load_delivery_data_table(Fm_home_page.Txt_search_delivery.Text)
 
     End Sub
 
@@ -1359,6 +1449,11 @@ Module Module1
         Fm_add_shelf.Lbl_error_msg_3.Text = ""
         Fm_add_shelf.Lbl_error_msg_4.Text = ""
         Fm_add_shelf.Lbl_error_msg_5.Text = ""
+
+        Fm_add_delivery.Lbl_error_msg.Text = ""
+        Fm_add_delivery.Lbl_error_msg_1.Text = ""
+        Fm_add_delivery.Lbl_error_msg_2.Text = ""
+        Fm_add_delivery.Lbl_error_msg_3.Text = ""
 
     End Sub
 

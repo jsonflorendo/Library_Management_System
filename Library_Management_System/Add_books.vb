@@ -26,12 +26,19 @@ Public Class Fm_add_books
 
     End Sub
 
-    Private Sub Fm_add_books_MouseHover(sender As Object, e As EventArgs) Handles Me.MouseHover
+    Private Sub Fm_add_books_MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
 
-        If Txt_book_name.Text = "" Or Cb_book_category.Text = "-Select Genre-" Or Txt_author.Text = "" Or Txt_publisher.Text = "" Then
+        If Txt_book_name.Text = "" Or
+            Cb_book_category.Text = "-Select Genre-" Or
+            Txt_author.Text = "" Or
+            Txt_publisher.Text = "" Then
+
             save_Txt_isbn.Enabled = False
+
         Else
+
             save_Txt_isbn.Enabled = True
+
         End If
 
     End Sub
@@ -87,12 +94,12 @@ Public Class Fm_add_books
 
                     If dr.Read Then
 
-                        con.Close()
-
                         Lbl_error_msg.Text = "ISBN already exists"
                         Lbl_error_msg_1.Text = "Book name already exists"
 
                     Else
+
+                        dr.Close()
 
                         sql = "INSERT INTO tbl_books (isbn,
                                                         book_name,
@@ -112,9 +119,20 @@ Public Class Fm_add_books
                         con.Close()
 
                         MessageBox.Show(Txt_book_name.Text + " added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
-                        Fm_home_page.Enabled = True
-                        Me.Close()
+
+                        If Fm_home_page.Enabled = False And Fm_add_delivery.Enabled = False Then
+
+                            Fm_add_delivery.Enabled = True
+                            Me.Close()
+
+                        Else
+
+                            Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
+                            Fm_home_page.Enabled = True
+                            Me.Close()
+
+                        End If
+
 
                     End If
 
@@ -270,9 +288,18 @@ Public Class Fm_add_books
 
     Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
 
-        Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
-        Fm_home_page.Enabled = True
-        Me.Close()
+        If Fm_home_page.Enabled = False And Fm_add_delivery.Enabled = False Then
+
+            Fm_add_delivery.Enabled = True
+            Me.Close()
+
+        Else
+
+            Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
+            Fm_home_page.Enabled = True
+            Me.Close()
+
+        End If
 
     End Sub
 
@@ -332,8 +359,6 @@ Public Class Fm_add_books
             End If
 
             con.Close()
-
-            'End If
 
         Catch ex As Exception
 

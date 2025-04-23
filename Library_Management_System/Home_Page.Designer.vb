@@ -171,7 +171,7 @@ Partial Class Fm_home_page
         Lbl_date_time = New Label()
         Panel13_Delivery = New Panel()
         Btn_delivery_edit = New Button()
-        Txt_delivery_search = New RoundCornerTextbox()
+        Txt_search_delivery = New RoundCornerTextbox()
         Btn_delivery_delete = New Button()
         Btn_delivery_add = New Button()
         Lv_delivery = New ListView()
@@ -182,9 +182,6 @@ Partial Class Fm_home_page
         Delivery_table4 = New ColumnHeader()
         Delivery_table5 = New ColumnHeader()
         Delivery_table6 = New ColumnHeader()
-        Delivery_table7 = New ColumnHeader()
-        Delivery_table8 = New ColumnHeader()
-        Delivery_table9 = New ColumnHeader()
         Panel14_Book_Inventory = New Panel()
         ListView1 = New ListView()
         Book_inventory0 = New ColumnHeader()
@@ -1550,7 +1547,7 @@ Partial Class Fm_home_page
         ' 
         Panel13_Delivery.BackgroundImageLayout = ImageLayout.Stretch
         Panel13_Delivery.Controls.Add(Btn_delivery_edit)
-        Panel13_Delivery.Controls.Add(Txt_delivery_search)
+        Panel13_Delivery.Controls.Add(Txt_search_delivery)
         Panel13_Delivery.Controls.Add(Btn_delivery_delete)
         Panel13_Delivery.Controls.Add(Btn_delivery_add)
         Panel13_Delivery.Controls.Add(Lv_delivery)
@@ -1570,14 +1567,14 @@ Partial Class Fm_home_page
         Btn_delivery_edit.Text = "&Edit"
         Btn_delivery_edit.UseVisualStyleBackColor = False
         ' 
-        ' Txt_delivery_search
+        ' Txt_search_delivery
         ' 
-        Txt_delivery_search.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Txt_delivery_search.Location = New Point(33, 24)
-        Txt_delivery_search.Name = "Txt_delivery_search"
-        Txt_delivery_search.PlaceholderText = "Search"
-        Txt_delivery_search.Size = New Size(246, 38)
-        Txt_delivery_search.TabIndex = 12
+        Txt_search_delivery.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_search_delivery.Location = New Point(33, 24)
+        Txt_search_delivery.Name = "Txt_search_delivery"
+        Txt_search_delivery.PlaceholderText = "Search"
+        Txt_search_delivery.Size = New Size(246, 38)
+        Txt_search_delivery.TabIndex = 12
         ' 
         ' Btn_delivery_delete
         ' 
@@ -1604,7 +1601,7 @@ Partial Class Fm_home_page
         ' Lv_delivery
         ' 
         Lv_delivery.BackColor = SystemColors.ActiveCaption
-        Lv_delivery.Columns.AddRange(New ColumnHeader() {Delivery_table0, Delivery_table1, Delivery_table2, Delivery_table3, Delivery_table4, Delivery_table5, Delivery_table6, Delivery_table7, Delivery_table8, Delivery_table9})
+        Lv_delivery.Columns.AddRange(New ColumnHeader() {Delivery_table0, Delivery_table1, Delivery_table2, Delivery_table3, Delivery_table4, Delivery_table5, Delivery_table6})
         Lv_delivery.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_delivery.FullRowSelect = True
         Lv_delivery.HeaderStyle = ColumnHeaderStyle.Nonclickable
@@ -1640,39 +1637,21 @@ Partial Class Fm_home_page
         ' 
         ' Delivery_table4
         ' 
-        Delivery_table4.Text = "From Location"
+        Delivery_table4.Text = "Delivered By"
         Delivery_table4.TextAlign = HorizontalAlignment.Center
         Delivery_table4.Width = 300
         ' 
         ' Delivery_table5
         ' 
-        Delivery_table5.Text = "To Location"
+        Delivery_table5.Text = "Delivery Date"
         Delivery_table5.TextAlign = HorizontalAlignment.Center
-        Delivery_table5.Width = 300
+        Delivery_table5.Width = 150
         ' 
         ' Delivery_table6
         ' 
-        Delivery_table6.Text = "Delivered By"
+        Delivery_table6.Text = "Received by"
         Delivery_table6.TextAlign = HorizontalAlignment.Center
-        Delivery_table6.Width = 300
-        ' 
-        ' Delivery_table7
-        ' 
-        Delivery_table7.Text = "Delivery Date"
-        Delivery_table7.TextAlign = HorizontalAlignment.Center
-        Delivery_table7.Width = 150
-        ' 
-        ' Delivery_table8
-        ' 
-        Delivery_table8.Text = "Status"
-        Delivery_table8.TextAlign = HorizontalAlignment.Center
-        Delivery_table8.Width = 200
-        ' 
-        ' Delivery_table9
-        ' 
-        Delivery_table9.Text = "Received By"
-        Delivery_table9.TextAlign = HorizontalAlignment.Center
-        Delivery_table9.Width = 120
+        Delivery_table6.Width = 140
         ' 
         ' Panel14_Book_Inventory
         ' 
@@ -1819,16 +1798,16 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
-        Controls.Add(Panel10_Author_Category_Penalty_Publisher)
         Controls.Add(Panel13_Delivery)
-        Controls.Add(Panel12_Shelf)
+        Controls.Add(Panel1_Books)
         Controls.Add(Panel6_Supplier)
+        Controls.Add(Panel14_Book_Inventory)
+        Controls.Add(Panel10_Author_Category_Penalty_Publisher)
+        Controls.Add(Panel12_Shelf)
         Controls.Add(Panel4_User_Acounts)
         Controls.Add(Panel3_Borrower_Info)
         Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel2_Returned_Issued_Books)
-        Controls.Add(Panel1_Books)
-        Controls.Add(Panel14_Book_Inventory)
         Controls.Add(Lbl_date_time)
         Controls.Add(P_navigation)
         FormBorderStyle = FormBorderStyle.FixedSingle
@@ -2022,7 +2001,7 @@ Partial Class Fm_home_page
     Friend WithEvents Shelf_table7 As ColumnHeader
     Friend WithEvents Panel13_Delivery As Panel
     Friend WithEvents Btn_delivery_edit As Button
-    Friend WithEvents Txt_delivery_search As RoundCornerTextbox
+    Friend WithEvents Txt_search_delivery As RoundCornerTextbox
     Friend WithEvents Btn_delivery_delete As Button
     Friend WithEvents Btn_delivery_add As Button
     Friend WithEvents Lv_delivery As ListView
@@ -2030,10 +2009,6 @@ Partial Class Fm_home_page
     Friend WithEvents Delivery_table1 As ColumnHeader
     Friend WithEvents Delivery_table4 As ColumnHeader
     Friend WithEvents Delivery_table5 As ColumnHeader
-    Friend WithEvents Delivery_table6 As ColumnHeader
-    Friend WithEvents Delivery_table7 As ColumnHeader
-    Friend WithEvents Delivery_table8 As ColumnHeader
-    Friend WithEvents Delivery_table9 As ColumnHeader
     Friend WithEvents Delivery_table10 As ColumnHeader
     Friend WithEvents Shelf_table0 As ColumnHeader
     Friend WithEvents Delivery_table2 As ColumnHeader
@@ -2055,4 +2030,5 @@ Partial Class Fm_home_page
     Friend WithEvents Book_inventory7 As ColumnHeader
     Friend WithEvents Book_inventory8 As ColumnHeader
     Friend WithEvents Book_inventory9 As ColumnHeader
+    Friend WithEvents Delivery_table6 As ColumnHeader
 End Class
