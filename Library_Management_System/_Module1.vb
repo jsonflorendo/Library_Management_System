@@ -1188,7 +1188,6 @@ Module Module1
             Do While dr.Read()
 
                 Fm_home_page.Cb_listed_books_category.Items.Add(dr("category_name"))
-
                 Fm_add_books.Cb_book_category.Items.Add(dr("category_name"))
 
             Loop

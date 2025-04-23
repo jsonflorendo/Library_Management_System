@@ -1819,6 +1819,7 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
+        Controls.Add(Panel13_Delivery)
         Controls.Add(Panel12_Shelf)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
         Controls.Add(Panel6_Supplier)
@@ -1827,7 +1828,6 @@ Partial Class Fm_home_page
         Controls.Add(Panel8_Penalty_Report)
         Controls.Add(Panel2_Returned_Issued_Books)
         Controls.Add(Panel1_Books)
-        Controls.Add(Panel13_Delivery)
         Controls.Add(Panel14_Book_Inventory)
         Controls.Add(Lbl_date_time)
         Controls.Add(P_navigation)
