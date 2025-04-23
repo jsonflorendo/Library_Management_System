@@ -94,7 +94,7 @@ Partial Class Fm_add_delivery
         ' 
         ' Btn_update
         ' 
-        Btn_update.Location = New Point(115, 540)
+        Btn_update.Location = New Point(30, 474)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(125, 30)
         Btn_update.TabIndex = 39
@@ -103,7 +103,7 @@ Partial Class Fm_add_delivery
         ' 
         ' Btn_cancel
         ' 
-        Btn_cancel.Location = New Point(206, 495)
+        Btn_cancel.Location = New Point(207, 474)
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(125, 30)
         Btn_cancel.TabIndex = 41
@@ -192,7 +192,7 @@ Partial Class Fm_add_delivery
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(365, 592)
+        ClientSize = New Size(365, 520)
         ControlBox = False
         Controls.Add(Txt_book_publisher)
         Controls.Add(Txt_book_publish_year)
