@@ -3,28 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\_module1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\_module1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\add_publisher.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\add_publisher.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\home_page.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\home_page.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\add_publisher.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\add_publisher.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\add_delivery.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\add_delivery.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\home_page.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
       "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\home_page.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\add_books.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\add_books.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\home_page.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\home_page.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\add_books.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
-      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\add_books.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\add_delivery.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
-      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\add_delivery.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\_module1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\_module1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\itd-ojt-pc\\desktop\\library_management_system\\library_management_system\\add_shelf.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,32 +46,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Add_books.vb",
-              "DocumentMoniker": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Add_books.vb",
-              "RelativeDocumentMoniker": "Library_Management_System\\Add_books.vb",
-              "ToolTip": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Add_books.vb",
-              "RelativeToolTip": "Library_Management_System\\Add_books.vb",
-              "ViewState": "AgIAAPYAAAAAAAAAAAAewBABAABOAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Add_publisher.vb",
+              "DocumentMoniker": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Add_publisher.vb",
+              "RelativeDocumentMoniker": "Library_Management_System\\Add_publisher.vb",
+              "ToolTip": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Add_publisher.vb*",
+              "RelativeToolTip": "Library_Management_System\\Add_publisher.vb*",
+              "ViewState": "AgIAAKcAAAAAAAAAAAAIwCcAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-04-21T13:27:32.988Z",
+              "WhenOpened": "2025-04-23T10:45:16.262Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Add_books.vb [Design]",
-              "DocumentMoniker": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Add_books.vb",
-              "RelativeDocumentMoniker": "Library_Management_System\\Add_books.vb",
-              "ToolTip": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Add_books.vb [Design]",
-              "RelativeToolTip": "Library_Management_System\\Add_books.vb [Design]",
+              "DocumentIndex": 1,
+              "Title": "Add_publisher.vb [Design]",
+              "DocumentMoniker": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Add_publisher.vb",
+              "RelativeDocumentMoniker": "Library_Management_System\\Add_publisher.vb",
+              "ToolTip": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Add_publisher.vb [Design]*",
+              "RelativeToolTip": "Library_Management_System\\Add_publisher.vb [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-04-21T13:27:23.236Z",
+              "WhenOpened": "2025-04-23T10:45:14.432Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Add_delivery.vb [Design]",
               "DocumentMoniker": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Add_delivery.vb",
               "RelativeDocumentMoniker": "Library_Management_System\\Add_delivery.vb",
@@ -95,20 +95,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Home_Page.vb",
               "DocumentMoniker": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Home_Page.vb",
               "RelativeDocumentMoniker": "Library_Management_System\\Home_Page.vb",
               "ToolTip": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Home_Page.vb",
               "RelativeToolTip": "Library_Management_System\\Home_Page.vb",
-              "ViewState": "AgIAADILAAAAAAAAAAAvwFQLAABAAAAAAAAAAA==",
+              "ViewState": "AgIAAHYGAAAAAAAAAADwv4AGAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
               "WhenOpened": "2025-03-31T18:15:35.064Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Home_Page.vb [Design]",
               "DocumentMoniker": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\Home_Page.vb",
               "RelativeDocumentMoniker": "Library_Management_System\\Home_Page.vb",
@@ -120,13 +120,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "_Module1.vb",
               "DocumentMoniker": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\_Module1.vb",
               "RelativeDocumentMoniker": "Library_Management_System\\_Module1.vb",
               "ToolTip": "C:\\Users\\ITD-OJT-PC\\Desktop\\Library_Management_System\\Library_Management_System\\_Module1.vb",
               "RelativeToolTip": "Library_Management_System\\_Module1.vb",
-              "ViewState": "AgIAAHAEAAAAAAAAAAAvwIsEAABRAAAAAAAAAA==",
+              "ViewState": "AgIAAGUBAAAAAAAAAAA9wIkEAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
               "WhenOpened": "2025-03-25T16:26:49.618Z",
               "EditorCaption": ""

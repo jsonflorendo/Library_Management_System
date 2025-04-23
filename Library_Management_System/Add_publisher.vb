@@ -10,114 +10,67 @@ Public Class Fm_publisher
 
     Private Sub Btn_save_Click(sender As Object, e As EventArgs) Handles Btn_save.Click
 
-        If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
+        If Txt_publisher_name.Text = "" Then
 
-            If Txt_publisher_name.Text = "" Then
+            Lbl_error_msg.Text = "Please enter publisher name"
 
-                Lbl_error_msg.Text = "Please enter publisher name"
+        Else
 
-            Else
+            Try
 
-                Try
+                con.Open()
 
-                    con.Open()
-
-                    sql = "SELECT * FROM tbl_library_publisher
+                sql = "SELECT * FROM tbl_library_publisher
                                 WHERE publisher_name = '" & Txt_publisher_name.Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader
 
-                    If dr.Read Then
+                If dr.Read Then
 
-                        con.Close()
-                        Lbl_error_msg.Text = "Publisher already exists"
+                    con.Close()
+                    Lbl_error_msg.Text = "Publisher already exists"
 
-                    Else
+                Else
 
-                        dr.Close()
+                    dr.Close()
 
-                        sql = "INSERT INTO tbl_library_publisher (publisher_name)
+                    sql = "INSERT INTO tbl_library_publisher (publisher_name)
                                   VALUE ('" & Txt_publisher_name.Text & "')"
-                        cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
+                    cmd = New MySqlCommand(sql, con)
+                    cmd.ExecuteNonQuery()
 
-                        con.Close()
+                    con.Close()
 
-                        MessageBox.Show("Publisher added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("Publisher added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
+
                         Load_library_cb_publisher()
                         Fm_add_books.Enabled = True
                         Fm_add_books.Txt_publisher.Text = Txt_publisher_name.Text
                         Me.Close()
 
-                    End If
-
-                Catch ex As Exception
-
-                    MsgBox("Error: " & ex.Message)
-
-                Finally
-
-                    If con.State = ConnectionState.Open Then
-                        con.Close()
-                    End If
-
-                End Try
-
-            End If
-
-        Else
-
-            If Txt_publisher_name.Text = "" Then
-
-                Lbl_error_msg.Text = "Please enter publisher name"
-
-            Else
-
-                Try
-
-                    con.Open()
-
-                    sql = "SELECT * FROM tbl_library_publisher
-                                WHERE publisher_name = '" & Txt_publisher_name.Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-
-                    If dr.Read Then
-
-                        con.Close()
-                        Lbl_error_msg.Text = "Publisher already exists"
-
                     Else
 
-                        dr.Close()
-
-                        sql = "INSERT INTO tbl_library_publisher (publisher_name)
-                                  VALUE ('" & Txt_publisher_name.Text & "')"
-                        cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
-
-                        con.Close()
-
-                        MessageBox.Show("Publisher added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Load_library_publisher_data_table(Fm_home_page.Txt_search_publisher.Text)
                         Fm_home_page.Enabled = True
                         Me.Close()
 
                     End If
 
-                Catch ex As Exception
+                End If
 
-                    MsgBox("Error: " & ex.Message)
+            Catch ex As Exception
 
-                Finally
+                MsgBox("Error: " & ex.Message)
 
-                    If con.State = ConnectionState.Open Then
-                        con.Close()
-                    End If
+            Finally
 
-                End Try
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
 
-            End If
+            End Try
 
         End If
 

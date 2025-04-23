@@ -148,7 +148,7 @@ Partial Class Add_delivery
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(125, 30)
         Btn_update.TabIndex = 39
-        Btn_update.Text = "Update"
+        Btn_update.Text = "&Update"
         Btn_update.UseVisualStyleBackColor = True
         ' 
         ' Btn_cancel
@@ -157,7 +157,7 @@ Partial Class Add_delivery
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(125, 30)
         Btn_cancel.TabIndex = 41
-        Btn_cancel.Text = "Cancel"
+        Btn_cancel.Text = "&Cancel"
         Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Btn_save
@@ -166,7 +166,7 @@ Partial Class Add_delivery
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(125, 30)
         Btn_save.TabIndex = 40
-        Btn_save.Text = "Save"
+        Btn_save.Text = "&Save"
         Btn_save.UseVisualStyleBackColor = True
         ' 
         ' Txt_delivery_delivered_by

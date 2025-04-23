@@ -812,49 +812,6 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Lv_listed_books_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_listed_books.SelectedIndexChanged
-
-        'Remove items selection on the other listview
-        If Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
-
-            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
-
-        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Load_borrower_info_data_table(Txt_student_info_search.Text)
-
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
-
-            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
-
-        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-
-        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
-
-            Load_library_supplier_data_table(Txt_search_supplier.Text)
-
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_library_author_data_table(Txt_search_author.Text)
-
-        ElseIf Lv_category.SelectedItems.Count > 0 Then
-
-            Load_library_category_data_table(Txt_search_category.Text)
-
-        ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
-
-            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
-
-        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
-
-            Load_library_publisher_data_table(Txt_search_publisher.Text)
-
-        End If
-
-    End Sub
-
 
     ' Returned Borrowed Books
 
@@ -918,49 +875,6 @@ Public Class Fm_home_page
         ' Revert color when the mouse leaves, unless it's the selected button
         If btn IsNot selectedButton Then
             btn.BackColor = Color.Tan
-        End If
-
-    End Sub
-
-    Private Sub Lv_returned_borrowed_books_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_returned_borrowed_books.SelectedIndexChanged
-
-        'Remove items selection on the other listview
-        If Lv_listed_books.SelectedItems.Count > 0 Then
-
-            Load_listed_books_data_table(Txt_listed_books_search.Text)
-
-        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Load_borrower_info_data_table(Txt_student_info_search.Text)
-
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
-
-            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
-
-        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-
-        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
-
-            Load_library_supplier_data_table(Txt_search_supplier.Text)
-
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_library_author_data_table(Txt_search_author.Text)
-
-        ElseIf Lv_category.SelectedItems.Count > 0 Then
-
-            Load_library_category_data_table(Txt_search_category.Text)
-
-        ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
-
-            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
-
-        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
-
-            Load_library_publisher_data_table(Txt_search_publisher.Text)
-
         End If
 
     End Sub
@@ -1137,49 +1051,6 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Lv_borrower_info_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_borrower_info.SelectedIndexChanged
-
-        'Remove items selection on the other listview
-        If Lv_listed_books.SelectedItems.Count > 0 Then
-
-            Load_listed_books_data_table(Txt_listed_books_search.Text)
-
-        ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
-
-            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
-
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
-
-            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
-
-        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-
-        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
-
-            Load_library_supplier_data_table(Txt_search_supplier.Text)
-
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_library_author_data_table(Txt_search_author.Text)
-
-        ElseIf Lv_category.SelectedItems.Count > 0 Then
-
-            Load_library_category_data_table(Txt_search_category.Text)
-
-        ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
-
-            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
-
-        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
-
-            Load_library_publisher_data_table(Txt_search_publisher.Text)
-
-        End If
-
-    End Sub
-
 
     ' Penalty Report
 
@@ -1306,49 +1177,6 @@ Public Class Fm_home_page
         ' Revert color when the mouse leaves, unless it's the selected button
         If btn IsNot selectedButton Then
             btn.BackColor = Color.Tan
-        End If
-
-    End Sub
-
-    Private Sub Lv_penalty_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_penalty.SelectedIndexChanged
-
-        'Remove items selection on the other listview
-        If Lv_listed_books.SelectedItems.Count > 0 Then
-
-            Load_listed_books_data_table(Txt_listed_books_search.Text)
-
-        ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
-
-            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
-
-        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Load_borrower_info_data_table(Txt_student_info_search.Text)
-
-        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-
-        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
-
-            Load_library_supplier_data_table(Txt_search_supplier.Text)
-
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_library_author_data_table(Txt_search_author.Text)
-
-        ElseIf Lv_category.SelectedItems.Count > 0 Then
-
-            Load_library_category_data_table(Txt_search_category.Text)
-
-        ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
-
-            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
-
-        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
-
-            Load_library_publisher_data_table(Txt_search_publisher.Text)
-
         End If
 
     End Sub
@@ -1560,49 +1388,6 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Lv_listed_accounts_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_listed_accounts.SelectedIndexChanged
-
-        'Remove items selection on the other listview
-        If Lv_listed_books.SelectedItems.Count > 0 Then
-
-            Load_listed_books_data_table(Txt_listed_books_search.Text)
-
-        ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
-
-            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
-
-        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Load_borrower_info_data_table(Txt_student_info_search.Text)
-
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
-
-            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
-
-        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
-
-            Load_library_supplier_data_table(Txt_search_supplier.Text)
-
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_library_author_data_table(Txt_search_author.Text)
-
-        ElseIf Lv_category.SelectedItems.Count > 0 Then
-
-            Load_library_category_data_table(Txt_search_category.Text)
-
-        ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
-
-            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
-
-        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
-
-            Load_library_publisher_data_table(Txt_search_publisher.Text)
-
-        End If
-
-    End Sub
-
     Private Sub Txt_listed_accounts_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_listed_accounts_search.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
@@ -1796,49 +1581,6 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Lv_supplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_supplier.SelectedIndexChanged
-
-        'Remove items selection on the other listview
-        If Lv_listed_books.SelectedItems.Count > 0 Then
-
-            Load_listed_books_data_table(Txt_listed_books_search.Text)
-
-        ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
-
-            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
-
-        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Load_borrower_info_data_table(Txt_student_info_search.Text)
-
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
-
-            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
-
-        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
-
-            Load_library_author_data_table(Txt_search_author.Text)
-
-        ElseIf Lv_category.SelectedItems.Count > 0 Then
-
-            Load_library_category_data_table(Txt_search_category.Text)
-
-        ElseIf Lv_penalty_description.SelectedItems.Count > 0 Then
-
-            Load_library_penalty_data_table(Txt_search_penalty_description.Text)
-
-        ElseIf Lv_publisher.SelectedItems.Count > 0 Then
-
-            Load_library_publisher_data_table(Txt_search_publisher.Text)
-
-        End If
-
-    End Sub
-
     Private Sub Txt_search_supplier_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_supplier.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
@@ -1972,13 +1714,13 @@ Public Class Fm_home_page
                     con.Close()
 
                     MessageBox.Show(author_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_category_data_table(Txt_search_category.Text)
+                    Load_library_author_data_table(Txt_search_author.Text)
 
                 Else
 
                     con.Close()
 
-                    Load_library_category_data_table(Txt_search_category.Text)
+                    Load_library_author_data_table(Txt_search_author.Text)
 
                 End If
 
@@ -2027,31 +1769,7 @@ Public Class Fm_home_page
     Private Sub Lv_author_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_author.SelectedIndexChanged
 
         'Remove items selection on the other listview
-        If Lv_listed_books.SelectedItems.Count > 0 Then
-
-            Load_listed_books_data_table(Txt_listed_books_search.Text)
-
-        ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
-
-            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
-
-        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Load_borrower_info_data_table(Txt_student_info_search.Text)
-
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
-
-            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
-
-        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-
-        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
-
-            Load_library_supplier_data_table(Txt_search_supplier.Text)
-
-        ElseIf Lv_category.SelectedItems.Count > 0 Then
+        If Lv_category.SelectedItems.Count > 0 Then
 
             Load_library_category_data_table(Txt_search_category.Text)
 
@@ -2256,31 +1974,7 @@ Public Class Fm_home_page
     Private Sub Lv_category_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_category.SelectedIndexChanged
 
         'Remove items selection on the other listview
-        If Lv_listed_books.SelectedItems.Count > 0 Then
-
-            Load_listed_books_data_table(Txt_listed_books_search.Text)
-
-        ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
-
-            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
-
-        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Load_borrower_info_data_table(Txt_student_info_search.Text)
-
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
-
-            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
-
-        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-
-        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
-
-            Load_library_supplier_data_table(Txt_search_supplier.Text)
-
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
+        If Lv_author.SelectedItems.Count > 0 Then
 
             Load_library_author_data_table(Txt_search_author.Text)
 
@@ -2485,31 +2179,7 @@ Public Class Fm_home_page
     Private Sub Lv_penalty_description_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_penalty_description.SelectedIndexChanged
 
         'Remove items selection on the other listview
-        If Lv_listed_books.SelectedItems.Count > 0 Then
-
-            Load_listed_books_data_table(Txt_listed_books_search.Text)
-
-        ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
-
-            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
-
-        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Load_borrower_info_data_table(Txt_student_info_search.Text)
-
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
-
-            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
-
-        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-
-        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
-
-            Load_library_supplier_data_table(Txt_search_supplier.Text)
-
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
+        If Lv_author.SelectedItems.Count > 0 Then
 
             Load_library_author_data_table(Txt_search_author.Text)
 
@@ -2714,31 +2384,7 @@ Public Class Fm_home_page
     Private Sub Lv_publisher_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_publisher.SelectedIndexChanged
 
         'Remove items selection on the other listview
-        If Lv_listed_books.SelectedItems.Count > 0 Then
-
-            Load_listed_books_data_table(Txt_listed_books_search.Text)
-
-        ElseIf Lv_returned_borrowed_books.SelectedItems.Count > 0 Then
-
-            Load_returned_borrowed_books_data_table(Txt_returned_borrowed_books_search.Text)
-
-        ElseIf Lv_borrower_info.SelectedItems.Count > 0 Then
-
-            Load_borrower_info_data_table(Txt_student_info_search.Text)
-
-        ElseIf Lv_penalty.SelectedItems.Count > 0 Then
-
-            Load_penalty_report_data_table(Txt_search_penalty_report.Text)
-
-        ElseIf Lv_listed_accounts.SelectedItems.Count > 0 Then
-
-            Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-
-        ElseIf Lv_supplier.SelectedItems.Count > 0 Then
-
-            Load_library_supplier_data_table(Txt_search_supplier.Text)
-
-        ElseIf Lv_author.SelectedItems.Count > 0 Then
+        If Lv_author.SelectedItems.Count > 0 Then
 
             Load_library_author_data_table(Txt_search_author.Text)
 
