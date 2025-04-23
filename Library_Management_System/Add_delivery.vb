@@ -94,7 +94,7 @@ Public Class Fm_add_delivery
                         sql = "SELECT   tbl_delivery.transaction_number,
                                         tbl_books.isbn,
                                         tbl_delivery.quantity,
-                                        tbl_delivery.delivered_date
+                                        tbl_delivery.delivery_date
 
                                FROM tbl_delivery
 
