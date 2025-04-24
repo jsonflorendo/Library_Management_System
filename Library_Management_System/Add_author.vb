@@ -178,9 +178,6 @@ Public Class Fm_add_author
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength = 100 ' Change this to the desired maximum length
 
@@ -192,7 +189,7 @@ Public Class Fm_add_author
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

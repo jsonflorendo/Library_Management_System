@@ -186,6 +186,12 @@ Public Class Fm_issued_books
 
                 MsgBox(ex.Message)
 
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
             End Try
 
         End If
@@ -224,6 +230,12 @@ Public Class Fm_issued_books
 
             MsgBox(ex.Message)
 
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
         End Try
 
     End Sub
@@ -258,9 +270,6 @@ Public Class Fm_issued_books
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength As Integer = 11 ' Change this to the desired maximum length
 
@@ -272,7 +281,7 @@ Public Class Fm_issued_books
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789- " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789- " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

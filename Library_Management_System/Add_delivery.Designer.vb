@@ -90,14 +90,14 @@ Partial Class Fm_add_delivery
         Txt_book_isbn.Name = "Txt_book_isbn"
         Txt_book_isbn.PlaceholderText = "Enter ISBN"
         Txt_book_isbn.Size = New Size(302, 29)
-        Txt_book_isbn.TabIndex = 43
+        Txt_book_isbn.TabIndex = 4
         ' 
         ' Btn_update
         ' 
         Btn_update.Location = New Point(30, 474)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(125, 30)
-        Btn_update.TabIndex = 39
+        Btn_update.TabIndex = 0
         Btn_update.Text = "&Update"
         Btn_update.UseVisualStyleBackColor = True
         ' 
@@ -106,7 +106,7 @@ Partial Class Fm_add_delivery
         Btn_cancel.Location = New Point(207, 474)
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(125, 30)
-        Btn_cancel.TabIndex = 41
+        Btn_cancel.TabIndex = 0
         Btn_cancel.Text = "&Cancel"
         Btn_cancel.UseVisualStyleBackColor = True
         ' 
@@ -117,7 +117,7 @@ Partial Class Fm_add_delivery
         Txt_delivery_delivered_by.Name = "Txt_delivery_delivered_by"
         Txt_delivery_delivered_by.PlaceholderText = "Enter Delivered By"
         Txt_delivery_delivered_by.Size = New Size(302, 29)
-        Txt_delivery_delivered_by.TabIndex = 47
+        Txt_delivery_delivered_by.TabIndex = 2
         ' 
         ' Txt_delivery_transaction_number
         ' 
@@ -126,7 +126,7 @@ Partial Class Fm_add_delivery
         Txt_delivery_transaction_number.Name = "Txt_delivery_transaction_number"
         Txt_delivery_transaction_number.PlaceholderText = "Enter Transaction Number"
         Txt_delivery_transaction_number.Size = New Size(302, 29)
-        Txt_delivery_transaction_number.TabIndex = 42
+        Txt_delivery_transaction_number.TabIndex = 1
         ' 
         ' Txt_delivery_received_by
         ' 
@@ -135,7 +135,7 @@ Partial Class Fm_add_delivery
         Txt_delivery_received_by.Name = "Txt_delivery_received_by"
         Txt_delivery_received_by.PlaceholderText = "Enter Received By"
         Txt_delivery_received_by.Size = New Size(302, 29)
-        Txt_delivery_received_by.TabIndex = 58
+        Txt_delivery_received_by.TabIndex = 3
         ' 
         ' Txt_book_title
         ' 
@@ -192,7 +192,7 @@ Partial Class Fm_add_delivery
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(365, 520)
+        ClientSize = New Size(364, 520)
         ControlBox = False
         Controls.Add(Txt_book_publisher)
         Controls.Add(Txt_book_publish_year)

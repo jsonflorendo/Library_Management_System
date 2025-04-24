@@ -1602,7 +1602,7 @@ Partial Class Fm_home_page
         ' 
         Lv_delivery.BackColor = SystemColors.ActiveCaption
         Lv_delivery.Columns.AddRange(New ColumnHeader() {Delivery_table0, Delivery_table1, Delivery_table2, Delivery_table3, Delivery_table4, Delivery_table5, Delivery_table6})
-        Lv_delivery.Font = New Font("Georgia", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Lv_delivery.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_delivery.FullRowSelect = True
         Lv_delivery.HeaderStyle = ColumnHeaderStyle.Nonclickable
         Lv_delivery.Location = New Point(33, 88)
@@ -1615,13 +1615,13 @@ Partial Class Fm_home_page
         ' Delivery_table0
         ' 
         Delivery_table0.Text = "Transaction Number"
-        Delivery_table0.Width = 250
+        Delivery_table0.Width = 220
         ' 
         ' Delivery_table1
         ' 
         Delivery_table1.Text = "ISBN"
         Delivery_table1.TextAlign = HorizontalAlignment.Center
-        Delivery_table1.Width = 300
+        Delivery_table1.Width = 250
         ' 
         ' Delivery_table2
         ' 
@@ -1633,25 +1633,25 @@ Partial Class Fm_home_page
         ' 
         Delivery_table3.Text = "Quantity"
         Delivery_table3.TextAlign = HorizontalAlignment.Center
-        Delivery_table3.Width = 100
+        Delivery_table3.Width = 102
         ' 
         ' Delivery_table4
         ' 
         Delivery_table4.Text = "Delivered By"
         Delivery_table4.TextAlign = HorizontalAlignment.Center
-        Delivery_table4.Width = 300
+        Delivery_table4.Width = 250
         ' 
         ' Delivery_table5
         ' 
         Delivery_table5.Text = "Delivery Date"
         Delivery_table5.TextAlign = HorizontalAlignment.Center
-        Delivery_table5.Width = 150
+        Delivery_table5.Width = 170
         ' 
         ' Delivery_table6
         ' 
         Delivery_table6.Text = "Received by"
         Delivery_table6.TextAlign = HorizontalAlignment.Center
-        Delivery_table6.Width = 140
+        Delivery_table6.Width = 250
         ' 
         ' Panel14_Book_Inventory
         ' 

@@ -1161,7 +1161,8 @@ Module Module1
                             tbl_delivery.quantity,
                             tbl_delivery.delivered_by,
                             tbl_delivery.delivery_date,
-                            tbl_delivery.received_by                            
+                            tbl_delivery.received_by,
+                            tbl_delivery.primary_delivery_id
 
                     FROM tbl_delivery
 

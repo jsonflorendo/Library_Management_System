@@ -94,7 +94,8 @@ Public Class Fm_add_delivery
                         sql = "SELECT   tbl_delivery.transaction_number,
                                         tbl_books.isbn,
                                         tbl_delivery.quantity,
-                                        tbl_delivery.delivery_date
+                                        tbl_delivery.delivery_date,
+                                        tbl_delivery.primary_delivery_id
 
                                FROM tbl_delivery
 
@@ -117,6 +118,8 @@ Public Class Fm_add_delivery
                             sql = "UPDATE tbl_delivery
                                     SET quantity = '" & total_quantity & "'
                                     WHERE primary_delivery_id = '" & primary_delivery_id & "'"
+                            cmd = New MySqlCommand(sql, con)
+                            dr = cmd.ExecuteReader()
 
                         Else
 
@@ -127,15 +130,22 @@ Public Class Fm_add_delivery
                                                             quantity,
                                                             delivered_by,
                                                             delivery_date,
-                                                            received_by)                                                            )
-                                    VALUES ('" & Txt_delivery_transaction_number.Text & "',
+                                                            received_by)
+                                    VALUE  ('" & Txt_delivery_transaction_number.Text & "',
                                             '" & primary_book_id & "',
                                             '1',
                                             '" & Txt_delivery_delivered_by.Text & "',
                                             '" & Date.Now.ToString("MMMM dd, yyyy") & "',
                                             '" & Txt_delivery_received_by.Text & "')"
 
+                            cmd = New MySqlCommand(sql, con)
+                            cmd.ExecuteNonQuery()
+
                         End If
+
+                        con.Close()
+
+                        Load_delivery_data_table(Fm_home_page.Txt_search_delivery.Text)
 
                     Else
 
@@ -179,6 +189,93 @@ Public Class Fm_add_delivery
         Load_delivery_data_table(Fm_home_page.Txt_search_delivery.Text)
         Fm_home_page.Enabled = True
         Me.Close()
+
+    End Sub
+
+    Private Sub Txt_delivery_transaction_number_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_delivery_transaction_number.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_delivery_transaction_number.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
+
+    End Sub
+
+    Private Sub Txt_delivery_delivered_by_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_delivery_delivered_by.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_delivery_delivered_by.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
+
+    End Sub
+
+    Private Sub Txt_delivery_received_by_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_delivery_received_by.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength As Integer = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_delivery_received_by.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
 
     End Sub
 
