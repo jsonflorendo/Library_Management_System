@@ -183,7 +183,7 @@ Partial Class Fm_home_page
         Delivery_table5 = New ColumnHeader()
         Delivery_table6 = New ColumnHeader()
         Panel14_Book_Inventory = New Panel()
-        ListView1 = New ListView()
+        Lv_book_inventory = New ListView()
         Book_inventory0 = New ColumnHeader()
         Book_inventory1 = New ColumnHeader()
         Book_inventory2 = New ColumnHeader()
@@ -192,13 +192,11 @@ Partial Class Fm_home_page
         Book_inventory5 = New ColumnHeader()
         Book_inventory6 = New ColumnHeader()
         Book_inventory7 = New ColumnHeader()
-        Book_inventory8 = New ColumnHeader()
-        Book_inventory9 = New ColumnHeader()
-        ComboBox1 = New ComboBox()
-        Button1 = New Button()
-        Button2 = New Button()
-        Button4 = New Button()
-        TextBox1 = New TextBox()
+        Cb_book_inventory_category = New ComboBox()
+        Btn_book_inventory_edit = New Button()
+        Btn_book_inventory_delete = New Button()
+        Btn_book_inventory_add = New Button()
+        Txt_book_inventory_search = New TextBox()
         Panel1_Books.SuspendLayout()
         Panel2_Returned_Issued_Books.SuspendLayout()
         Panel6_Supplier.SuspendLayout()
@@ -1656,31 +1654,31 @@ Partial Class Fm_home_page
         ' Panel14_Book_Inventory
         ' 
         Panel14_Book_Inventory.BackgroundImageLayout = ImageLayout.Stretch
-        Panel14_Book_Inventory.Controls.Add(ListView1)
-        Panel14_Book_Inventory.Controls.Add(ComboBox1)
-        Panel14_Book_Inventory.Controls.Add(Button1)
-        Panel14_Book_Inventory.Controls.Add(Button2)
-        Panel14_Book_Inventory.Controls.Add(Button4)
-        Panel14_Book_Inventory.Controls.Add(TextBox1)
+        Panel14_Book_Inventory.Controls.Add(Lv_book_inventory)
+        Panel14_Book_Inventory.Controls.Add(Cb_book_inventory_category)
+        Panel14_Book_Inventory.Controls.Add(Btn_book_inventory_edit)
+        Panel14_Book_Inventory.Controls.Add(Btn_book_inventory_delete)
+        Panel14_Book_Inventory.Controls.Add(Btn_book_inventory_add)
+        Panel14_Book_Inventory.Controls.Add(Txt_book_inventory_search)
         Panel14_Book_Inventory.Location = New Point(300, 28)
         Panel14_Book_Inventory.Name = "Panel14_Book_Inventory"
         Panel14_Book_Inventory.Size = New Size(1603, 973)
         Panel14_Book_Inventory.TabIndex = 24
         ' 
-        ' ListView1
+        ' Lv_book_inventory
         ' 
-        ListView1.BackColor = SystemColors.ActiveCaption
-        ListView1.Columns.AddRange(New ColumnHeader() {Book_inventory0, Book_inventory1, Book_inventory2, Book_inventory3, Book_inventory4, Book_inventory5, Book_inventory6, Book_inventory7, Book_inventory8, Book_inventory9})
-        ListView1.Font = New Font("Georgia", 12.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ListView1.ForeColor = SystemColors.WindowText
-        ListView1.FullRowSelect = True
-        ListView1.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        ListView1.Location = New Point(29, 74)
-        ListView1.Name = "ListView1"
-        ListView1.Size = New Size(1546, 874)
-        ListView1.TabIndex = 6
-        ListView1.UseCompatibleStateImageBehavior = False
-        ListView1.View = View.Details
+        Lv_book_inventory.BackColor = SystemColors.ActiveCaption
+        Lv_book_inventory.Columns.AddRange(New ColumnHeader() {Book_inventory0, Book_inventory1, Book_inventory2, Book_inventory3, Book_inventory4, Book_inventory5, Book_inventory6, Book_inventory7})
+        Lv_book_inventory.Font = New Font("Georgia", 12.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Lv_book_inventory.ForeColor = SystemColors.WindowText
+        Lv_book_inventory.FullRowSelect = True
+        Lv_book_inventory.HeaderStyle = ColumnHeaderStyle.Nonclickable
+        Lv_book_inventory.Location = New Point(29, 74)
+        Lv_book_inventory.Name = "Lv_book_inventory"
+        Lv_book_inventory.Size = New Size(1546, 874)
+        Lv_book_inventory.TabIndex = 6
+        Lv_book_inventory.UseCompatibleStateImageBehavior = False
+        Lv_book_inventory.View = View.Details
         ' 
         ' Book_inventory0
         ' 
@@ -1707,7 +1705,7 @@ Partial Class Fm_home_page
         ' 
         ' Book_inventory4
         ' 
-        Book_inventory4.Text = "Publication Year"
+        Book_inventory4.Text = "Publish Year"
         Book_inventory4.TextAlign = HorizontalAlignment.Center
         Book_inventory4.Width = 280
         ' 
@@ -1724,72 +1722,61 @@ Partial Class Fm_home_page
         ' 
         ' Book_inventory7
         ' 
-        Book_inventory7.Text = "Acquisition Date"
+        Book_inventory7.Text = "Status"
         Book_inventory7.TextAlign = HorizontalAlignment.Center
         ' 
-        ' Book_inventory8
+        ' Cb_book_inventory_category
         ' 
-        Book_inventory8.Text = "Supplier"
-        Book_inventory8.TextAlign = HorizontalAlignment.Center
+        Cb_book_inventory_category.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Cb_book_inventory_category.ForeColor = Color.Black
+        Cb_book_inventory_category.FormattingEnabled = True
+        Cb_book_inventory_category.Location = New Point(298, 26)
+        Cb_book_inventory_category.Name = "Cb_book_inventory_category"
+        Cb_book_inventory_category.Size = New Size(273, 26)
+        Cb_book_inventory_category.TabIndex = 23
+        Cb_book_inventory_category.Text = "All Genre"
         ' 
-        ' Book_inventory9
+        ' Btn_book_inventory_edit
         ' 
-        Book_inventory9.Text = "Status"
-        Book_inventory9.TextAlign = HorizontalAlignment.Center
+        Btn_book_inventory_edit.BackColor = Color.Tan
+        Btn_book_inventory_edit.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_book_inventory_edit.Location = New Point(1336, 29)
+        Btn_book_inventory_edit.Name = "Btn_book_inventory_edit"
+        Btn_book_inventory_edit.Size = New Size(118, 30)
+        Btn_book_inventory_edit.TabIndex = 11
+        Btn_book_inventory_edit.Text = "&Edit"
+        Btn_book_inventory_edit.UseVisualStyleBackColor = False
         ' 
-        ' ComboBox1
+        ' Btn_book_inventory_delete
         ' 
-        ComboBox1.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ComboBox1.ForeColor = Color.Black
-        ComboBox1.FormattingEnabled = True
-        ComboBox1.Items.AddRange(New Object() {"Adventure fiction", "Biographies", "Books", "Chapter books", "Childrens literature", "Classics", "Comics", "Cooking", "Fantasy", "Fiction", "General fiction", "History", "Horror", "Humor", "Memoir", "Mystery", "Non-fiction", "Poetry", "Religion", "Romance", "Satire", "Science fiction", "Self-help book", "Thriller"})
-        ComboBox1.Location = New Point(298, 26)
-        ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(273, 26)
-        ComboBox1.TabIndex = 23
-        ComboBox1.Text = "All Genre"
+        Btn_book_inventory_delete.BackColor = Color.Tan
+        Btn_book_inventory_delete.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_book_inventory_delete.Location = New Point(1460, 29)
+        Btn_book_inventory_delete.Name = "Btn_book_inventory_delete"
+        Btn_book_inventory_delete.Size = New Size(118, 30)
+        Btn_book_inventory_delete.TabIndex = 10
+        Btn_book_inventory_delete.Text = "&Delete"
+        Btn_book_inventory_delete.UseVisualStyleBackColor = False
         ' 
-        ' Button1
+        ' Btn_book_inventory_add
         ' 
-        Button1.BackColor = Color.Tan
-        Button1.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Button1.Location = New Point(1336, 29)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(118, 30)
-        Button1.TabIndex = 11
-        Button1.Text = "&Edit"
-        Button1.UseVisualStyleBackColor = False
+        Btn_book_inventory_add.BackColor = Color.Tan
+        Btn_book_inventory_add.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_book_inventory_add.Location = New Point(1212, 29)
+        Btn_book_inventory_add.Name = "Btn_book_inventory_add"
+        Btn_book_inventory_add.Size = New Size(118, 30)
+        Btn_book_inventory_add.TabIndex = 9
+        Btn_book_inventory_add.Text = "&Add"
+        Btn_book_inventory_add.UseVisualStyleBackColor = False
         ' 
-        ' Button2
+        ' Txt_book_inventory_search
         ' 
-        Button2.BackColor = Color.Tan
-        Button2.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Button2.Location = New Point(1460, 29)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(118, 30)
-        Button2.TabIndex = 10
-        Button2.Text = "&Delete"
-        Button2.UseVisualStyleBackColor = False
-        ' 
-        ' Button4
-        ' 
-        Button4.BackColor = Color.Tan
-        Button4.Font = New Font("Century", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Button4.Location = New Point(1212, 29)
-        Button4.Name = "Button4"
-        Button4.Size = New Size(118, 30)
-        Button4.TabIndex = 9
-        Button4.Text = "&Add"
-        Button4.UseVisualStyleBackColor = False
-        ' 
-        ' TextBox1
-        ' 
-        TextBox1.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        TextBox1.Location = New Point(29, 18)
-        TextBox1.Name = "TextBox1"
-        TextBox1.PlaceholderText = "Search"
-        TextBox1.Size = New Size(246, 38)
-        TextBox1.TabIndex = 7
+        Txt_book_inventory_search.Font = New Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_book_inventory_search.Location = New Point(29, 18)
+        Txt_book_inventory_search.Name = "Txt_book_inventory_search"
+        Txt_book_inventory_search.PlaceholderText = "Search"
+        Txt_book_inventory_search.Size = New Size(246, 38)
+        Txt_book_inventory_search.TabIndex = 7
         ' 
         ' Fm_home_page
         ' 
@@ -1798,10 +1785,10 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
+        Controls.Add(Panel14_Book_Inventory)
         Controls.Add(Panel13_Delivery)
         Controls.Add(Panel1_Books)
         Controls.Add(Panel6_Supplier)
-        Controls.Add(Panel14_Book_Inventory)
         Controls.Add(Panel10_Author_Category_Penalty_Publisher)
         Controls.Add(Panel12_Shelf)
         Controls.Add(Panel4_User_Acounts)
@@ -2014,21 +2001,20 @@ Partial Class Fm_home_page
     Friend WithEvents Delivery_table2 As ColumnHeader
     Friend WithEvents Delivery_table3 As ColumnHeader
     Friend WithEvents Panel14_Book_Inventory As Panel
-    Friend WithEvents ListView1 As ListView
+    Friend WithEvents Lv_book_inventory As ListView
     Friend WithEvents Book_inventory0 As ColumnHeader
     Friend WithEvents Book_inventory1 As ColumnHeader
     Friend WithEvents Book_inventory2 As ColumnHeader
     Friend WithEvents Book_inventory3 As ColumnHeader
     Friend WithEvents Book_inventory4 As ColumnHeader
     Friend WithEvents Book_inventory5 As ColumnHeader
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Cb_book_inventory_category As ComboBox
+    Friend WithEvents Btn_book_inventory_edit As Button
+    Friend WithEvents Btn_book_inventory_delete As Button
+    Friend WithEvents Btn_book_inventory_add As Button
+    Friend WithEvents Txt_book_inventory_search As TextBox
     Friend WithEvents Book_inventory6 As ColumnHeader
     Friend WithEvents Book_inventory7 As ColumnHeader
     Friend WithEvents Book_inventory8 As ColumnHeader
-    Friend WithEvents Book_inventory9 As ColumnHeader
     Friend WithEvents Delivery_table6 As ColumnHeader
 End Class

@@ -569,6 +569,35 @@ Public Class Fm_home_page
 
     End Sub
 
+    Private Sub Txt_listed_books_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_listed_books_search.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_listed_books_search.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
+
+    End Sub
+
     Private Sub Cb_listed_books_category_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_listed_books_category.SelectedIndexChanged
 
         If Cb_listed_books_category.Text = "All Genre" Then
@@ -821,6 +850,35 @@ Public Class Fm_home_page
 
     End Sub
 
+    Private Sub Txt_returned_borrowed_books_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_returned_borrowed_books_search.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_returned_borrowed_books_search.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
+
+    End Sub
+
     Private Sub Btn_borrow_books_Click(sender As Object, e As EventArgs) Handles Btn_borrow_books.Click
 
         Fm_issued_books.Show()
@@ -885,6 +943,35 @@ Public Class Fm_home_page
     Private Sub Txt_student_info_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_student_info_search.TextChanged
 
         Load_borrower_info_data_table(Txt_student_info_search.Text)
+
+    End Sub
+
+    Private Sub Txt_student_info_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_student_info_search.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_student_info_search.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
 
     End Sub
 
@@ -1060,6 +1147,35 @@ Public Class Fm_home_page
 
     End Sub
 
+    Private Sub Txt_search_penalty_report_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_penalty_report.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_search_penalty_report.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
+
+    End Sub
+
     Private Sub Btn_penalty_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_report_edit.Click
 
         If Lv_penalty.SelectedItems.Count > 0 Then
@@ -1181,7 +1297,16 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Txt_search_penalty_report_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_penalty_report.KeyPress
+
+    ' Listed Accounts
+
+    Private Sub Txt_listed_accounts_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_listed_accounts_search.TextChanged
+
+        Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
+
+    End Sub
+
+    Private Sub Txt_listed_accounts_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_listed_accounts_search.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -1189,36 +1314,24 @@ Public Class Fm_home_page
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_search_penalty_report.TextLength >= maxLength Then
+        If Txt_listed_accounts_search.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
-
-    End Sub
-
-
-    ' Listed Accounts
-
-    Private Sub Txt_listed_accounts_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_listed_accounts_search.TextChanged
-
-        Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
 
     End Sub
 
@@ -1388,7 +1501,16 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Txt_listed_accounts_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_listed_accounts_search.KeyPress
+
+    ' Listed Supplier
+
+    Private Sub Txt_search_supplier_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_supplier.TextChanged
+
+        Load_library_supplier_data_table(Txt_search_supplier.Text)
+
+    End Sub
+
+    Private Sub Txt_search_supplier_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_supplier.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -1396,36 +1518,24 @@ Public Class Fm_home_page
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_listed_accounts_search.TextLength >= maxLength Then
+        If Txt_search_supplier.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
-
-    End Sub
-
-
-    ' Listed Supplier
-
-    Private Sub Txt_search_supplier_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_supplier.TextChanged
-
-        Load_library_supplier_data_table(Txt_search_supplier.Text)
 
     End Sub
 
@@ -1581,7 +1691,16 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Txt_search_supplier_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_supplier.KeyPress
+
+    ' Listed Author
+
+    Private Sub Txt_search_author_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_author.TextChanged
+
+        Load_library_author_data_table(Txt_search_author.Text)
+
+    End Sub
+
+    Private Sub Txt_search_author_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_author.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -1589,36 +1708,24 @@ Public Class Fm_home_page
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_search_supplier.TextLength >= maxLength Then
+        If Txt_search_author.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
-
-    End Sub
-
-
-    ' Listed Author
-
-    Private Sub Txt_search_author_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_author.TextChanged
-
-        Load_library_author_data_table(Txt_search_author.Text)
 
     End Sub
 
@@ -1785,7 +1892,16 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Txt_search_author_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_author.KeyPress
+
+    ' Listed Category
+
+    Private Sub Txt_search_category_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_category.TextChanged
+
+        Load_library_category_data_table(Txt_search_category.Text)
+
+    End Sub
+
+    Private Sub Txt_search_category_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_category.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -1793,36 +1909,24 @@ Public Class Fm_home_page
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_search_author.TextLength >= maxLength Then
+        If Txt_search_category.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
-
-    End Sub
-
-
-    ' Listed Category
-
-    Private Sub Txt_category_description_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_category.TextChanged
-
-        Load_library_category_data_table(Txt_search_category.Text)
 
     End Sub
 
@@ -1990,7 +2094,16 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Txt_search_category_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_category.KeyPress
+
+    ' Library Penalty
+
+    Private Sub Txt_search_penalty_description_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_penalty_description.TextChanged
+
+        Load_library_penalty_data_table(Txt_search_penalty_description.Text)
+
+    End Sub
+
+    Private Sub Txt_search_penalty_description_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_penalty_description.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -1998,36 +2111,24 @@ Public Class Fm_home_page
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_search_category.TextLength >= maxLength Then
+        If Txt_search_penalty_description.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
-
-    End Sub
-
-
-    ' Library Penalty
-
-    Private Sub Txt_search_penalty_description_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_penalty_description.TextChanged
-
-        Load_library_penalty_data_table(Txt_search_penalty_description.Text)
 
     End Sub
 
@@ -2195,7 +2296,16 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Txt_search_penalty_description_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_penalty_description.KeyPress
+
+    ' Library Publisher
+
+    Private Sub Txt_search_publisher_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_publisher.TextChanged
+
+        Load_library_publisher_data_table(Txt_search_publisher.Text)
+
+    End Sub
+
+    Private Sub Txt_search_publisher_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_publisher.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -2203,36 +2313,24 @@ Public Class Fm_home_page
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_search_penalty_description.TextLength >= maxLength Then
+        If Txt_search_publisher.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
-
-    End Sub
-
-
-    ' Library Publisher
-
-    Private Sub Txt_search_publisher_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_publisher.TextChanged
-
-        Load_library_publisher_data_table(Txt_search_publisher.Text)
 
     End Sub
 
@@ -2400,7 +2498,16 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Txt_search_publisher_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_publisher.KeyPress
+
+    ' Shelf
+
+    Private Sub Txt_search_shelf_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_shelf.TextChanged
+
+        Load_shelf_data_table(Txt_search_shelf.Text)
+
+    End Sub
+
+    Private Sub Txt_search_shelf_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_shelf.KeyPress
 
         ' Check if the entered key is a control key (e.g., Backspace)
         If Char.IsControl(e.KeyChar) Then
@@ -2408,36 +2515,24 @@ Public Class Fm_home_page
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength = 100 ' Change this to the desired maximum length
 
         ' Check if the length of the TextBox text exceeds the maximum length
-        If Txt_search_publisher.TextLength >= maxLength Then
+        If Txt_search_shelf.TextLength >= maxLength Then
             ' Cancel the key press if the maximum length is reached
             e.Handled = True
             Return
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
         End If
-
-    End Sub
-
-
-    ' Shelf
-
-    Private Sub Txt_search_shelf_TextChanged(sender As Object, e As EventArgs) Handles Txt_search_shelf.TextChanged
-
-        Load_shelf_data_table(Txt_search_shelf.Text)
 
     End Sub
 
@@ -2599,6 +2694,35 @@ Public Class Fm_home_page
 
     End Sub
 
+    Private Sub Txt_search_delivery_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_search_delivery.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_search_delivery.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
+
+    End Sub
+
     Private Sub Btn_delivery_add_Click(sender As Object, e As EventArgs) Handles Btn_delivery_add.Click
 
         Fm_add_delivery.Show()
@@ -2675,6 +2799,234 @@ Public Class Fm_home_page
     End Sub
 
     Private Sub Btn_delivery_delete_MouseLeave(sender As Object, e As EventArgs) Handles Btn_delivery_delete.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
+
+    End Sub
+
+
+    ' Book Inventory
+
+    Private Sub Txt_book_inventory_search_TextChanged(sender As Object, e As EventArgs) Handles Txt_book_inventory_search.TextChanged
+
+        Load_book_inventory_data_table(Txt_book_inventory_search.Text)
+
+    End Sub
+
+    Private Sub Txt_book_inventory_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_book_inventory_search.KeyPress
+
+        ' Check if the entered key is a control key (e.g., Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            ' Allow control keys
+            Return
+        End If
+
+        ' Define the maximum length for the TextBox
+        Dim maxLength = 100 ' Change this to the desired maximum length
+
+        ' Check if the length of the TextBox text exceeds the maximum length
+        If Txt_book_inventory_search.TextLength >= maxLength Then
+            ' Cancel the key press if the maximum length is reached
+            e.Handled = True
+            Return
+        End If
+
+        ' Define the allowed characters (in this example, only digits are allowed)
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+
+        ' Check if the entered key is an allowed character
+        If Not allowedChars.Contains(e.KeyChar) Then
+            ' Cancel the key press if the entered character is not allowed
+            e.Handled = True
+        End If
+
+    End Sub
+
+    Private Sub Cb_book_inventory_category_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_book_inventory_category.SelectedIndexChanged
+
+        If Cb_book_inventory_category.Text = "All Genre" Then
+
+            Load_book_inventory_data_table(Txt_book_inventory_search.Text)
+
+        Else
+
+            Try
+
+                con.Open()
+
+                sql = "SELECT   tbl_books.isbn,
+                                tbl_books.book_name,
+                                tbl_library_author.author_name,
+                                tbl_library_category.category_name,
+                                tbl_books.publish_year,
+                                tbl_library_publisher.publisher_name,
+                                tbl_book_inventory.quantity,
+                                tbl_book_inventory.status,
+                                tbl_book_inventory.primary_book_inventory_id
+
+                        FROM tbl_book_inventory
+
+                        INNER JOIN tbl_books ON tbl_book_inventory.primary_book_id = tbl_books.primary_book_id
+                        INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
+                        INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
+                        INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
+
+                        WHERE   category_name LIKE '%" & Cb_book_inventory_category.Text & "%'
+
+                        ORDER BY book_name ASC"
+
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
+
+                Lv_book_inventory.Items.Clear()
+
+                Do While dr.Read
+
+                    Dim lv As New ListViewItem({dr("isbn").ToString(),
+                                                dr("book_name").ToString(),
+                                                dr("author_name").ToString(),
+                                                dr("category_name").ToString(),
+                                                dr("publish_year").ToString(),
+                                                dr("publisher_name").ToString(),
+                                                dr("quantity").ToString(),
+                                                dr("status").ToString(),
+                                                dr("primary_book_inventory_id").ToString()})
+                    Lv_book_inventory.Items.Add(lv)
+
+                Loop
+
+                con.Close()
+
+                For i As Integer = 0 To Lv_book_inventory.Items.Count - 1
+
+                    If i Mod 2 = 0 Then
+
+                        Lv_book_inventory.Items(i).BackColor = Color.Azure
+                        Lv_book_inventory.Items(i).ForeColor = Color.Black
+
+                    Else
+
+                        Lv_book_inventory.Items(i).BackColor = Color.GhostWhite
+                        Lv_book_inventory.Items(i).ForeColor = Color.Black
+
+                    End If
+
+                Next
+
+            Catch ex As Exception
+
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        End If
+
+    End Sub
+
+    Private Sub Cb_book_inventory_category_Click(sender As Object, e As EventArgs) Handles Cb_book_inventory_category.Click
+
+        Cb_book_inventory_category.DroppedDown = True
+
+    End Sub
+
+    Private Sub Btn_book_inventory_add_Click(sender As Object, e As EventArgs) Handles Btn_book_inventory_add.Click
+
+        Fm_add_book_inventory.Show()
+        Fm_add_book_inventory.Btn_update.Visible = False
+        Enabled = False
+
+    End Sub
+
+    Private Sub Btn_book_inventory_add_MouseEnter(sender As Object, e As EventArgs) Handles Btn_book_inventory_add.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_book_inventory_add_MouseLeave(sender As Object, e As EventArgs) Handles Btn_book_inventory_add.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
+
+    End Sub
+
+    Private Sub Btn_book_inventory_edit_Click(sender As Object, e As EventArgs) Handles Btn_book_inventory_edit.Click
+
+        If Lv_book_inventory.SelectedItems.Count > 0 Then
+
+            Fm_add_book_inventory.Show()
+            Fm_add_book_inventory.save_Txt_isbn.Text = Lv_book_inventory.SelectedItems(0).Text
+            Fm_add_book_inventory.Txt_book_quantity.Text = Lv_book_inventory.SelectedItems(0).SubItems(6).Text
+            Me.Enabled = False
+
+        Else
+
+            MessageBox.Show("Please select book", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
+
+    End Sub
+
+    Private Sub Btn_book_inventory_edit_MouseEnter(sender As Object, e As EventArgs) Handles Btn_book_inventory_edit.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_book_inventory_edit_MouseLeave(sender As Object, e As EventArgs) Handles Btn_book_inventory_edit.MouseLeave
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Revert color when the mouse leaves, unless it's the selected button
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.Tan
+        End If
+
+    End Sub
+
+    Private Sub Btn_book_inventory_delete_Click(sender As Object, e As EventArgs) Handles Btn_book_inventory_delete.Click
+
+
+
+    End Sub
+
+    Private Sub Btn_book_inventory_delete_MouseEnter(sender As Object, e As EventArgs) Handles Btn_book_inventory_delete.MouseEnter
+
+        Dim btn = DirectCast(sender, Button)
+
+        ' Change color on hover only if it's not selected
+        If btn IsNot selectedButton Then
+            btn.BackColor = Color.RoyalBlue
+        End If
+
+    End Sub
+
+    Private Sub Btn_book_inventory_delete_MouseLeave(sender As Object, e As EventArgs) Handles Btn_book_inventory_delete.MouseLeave
 
         Dim btn = DirectCast(sender, Button)
 

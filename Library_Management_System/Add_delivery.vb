@@ -57,6 +57,7 @@ Public Class Fm_add_delivery
 
                     con.Open()
 
+
                     ' Search book details and display them in the TextBoxes
                     sql = "SELECT   tbl_books.isbn,
                                     tbl_books.book_name,
@@ -90,7 +91,8 @@ Public Class Fm_add_delivery
 
                         dr.Close()
 
-                        ' Check if the Transaction Number, ISBN, and Date are already save on the database, if so, update quantity, if not, insert new record
+
+                        ' Check if the Transaction Number, ISBN, and Date are already exists on the database, if so, update quantity, if not, insert new record
                         sql = "SELECT   tbl_delivery.transaction_number,
                                         tbl_books.isbn,
                                         tbl_delivery.quantity,
@@ -142,6 +144,44 @@ Public Class Fm_add_delivery
                             cmd.ExecuteNonQuery()
 
                         End If
+
+
+                        ' Check and update or add new data on the book inventory
+                        dr.Close()
+
+                        sql = "SELECT * FROM tbl_book_inventory
+                                        WHERE primary_book_id = '" & primary_book_id & "'"
+                        cmd = New MySqlCommand(sql, con)
+                        dr = cmd.ExecuteReader()
+
+                        If dr.Read Then
+
+                            Dim total_quantity As String = dr("quantity").ToString() + 1
+
+                            dr.Close()
+
+                            sql = "UPDATE tbl_book_inventory
+                                    SET quantity = '" & total_quantity & "',
+                                        status = 'On Stock'
+                                    WHERE primary_book_id = '" & primary_book_id & "'"
+                            cmd = New MySqlCommand(sql, con)
+                            dr = cmd.ExecuteReader()
+
+                        Else
+
+                            dr.Close()
+
+                            sql = "INSERT INTO tbl_book_inventory  (primary_book_id,
+                                                                    quantity,
+                                                                    status)
+                                    VALUE  ('" & primary_book_id & "',
+                                            '1',
+                                            'On Stock')"
+                            cmd = New MySqlCommand(sql, con)
+                            cmd.ExecuteNonQuery()
+
+                        End If
+
 
                         con.Close()
 

@@ -1148,7 +1148,6 @@ Module Module1
 
     End Sub
 
-
     Public Sub Load_delivery_data_table(delivery_search As String)
 
         Try
@@ -1166,7 +1165,7 @@ Module Module1
 
                     FROM tbl_delivery
 
-                    INNER JOIN tbl_books ON tbl_books.primary_book_id = tbl_delivery.primary_book_id
+                    INNER JOIN tbl_books ON tbl_delivery.primary_book_id = tbl_books.primary_book_id
 
                     WHERE   transaction_number LIKE '%" & delivery_search & "%' OR
                             isbn LIKE '%" & delivery_search & "%' OR
@@ -1238,6 +1237,102 @@ Module Module1
 
     End Sub
 
+    Public Sub Load_book_inventory_data_table(book_inventory_search As String)
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT   tbl_books.isbn,
+                            tbl_books.book_name,
+                            tbl_library_author.author_name,
+                            tbl_library_category.category_name,
+                            tbl_books.publish_year,
+                            tbl_library_publisher.publisher_name,
+                            tbl_book_inventory.quantity,
+                            tbl_book_inventory.status,
+                            tbl_book_inventory.primary_book_inventory_id
+
+                    FROM tbl_book_inventory
+
+                    INNER JOIN tbl_books ON tbl_book_inventory.primary_book_id = tbl_books.primary_book_id
+                    INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
+                    INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
+                    INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
+
+                    WHERE   isbn LIKE '%" & book_inventory_search & "%' OR
+                            book_name LIKE '%" & book_inventory_search & "%' OR
+                            author_name LIKE '%" & book_inventory_search & "%' OR
+                            category_name LIKE '%" & book_inventory_search & "%' OR
+                            publish_year LIKE '%" & book_inventory_search & "%' OR
+                            publisher_name LIKE '%" & book_inventory_search & "%' OR
+                            quantity LIKE '%" & book_inventory_search & "%' OR
+                            status LIKE '%" & book_inventory_search & "%'
+
+                    ORDER BY book_name ASC"
+
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Fm_home_page.Lv_book_inventory.Items.Clear()
+
+            Do While dr.Read
+
+                Dim lv As New ListViewItem({dr("isbn").ToString(),
+                                            dr("book_name").ToString(),
+                                            dr("author_name").ToString(),
+                                            dr("category_name").ToString(),
+                                            dr("publish_year").ToString(),
+                                            dr("publisher_name").ToString(),
+                                            dr("quantity").ToString(),
+                                            dr("status").ToString(),
+                                            dr("primary_book_inventory_id").ToString()})
+                Fm_home_page.Lv_book_inventory.Items.Add(lv)
+
+            Loop
+
+            'Listview column header title
+            Fm_home_page.Lv_book_inventory.Columns(0).Text = "ISBN"
+            Fm_home_page.Lv_book_inventory.Columns(1).Text = "BOOK NAME"
+            Fm_home_page.Lv_book_inventory.Columns(2).Text = "AUTHOR"
+            Fm_home_page.Lv_book_inventory.Columns(3).Text = "GENRE"
+            Fm_home_page.Lv_book_inventory.Columns(4).Text = "PUBLISH YEAR"
+            Fm_home_page.Lv_book_inventory.Columns(5).Text = "PUBLISHER"
+            Fm_home_page.Lv_book_inventory.Columns(6).Text = "QUANTITY"
+            Fm_home_page.Lv_book_inventory.Columns(7).Text = "STATUS"
+
+            con.Close()
+
+            For i As Integer = 0 To Fm_home_page.Lv_book_inventory.Items.Count - 1
+
+                If i Mod 2 = 0 Then
+
+                    Fm_home_page.Lv_book_inventory.Items(i).BackColor = Color.Azure
+                    Fm_home_page.Lv_book_inventory.Items(i).ForeColor = Color.Black
+
+                Else
+
+                    Fm_home_page.Lv_book_inventory.Items(i).BackColor = Color.GhostWhite
+                    Fm_home_page.Lv_book_inventory.Items(i).ForeColor = Color.Black
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
+    End Sub
+
     ' Remove items selection on the other listview
 
     Public Sub Load_all_data_tables()
@@ -1254,6 +1349,7 @@ Module Module1
         Load_library_publisher_data_table(Fm_home_page.Txt_search_publisher.Text)
         Load_shelf_data_table(Fm_home_page.Txt_search_shelf.Text)
         Load_delivery_data_table(Fm_home_page.Txt_search_delivery.Text)
+        Load_book_inventory_data_table(Fm_home_page.Txt_book_inventory_search.Text)
 
     End Sub
 
@@ -1282,6 +1378,28 @@ Module Module1
                 Fm_add_books.Cb_book_category.Items.Add(dr("category_name"))
 
             Loop
+
+
+
+            dr.Close()
+
+            sql = "SELECT * FROM tbl_library_category
+                            ORDER BY category_name ASC"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader
+
+            Fm_home_page.Cb_book_inventory_category.Items.Clear()
+            Fm_home_page.Cb_book_inventory_category.Items.Add("All Genre")
+
+            Fm_add_books.Cb_book_category.Items.Clear()
+
+            Do While dr.Read()
+
+                Fm_home_page.Cb_book_inventory_category.Items.Add(dr("category_name"))
+
+            Loop
+
+
 
             con.Close()
 
@@ -1455,6 +1573,9 @@ Module Module1
         Fm_add_delivery.Lbl_error_msg_1.Text = ""
         Fm_add_delivery.Lbl_error_msg_2.Text = ""
         Fm_add_delivery.Lbl_error_msg_3.Text = ""
+
+        Fm_add_book_inventory.Lbl_error_msg.Text = ""
+        Fm_add_book_inventory.Lbl_error_msg_1.Text = ""
 
     End Sub
 
