@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2025 at 08:06 PM
+-- Generation Time: Apr 24, 2025 at 07:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -84,6 +84,27 @@ INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_catego
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_book_inventory`
+--
+
+CREATE TABLE `tbl_book_inventory` (
+  `primary_book_inventory_id` int(11) NOT NULL,
+  `primary_book_id` int(11) DEFAULT NULL,
+  `quantity` int(10) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_book_inventory`
+--
+
+INSERT INTO `tbl_book_inventory` (`primary_book_inventory_id`, `primary_book_id`, `quantity`, `status`) VALUES
+(2, 32, 5, 'On Stock'),
+(3, 5, 2, 'On Stock');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_borrower`
 --
 
@@ -126,6 +147,14 @@ CREATE TABLE `tbl_delivery` (
   `delivery_date` varchar(30) NOT NULL,
   `received_by` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_delivery`
+--
+
+INSERT INTO `tbl_delivery` (`primary_delivery_id`, `transaction_number`, `primary_book_id`, `quantity`, `delivered_by`, `delivery_date`, `received_by`) VALUES
+(3, '1234', 32, '5', 'fdg', 'April 24, 2025', 'gfdg'),
+(4, '1234', 5, '2', 'ert', 'April 24, 2025', 'ert');
 
 -- --------------------------------------------------------
 
@@ -337,6 +366,12 @@ ALTER TABLE `tbl_books`
   ADD KEY `books_library_publisher_fk_key` (`primary_publisher_id`);
 
 --
+-- Indexes for table `tbl_book_inventory`
+--
+ALTER TABLE `tbl_book_inventory`
+  ADD PRIMARY KEY (`primary_book_inventory_id`);
+
+--
 -- Indexes for table `tbl_borrower`
 --
 ALTER TABLE `tbl_borrower`
@@ -419,6 +454,12 @@ ALTER TABLE `tbl_books`
   MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
+-- AUTO_INCREMENT for table `tbl_book_inventory`
+--
+ALTER TABLE `tbl_book_inventory`
+  MODIFY `primary_book_inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tbl_borrower`
 --
 ALTER TABLE `tbl_borrower`
@@ -428,7 +469,7 @@ ALTER TABLE `tbl_borrower`
 -- AUTO_INCREMENT for table `tbl_delivery`
 --
 ALTER TABLE `tbl_delivery`
-  MODIFY `primary_delivery_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `primary_delivery_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_issued_books`
