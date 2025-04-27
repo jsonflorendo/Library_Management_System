@@ -124,6 +124,10 @@ Public Class Fm_add_books
 
                             Fm_add_delivery.Enabled = True
 
+                        ElseIf Fm_home_page.Enabled = False And Fm_add_book_inventory.Enabled = False Then
+
+                            Fm_add_book_inventory.Enabled = True
+
                         Else
 
                             Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
@@ -194,11 +198,15 @@ Public Class Fm_add_books
 
                 con.Open()
 
+                Dim primary_book_id As String = Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text
+                Dim isbn As String = Fm_home_page.Lv_listed_books.SelectedItems(0).Text
+                Dim book_name As String = Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(1).Text
+
                 'to make sure ISBN and Book Name are not exists while in update process
                 sql = "UPDATE tbl_books SET 
                                   isbn = '" & "" & "',
                                   book_name = '" & "" & "'
-                           WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
+                           WHERE primary_book_id = '" & primary_book_id & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -218,9 +226,9 @@ Public Class Fm_add_books
 
                     'returned previous ISBN and Book Name
                     sql = "UPDATE tbl_books SET 
-                                  isbn = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).Text & "',
-                                  book_name = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(1).Text & "'
-                           WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
+                                  isbn = '" & isbn & "',
+                                  book_name = '" & book_name & "'
+                           WHERE primary_book_id = '" & primary_book_id & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
                     con.Close()
@@ -237,7 +245,7 @@ Public Class Fm_add_books
                                     primary_author_id = '" & Txt_primary_author_id.Text & "',
                                     primary_publisher_id = '" & Txt_primary_publisher_id.Text & "',
                                     publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "'
-                            WHERE primary_book_id = '" & Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
+                            WHERE primary_book_id = '" & primary_book_id & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader
 
@@ -291,6 +299,10 @@ Public Class Fm_add_books
         If Fm_home_page.Enabled = False And Fm_add_delivery.Enabled = False Then
 
             Fm_add_delivery.Enabled = True
+
+        ElseIf Fm_home_page.Enabled = False And Fm_add_book_inventory.Enabled = False Then
+
+            Fm_add_book_inventory.Enabled = True
 
         Else
 
@@ -354,7 +366,7 @@ Public Class Fm_add_books
 
             If dr.Read() Then
 
-                Txt_primary_category_id.Text = dr("primary_category_id")
+                Txt_primary_category_id.Text = dr("primary_category_id").ToString()
 
             End If
 
@@ -397,8 +409,8 @@ Public Class Fm_add_books
 
                 If dr.Read() Then
 
-                    Cb_author.Items.Add(dr("author_name"))
-                    Txt_primary_author_id.Text = dr("primary_author_id")
+                    Cb_author.Items.Add(dr("author_name").ToString())
+                    Txt_primary_author_id.Text = dr("primary_author_id").ToString()
 
                 Else
 
@@ -448,8 +460,8 @@ Public Class Fm_add_books
 
                 If dr.Read() Then
 
-                    Cb_publisher.Items.Add(dr("publisher_name"))
-                    Txt_primary_publisher_id.Text = dr("primary_publisher_id")
+                    Cb_publisher.Items.Add(dr("publisher_name").ToString())
+                    Txt_primary_publisher_id.Text = dr("primary_publisher_id").ToString()
 
                 Else
 

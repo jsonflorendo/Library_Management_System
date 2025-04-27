@@ -681,6 +681,13 @@ Public Class Fm_home_page
 
     End Sub
 
+    Private Sub Cb_listed_books_category_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cb_listed_books_category.KeyPress
+
+        'No input alphanumeric
+        e.Handled = True
+
+    End Sub
+
     Private Sub Cb_listed_books_category_Click(sender As Object, e As EventArgs) Handles Cb_listed_books_category.Click
 
         Cb_listed_books_category.DroppedDown = True
@@ -2934,6 +2941,13 @@ Public Class Fm_home_page
 
     End Sub
 
+    Private Sub Cb_book_inventory_category_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cb_book_inventory_category.KeyPress
+
+        'No input alphanumeric
+        e.Handled = True
+
+    End Sub
+
     Private Sub Cb_book_inventory_category_Click(sender As Object, e As EventArgs) Handles Cb_book_inventory_category.Click
 
         Cb_book_inventory_category.DroppedDown = True
@@ -2975,8 +2989,11 @@ Public Class Fm_home_page
         If Lv_book_inventory.SelectedItems.Count > 0 Then
 
             Fm_add_book_inventory.Show()
-            Fm_add_book_inventory.save_Txt_isbn.Text = Lv_book_inventory.SelectedItems(0).Text
+            Fm_add_book_inventory.update_Txt_isbn.Text = Lv_book_inventory.SelectedItems(0).Text
             Fm_add_book_inventory.Txt_book_quantity.Text = Lv_book_inventory.SelectedItems(0).SubItems(6).Text
+
+            Fm_add_book_inventory.update_Txt_isbn.Enabled = False
+            Fm_add_book_inventory.save_Txt_isbn.Visible = False
             Me.Enabled = False
 
         Else
@@ -3011,7 +3028,54 @@ Public Class Fm_home_page
 
     Private Sub Btn_book_inventory_delete_Click(sender As Object, e As EventArgs) Handles Btn_book_inventory_delete.Click
 
+        If Lv_book_inventory.SelectedItems.Count > 0 Then
 
+            Try
+
+                con.Open()
+
+                Dim book_name = Lv_book_inventory.SelectedItems(0).SubItems(1).Text
+                Dim dialog As DialogResult
+
+                dialog = MessageBox.Show("Do you want to delete " + book_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+
+                If dialog = DialogResult.Yes Then
+
+                    sql = "DELETE FROM tbl_book_inventory
+                           WHERE primary_book_inventory_id = '" & Lv_book_inventory.SelectedItems(0).SubItems(8).Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader
+
+                    con.Close()
+
+                    MessageBox.Show(book_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Load_book_inventory_data_table(Txt_book_inventory_search.Text)
+
+                Else
+
+                    con.Close()
+
+                    Load_book_inventory_data_table(Txt_book_inventory_search.Text)
+
+                End If
+
+            Catch ex As Exception
+
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        Else
+
+            MessageBox.Show("Please select book", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End If
 
     End Sub
 

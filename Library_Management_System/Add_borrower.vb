@@ -131,65 +131,78 @@ Public Class Fm_add_borrower
 
                 If dr.Read Then
 
-                    dr.Close()
-
                     Lbl_error_msg.Text = "ID Number already exists"
 
                 Else
 
                     dr.Close()
 
-                    Dim dialog As DialogResult
+                    sql = "SELECT * FROM tbl_borrower
+                                    WHERE email = '" & Txt_borrower_email.Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader()
 
-                    dialog = MessageBox.Show("Do you want to save " + Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                    If dr.Read Then
 
-                    If dialog = DialogResult.Yes Then
+                        Lbl_error_msg_7.Text = "Email address already exists"
 
-                        sql = "INSERT INTO tbl_borrower (borrower_id,
-                                                        last_name,
-                                                        first_name,
-                                                        middle_name,
-                                                        category_type,
-                                                        gender,
-                                                        borrower_contact_no,
-                                                        email,
-                                                        borrower_address)
-                                        VALUE ('" & Txt_borrower_id_number.Text & "',
-                                                '" & Txt_borrower_last_name.Text & "',
-                                                '" & Txt_borrower_first_name.Text & "',
-                                                '" & Txt_borrower_middle_name.Text & "',
-                                                '" & Cb_borrower_category_type.Text & "',
-                                                '" & Gender & "',
-                                                '" & Txt_borrower_contact_no.Text & "',
-                                                '" & Txt_borrower_email.Text & "',
-                                                '" & Txt_borrower_address.Text & "')"
-                        cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
+                    Else
 
-                        con.Close()
+                        dr.Close()
 
-                        MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
+                        Dim dialog As DialogResult
 
-                        SendBorrowerEmail(
+                        dialog = MessageBox.Show("Do you want to save " + Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+
+                        If dialog = DialogResult.Yes Then
+
+                            sql = "INSERT INTO tbl_borrower (borrower_id,
+                                                            last_name,
+                                                            first_name,
+                                                            middle_name,
+                                                            category_type,
+                                                            gender,
+                                                            borrower_contact_no,
+                                                            email,
+                                                            borrower_address)
+                                            VALUE ('" & Txt_borrower_id_number.Text & "',
+                                                    '" & Txt_borrower_last_name.Text & "',
+                                                    '" & Txt_borrower_first_name.Text & "',
+                                                    '" & Txt_borrower_middle_name.Text & "',
+                                                    '" & Cb_borrower_category_type.Text & "',
+                                                    '" & Gender & "',
+                                                    '" & Txt_borrower_contact_no.Text & "',
+                                                    '" & Txt_borrower_email.Text & "',
+                                                    '" & Txt_borrower_address.Text & "')"
+                            cmd = New MySqlCommand(sql, con)
+                            cmd.ExecuteNonQuery()
+
+                            con.Close()
+
+                            MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
+
+                            SendBorrowerEmail(
                             Txt_borrower_id_number.Text,
                             Txt_borrower_first_name.Text,
                             Txt_borrower_last_name.Text,
                             Txt_borrower_email.Text,
                             Pb_id_no_barcode.Image)
 
-                        Fm_home_page.Enabled = True
-                        Me.Close()
+                            Fm_home_page.Enabled = True
+                            Me.Close()
 
-                    Else
+                        Else
 
-                        con.Close()
+                            con.Close()
+
+                        End If
 
                     End If
 
-                    con.Close()
-
                 End If
+
+                con.Close()
 
             Catch ex As Exception
 
@@ -246,12 +259,15 @@ Public Class Fm_add_borrower
 
             Try
 
+                Dim primary_borrower_id As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(9).Text
+
                 con.Open()
 
                 'to make sure ID Number not exists while in update process
                 sql = "UPDATE tbl_borrower SET
-                                        borrower_id = '" & "" & "'                                        
-                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(9).Text & "'"
+                                borrower_id = '" & "" & "',
+                                email = '" & "" & "'
+                        WHERE primary_borrower_id = '" & primary_borrower_id & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -262,78 +278,83 @@ Public Class Fm_add_borrower
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader()
 
-                If dr.Read Then
-
-                    dr.Close()
+                If dr.Read() Then
 
                     Lbl_error_msg.Text = "ID Number already exists"
 
-                    'returned previous ID Number
-                    con.Close()
-                    con.Open()
-                    sql = "UPDATE tbl_borrower SET
-                                    borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).Text & "'                                        
-                            WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(9).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-                    con.Close()
-                    '---------------------------------
-
                 Else
 
-                    Dim id_numnber As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).Text
-                    Dim dialog As DialogResult
+                    dr.Close()
 
-                    dialog = MessageBox.Show("Do you want to update " + Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                    sql = "SELECT * FROM tbl_borrower
+                                    WHERE email = '" & Txt_borrower_email.Text & "'"
+                    cmd = New MySqlCommand(sql, con)
+                    dr = cmd.ExecuteReader()
 
-                    If dialog = DialogResult.Yes Then
+                    If dr.Read() Then
 
-                        dr.Close()
-
-                        'issued_to_last_name = '" & Txt_last_name.Text + ", " + Txt_first_name.Text & "' - /* concatenate of 2 inputs and save to mysql database table into 1 column */
-
-                        sql = "UPDATE tbl_borrower SET
-                                        borrower_id = '" & Txt_borrower_id_number.Text & "',
-                                        last_name = '" & Txt_borrower_last_name.Text & "',
-                                        first_name = '" & Txt_borrower_first_name.Text & "',
-                                        middle_name = '" & Txt_borrower_middle_name.Text & "',
-                                        category_type = '" & Cb_borrower_category_type.Text & "',
-                                        gender = '" & Gender & "',
-                                        borrower_contact_no = '" & Txt_borrower_contact_no.Text & "',
-                                        email = '" & Txt_borrower_email.Text & "',
-                                        borrower_address = '" & Txt_borrower_address.Text & "'
-                               WHERE primary_borrower_id = '" & Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(9).Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader
-
-                        con.Close()
-
-                        MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
-
-                        If id_numnber <> Txt_borrower_id_number.Text Then
-
-                            SendBorrowerEmail(
-                            Txt_borrower_id_number.Text,
-                            Txt_borrower_first_name.Text,
-                            Txt_borrower_last_name.Text,
-                            Txt_borrower_email.Text,
-                            Pb_id_no_barcode.Image)
-
-                        End If
-
-                        Fm_home_page.Enabled = True
-                        Me.Close()
+                        Lbl_error_msg_7.Text = "Email address already exists"
 
                     Else
 
-                        con.Close()
+                        dr.Close()
+
+                        Dim dialog As DialogResult
+
+                        dialog = MessageBox.Show("Do you want to update " + Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+
+                        If dialog = DialogResult.Yes Then
+
+                            dr.Close()
+
+                            'issued_to_last_name = '" & Txt_last_name.Text + ", " + Txt_first_name.Text & "' - /* concatenate of 2 inputs and save to mysql database table into 1 column */
+
+                            sql = "UPDATE tbl_borrower SET
+                                            borrower_id = '" & Txt_borrower_id_number.Text & "',
+                                            last_name = '" & Txt_borrower_last_name.Text & "',
+                                            first_name = '" & Txt_borrower_first_name.Text & "',
+                                            middle_name = '" & Txt_borrower_middle_name.Text & "',
+                                            category_type = '" & Cb_borrower_category_type.Text & "',
+                                            gender = '" & Gender & "',
+                                            borrower_contact_no = '" & Txt_borrower_contact_no.Text & "',
+                                            email = '" & Txt_borrower_email.Text & "',
+                                            borrower_address = '" & Txt_borrower_address.Text & "'
+                                   WHERE primary_borrower_id = '" & primary_borrower_id & "'"
+                            cmd = New MySqlCommand(sql, con)
+                            dr = cmd.ExecuteReader
+
+                            con.Close()
+
+                            MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                            Dim borrower_id_2 As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).Text
+
+                            If borrower_id_2 <> Txt_borrower_id_number.Text Then
+
+                                SendBorrowerEmail(
+                                Txt_borrower_id_number.Text,
+                                Txt_borrower_first_name.Text,
+                                Txt_borrower_last_name.Text,
+                                Txt_borrower_email.Text,
+                                Pb_id_no_barcode.Image)
+
+                            End If
+
+                            Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
+                            Fm_home_page.Enabled = True
+                            Me.Close()
+
+                        Else
+
+                            con.Close()
+
+                        End If
 
                     End If
 
-                    con.Close()
-
                 End If
+
+                con.Close()
 
             Catch ex As Exception
 
@@ -353,9 +374,43 @@ Public Class Fm_add_borrower
 
     Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
 
+        If Btn_update.Visible = True Then
+
+            Dim borrower_id As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).Text
+            Dim email As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text
+            Dim primary_borrower_id As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(9).Text
+
+            'returned previous ID Number
+            con.Close()
+            con.Open()
+            sql = "UPDATE tbl_borrower SET
+                            borrower_id = '" & borrower_id & "',
+                            email = '" & email & "'
+                    WHERE primary_borrower_id = '" & primary_borrower_id & "'"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader
+            con.Close()
+            '---------------------------------
+
+        End If
+
         Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
         Fm_home_page.Enabled = True
         Me.Close()
+
+    End Sub
+
+    Private Sub Txt_borrower_id_number_TextChanged(sender As Object, e As EventArgs) Handles Txt_borrower_id_number.TextChanged
+
+        If Txt_borrower_id_number.Text = "" Then
+
+            Pb_id_no_barcode.Image = Nothing
+
+        Else
+
+            generate_barcode()
+
+        End If
 
     End Sub
 
@@ -384,17 +439,6 @@ Public Class Fm_add_borrower
         If Not allowedChars.Contains(e.KeyChar) Then
             ' Cancel the key press if the entered character is not allowed
             e.Handled = True
-        End If
-
-
-        If Txt_borrower_id_number.Text = "" Then
-
-            Pb_id_no_barcode.Image = Nothing
-
-        Else
-
-            generate_barcode()
-
         End If
 
     End Sub

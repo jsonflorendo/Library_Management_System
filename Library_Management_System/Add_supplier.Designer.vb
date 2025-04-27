@@ -41,6 +41,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_5 = New Label()
         Lbl_error_msg_6 = New Label()
         Lbl_error_msg_7 = New Label()
+        Label4 = New Label()
         SuspendLayout()
         ' 
         ' Cb_supplier_source_type
@@ -48,7 +49,7 @@ Partial Class Fm_supplier_maintenance
         Cb_supplier_source_type.Font = New Font("Georgia", 14.25F)
         Cb_supplier_source_type.FormattingEnabled = True
         Cb_supplier_source_type.Items.AddRange(New Object() {"Supplier", "Donator"})
-        Cb_supplier_source_type.Location = New Point(29, 376)
+        Cb_supplier_source_type.Location = New Point(28, 411)
         Cb_supplier_source_type.Name = "Cb_supplier_source_type"
         Cb_supplier_source_type.Size = New Size(302, 31)
         Cb_supplier_source_type.TabIndex = 9
@@ -57,7 +58,7 @@ Partial Class Fm_supplier_maintenance
         ' Txt_supplier_address
         ' 
         Txt_supplier_address.Font = New Font("Georgia", 14.25F)
-        Txt_supplier_address.Location = New Point(29, 326)
+        Txt_supplier_address.Location = New Point(28, 361)
         Txt_supplier_address.Name = "Txt_supplier_address"
         Txt_supplier_address.PlaceholderText = "Enter Address"
         Txt_supplier_address.Size = New Size(302, 29)
@@ -66,7 +67,7 @@ Partial Class Fm_supplier_maintenance
         ' Txt_supplier_contact
         ' 
         Txt_supplier_contact.Font = New Font("Georgia", 14.25F)
-        Txt_supplier_contact.Location = New Point(29, 276)
+        Txt_supplier_contact.Location = New Point(28, 311)
         Txt_supplier_contact.Name = "Txt_supplier_contact"
         Txt_supplier_contact.PlaceholderText = "Enter Contact No."
         Txt_supplier_contact.Size = New Size(302, 29)
@@ -75,7 +76,7 @@ Partial Class Fm_supplier_maintenance
         ' Txt_supplier_email_address
         ' 
         Txt_supplier_email_address.Font = New Font("Georgia", 14.25F)
-        Txt_supplier_email_address.Location = New Point(29, 226)
+        Txt_supplier_email_address.Location = New Point(28, 261)
         Txt_supplier_email_address.Name = "Txt_supplier_email_address"
         Txt_supplier_email_address.PlaceholderText = "Enter  Email Address"
         Txt_supplier_email_address.Size = New Size(302, 29)
@@ -84,7 +85,7 @@ Partial Class Fm_supplier_maintenance
         ' Txt_supplier_lastname
         ' 
         Txt_supplier_lastname.Font = New Font("Georgia", 14.25F)
-        Txt_supplier_lastname.Location = New Point(29, 176)
+        Txt_supplier_lastname.Location = New Point(28, 211)
         Txt_supplier_lastname.Name = "Txt_supplier_lastname"
         Txt_supplier_lastname.PlaceholderText = "Enter Lastname"
         Txt_supplier_lastname.Size = New Size(302, 29)
@@ -93,7 +94,7 @@ Partial Class Fm_supplier_maintenance
         ' Txt_supplier_firstname
         ' 
         Txt_supplier_firstname.Font = New Font("Georgia", 14.25F)
-        Txt_supplier_firstname.Location = New Point(29, 126)
+        Txt_supplier_firstname.Location = New Point(28, 161)
         Txt_supplier_firstname.Name = "Txt_supplier_firstname"
         Txt_supplier_firstname.PlaceholderText = "Enter First Name"
         Txt_supplier_firstname.Size = New Size(302, 29)
@@ -102,7 +103,7 @@ Partial Class Fm_supplier_maintenance
         ' Txt_supplier_id
         ' 
         Txt_supplier_id.Font = New Font("Georgia", 14.25F)
-        Txt_supplier_id.Location = New Point(29, 26)
+        Txt_supplier_id.Location = New Point(28, 61)
         Txt_supplier_id.Name = "Txt_supplier_id"
         Txt_supplier_id.PlaceholderText = "Enter Supplier ID"
         Txt_supplier_id.Size = New Size(302, 29)
@@ -110,7 +111,7 @@ Partial Class Fm_supplier_maintenance
         ' 
         ' Btn_save
         ' 
-        Btn_save.Location = New Point(29, 438)
+        Btn_save.Location = New Point(28, 473)
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(125, 30)
         Btn_save.TabIndex = 0
@@ -119,7 +120,7 @@ Partial Class Fm_supplier_maintenance
         ' 
         ' Btn_cancel
         ' 
-        Btn_cancel.Location = New Point(206, 438)
+        Btn_cancel.Location = New Point(205, 473)
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(125, 30)
         Btn_cancel.TabIndex = 1
@@ -128,7 +129,7 @@ Partial Class Fm_supplier_maintenance
         ' 
         ' Btn_update
         ' 
-        Btn_update.Location = New Point(29, 438)
+        Btn_update.Location = New Point(28, 473)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(125, 30)
         Btn_update.TabIndex = 0
@@ -138,7 +139,7 @@ Partial Class Fm_supplier_maintenance
         ' Txt_supplier_name
         ' 
         Txt_supplier_name.Font = New Font("Georgia", 14.25F)
-        Txt_supplier_name.Location = New Point(29, 76)
+        Txt_supplier_name.Location = New Point(28, 111)
         Txt_supplier_name.Name = "Txt_supplier_name"
         Txt_supplier_name.PlaceholderText = "Enter Supplier Name"
         Txt_supplier_name.Size = New Size(302, 29)
@@ -149,7 +150,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg.AutoSize = True
         Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg.ForeColor = Color.Red
-        Lbl_error_msg.Location = New Point(27, 58)
+        Lbl_error_msg.Location = New Point(26, 93)
         Lbl_error_msg.Name = "Lbl_error_msg"
         Lbl_error_msg.Size = New Size(81, 15)
         Lbl_error_msg.TabIndex = 10
@@ -160,7 +161,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_1.AutoSize = True
         Lbl_error_msg_1.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_1.ForeColor = Color.Red
-        Lbl_error_msg_1.Location = New Point(27, 108)
+        Lbl_error_msg_1.Location = New Point(26, 143)
         Lbl_error_msg_1.Name = "Lbl_error_msg_1"
         Lbl_error_msg_1.Size = New Size(91, 15)
         Lbl_error_msg_1.TabIndex = 11
@@ -171,7 +172,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_2.AutoSize = True
         Lbl_error_msg_2.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_2.ForeColor = Color.Red
-        Lbl_error_msg_2.Location = New Point(27, 158)
+        Lbl_error_msg_2.Location = New Point(26, 193)
         Lbl_error_msg_2.Name = "Lbl_error_msg_2"
         Lbl_error_msg_2.Size = New Size(93, 15)
         Lbl_error_msg_2.TabIndex = 12
@@ -182,7 +183,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_3.AutoSize = True
         Lbl_error_msg_3.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_3.ForeColor = Color.Red
-        Lbl_error_msg_3.Location = New Point(27, 208)
+        Lbl_error_msg_3.Location = New Point(26, 243)
         Lbl_error_msg_3.Name = "Lbl_error_msg_3"
         Lbl_error_msg_3.Size = New Size(93, 15)
         Lbl_error_msg_3.TabIndex = 13
@@ -193,7 +194,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_4.AutoSize = True
         Lbl_error_msg_4.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_4.ForeColor = Color.Red
-        Lbl_error_msg_4.Location = New Point(27, 258)
+        Lbl_error_msg_4.Location = New Point(26, 293)
         Lbl_error_msg_4.Name = "Lbl_error_msg_4"
         Lbl_error_msg_4.Size = New Size(93, 15)
         Lbl_error_msg_4.TabIndex = 14
@@ -204,7 +205,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_5.AutoSize = True
         Lbl_error_msg_5.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_5.ForeColor = Color.Red
-        Lbl_error_msg_5.Location = New Point(27, 308)
+        Lbl_error_msg_5.Location = New Point(26, 343)
         Lbl_error_msg_5.Name = "Lbl_error_msg_5"
         Lbl_error_msg_5.Size = New Size(93, 15)
         Lbl_error_msg_5.TabIndex = 15
@@ -215,7 +216,7 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_6.AutoSize = True
         Lbl_error_msg_6.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_6.ForeColor = Color.Red
-        Lbl_error_msg_6.Location = New Point(27, 358)
+        Lbl_error_msg_6.Location = New Point(26, 393)
         Lbl_error_msg_6.Name = "Lbl_error_msg_6"
         Lbl_error_msg_6.Size = New Size(93, 15)
         Lbl_error_msg_6.TabIndex = 16
@@ -226,19 +227,31 @@ Partial Class Fm_supplier_maintenance
         Lbl_error_msg_7.AutoSize = True
         Lbl_error_msg_7.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
         Lbl_error_msg_7.ForeColor = Color.Red
-        Lbl_error_msg_7.Location = New Point(27, 410)
+        Lbl_error_msg_7.Location = New Point(26, 445)
         Lbl_error_msg_7.Name = "Lbl_error_msg_7"
         Lbl_error_msg_7.Size = New Size(92, 15)
         Lbl_error_msg_7.TabIndex = 17
         Lbl_error_msg_7.Text = "Lbl_error_msg_7"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Georgia", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(61, 9)
+        Label4.Margin = New Padding(4, 0, 4, 0)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(233, 38)
+        Label4.TabIndex = 77
+        Label4.Text = "Add Supplier"
         ' 
         ' Fm_supplier_maintenance
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(361, 480)
+        ClientSize = New Size(361, 525)
         ControlBox = False
+        Controls.Add(Label4)
         Controls.Add(Lbl_error_msg_7)
         Controls.Add(Lbl_error_msg_6)
         Controls.Add(Lbl_error_msg_5)
@@ -284,4 +297,5 @@ Partial Class Fm_supplier_maintenance
     Friend WithEvents Lbl_error_msg_5 As Label
     Friend WithEvents Lbl_error_msg_6 As Label
     Friend WithEvents Lbl_error_msg_7 As Label
+    Friend WithEvents Label4 As Label
 End Class

@@ -114,8 +114,8 @@ Partial Class Fm_home_page
         Btn_listed_accounts = New Button()
         Tmr_home_page_date_time = New Timer(components)
         P_navigation = New Panel()
-        GroupBox4 = New GroupBox()
-        GroupBox3 = New GroupBox()
+        Gb_user_maintenance = New GroupBox()
+        Gb_inventory_maintenance = New GroupBox()
         Btn_book_inventory = New Button()
         Btn_shelf = New Button()
         GroupBox2 = New GroupBox()
@@ -182,6 +182,7 @@ Partial Class Fm_home_page
         Delivery_table4 = New ColumnHeader()
         Delivery_table5 = New ColumnHeader()
         Delivery_table6 = New ColumnHeader()
+        Delivery_table7 = New ColumnHeader()
         Panel14_Book_Inventory = New Panel()
         Lv_book_inventory = New ListView()
         Book_inventory0 = New ColumnHeader()
@@ -204,8 +205,8 @@ Partial Class Fm_home_page
         Panel12_Shelf.SuspendLayout()
         Panel4_User_Acounts.SuspendLayout()
         P_navigation.SuspendLayout()
-        GroupBox4.SuspendLayout()
-        GroupBox3.SuspendLayout()
+        Gb_user_maintenance.SuspendLayout()
+        Gb_inventory_maintenance.SuspendLayout()
         GroupBox2.SuspendLayout()
         GroupBox1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
@@ -966,8 +967,8 @@ Partial Class Fm_home_page
         ' P_navigation
         ' 
         P_navigation.BackColor = Color.LightGray
-        P_navigation.Controls.Add(GroupBox4)
-        P_navigation.Controls.Add(GroupBox3)
+        P_navigation.Controls.Add(Gb_user_maintenance)
+        P_navigation.Controls.Add(Gb_inventory_maintenance)
         P_navigation.Controls.Add(GroupBox2)
         P_navigation.Controls.Add(GroupBox1)
         P_navigation.Controls.Add(Lbl_user_type_logged_in)
@@ -979,28 +980,28 @@ Partial Class Fm_home_page
         P_navigation.Size = New Size(285, 1004)
         P_navigation.TabIndex = 23
         ' 
-        ' GroupBox4
+        ' Gb_user_maintenance
         ' 
-        GroupBox4.Controls.Add(Btn_listed_accounts)
-        GroupBox4.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox4.Location = New Point(8, 771)
-        GroupBox4.Name = "GroupBox4"
-        GroupBox4.Size = New Size(269, 72)
-        GroupBox4.TabIndex = 36
-        GroupBox4.TabStop = False
-        GroupBox4.Text = "User Maintenance"
+        Gb_user_maintenance.Controls.Add(Btn_listed_accounts)
+        Gb_user_maintenance.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Gb_user_maintenance.Location = New Point(8, 771)
+        Gb_user_maintenance.Name = "Gb_user_maintenance"
+        Gb_user_maintenance.Size = New Size(269, 72)
+        Gb_user_maintenance.TabIndex = 36
+        Gb_user_maintenance.TabStop = False
+        Gb_user_maintenance.Text = "User Maintenance"
         ' 
-        ' GroupBox3
+        ' Gb_inventory_maintenance
         ' 
-        GroupBox3.Controls.Add(Btn_book_inventory)
-        GroupBox3.Controls.Add(Btn_shelf)
-        GroupBox3.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox3.Location = New Point(8, 520)
-        GroupBox3.Name = "GroupBox3"
-        GroupBox3.Size = New Size(269, 100)
-        GroupBox3.TabIndex = 35
-        GroupBox3.TabStop = False
-        GroupBox3.Text = "Inventory Maintenance"
+        Gb_inventory_maintenance.Controls.Add(Btn_book_inventory)
+        Gb_inventory_maintenance.Controls.Add(Btn_shelf)
+        Gb_inventory_maintenance.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Gb_inventory_maintenance.Location = New Point(8, 665)
+        Gb_inventory_maintenance.Name = "Gb_inventory_maintenance"
+        Gb_inventory_maintenance.Size = New Size(269, 100)
+        Gb_inventory_maintenance.TabIndex = 35
+        Gb_inventory_maintenance.TabStop = False
+        Gb_inventory_maintenance.Text = "Inventory Maintenance"
         ' 
         ' Btn_book_inventory
         ' 
@@ -1032,7 +1033,7 @@ Partial Class Fm_home_page
         GroupBox2.Controls.Add(Btn_returned_books)
         GroupBox2.Controls.Add(Btn_penalty_report)
         GroupBox2.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox2.Location = New Point(8, 626)
+        GroupBox2.Location = New Point(8, 306)
         GroupBox2.Name = "GroupBox2"
         GroupBox2.Size = New Size(269, 139)
         GroupBox2.TabIndex = 34
@@ -1070,7 +1071,7 @@ Partial Class Fm_home_page
         GroupBox1.Controls.Add(Btn_author_category_penalty_publisher_maintenance)
         GroupBox1.Controls.Add(Btn_student_information)
         GroupBox1.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox1.Location = New Point(8, 310)
+        GroupBox1.Location = New Point(8, 455)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Size = New Size(269, 204)
         GroupBox1.TabIndex = 33
@@ -1104,18 +1105,20 @@ Partial Class Fm_home_page
         ' Lbl_user_type_logged_in
         ' 
         Lbl_user_type_logged_in.AutoSize = True
+        Lbl_user_type_logged_in.Font = New Font("Segoe UI", 11.25F)
         Lbl_user_type_logged_in.Location = New Point(8, 283)
         Lbl_user_type_logged_in.Name = "Lbl_user_type_logged_in"
-        Lbl_user_type_logged_in.Size = New Size(57, 15)
+        Lbl_user_type_logged_in.Size = New Size(73, 20)
         Lbl_user_type_logged_in.TabIndex = 32
         Lbl_user_type_logged_in.Text = "User Type"
         ' 
         ' Lbl_name_logged_in
         ' 
         Lbl_name_logged_in.AutoSize = True
+        Lbl_name_logged_in.Font = New Font("Segoe UI", 11.25F)
         Lbl_name_logged_in.Location = New Point(8, 261)
         Lbl_name_logged_in.Name = "Lbl_name_logged_in"
-        Lbl_name_logged_in.Size = New Size(95, 15)
+        Lbl_name_logged_in.Size = New Size(120, 20)
         Lbl_name_logged_in.TabIndex = 15
         Lbl_name_logged_in.Text = "Name Logged In"
         ' 
@@ -1218,6 +1221,7 @@ Partial Class Fm_home_page
         ' 
         ' Panel10_Author_Category_Penalty_Publisher
         ' 
+        Panel10_Author_Category_Penalty_Publisher.BackColor = SystemColors.ActiveCaption
         Panel10_Author_Category_Penalty_Publisher.Controls.Add(Panel11_Publisher)
         Panel10_Author_Category_Penalty_Publisher.Controls.Add(Panel5_Author)
         Panel10_Author_Category_Penalty_Publisher.Controls.Add(Panel9_Penalty)
@@ -1599,7 +1603,7 @@ Partial Class Fm_home_page
         ' Lv_delivery
         ' 
         Lv_delivery.BackColor = SystemColors.ActiveCaption
-        Lv_delivery.Columns.AddRange(New ColumnHeader() {Delivery_table0, Delivery_table1, Delivery_table2, Delivery_table3, Delivery_table4, Delivery_table5, Delivery_table6})
+        Lv_delivery.Columns.AddRange(New ColumnHeader() {Delivery_table0, Delivery_table1, Delivery_table2, Delivery_table3, Delivery_table4, Delivery_table5, Delivery_table6, Delivery_table7})
         Lv_delivery.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Lv_delivery.FullRowSelect = True
         Lv_delivery.HeaderStyle = ColumnHeaderStyle.Nonclickable
@@ -1650,6 +1654,12 @@ Partial Class Fm_home_page
         Delivery_table6.Text = "Received by"
         Delivery_table6.TextAlign = HorizontalAlignment.Center
         Delivery_table6.Width = 250
+        ' 
+        ' Delivery_table7
+        ' 
+        Delivery_table7.Text = "Status"
+        Delivery_table7.TextAlign = HorizontalAlignment.Center
+        Delivery_table7.Width = 100
         ' 
         ' Panel14_Book_Inventory
         ' 
@@ -1719,11 +1729,13 @@ Partial Class Fm_home_page
         ' 
         Book_inventory6.Text = "Quantity"
         Book_inventory6.TextAlign = HorizontalAlignment.Center
+        Book_inventory6.Width = 120
         ' 
         ' Book_inventory7
         ' 
         Book_inventory7.Text = "Status"
         Book_inventory7.TextAlign = HorizontalAlignment.Center
+        Book_inventory7.Width = 150
         ' 
         ' Cb_book_inventory_category
         ' 
@@ -1785,11 +1797,11 @@ Partial Class Fm_home_page
         BackColor = SystemColors.ActiveCaption
         ClientSize = New Size(1904, 1003)
         ControlBox = False
-        Controls.Add(Panel14_Book_Inventory)
         Controls.Add(Panel13_Delivery)
+        Controls.Add(Panel10_Author_Category_Penalty_Publisher)
+        Controls.Add(Panel14_Book_Inventory)
         Controls.Add(Panel1_Books)
         Controls.Add(Panel6_Supplier)
-        Controls.Add(Panel10_Author_Category_Penalty_Publisher)
         Controls.Add(Panel12_Shelf)
         Controls.Add(Panel4_User_Acounts)
         Controls.Add(Panel3_Borrower_Info)
@@ -1818,8 +1830,8 @@ Partial Class Fm_home_page
         Panel4_User_Acounts.PerformLayout()
         P_navigation.ResumeLayout(False)
         P_navigation.PerformLayout()
-        GroupBox4.ResumeLayout(False)
-        GroupBox3.ResumeLayout(False)
+        Gb_user_maintenance.ResumeLayout(False)
+        Gb_inventory_maintenance.ResumeLayout(False)
         GroupBox2.ResumeLayout(False)
         GroupBox1.ResumeLayout(False)
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
@@ -1968,9 +1980,9 @@ Partial Class Fm_home_page
     Friend WithEvents Student_info4 As ColumnHeader
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents Gb_inventory_maintenance As GroupBox
     Friend WithEvents Btn_shelf As Button
-    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents Gb_user_maintenance As GroupBox
     Friend WithEvents Btn_delivery As Button
     Friend WithEvents Btn_book_inventory As Button
     Friend WithEvents Panel12_Shelf As Panel
@@ -2017,4 +2029,5 @@ Partial Class Fm_home_page
     Friend WithEvents Book_inventory7 As ColumnHeader
     Friend WithEvents Book_inventory8 As ColumnHeader
     Friend WithEvents Delivery_table6 As ColumnHeader
+    Friend WithEvents Delivery_table7 As ColumnHeader
 End Class

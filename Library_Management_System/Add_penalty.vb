@@ -1,10 +1,11 @@
-﻿Imports System.Net
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
 
 Public Class Fm_add_penalty
 
     'Dictionary to store checked items when searching
     Dim checkedItems As New Dictionary(Of String, Boolean)
+    Dim checkedItemss As New HashSet(Of String)
 
     Private Sub Fm_add_penalty_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -146,16 +147,47 @@ Public Class Fm_add_penalty
 
     End Sub
 
+    Private Sub Refresh_Lv_penalty_description_selected()
+
+        Lv_penalty_description_selected.Items.Clear()
+
+        For Each item As ListViewItem In Lv_penalty_description.Items
+            Dim id As String = item.SubItems(2).Text
+
+            If checkedItems.ContainsKey(id) Then
+                ' Create a new item with Column 0 text (main item text)
+                Dim newItem As New ListViewItem(item.Text)
+
+                ' Make sure there are at least 3 columns
+                While newItem.SubItems.Count < 3
+                    newItem.SubItems.Add("")
+                End While
+
+                ' Set the third column (index 2) to the value from Lv_penalty_description column 2
+                newItem.SubItems(1).Text = item.SubItems(1).Text ' Column 2 of source into Column 3 here
+
+                Lv_penalty_description_selected.Items.Add(newItem)
+            End If
+        Next
+
+    End Sub
+
+
     Private Sub Lv_penalty_description_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles Lv_penalty_description.ItemCheck
 
-        'Store checked items even if they are temporarily hidden
-        Dim primary_penalty_description_id As String = Lv_penalty_description.Items(e.Index).SubItems(2).Text 'Third column
+        Dim item As ListViewItem = Lv_penalty_description.Items(e.Index)
+        Dim primary_penalty_description_id As String = item.SubItems(2).Text ' Third column
+
+        ' Update the checkedItems set based on the new value
         If e.NewValue = CheckState.Checked Then
             checkedItems(primary_penalty_description_id) = True
-        Else
-            'Remove from dictionary if unchecked
+        ElseIf e.NewValue = CheckState.Unchecked Then
+            ' Remove from dictionary if unchecked
             checkedItems.Remove(primary_penalty_description_id)
         End If
+
+        ' Rebuild Penalty Description Selected ListView
+        Refresh_Lv_penalty_description_selected()
 
     End Sub
 

@@ -33,7 +33,6 @@ Partial Class Fm_returned_books
         Label5 = New Label()
         Txt_isbn = New TextBox()
         Txt_primary_book_id = New TextBox()
-        Txt_primary_issued_book_id = New TextBox()
         Lbl_error_msg = New Label()
         Lbl_error_msg_1 = New Label()
         SuspendLayout()
@@ -148,14 +147,6 @@ Partial Class Fm_returned_books
         Txt_primary_book_id.Size = New Size(114, 23)
         Txt_primary_book_id.TabIndex = 27
         ' 
-        ' Txt_primary_issued_book_id
-        ' 
-        Txt_primary_issued_book_id.Location = New Point(414, 1)
-        Txt_primary_issued_book_id.Name = "Txt_primary_issued_book_id"
-        Txt_primary_issued_book_id.PlaceholderText = "Primary Issued Book ID"
-        Txt_primary_issued_book_id.Size = New Size(130, 23)
-        Txt_primary_issued_book_id.TabIndex = 28
-        ' 
         ' Lbl_error_msg
         ' 
         Lbl_error_msg.AutoSize = True
@@ -187,7 +178,6 @@ Partial Class Fm_returned_books
         ControlBox = False
         Controls.Add(Lbl_error_msg_1)
         Controls.Add(Lbl_error_msg)
-        Controls.Add(Txt_primary_issued_book_id)
         Controls.Add(Txt_primary_book_id)
         Controls.Add(Label5)
         Controls.Add(Txt_isbn)
@@ -216,7 +206,6 @@ Partial Class Fm_returned_books
     Friend WithEvents Label5 As Label
     Friend WithEvents Txt_isbn As TextBox
     Friend WithEvents Txt_primary_book_id As TextBox
-    Friend WithEvents Txt_primary_issued_book_id As TextBox
     Friend WithEvents Lbl_error_msg As Label
     Friend WithEvents Lbl_error_msg_1 As Label
 End Class

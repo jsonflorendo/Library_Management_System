@@ -99,3 +99,4 @@ C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\
 C:\Users\jsonf\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows7.0\Library_Management_System.Fm_add_delivery.resources
 C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows7.0\Library_Management_System.Fm_add_delivery.resources
 C:\Users\jsonf\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows7.0\Library_Management_System.Fm_add_book_inventory.resources
+C:\Users\ITD-OJT-PC\Desktop\Library_Management_System\Library_Management_System\obj\Debug\net8.0-windows7.0\Library_Management_System.Fm_add_book_inventory.resources

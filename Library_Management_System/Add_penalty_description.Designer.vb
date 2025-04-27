@@ -29,11 +29,12 @@ Partial Class Fm_penalty_description
         Lbl_error_msg = New Label()
         Lbl_error_msg_1 = New Label()
         Txt_penalty_amount = New TextBox()
+        Label4 = New Label()
         SuspendLayout()
         ' 
         ' Btn_cancel
         ' 
-        Btn_cancel.Location = New Point(149, 124)
+        Btn_cancel.Location = New Point(149, 153)
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(85, 25)
         Btn_cancel.TabIndex = 1
@@ -42,7 +43,7 @@ Partial Class Fm_penalty_description
         ' 
         ' Btn_save
         ' 
-        Btn_save.Location = New Point(12, 124)
+        Btn_save.Location = New Point(12, 153)
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(85, 25)
         Btn_save.TabIndex = 0
@@ -52,7 +53,7 @@ Partial Class Fm_penalty_description
         ' Txt_penalty_description
         ' 
         Txt_penalty_description.Font = New Font("Georgia", 14.25F)
-        Txt_penalty_description.Location = New Point(12, 12)
+        Txt_penalty_description.Location = New Point(12, 41)
         Txt_penalty_description.Name = "Txt_penalty_description"
         Txt_penalty_description.PlaceholderText = "Penalty Description"
         Txt_penalty_description.Size = New Size(222, 29)
@@ -60,7 +61,7 @@ Partial Class Fm_penalty_description
         ' 
         ' Btn_update
         ' 
-        Btn_update.Location = New Point(12, 124)
+        Btn_update.Location = New Point(12, 153)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(85, 25)
         Btn_update.TabIndex = 0
@@ -72,7 +73,7 @@ Partial Class Fm_penalty_description
         Lbl_error_msg.AutoSize = True
         Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg.ForeColor = Color.Red
-        Lbl_error_msg.Location = New Point(10, 44)
+        Lbl_error_msg.Location = New Point(10, 73)
         Lbl_error_msg.Name = "Lbl_error_msg"
         Lbl_error_msg.Size = New Size(91, 17)
         Lbl_error_msg.TabIndex = 8
@@ -83,7 +84,7 @@ Partial Class Fm_penalty_description
         Lbl_error_msg_1.AutoSize = True
         Lbl_error_msg_1.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg_1.ForeColor = Color.Red
-        Lbl_error_msg_1.Location = New Point(10, 98)
+        Lbl_error_msg_1.Location = New Point(10, 127)
         Lbl_error_msg_1.Name = "Lbl_error_msg_1"
         Lbl_error_msg_1.Size = New Size(101, 17)
         Lbl_error_msg_1.TabIndex = 10
@@ -92,19 +93,31 @@ Partial Class Fm_penalty_description
         ' Txt_penalty_amount
         ' 
         Txt_penalty_amount.Font = New Font("Georgia", 14.25F)
-        Txt_penalty_amount.Location = New Point(12, 66)
+        Txt_penalty_amount.Location = New Point(12, 95)
         Txt_penalty_amount.Name = "Txt_penalty_amount"
         Txt_penalty_amount.PlaceholderText = "Amount"
         Txt_penalty_amount.Size = New Size(222, 29)
         Txt_penalty_amount.TabIndex = 9
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(18, 13)
+        Label4.Margin = New Padding(4, 0, 4, 0)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(210, 18)
+        Label4.TabIndex = 79
+        Label4.Text = "Add Penalty Description"
         ' 
         ' Fm_penalty_description
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(249, 160)
+        ClientSize = New Size(249, 191)
         ControlBox = False
+        Controls.Add(Label4)
         Controls.Add(Lbl_error_msg_1)
         Controls.Add(Txt_penalty_amount)
         Controls.Add(Lbl_error_msg)
@@ -126,4 +139,5 @@ Partial Class Fm_penalty_description
     Friend WithEvents Lbl_error_msg As Label
     Friend WithEvents Lbl_error_msg_1 As Label
     Friend WithEvents Txt_penalty_amount As TextBox
+    Friend WithEvents Label4 As Label
 End Class

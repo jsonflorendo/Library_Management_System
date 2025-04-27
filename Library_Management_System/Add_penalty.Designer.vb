@@ -39,6 +39,11 @@ Partial Class Fm_add_penalty
         Listed_details1 = New ColumnHeader()
         Txt_search_penalty_description = New TextBox()
         Txt_primary_penalty_report_id = New TextBox()
+        Lv_penalty_description_selected = New ListView()
+        ColumnHeader1 = New ColumnHeader()
+        ColumnHeader2 = New ColumnHeader()
+        ColumnHeader3 = New ColumnHeader()
+        ColumnHeader4 = New ColumnHeader()
         SuspendLayout()
         ' 
         ' Txt_borrower_id
@@ -208,13 +213,49 @@ Partial Class Fm_add_penalty
         Txt_primary_penalty_report_id.Size = New Size(168, 23)
         Txt_primary_penalty_report_id.TabIndex = 48
         ' 
+        ' Lv_penalty_description_selected
+        ' 
+        Lv_penalty_description_selected.Columns.AddRange(New ColumnHeader() {ColumnHeader1, ColumnHeader2, ColumnHeader3, ColumnHeader4})
+        Lv_penalty_description_selected.FullRowSelect = True
+        Lv_penalty_description_selected.HeaderStyle = ColumnHeaderStyle.Nonclickable
+        Lv_penalty_description_selected.Location = New Point(442, 144)
+        Lv_penalty_description_selected.Name = "Lv_penalty_description_selected"
+        Lv_penalty_description_selected.Size = New Size(505, 226)
+        Lv_penalty_description_selected.TabIndex = 49
+        Lv_penalty_description_selected.UseCompatibleStateImageBehavior = False
+        Lv_penalty_description_selected.View = View.Details
+        ' 
+        ' ColumnHeader1
+        ' 
+        ColumnHeader1.Text = "PENALTY DESCRIPTION"
+        ColumnHeader1.Width = 200
+        ' 
+        ' ColumnHeader2
+        ' 
+        ColumnHeader2.Text = "AMOUNT"
+        ColumnHeader2.TextAlign = HorizontalAlignment.Center
+        ColumnHeader2.Width = 100
+        ' 
+        ' ColumnHeader3
+        ' 
+        ColumnHeader3.Text = "DAYS DELAYED"
+        ColumnHeader3.TextAlign = HorizontalAlignment.Center
+        ColumnHeader3.Width = 100
+        ' 
+        ' ColumnHeader4
+        ' 
+        ColumnHeader4.Text = "TOTAL AMOUNT"
+        ColumnHeader4.TextAlign = HorizontalAlignment.Center
+        ColumnHeader4.Width = 100
+        ' 
         ' Fm_add_penalty
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(619, 452)
+        ClientSize = New Size(958, 452)
         ControlBox = False
+        Controls.Add(Lv_penalty_description_selected)
         Controls.Add(Txt_primary_penalty_report_id)
         Controls.Add(Txt_search_penalty_description)
         Controls.Add(Lv_penalty_description)
@@ -254,4 +295,9 @@ Partial Class Fm_add_penalty
     Friend WithEvents Listed_details1 As ColumnHeader
     Friend WithEvents Txt_search_penalty_description As TextBox
     Friend WithEvents Txt_primary_penalty_report_id As TextBox
+    Friend WithEvents Lv_penalty_description_selected As ListView
+    Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ColumnHeader2 As ColumnHeader
+    Friend WithEvents ColumnHeader3 As ColumnHeader
+    Friend WithEvents ColumnHeader4 As ColumnHeader
 End Class

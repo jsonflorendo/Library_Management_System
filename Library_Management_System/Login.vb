@@ -175,4 +175,7 @@ Public Class Fm_login
 
     End Sub
 
+    Private Sub Panel1_Paint_1(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
 End Class

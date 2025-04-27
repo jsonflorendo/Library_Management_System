@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2025 at 10:15 PM
+-- Generation Time: Apr 27, 2025 at 10:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -71,17 +71,6 @@ CREATE TABLE `tbl_books` (
   `publish_year` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_books`
---
-
-INSERT INTO `tbl_books` (`primary_book_id`, `isbn`, `book_name`, `primary_category_id`, `primary_author_id`, `primary_publisher_id`, `publish_year`) VALUES
-(1, '978-971-07-3964-6', 'EL FILIBUSTERISMO', 1, 1, 3, 'May 08, 2024'),
-(2, '9789710639540', 'CINDERELLLA', 1, 2, 3, 'April 16, 2024'),
-(5, 'AP091GW', 'LIBRO', 2, 1, 1, 'May 06, 2024'),
-(32, '234', 'HKJHK', 1, 19, 1, 'April 24, 2025'),
-(33, '1323456', 'SNOW WHITE', 2, 1, 1, 'January 15, 2026');
-
 -- --------------------------------------------------------
 
 --
@@ -94,16 +83,6 @@ CREATE TABLE `tbl_book_inventory` (
   `quantity` int(10) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_book_inventory`
---
-
-INSERT INTO `tbl_book_inventory` (`primary_book_inventory_id`, `primary_book_id`, `quantity`, `status`) VALUES
-(2, 32, 1, 'On Stock'),
-(3, 5, 1, 'On Stock'),
-(4, 2, 1, 'On Stock'),
-(5, 1, 54, 'On Stock');
 
 -- --------------------------------------------------------
 
@@ -124,17 +103,6 @@ CREATE TABLE `tbl_borrower` (
   `borrower_address` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_borrower`
---
-
-INSERT INTO `tbl_borrower` (`primary_borrower_id`, `borrower_id`, `last_name`, `first_name`, `middle_name`, `category_type`, `gender`, `borrower_contact_no`, `email`, `borrower_address`) VALUES
-(2, '1234567', 'BELLO', 'KREYVEN', 'GUALVVEZ', 'STUDENT', 'MALE', '09123654987', 'paul@gmail.com', 'LOWER BICUTAN'),
-(3, '100056', 'GALVEZ', 'FATI', 'GOGO', NULL, 'FEMALE', '09231294934', NULL, 'TAGUIG CITY'),
-(39, '4221462', 'Florendo', 'Paul Andrew', 'Barbara', 'STUDENT', 'MALE', '09092522961', 'paulf5364@gmail.com', 'Lower Bicutan, Taguig City'),
-(40, '12345678', 'dg', 'gfdgdf', 'dfgdfg', 'TEACHER', 'MALE', '234234', 'paul@gmail.com1', 'dfgdfg'),
-(41, '4221256', 'Dela Cruz', 'Zarah', 'Conde', 'STUDENT', 'FEMALE', '09531876545', 'zdelacruzbscs@gmail.com', 'Sta Ana, Taguig City');
-
 -- --------------------------------------------------------
 
 --
@@ -151,23 +119,6 @@ CREATE TABLE `tbl_delivery` (
   `received_by` varchar(100) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_delivery`
---
-
-INSERT INTO `tbl_delivery` (`primary_delivery_id`, `transaction_number`, `primary_book_id`, `quantity`, `delivered_by`, `delivery_date`, `received_by`, `status`) VALUES
-(3, '1234', 32, '5', 'fdg', 'April 24, 2025', 'gfdg', NULL),
-(4, '1234', 5, '2', 'ert', 'April 24, 2025', 'ert', NULL),
-(5, 'w45345435', 2, '7', 'ssdfdsf', 'April 26, 2025', 'sdfdfsdf', NULL),
-(6, 'w45345435', 5, '3', 'ssdfdsf', 'April 26, 2025', 'sdfdfsdf', NULL),
-(7, 'w45345435', 1, '3', 'ssdfdsf', 'April 26, 2025', 'sdfdfsdf', NULL),
-(8, '2342', 5, '5', 'wererwer', 'April 26, 2025', 'werrerwrewr', NULL),
-(9, 'asdad', 1, '12', 'asdasd', 'April 28, 2025', 'adsasd', NULL),
-(10, '34541321312', 1, '1', 'uhih', 'April 28, 2025', 'sadaddsa', NULL),
-(11, 'wer', 1, '1', 'asdadadasd', 'April 28, 2025', 'asdadasdads', 'Purchased'),
-(12, 'dsdf', 1, '4', 'sdf', 'April 28, 2025', 'sdf', 'Donated'),
-(13, '2334', 1, '37', 'qwe', 'April 28, 2025', 'qwe', 'Donated');
 
 -- --------------------------------------------------------
 
@@ -187,24 +138,6 @@ CREATE TABLE `tbl_issued_books` (
   `created_at` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_issued_books`
---
-
-INSERT INTO `tbl_issued_books` (`primary_issued_book_id`, `transaction_yyyy_mm`, `transaction_series`, `primary_borrower_id`, `primary_book_id`, `issued_date`, `due_date`, `returned_date`, `created_at`) VALUES
-(1, 'BB2025-04', '00001', 3, 5, 'April 01, 2025', 'May 01, 2025', 'April 04, 2025', '2025-04-01'),
-(3, 'BB2025-04', '00002', 3, 1, 'April 01, 2025', 'May 01, 2025', 'April 26, 2025', '2025-04-01'),
-(4, 'BB2025-04', '00003', 2, 5, 'April 01, 2025', 'May 01, 2025', 'April 04, 2025', '2025-04-01'),
-(7, 'BB2025-04', '00004', 2, 2, 'April 27, 2025', 'May 27, 2025', 'April 27, 2025', '2025-04-27'),
-(8, 'BB2025-04', '00005', 39, 2, 'April 27, 2025', 'May 27, 2025', 'April 27, 2025', '2025-04-27'),
-(9, 'BB2025-04', '00006', 39, 5, 'April 27, 2025', 'May 27, 2025', 'April 27, 2025', '2025-04-27'),
-(10, 'BB2025-04', '00007', 39, 2, 'April 27, 2025', 'May 27, 2025', 'April 27, 2025', '2025-04-27'),
-(11, 'BB2025-04', '00008', 39, 5, 'April 27, 2025', 'May 27, 2025', 'April 27, 2025', '2025-04-27'),
-(12, 'BB2025-04', '00008', 39, 2, 'April 27, 2025', 'May 27, 2025', 'April 27, 2025', '2025-04-27'),
-(13, 'BB2025-04', '00009', 39, 2, 'April 27, 2025', 'May 27, 2025', 'April 27, 2025', '2025-04-27'),
-(14, 'BB2025-04', '00009', 39, 5, 'April 27, 2025', 'May 27, 2025', 'April 27, 2025', '2025-04-27'),
-(19, 'BB2025-04', '00010', 39, 1, 'April 27, 2025', 'May 27, 2025', 'May 30, 2025', '2025-04-27');
-
 -- --------------------------------------------------------
 
 --
@@ -216,16 +149,6 @@ CREATE TABLE `tbl_library_author` (
   `author_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_library_author`
---
-
-INSERT INTO `tbl_library_author` (`primary_author_id`, `author_name`) VALUES
-(1, 'DR. JOSE P. RIZAL'),
-(2, 'WILLIAM SHAKESPEARE'),
-(6, 'JUAN DELA CRUZ'),
-(19, 'EMILIO JACINTO');
-
 -- --------------------------------------------------------
 
 --
@@ -236,15 +159,6 @@ CREATE TABLE `tbl_library_category` (
   `primary_category_id` int(11) NOT NULL,
   `category_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_library_category`
---
-
-INSERT INTO `tbl_library_category` (`primary_category_id`, `category_name`) VALUES
-(1, 'ROMANCE'),
-(2, 'FANSTASY'),
-(16, 'HORROR');
 
 -- --------------------------------------------------------
 
@@ -258,18 +172,6 @@ CREATE TABLE `tbl_library_penalty` (
   `amount` varchar(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_library_penalty`
---
-
-INSERT INTO `tbl_library_penalty` (`primary_penalty_description_id`, `penalty_description`, `amount`) VALUES
-(3, 'Late Returned', '1,000'),
-(4, 'Burn Pages', '9,874.99'),
-(12, 'Penalty 1', '100'),
-(13, 'Penalty 2', '200'),
-(14, 'Penalty 3', '300'),
-(15, 'Penalty 4', '3');
-
 -- --------------------------------------------------------
 
 --
@@ -280,15 +182,6 @@ CREATE TABLE `tbl_library_publisher` (
   `primary_publisher_id` int(11) NOT NULL,
   `publisher_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_library_publisher`
---
-
-INSERT INTO `tbl_library_publisher` (`primary_publisher_id`, `publisher_name`) VALUES
-(1, 'ZARAH DELA CRUZ'),
-(2, 'ALEXANDRA SANTOS'),
-(3, 'FATIMA GALVEZ');
 
 -- --------------------------------------------------------
 
@@ -308,16 +201,6 @@ CREATE TABLE `tbl_library_supplier` (
   `source_type` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_library_supplier`
---
-
-INSERT INTO `tbl_library_supplier` (`primary_supplier_id`, `supplier_id`, `supplier_name`, `last_name`, `first_name`, `email_address`, `contact`, `address`, `source_type`) VALUES
-(1, 'S0001', 'PAULA-ANDREA', 'FLORENDO', 'PAUL', 'paulf5364@gmail.com', '09092522961', 'LOWER BICUTAN', 'Donator'),
-(2, 'S0002', 'SAN', 'VOSOTROS', 'ALEXANDRA', 'alex@gmail.com', '09121312312', 'TAGUIG CITY', 'Supplier'),
-(5, 'S0003', 'TAGALIMBAG', 'DELA CRUZ', 'JUAN', 'email@gmail.com', '12345', 'TAGUIG', 'Donator'),
-(12, '12334', 'adsasd', 'asdasd', 'asdsad', 'sdasdwa', '23122343434', 'sadasdasd', 'Supplier');
-
 -- --------------------------------------------------------
 
 --
@@ -331,18 +214,6 @@ CREATE TABLE `tbl_penalty_report` (
   `primary_penalty_description_id` int(11) DEFAULT NULL,
   `penalty_date` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_penalty_report`
---
-
-INSERT INTO `tbl_penalty_report` (`primary_penalty_id`, `primary_borrower_id`, `primary_book_id`, `primary_penalty_description_id`, `penalty_date`) VALUES
-(45, 3, 5, 4, 'April 26, 2025'),
-(46, 3, 5, 3, 'April 26, 2025'),
-(52, 39, 1, 4, 'April 28, 2025'),
-(53, 39, 1, 3, 'April 28, 2025'),
-(54, 39, 1, 12, 'April 28, 2025'),
-(57, 2, 5, 14, 'April 28, 2025');
 
 -- --------------------------------------------------------
 
@@ -361,13 +232,6 @@ CREATE TABLE `tbl_shelf` (
   `created_at` varchar(30) NOT NULL,
   `updated_at` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_shelf`
---
-
-INSERT INTO `tbl_shelf` (`primary_shelf_id`, `shelf_id`, `shelf_name`, `section`, `floor_number`, `capacity`, `current_load`, `created_at`, `updated_at`) VALUES
-(3, '123456', 'FIC-A2', 'Section', '1st Floor', '13', '12', 'April 20, 2025', 'April 21, 2025');
 
 --
 -- Indexes for dumped tables
@@ -474,73 +338,73 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_books`
 --
 ALTER TABLE `tbl_books`
-  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `primary_book_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_book_inventory`
 --
 ALTER TABLE `tbl_book_inventory`
-  MODIFY `primary_book_inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `primary_book_inventory_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_borrower`
 --
 ALTER TABLE `tbl_borrower`
-  MODIFY `primary_borrower_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `primary_borrower_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_delivery`
 --
 ALTER TABLE `tbl_delivery`
-  MODIFY `primary_delivery_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `primary_delivery_id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_issued_books`
 --
 ALTER TABLE `tbl_issued_books`
-  MODIFY `primary_issued_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `primary_issued_book_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_author`
 --
 ALTER TABLE `tbl_library_author`
-  MODIFY `primary_author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `primary_author_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_category`
 --
 ALTER TABLE `tbl_library_category`
-  MODIFY `primary_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `primary_category_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_penalty`
 --
 ALTER TABLE `tbl_library_penalty`
-  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `primary_penalty_description_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_publisher`
 --
 ALTER TABLE `tbl_library_publisher`
-  MODIFY `primary_publisher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `primary_publisher_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_library_supplier`
 --
 ALTER TABLE `tbl_library_supplier`
-  MODIFY `primary_supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `primary_supplier_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_penalty_report`
 --
 ALTER TABLE `tbl_penalty_report`
-  MODIFY `primary_penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `primary_penalty_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_shelf`
 --
 ALTER TABLE `tbl_shelf`
-  MODIFY `primary_shelf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `primary_shelf_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

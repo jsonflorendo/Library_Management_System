@@ -80,9 +80,21 @@ Public Class Fm_supplier_maintenance
                     con.Close()
 
                     MessageBox.Show("Supplier added successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Load_library_supplier_data_table(Fm_home_page.Txt_search_supplier.Text)
-                    Fm_home_page.Enabled = True
-                    Me.Close()
+
+                    If Fm_home_page.Enabled = False And Fm_add_delivery.Enabled = False Then
+
+                        Load_library_cb_purchase_supplier()
+                        Load_library_cb_donate_supplier()
+                        Fm_add_delivery.Enabled = True
+                        Me.Close()
+
+                    Else
+
+                        Load_library_supplier_data_table(Fm_home_page.Txt_search_supplier.Text)
+                        Fm_home_page.Enabled = True
+                        Me.Close()
+
+                    End If
 
                 End If
 
@@ -210,9 +222,9 @@ Public Class Fm_supplier_maintenance
 
     Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
-        If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
+        If Fm_home_page.Enabled = False And Fm_add_delivery.Enabled = False Then
 
-            Fm_add_books.Enabled = True
+            Fm_add_delivery.Enabled = True
             Me.Close()
 
         Else

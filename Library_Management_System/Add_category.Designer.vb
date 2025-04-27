@@ -27,11 +27,12 @@ Partial Class Fm_add_category
         Txt_category_name = New TextBox()
         Btn_update = New Button()
         Lbl_error_msg = New Label()
+        Label4 = New Label()
         SuspendLayout()
         ' 
         ' Btn_cancel
         ' 
-        Btn_cancel.Location = New Point(149, 77)
+        Btn_cancel.Location = New Point(149, 111)
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(85, 25)
         Btn_cancel.TabIndex = 1
@@ -40,7 +41,7 @@ Partial Class Fm_add_category
         ' 
         ' Btn_save
         ' 
-        Btn_save.Location = New Point(12, 77)
+        Btn_save.Location = New Point(12, 111)
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(85, 25)
         Btn_save.TabIndex = 0
@@ -50,7 +51,7 @@ Partial Class Fm_add_category
         ' Txt_category_name
         ' 
         Txt_category_name.Font = New Font("Georgia", 14.25F)
-        Txt_category_name.Location = New Point(12, 12)
+        Txt_category_name.Location = New Point(12, 46)
         Txt_category_name.Name = "Txt_category_name"
         Txt_category_name.PlaceholderText = "Category"
         Txt_category_name.Size = New Size(222, 29)
@@ -58,7 +59,7 @@ Partial Class Fm_add_category
         ' 
         ' Btn_update
         ' 
-        Btn_update.Location = New Point(12, 77)
+        Btn_update.Location = New Point(12, 111)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(85, 25)
         Btn_update.TabIndex = 0
@@ -70,19 +71,31 @@ Partial Class Fm_add_category
         Lbl_error_msg.AutoSize = True
         Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg.ForeColor = Color.Red
-        Lbl_error_msg.Location = New Point(10, 44)
+        Lbl_error_msg.Location = New Point(10, 78)
         Lbl_error_msg.Name = "Lbl_error_msg"
         Lbl_error_msg.Size = New Size(91, 17)
         Lbl_error_msg.TabIndex = 8
         Lbl_error_msg.Text = "Lbl_error_msg"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Georgia", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(44, 9)
+        Label4.Margin = New Padding(4, 0, 4, 0)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(157, 25)
+        Label4.TabIndex = 78
+        Label4.Text = "Add Category"
         ' 
         ' Fm_add_category
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(249, 116)
+        ClientSize = New Size(249, 148)
         ControlBox = False
+        Controls.Add(Label4)
         Controls.Add(Lbl_error_msg)
         Controls.Add(Btn_update)
         Controls.Add(Btn_cancel)
@@ -100,4 +113,5 @@ Partial Class Fm_add_category
     Friend WithEvents Txt_category_name As TextBox
     Friend WithEvents Btn_update As Button
     Friend WithEvents Lbl_error_msg As Label
+    Friend WithEvents Label4 As Label
 End Class

@@ -110,6 +110,9 @@ Module Module1
                             Fm_home_page.Btn_listed_accounts.Visible = False
                             Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
                             Fm_home_page.Btn_supplier_maintenance.Visible = False
+                            Fm_home_page.Btn_delivery.Visible = False
+                            Fm_home_page.Gb_inventory_maintenance.Visible = False
+                            Fm_home_page.Gb_user_maintenance.Visible = False
                             Clear_login_fields()
                             Clear_error_msg()
                             Fm_login.Hide()
@@ -195,6 +198,9 @@ Module Module1
                         Fm_home_page.Btn_listed_accounts.Visible = False
                         Fm_home_page.Btn_author_category_penalty_publisher_maintenance.Visible = False
                         Fm_home_page.Btn_supplier_maintenance.Visible = False
+                        Fm_home_page.Btn_delivery.Visible = False
+                        Fm_home_page.Gb_inventory_maintenance.Visible = False
+                        Fm_home_page.Gb_user_maintenance.Visible = False
                         Clear_login_fields()
                         Clear_error_msg()
                         Fm_login.Hide()
@@ -479,9 +485,9 @@ Module Module1
                     
                     ORDER BY primary_penalty_id DESC"
 
-            'GROUP BY tbl_penalty_report.primary_borrower_id,
-            '         tbl_penalty_report.primary_book_id,
-            '         tbl_penalty_report.penalty_date
+            'GROUP BY tbl_penalty_report.primary_borrower_id
+            'tbl_penalty_report.primary_book_id,
+            'tbl_penalty_report.penalty_date
 
             cmd = New MySqlCommand(sql, con)
             dr = cmd.ExecuteReader()
@@ -875,7 +881,7 @@ Module Module1
             Loop
 
             'Listview column header title
-            Fm_home_page.Lv_category.Columns(0).Text = "CATEGORY NAME"
+            Fm_home_page.Lv_category.Columns(0).Text = "GENRE"
 
             con.Close()
 
@@ -1161,6 +1167,7 @@ Module Module1
                             tbl_delivery.delivered_by,
                             tbl_delivery.delivery_date,
                             tbl_delivery.received_by,
+                            tbl_delivery.status,
                             tbl_delivery.primary_delivery_id
 
                     FROM tbl_delivery
@@ -1173,7 +1180,8 @@ Module Module1
                             quantity LIKE '%" & delivery_search & "%' OR
                             delivered_by LIKE '%" & delivery_search & "%' OR
                             delivery_date LIKE '%" & delivery_search & "%' OR
-                            received_by LIKE '%" & delivery_search & "%'
+                            received_by LIKE '%" & delivery_search & "%' OR
+                            status LIKE '%" & delivery_search & "%'
 
                     ORDER BY delivery_date DESC"
 
@@ -1191,6 +1199,7 @@ Module Module1
                                             dr("delivered_by").ToString(),
                                             dr("delivery_date").ToString(),
                                             dr("received_by").ToString(),
+                                            dr("status").ToString(),
                                             dr("primary_delivery_id")})
                 Fm_home_page.Lv_delivery.Items.Add(lv)
 
@@ -1204,6 +1213,7 @@ Module Module1
             Fm_home_page.Lv_delivery.Columns(4).Text = "DELIVERED BY"
             Fm_home_page.Lv_delivery.Columns(5).Text = "DELIVERY DATE"
             Fm_home_page.Lv_delivery.Columns(6).Text = "RECEIVED BY"
+            Fm_home_page.Lv_delivery.Columns(7).Text = "STATUS"
 
             con.Close()
 
@@ -1251,7 +1261,8 @@ Module Module1
                             tbl_library_publisher.publisher_name,
                             tbl_book_inventory.quantity,
                             tbl_book_inventory.status,
-                            tbl_book_inventory.primary_book_inventory_id
+                            tbl_book_inventory.primary_book_inventory_id,
+                            tbl_book_inventory.primary_book_id
 
                     FROM tbl_book_inventory
 
@@ -1286,7 +1297,8 @@ Module Module1
                                             dr("publisher_name").ToString(),
                                             dr("quantity").ToString(),
                                             dr("status").ToString(),
-                                            dr("primary_book_inventory_id").ToString()})
+                                            dr("primary_book_inventory_id").ToString(),
+                                            dr("primary_book_id").ToString()})
                 Fm_home_page.Lv_book_inventory.Items.Add(lv)
 
             Loop
@@ -1370,24 +1382,6 @@ Module Module1
             Fm_home_page.Cb_listed_books_category.Items.Clear()
             Fm_home_page.Cb_listed_books_category.Items.Add("All Genre")
 
-            Fm_add_books.Cb_book_category.Items.Clear()
-
-            Do While dr.Read()
-
-                Fm_home_page.Cb_listed_books_category.Items.Add(dr("category_name"))
-                Fm_add_books.Cb_book_category.Items.Add(dr("category_name"))
-
-            Loop
-
-
-
-            dr.Close()
-
-            sql = "SELECT * FROM tbl_library_category
-                            ORDER BY category_name ASC"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-
             Fm_home_page.Cb_book_inventory_category.Items.Clear()
             Fm_home_page.Cb_book_inventory_category.Items.Add("All Genre")
 
@@ -1395,11 +1389,11 @@ Module Module1
 
             Do While dr.Read()
 
+                Fm_home_page.Cb_listed_books_category.Items.Add(dr("category_name"))
                 Fm_home_page.Cb_book_inventory_category.Items.Add(dr("category_name"))
+                Fm_add_books.Cb_book_category.Items.Add(dr("category_name"))
 
             Loop
-
-
 
             con.Close()
 
@@ -1468,6 +1462,78 @@ Module Module1
             Do While dr.Read()
 
                 Fm_add_books.Cb_publisher.Items.Add(dr("publisher_name"))
+
+            Loop
+
+            con.Close()
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
+    End Sub
+
+    Public Sub Load_library_cb_purchase_supplier()
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT * FROM tbl_library_supplier
+                            WHERE source_type = 'Supplier'
+                            ORDER BY supplier_name ASC"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader
+
+            Fm_add_delivery.Cb_purchase_supplier.Items.Clear()
+
+            Do While dr.Read()
+
+                Fm_add_delivery.Cb_purchase_supplier.Items.Add(dr("supplier_name"))
+
+            Loop
+
+            con.Close()
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
+    End Sub
+
+    Public Sub Load_library_cb_donate_supplier()
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT * FROM tbl_library_supplier
+                            WHERE source_type = 'Donator'
+                            ORDER BY supplier_name ASC"
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader
+
+            Fm_add_delivery.Cb_donate_supplier.Items.Clear()
+
+            Do While dr.Read()
+
+                Fm_add_delivery.Cb_donate_supplier.Items.Add(dr("supplier_name"))
 
             Loop
 
@@ -1573,6 +1639,13 @@ Module Module1
         Fm_add_delivery.Lbl_error_msg_1.Text = ""
         Fm_add_delivery.Lbl_error_msg_2.Text = ""
         Fm_add_delivery.Lbl_error_msg_3.Text = ""
+        Fm_add_delivery.Lbl_error_msg_4.Text = ""
+        Fm_add_delivery.Lbl_error_msg_5.Text = ""
+        Fm_add_delivery.Lbl_error_msg_6.Text = ""
+        Fm_add_delivery.Lbl_error_msg_7.Text = ""
+        Fm_add_delivery.Lbl_error_msg_8.Text = ""
+        Fm_add_delivery.Lbl_error_msg_9.Text = ""
+        Fm_add_delivery.Lbl_error_msg_10.Text = ""
 
         Fm_add_book_inventory.Lbl_error_msg.Text = ""
         Fm_add_book_inventory.Lbl_error_msg_1.Text = ""

@@ -54,59 +54,42 @@ Public Class Fm_returned_books
 
                     Else
 
-                        Txt_primary_issued_book_id.Text = dr("primary_issued_book_id")
-                        Txt_primary_book_id.Text = dr("primary_book_id")
-                        Txt_book_name.Text = dr("book_name")
+                        Dim primary_issued_book_id As String = dr("primary_issued_book_id").ToString()
+                        Txt_primary_book_id.Text = dr("primary_book_id").ToString()
+                        Txt_book_name.Text = dr("book_name").ToString()
 
                         dr.Close()
 
                         sql = "UPDATE tbl_issued_books SET 
                                         returned_date = '" & Date.Now.ToString("MMMM dd, yyyy") & "'
-                                WHERE primary_issued_book_id = '" & Txt_primary_issued_book_id.Text & "'"
+                                WHERE primary_issued_book_id = '" & primary_issued_book_id & "'"
                         cmd = New MySqlCommand(sql, con)
                         dr = cmd.ExecuteReader
 
                         dr.Close()
 
 
-                        sql = "SELECT * FROM tbl_books
+                        sql = "SELECT * FROM tbl_book_inventory
                                         WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
                         cmd = New MySqlCommand(sql, con)
                         dr = cmd.ExecuteReader
                         dr.Read()
 
-                        Dim book_qty As Integer = dr("qty")
+                        Dim total_quantity As Integer = dr("quantity").ToString() + 1
 
                         dr.Close()
 
-                        If book_qty = 0 Then
+                        sql = "UPDATE tbl_book_inventory SET
+                                        quantity = '" & total_quantity & "',
+                                        status = '" & "On Stock" & "'
+                                WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                        cmd = New MySqlCommand(sql, con)
+                        dr = cmd.ExecuteReader
 
-                            sql = "UPDATE tbl_books SET
-                                            qty = '" & book_qty + 1 & "',
-                                            status = '" & "Available" & "'
-                                    WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
+                        con.Close()
 
-                            con.Close()
-
-                            Txt_isbn.Clear()
-                            Load_returned_borrowed_books_data_table(Fm_home_page.Txt_returned_borrowed_books_search.Text)
-
-                        Else
-
-                            sql = "UPDATE tbl_books SET
-                                            qty = '" & book_qty + 1 & "'
-                                    WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
-
-                            con.Close()
-
-                            Txt_isbn.Clear()
-                            Load_returned_borrowed_books_data_table(Fm_home_page.Txt_returned_borrowed_books_search.Text)
-
-                        End If
+                        Txt_isbn.Clear()
+                        Load_returned_borrowed_books_data_table(Fm_home_page.Txt_returned_borrowed_books_search.Text)
 
                         Dim dialog As DialogResult
 
@@ -169,8 +152,8 @@ Public Class Fm_returned_books
 
             If dr.Read() Then
 
-                Txt_primary_borrower_id.Text = dr("primary_borrower_id")
-                Txt_issued_to.Text = dr("first_name") + " " + dr("last_name")
+                Txt_primary_borrower_id.Text = dr("primary_borrower_id").ToString()
+                Txt_issued_to.Text = dr("first_name").ToString() + " " + dr("last_name").ToString()
 
             Else
 

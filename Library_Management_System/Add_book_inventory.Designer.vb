@@ -58,7 +58,7 @@ Partial Class Fm_add_book_inventory
         ' Btn_cancel
         ' 
         Btn_cancel.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_cancel.Location = New Point(301, 113)
+        Btn_cancel.Location = New Point(233, 113)
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(129, 40)
         Btn_cancel.TabIndex = 58
@@ -81,7 +81,7 @@ Partial Class Fm_add_book_inventory
         save_Txt_isbn.Location = New Point(166, 18)
         save_Txt_isbn.Name = "save_Txt_isbn"
         save_Txt_isbn.PlaceholderText = "ISBN"
-        save_Txt_isbn.Size = New Size(264, 21)
+        save_Txt_isbn.Size = New Size(196, 21)
         save_Txt_isbn.TabIndex = 64
         ' 
         ' update_Txt_isbn
@@ -90,7 +90,7 @@ Partial Class Fm_add_book_inventory
         update_Txt_isbn.Location = New Point(166, 18)
         update_Txt_isbn.Name = "update_Txt_isbn"
         update_Txt_isbn.PlaceholderText = "ISBN"
-        update_Txt_isbn.Size = New Size(264, 21)
+        update_Txt_isbn.Size = New Size(196, 21)
         update_Txt_isbn.TabIndex = 60
         ' 
         ' Label7
@@ -110,7 +110,7 @@ Partial Class Fm_add_book_inventory
         Txt_book_quantity.Location = New Point(166, 61)
         Txt_book_quantity.Name = "Txt_book_quantity"
         Txt_book_quantity.PlaceholderText = "Quantity"
-        Txt_book_quantity.Size = New Size(264, 21)
+        Txt_book_quantity.Size = New Size(196, 21)
         Txt_book_quantity.TabIndex = 76
         ' 
         ' Lbl_error_msg_1
@@ -129,7 +129,7 @@ Partial Class Fm_add_book_inventory
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(454, 169)
+        ClientSize = New Size(384, 169)
         ControlBox = False
         Controls.Add(Lbl_error_msg_1)
         Controls.Add(Label7)
