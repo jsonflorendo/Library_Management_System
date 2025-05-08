@@ -1,16 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\jsonf\\Desktop\\Library_Management_System\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\jsonf\\desktop\\library_management_system\\library_management_system\\add_penalty_description.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\add_penalty_description.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|c:\\users\\jsonf\\desktop\\library_management_system\\library_management_system\\add_penalty_description.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
-      "RelativeMoniker": "D:0:0:{C3A1185D-2CE9-42A6-A3ED-2267827ECC1C}|Library_Management_System\\Library_Management_System.vbproj|solutionrelative:library_management_system\\add_penalty_description.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -18,36 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Add_penalty_description.vb",
-              "DocumentMoniker": "C:\\Users\\jsonf\\Desktop\\Library_Management_System\\Library_Management_System\\Add_penalty_description.vb",
-              "RelativeDocumentMoniker": "Library_Management_System\\Add_penalty_description.vb",
-              "ToolTip": "C:\\Users\\jsonf\\Desktop\\Library_Management_System\\Library_Management_System\\Add_penalty_description.vb*",
-              "RelativeToolTip": "Library_Management_System\\Add_penalty_description.vb*",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAowGkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-05-08T12:40:14.666Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Add_penalty_description.vb [Design]",
-              "DocumentMoniker": "C:\\Users\\jsonf\\Desktop\\Library_Management_System\\Library_Management_System\\Add_penalty_description.vb",
-              "RelativeDocumentMoniker": "Library_Management_System\\Add_penalty_description.vb",
-              "ToolTip": "C:\\Users\\jsonf\\Desktop\\Library_Management_System\\Library_Management_System\\Add_penalty_description.vb [Design]*",
-              "RelativeToolTip": "Library_Management_System\\Add_penalty_description.vb [Design]*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-05-08T12:39:49.481Z",
-              "EditorCaption": " [Design]"
             }
           ]
         }
