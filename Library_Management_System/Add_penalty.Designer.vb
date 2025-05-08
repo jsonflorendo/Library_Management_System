@@ -120,7 +120,6 @@ Partial Class Fm_add_penalty
         Txt_primary_borrower_id.PlaceholderText = "Primary Borrower ID"
         Txt_primary_borrower_id.Size = New Size(168, 21)
         Txt_primary_borrower_id.TabIndex = 28
-        Txt_primary_borrower_id.Visible = False
         ' 
         ' Txt_book_name
         ' 
@@ -151,7 +150,6 @@ Partial Class Fm_add_penalty
         Txt_primary_book_id.PlaceholderText = "Primary Book ID"
         Txt_primary_book_id.Size = New Size(168, 21)
         Txt_primary_book_id.TabIndex = 31
-        Txt_primary_book_id.Visible = False
         ' 
         ' Btn_update
         ' 
@@ -216,7 +214,6 @@ Partial Class Fm_add_penalty
         Txt_primary_penalty_report_id.PlaceholderText = "Primary Penalty Report ID"
         Txt_primary_penalty_report_id.Size = New Size(168, 23)
         Txt_primary_penalty_report_id.TabIndex = 48
-        Txt_primary_penalty_report_id.Visible = False
         ' 
         ' Lv_penalty_description_selected
         ' 
@@ -229,7 +226,6 @@ Partial Class Fm_add_penalty
         Lv_penalty_description_selected.TabIndex = 49
         Lv_penalty_description_selected.UseCompatibleStateImageBehavior = False
         Lv_penalty_description_selected.View = View.Details
-        Lv_penalty_description_selected.Visible = False
         ' 
         ' ColumnHeader1
         ' 

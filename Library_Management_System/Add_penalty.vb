@@ -1,11 +1,9 @@
-﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
 
 Public Class Fm_add_penalty
 
     'Dictionary to store checked items when searching
     Dim checkedItems As New Dictionary(Of String, Boolean)
-    Dim checkedItemss As New HashSet(Of String)
 
     Private Sub Fm_add_penalty_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -37,7 +35,9 @@ Public Class Fm_add_penalty
 
                 dr.Close()
 
-
+                For Each id In penalty_report_primary_penalty_description_id
+                    Debug.WriteLine("Checked ID: " & id)
+                Next
                 ' STEP 2: Fetch all penalties
                 sql = "SELECT * FROM tbl_library_penalty                            
                                 ORDER BY penalty_description ASC"
@@ -65,6 +65,8 @@ Public Class Fm_add_penalty
                     Lv_penalty_description.Items.Add(lv)
 
                 End While
+
+                dr.Close()
 
             Catch ex As Exception
 
