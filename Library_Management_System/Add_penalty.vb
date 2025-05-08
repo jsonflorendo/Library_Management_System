@@ -35,9 +35,6 @@ Public Class Fm_add_penalty
 
                 dr.Close()
 
-                For Each id In penalty_report_primary_penalty_description_id
-                    Debug.WriteLine("Checked ID: " & id)
-                Next
                 ' STEP 2: Fetch all penalties
                 sql = "SELECT * FROM tbl_library_penalty                            
                                 ORDER BY penalty_description ASC"
