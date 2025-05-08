@@ -36,7 +36,7 @@ Partial Class Fm_add_category
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(85, 25)
         Btn_cancel.TabIndex = 1
-        Btn_cancel.Text = "Cancel"
+        Btn_cancel.Text = "&Cancel"
         Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Btn_save
@@ -45,12 +45,12 @@ Partial Class Fm_add_category
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(85, 25)
         Btn_save.TabIndex = 0
-        Btn_save.Text = "Save"
+        Btn_save.Text = "&Save"
         Btn_save.UseVisualStyleBackColor = True
         ' 
         ' Txt_category_name
         ' 
-        Txt_category_name.Font = New Font("Georgia", 14.25F)
+        Txt_category_name.Font = New Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Txt_category_name.Location = New Point(12, 46)
         Txt_category_name.Name = "Txt_category_name"
         Txt_category_name.PlaceholderText = "Category"
@@ -63,7 +63,7 @@ Partial Class Fm_add_category
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(85, 25)
         Btn_update.TabIndex = 0
-        Btn_update.Text = "Update"
+        Btn_update.Text = "&Update"
         Btn_update.UseVisualStyleBackColor = True
         ' 
         ' Lbl_error_msg
@@ -97,10 +97,10 @@ Partial Class Fm_add_category
         ControlBox = False
         Controls.Add(Label4)
         Controls.Add(Lbl_error_msg)
-        Controls.Add(Btn_update)
         Controls.Add(Btn_cancel)
         Controls.Add(Btn_save)
         Controls.Add(Txt_category_name)
+        Controls.Add(Btn_update)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Fm_add_category"
         StartPosition = FormStartPosition.CenterScreen

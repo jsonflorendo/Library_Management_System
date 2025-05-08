@@ -58,7 +58,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Txt_firstname
         ' 
-        Txt_firstname.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_firstname.Font = New Font("Arial", 9F)
         Txt_firstname.Location = New Point(22, 59)
         Txt_firstname.Name = "Txt_firstname"
         Txt_firstname.PlaceholderText = "First Name"
@@ -67,7 +67,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Txt_email
         ' 
-        Txt_email.Font = New Font("Georgia", 9F)
+        Txt_email.Font = New Font("Arial", 9F)
         Txt_email.Location = New Point(260, 105)
         Txt_email.Name = "Txt_email"
         Txt_email.PlaceholderText = "Email"
@@ -76,7 +76,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Txt_lastname
         ' 
-        Txt_lastname.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_lastname.Font = New Font("Arial", 9F)
         Txt_lastname.Location = New Point(22, 152)
         Txt_lastname.Name = "Txt_lastname"
         Txt_lastname.PlaceholderText = "Last Name"
@@ -85,7 +85,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Txt_middlename
         ' 
-        Txt_middlename.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_middlename.Font = New Font("Arial", 9F)
         Txt_middlename.Location = New Point(22, 105)
         Txt_middlename.Name = "Txt_middlename"
         Txt_middlename.PlaceholderText = "Middle Name"
@@ -94,7 +94,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Txt_username
         ' 
-        Txt_username.Font = New Font("Georgia", 9F)
+        Txt_username.Font = New Font("Arial", 9F)
         Txt_username.Location = New Point(260, 59)
         Txt_username.Name = "Txt_username"
         Txt_username.PlaceholderText = "Username"
@@ -103,7 +103,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Txt_password
         ' 
-        Txt_password.Font = New Font("Georgia", 9F)
+        Txt_password.Font = New Font("Arial", 9F)
         Txt_password.Location = New Point(260, 229)
         Txt_password.Name = "Txt_password"
         Txt_password.PlaceholderText = "Password"
@@ -112,7 +112,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Txt_confirmpassword
         ' 
-        Txt_confirmpassword.Font = New Font("Georgia", 9F)
+        Txt_confirmpassword.Font = New Font("Arial", 9F)
         Txt_confirmpassword.Location = New Point(259, 275)
         Txt_confirmpassword.Name = "Txt_confirmpassword"
         Txt_confirmpassword.PlaceholderText = "Confirm Password"
@@ -140,7 +140,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Txt_contact
         ' 
-        Txt_contact.Font = New Font("Georgia", 9F)
+        Txt_contact.Font = New Font("Arial", 9F)
         Txt_contact.Location = New Point(22, 312)
         Txt_contact.Name = "Txt_contact"
         Txt_contact.PlaceholderText = "Contact No."
@@ -149,7 +149,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Txt_address
         ' 
-        Txt_address.Font = New Font("Georgia", 9F)
+        Txt_address.Font = New Font("Arial", 9F)
         Txt_address.Location = New Point(22, 358)
         Txt_address.Name = "Txt_address"
         Txt_address.PlaceholderText = "Address"
@@ -182,7 +182,7 @@ Partial Class Fm_admin_registration
         ' 
         ' Dtp_birthdate
         ' 
-        Dtp_birthdate.Font = New Font("Georgia", 9F)
+        Dtp_birthdate.Font = New Font("Arial", 9F)
         Dtp_birthdate.Format = DateTimePickerFormat.Short
         Dtp_birthdate.Location = New Point(22, 266)
         Dtp_birthdate.Name = "Dtp_birthdate"
@@ -205,9 +205,9 @@ Partial Class Fm_admin_registration
         Label2.Font = New Font("Georgia", 24F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label2.Location = New Point(2, 1)
         Label2.Name = "Label2"
-        Label2.Size = New Size(208, 38)
+        Label2.Size = New Size(314, 38)
         Label2.TabIndex = 16
-        Label2.Text = "User Account"
+        Label2.Text = "Account Registration"
         ' 
         ' Btn_update
         ' 
@@ -232,10 +232,10 @@ Partial Class Fm_admin_registration
         ' 
         ' Cb_user_type
         ' 
-        Cb_user_type.Font = New Font("Georgia", 9F)
+        Cb_user_type.Font = New Font("Arial", 9F)
         Cb_user_type.FormattingEnabled = True
         Cb_user_type.ItemHeight = 15
-        Cb_user_type.Items.AddRange(New Object() {"ASSISTANT LIBRARIAN", "STAFF"})
+        Cb_user_type.Items.AddRange(New Object() {"Assistant Librarian", "Staff"})
         Cb_user_type.Location = New Point(260, 152)
         Cb_user_type.Name = "Cb_user_type"
         Cb_user_type.Size = New Size(199, 23)
@@ -415,8 +415,6 @@ Partial Class Fm_admin_registration
         Controls.Add(Txt_address)
         Controls.Add(Txt_contact)
         Controls.Add(Btn_cancel)
-        Controls.Add(Btn_update)
-        Controls.Add(Btn_save)
         Controls.Add(Txt_confirmpassword)
         Controls.Add(Txt_password)
         Controls.Add(Txt_username)
@@ -424,6 +422,8 @@ Partial Class Fm_admin_registration
         Controls.Add(Txt_lastname)
         Controls.Add(Txt_email)
         Controls.Add(Txt_firstname)
+        Controls.Add(Btn_update)
+        Controls.Add(Btn_save)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Fm_admin_registration"
         StartPosition = FormStartPosition.CenterScreen

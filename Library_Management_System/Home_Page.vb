@@ -588,7 +588,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -619,21 +619,22 @@ Public Class Fm_home_page
                                 tbl_books.primary_book_id,
                                 tbl_books.primary_category_id
 
-                    FROM tbl_books
+                        From tbl_books
 
-                    INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
-                    INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
-                    INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
+                        INNER Join tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
+                        INNER Join tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
+                        INNER Join tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
 
-                        WHERE category_name LIKE '%" & Cb_listed_books_category.Text & "%'
+                        WHERE   category_name = '" & Cb_listed_books_category.SelectedItem & "'
 
                         ORDER BY primary_book_id DESC"
 
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
+                dr = cmd.ExecuteReader()
+
                 Lv_listed_books.Items.Clear()
 
-                Do While dr.Read
+                While dr.Read()
 
                     Dim lv As New ListViewItem({dr("isbn").ToString(),
                                                 dr("book_name").ToString(),
@@ -645,24 +646,16 @@ Public Class Fm_home_page
                                                 dr("primary_category_id")})
                     Lv_listed_books.Items.Add(lv)
 
-                Loop
+                End While
 
-                con.Close()
+                dr.Close()
 
-                For i = 0 To Lv_listed_books.Items.Count - 1
-
-                    If i Mod 2 = 0 Then
-
-                        Lv_listed_books.Items(i).BackColor = Color.Azure
-                        Lv_listed_books.Items(i).ForeColor = Color.Black
-
-                    Else
-
-                        Lv_listed_books.Items(i).BackColor = Color.GhostWhite
-                        Lv_listed_books.Items(i).ForeColor = Color.Black
-
-                    End If
-
+                ' Alternate row coloring
+                For i As Integer = 0 To Lv_listed_books.Items.Count - 1
+                    With Lv_listed_books.Items(i)
+                        .BackColor = If(i Mod 2 = 0, Color.Azure, Color.GhostWhite)
+                        .ForeColor = Color.Black
+                    End With
                 Next
 
             Catch ex As Exception
@@ -699,7 +692,7 @@ Public Class Fm_home_page
         Fm_add_books.update_Txt_isbn.Visible = False
         Fm_add_books.Show()
         Fm_add_books.Btn_update.Visible = False
-        Enabled = False
+        Me.Enabled = False
 
     End Sub
 
@@ -727,9 +720,10 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_books_edit_Click(sender As Object, e As EventArgs) Handles Btn_listed_books_edit.Click
 
-        Fm_add_books.save_Txt_isbn.Visible = False
-
         If Lv_listed_books.SelectedItems.Count > 0 Then
+
+            Fm_add_books.Show()
+            Fm_add_books.save_Txt_isbn.Visible = False
 
             Fm_add_books.update_Txt_isbn.Text = Lv_listed_books.SelectedItems(0).Text
             Fm_add_books.Txt_book_name.Text = Lv_listed_books.SelectedItems(0).SubItems(1).Text
@@ -740,8 +734,7 @@ Public Class Fm_home_page
 
             Fm_add_books.Txt_primary_category_id.Text = Lv_listed_books.SelectedItems(0).SubItems(7).Text
 
-            Fm_add_books.Show()
-            Enabled = False
+            Me.Enabled = False
 
         Else
 
@@ -781,7 +774,9 @@ Public Class Fm_home_page
 
                 con.Open()
 
-                Dim book_name = Lv_listed_books.SelectedItems(0).SubItems(1).Text 'nagkakaroon ng syntax error pag ginamit mismo yung "Lv_listed_books.SelectedItems(0).Text"
+                Dim book_name As String = Lv_listed_books.SelectedItems(0).SubItems(1).Text
+                Dim primary_book_id As String = Lv_listed_books.SelectedItems(0).SubItems(6).Text
+
                 Dim dialog As DialogResult
 
                 dialog = MessageBox.Show("Do you want to delete " + book_name + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
@@ -789,9 +784,9 @@ Public Class Fm_home_page
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_books
-                                    WHERE primary_book_id = '" & Lv_listed_books.SelectedItems(0).SubItems(6).Text & "'"
+                                    WHERE primary_book_id = '" & primary_book_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -876,7 +871,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -972,7 +967,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -984,9 +979,9 @@ Public Class Fm_home_page
 
     Private Sub Btn_borrower_info_add_Click(sender As Object, e As EventArgs) Handles Btn_borrower_info_add.Click
 
-        Fm_add_borrower.Show
+        Fm_add_borrower.Show()
         Fm_add_borrower.Btn_update.Visible = False
-        Enabled = False
+        Me.Enabled = False
 
     End Sub
 
@@ -1014,9 +1009,9 @@ Public Class Fm_home_page
 
     Private Sub Btn_borrower_info_edit_Click(sender As Object, e As EventArgs) Handles Btn_borrower_info_edit.Click
 
-        Dim Gender As String
-
         If Lv_borrower_info.SelectedItems.Count > 0 Then
+
+            Fm_add_borrower.Show()
 
             Fm_add_borrower.Txt_borrower_id_number.Text = Lv_borrower_info.SelectedItems(0).Text
             Fm_add_borrower.Txt_borrower_last_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(1).Text
@@ -1024,10 +1019,9 @@ Public Class Fm_home_page
             Fm_add_borrower.Txt_borrower_middle_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(3).Text
             Fm_add_borrower.Cb_borrower_category_type.Text = Lv_borrower_info.SelectedItems(0).SubItems(4).Text
 
+            Dim gender As String = Lv_borrower_info.SelectedItems(0).SubItems(5).Text
 
-            Gender = Lv_borrower_info.SelectedItems(0).SubItems(5).Text
-
-            If Gender = "MALE" Then
+            If gender = "Male" Then
                 Fm_add_borrower.Rb_male.Checked = True
             Else
                 Fm_add_borrower.Rb_female.Checked = True
@@ -1037,8 +1031,7 @@ Public Class Fm_home_page
             Fm_add_borrower.Txt_borrower_email.Text = Lv_borrower_info.SelectedItems(0).SubItems(7).Text
             Fm_add_borrower.Txt_borrower_address.Text = Lv_borrower_info.SelectedItems(0).SubItems(8).Text
 
-            Fm_add_borrower.Show
-            Enabled = False
+            Me.Enabled = False
 
         Else
 
@@ -1076,28 +1069,31 @@ Public Class Fm_home_page
 
             Try
 
-                con.Open
+                con.Open()
 
-                Dim student_name = Lv_borrower_info.SelectedItems(0).SubItems(2).Text + " " + Lv_borrower_info.SelectedItems(0).SubItems(1).Text 'nagkakaroon ng syntax error pag ginamit mismo yung "Lv_student_info.SelectedItems(0).SubItems(1).Text"
+                Dim first_name As String = Lv_borrower_info.SelectedItems(0).SubItems(2).Text
+                Dim last_name As String = Lv_borrower_info.SelectedItems(0).SubItems(1).Text
+                Dim primary_borrower_id As String = Lv_borrower_info.SelectedItems(0).SubItems(9).Text
+
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete " + student_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete " + first_name + " " + last_name + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_borrower
-                                  WHERE primary_borrower_id = '" & Lv_borrower_info.SelectedItems(0).SubItems(9).Text & "'"
+                                  WHERE primary_borrower_id = '" & primary_borrower_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
-                    con.Close
+                    con.Close()
 
                     Load_borrower_info_data_table(Txt_student_info_search.Text)
-                    MessageBox.Show(student_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show(first_name + " " + last_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
 
-                    con.Close
+                    con.Close()
 
                     Load_borrower_info_data_table(Txt_student_info_search.Text)
 
@@ -1110,7 +1106,7 @@ Public Class Fm_home_page
             Finally
 
                 If con.State = ConnectionState.Open Then
-                    con.Close
+                    con.Close()
                 End If
 
             End Try
@@ -1173,7 +1169,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -1187,6 +1183,8 @@ Public Class Fm_home_page
 
         If Lv_penalty.SelectedItems.Count > 0 Then
 
+            Fm_add_penalty.Show()
+
             Fm_add_penalty.Txt_borrower_id.Text = Lv_penalty.SelectedItems(0).Text
             Fm_add_penalty.Txt_borrower_name.Text = Lv_penalty.SelectedItems(0).SubItems(1).Text
             Fm_add_penalty.Txt_book_name.Text = Lv_penalty.SelectedItems(0).SubItems(2).Text
@@ -1196,7 +1194,6 @@ Public Class Fm_home_page
 
             Fm_add_penalty.Txt_primary_penalty_report_id.Text = Lv_penalty.SelectedItems(0).SubItems(9).Text
 
-            Fm_add_penalty.Show()
             Fm_add_penalty.Btn_save.Visible = False
             Me.Enabled = False
 
@@ -1238,6 +1235,8 @@ Public Class Fm_home_page
                 con.Open()
 
                 Dim full_name = Lv_penalty.SelectedItems(0).SubItems(1).Text
+                Dim primary_penalty_id As String = Lv_penalty.SelectedItems(0).SubItems(9).Text
+
                 Dim dialog As DialogResult
 
                 dialog = MessageBox.Show("Do you want to delete the penalty for " + full_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
@@ -1245,9 +1244,9 @@ Public Class Fm_home_page
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_penalty_report
-                                  WHERE primary_penalty_id = '" & Lv_penalty.SelectedItems(0).SubItems(9).Text & "'"
+                                  WHERE primary_penalty_id = '" & primary_penalty_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -1332,7 +1331,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -1374,16 +1373,17 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_accounts_edit_Click(sender As Object, e As EventArgs) Handles Btn_listed_accounts_edit.Click
 
-        Dim Gender As String
-
         If Lv_listed_accounts.SelectedItems.Count > 0 Then
+
+            Fm_admin_registration.Show()
 
             Fm_admin_registration.Txt_firstname.Text = Lv_listed_accounts.SelectedItems(0).Text
             Fm_admin_registration.Txt_middlename.Text = Lv_listed_accounts.SelectedItems(0).SubItems(1).Text
             Fm_admin_registration.Txt_lastname.Text = Lv_listed_accounts.SelectedItems(0).SubItems(2).Text
 
-            Gender = Lv_listed_accounts.SelectedItems(0).SubItems(3).Text
-            If Gender = "MALE" Then
+            Dim Gender As String = Lv_listed_accounts.SelectedItems(0).SubItems(3).Text
+
+            If Gender = "Male" Then
                 Fm_admin_registration.Rb_male.Checked = True
             Else
                 Fm_admin_registration.Rb_female.Checked = True
@@ -1397,7 +1397,6 @@ Public Class Fm_home_page
             Fm_admin_registration.Cb_user_type.Text = Lv_listed_accounts.SelectedItems(0).SubItems(9).Text
             Fm_admin_registration.Txt_password.Text = Lv_listed_accounts.SelectedItems(0).SubItems(10).Text
 
-            Fm_admin_registration.Show()
             Fm_admin_registration.Btn_save.Visible = False
             Fm_admin_registration.Txt_confirmpassword.Visible = False
             Me.Enabled = False
@@ -1438,24 +1437,27 @@ Public Class Fm_home_page
 
             con.Open()
 
-            Dim full_name As String = Lv_listed_accounts.SelectedItems(0).Text + " " + Lv_listed_accounts.SelectedItems(0).SubItems(2).Text 'nagkakaroon ng syntax error pag ginamit mismo yung "Lv_listed_accounts.SelectedItems(0).Text + " " + Lv_listed_accounts.SelectedItems(0).SubItems(1).Text + " " + Lv_listed_accounts.SelectedItems(0).SubItems(2).Text"
+            Dim first_name As String = Lv_listed_accounts.SelectedItems(0).Text
+            Dim last_name As String = Lv_listed_accounts.SelectedItems(0).SubItems(2).Text
+            Dim primary_admin_id As String = Lv_listed_accounts.SelectedItems(0).SubItems(11).Text
+
             Dim dialog As DialogResult
 
-            dialog = MessageBox.Show("Do you want to delete " + Lv_listed_accounts.SelectedItems(0).Text + " " + Lv_listed_accounts.SelectedItems(0).SubItems(2).Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+            dialog = MessageBox.Show("Do you want to delete " + first_name + " " + last_name + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
             If dialog = DialogResult.Yes Then
 
                 Try
 
                     sql = "DELETE FROM tbl_admin
-                                  WHERE primary_admin_id = '" & Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
+                                  WHERE primary_admin_id = '" & primary_admin_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
                     Load_listed_accounts_data_table(Txt_listed_accounts_search.Text)
-                    MessageBox.Show(full_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show(first_name + " " + last_name + " deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
                 Catch ex As Exception
@@ -1536,7 +1538,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -1632,16 +1634,18 @@ Public Class Fm_home_page
                 con.Open()
 
                 Dim supplier_name = Lv_supplier.SelectedItems(0).SubItems(1).Text
+                Dim primary_supplier_id As String = Lv_supplier.SelectedItems(0).SubItems(7).Text
+
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete " + supplier_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete " + supplier_name + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_library_supplier
-                                  WHERE primary_supplier_id = '" & Lv_supplier.SelectedItems(0).SubItems(7).Text & "'"
+                                  WHERE primary_supplier_id = '" & primary_supplier_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -1726,7 +1730,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -1771,6 +1775,7 @@ Public Class Fm_home_page
         If Lv_author.SelectedItems.Count > 0 Then
 
             Fm_add_author.Show()
+
             Fm_add_author.Txt_author_name.Text = Lv_author.SelectedItems(0).Text
             Fm_add_author.Btn_save.Visible = False
             Me.Enabled = False
@@ -1814,16 +1819,18 @@ Public Class Fm_home_page
                 con.Open()
 
                 Dim author_name = Lv_author.SelectedItems(0).Text
+                Dim primary_author_id As String = Lv_author.SelectedItems(0).SubItems(1).Text
+
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete " + author_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete " + author_name + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_library_author
-                                  WHERE primary_author_id = '" & Lv_author.SelectedItems(0).SubItems(1).Text & "'"
+                                  WHERE primary_author_id = '" & primary_author_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -1927,7 +1934,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -1972,6 +1979,7 @@ Public Class Fm_home_page
         If Lv_category.SelectedItems.Count > 0 Then
 
             Fm_add_category.Show()
+
             Fm_add_category.Txt_category_name.Text = Lv_category.SelectedItems(0).Text
             Fm_add_category.Btn_save.Visible = False
             Me.Enabled = False
@@ -2015,16 +2023,18 @@ Public Class Fm_home_page
                 con.Open()
 
                 Dim category_description = Lv_category.SelectedItems(0).Text
+                Dim primary_category_id As String = Lv_category.SelectedItems(0).SubItems(1).Text
+
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete " + category_description + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete " + category_description + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_library_category
-                                  WHERE primary_category_id = '" & Lv_category.SelectedItems(0).SubItems(1).Text & "'"
+                                  WHERE primary_category_id = '" & primary_category_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -2129,7 +2139,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -2143,7 +2153,7 @@ Public Class Fm_home_page
 
         Fm_penalty_description.Show()
         Fm_penalty_description.Btn_update.Visible = False
-        Enabled = False
+        Me.Enabled = False
 
     End Sub
 
@@ -2174,10 +2184,11 @@ Public Class Fm_home_page
         If Lv_penalty_description.SelectedItems.Count > 0 Then
 
             Fm_penalty_description.Show()
+
             Fm_penalty_description.Txt_penalty_description.Text = Lv_penalty_description.SelectedItems(0).Text
             Fm_penalty_description.Txt_penalty_amount.Text = Lv_penalty_description.SelectedItems(0).SubItems(1).Text
             Fm_penalty_description.Btn_save.Visible = False
-            Enabled = False
+            Me.Enabled = False
 
         Else
 
@@ -2218,16 +2229,18 @@ Public Class Fm_home_page
                 con.Open()
 
                 Dim penalty_description = Lv_penalty_description.SelectedItems(0).Text
+                Dim primary_penalty_id As String = Lv_penalty_description.SelectedItems(0).SubItems(2).Text
+
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete " + penalty_description + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete " + penalty_description + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_library_penalty
-                           WHERE primary_penalty_description_id = '" & Lv_penalty_description.SelectedItems(0).SubItems(2).Text & "'"
+                           WHERE primary_penalty_description_id = '" & primary_penalty_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -2331,7 +2344,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -2345,7 +2358,7 @@ Public Class Fm_home_page
 
         Fm_publisher.Show()
         Fm_publisher.Btn_update.Visible = False
-        Enabled = False
+        Me.Enabled = False
 
     End Sub
 
@@ -2376,10 +2389,10 @@ Public Class Fm_home_page
         If Lv_publisher.SelectedItems.Count > 0 Then
 
             Fm_publisher.Show()
+
             Fm_publisher.Txt_publisher_name.Text = Lv_publisher.SelectedItems(0).Text
-            Fm_publisher.Txt_publisher_name.Text = Lv_publisher.SelectedItems(0).SubItems(1).Text
             Fm_publisher.Btn_save.Visible = False
-            Enabled = False
+            Me.Enabled = False
 
         Else
 
@@ -2420,16 +2433,18 @@ Public Class Fm_home_page
                 con.Open()
 
                 Dim publisher_name = Lv_publisher.SelectedItems(0).Text
+                Dim primary_publisher_id As String = Lv_publisher.SelectedItems(0).SubItems(1).Text
+
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete " + publisher_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete " + publisher_name + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_library_publisher
-                            WHERE primary_publisher_id = '" & Lv_publisher.SelectedItems(0).SubItems(1).Text & "'"
+                            WHERE primary_publisher_id = '" & primary_publisher_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -2533,7 +2548,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -2578,6 +2593,7 @@ Public Class Fm_home_page
         If Lv_shelf.SelectedItems.Count > 0 Then
 
             Fm_add_shelf.Show()
+
             Fm_add_shelf.Txt_shelf_id.Text = Lv_shelf.SelectedItems(0).Text
             Fm_add_shelf.Txt_shelf_name.Text = Lv_shelf.SelectedItems(0).SubItems(1).Text
             Fm_add_shelf.Txt_shelf_section.Text = Lv_shelf.SelectedItems(0).SubItems(2).Text
@@ -2585,7 +2601,7 @@ Public Class Fm_home_page
             Fm_add_shelf.Txt_shelf_capacity.Text = Lv_shelf.SelectedItems(0).SubItems(4).Text
             Fm_add_shelf.Txt_shelf_current_load.Text = Lv_shelf.SelectedItems(0).SubItems(5).Text
             Fm_add_shelf.Btn_save.Visible = False
-            Enabled = False
+            Me.Enabled = False
 
         Else
 
@@ -2626,16 +2642,18 @@ Public Class Fm_home_page
                 con.Open()
 
                 Dim shelf_name = Lv_shelf.SelectedItems(0).SubItems(1).Text
+                Dim primary_shelf_id As String = Lv_shelf.SelectedItems(0).SubItems(8).Text
+
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete " + shelf_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete " + shelf_name + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_shelf
-                            WHERE primary_shelf_id = '" & Lv_shelf.SelectedItems(0).SubItems(8).Text & "'"
+                            WHERE primary_shelf_id = '" & primary_shelf_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -2720,7 +2738,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -2844,7 +2862,7 @@ Public Class Fm_home_page
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -2862,80 +2880,7 @@ Public Class Fm_home_page
 
         Else
 
-            Try
-
-                con.Open()
-
-                sql = "SELECT   tbl_books.isbn,
-                                tbl_books.book_name,
-                                tbl_library_author.author_name,
-                                tbl_library_category.category_name,
-                                tbl_books.publish_year,
-                                tbl_library_publisher.publisher_name,
-                                tbl_book_inventory.quantity,
-                                tbl_book_inventory.status,
-                                tbl_book_inventory.primary_book_inventory_id
-
-                        FROM tbl_book_inventory
-
-                        INNER JOIN tbl_books ON tbl_book_inventory.primary_book_id = tbl_books.primary_book_id
-                        INNER JOIN tbl_library_author ON tbl_books.primary_author_id = tbl_library_author.primary_author_id
-                        INNER JOIN tbl_library_category ON tbl_books.primary_category_id = tbl_library_category.primary_category_id
-                        INNER JOIN tbl_library_publisher ON tbl_books.primary_publisher_id = tbl_library_publisher.primary_publisher_id
-
-                        WHERE   category_name LIKE '%" & Cb_book_inventory_category.Text & "%'
-
-                        ORDER BY book_name ASC"
-
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
-
-                Lv_book_inventory.Items.Clear()
-
-                Do While dr.Read
-
-                    Dim lv As New ListViewItem({dr("isbn").ToString(),
-                                                dr("book_name").ToString(),
-                                                dr("author_name").ToString(),
-                                                dr("category_name").ToString(),
-                                                dr("publish_year").ToString(),
-                                                dr("publisher_name").ToString(),
-                                                dr("quantity").ToString(),
-                                                dr("status").ToString(),
-                                                dr("primary_book_inventory_id").ToString()})
-                    Lv_book_inventory.Items.Add(lv)
-
-                Loop
-
-                con.Close()
-
-                For i As Integer = 0 To Lv_book_inventory.Items.Count - 1
-
-                    If i Mod 2 = 0 Then
-
-                        Lv_book_inventory.Items(i).BackColor = Color.Azure
-                        Lv_book_inventory.Items(i).ForeColor = Color.Black
-
-                    Else
-
-                        Lv_book_inventory.Items(i).BackColor = Color.GhostWhite
-                        Lv_book_inventory.Items(i).ForeColor = Color.Black
-
-                    End If
-
-                Next
-
-            Catch ex As Exception
-
-                MsgBox("Error: " & ex.Message)
-
-            Finally
-
-                If con.State = ConnectionState.Open Then
-                    con.Close()
-                End If
-
-            End Try
+            Load_book_inventory_data_table(Cb_book_inventory_category.Text)
 
         End If
 
@@ -2958,7 +2903,7 @@ Public Class Fm_home_page
 
         Fm_add_book_inventory.Show()
         Fm_add_book_inventory.Btn_update.Visible = False
-        Enabled = False
+        Me.Enabled = False
 
     End Sub
 
@@ -2989,6 +2934,7 @@ Public Class Fm_home_page
         If Lv_book_inventory.SelectedItems.Count > 0 Then
 
             Fm_add_book_inventory.Show()
+
             Fm_add_book_inventory.update_Txt_isbn.Text = Lv_book_inventory.SelectedItems(0).Text
             Fm_add_book_inventory.Txt_book_quantity.Text = Lv_book_inventory.SelectedItems(0).SubItems(6).Text
 
@@ -3035,16 +2981,18 @@ Public Class Fm_home_page
                 con.Open()
 
                 Dim book_name = Lv_book_inventory.SelectedItems(0).SubItems(1).Text
+                Dim primary_book_inventory_id As String = Lv_book_inventory.SelectedItems(0).SubItems(8).Text
+
                 Dim dialog As DialogResult
 
-                dialog = MessageBox.Show("Do you want to delete " + book_name + " ?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                dialog = MessageBox.Show("Do you want to delete " + book_name + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
                 If dialog = DialogResult.Yes Then
 
                     sql = "DELETE FROM tbl_book_inventory
-                           WHERE primary_book_inventory_id = '" & Lv_book_inventory.SelectedItems(0).SubItems(8).Text & "'"
+                           WHERE primary_book_inventory_id = '" & primary_book_inventory_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 

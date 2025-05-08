@@ -87,19 +87,18 @@ Public Class Fm_add_books
 
                     con.Open()
 
-                    sql = "SELECT * FROM tbl_books
-                                    WHERE isbn = '" & save_Txt_isbn.Text & "' AND book_name = '" & Txt_book_name.Text & "'"
+                    sql = "SELECT COUNT(*) FROM tbl_books
+                                    WHERE TRIM(isbn) = '" & save_Txt_isbn.Text.Trim & "' AND TRIM(book_name) = '" & Txt_book_name.Text.Trim & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
 
-                    If dr.Read Then
+                    Dim duplicate_Count As Integer = cmd.ExecuteScalar()
+
+                    If duplicate_Count > 0 Then
 
                         Lbl_error_msg.Text = "ISBN already exists"
                         Lbl_error_msg_1.Text = "Book name already exists"
 
                     Else
-
-                        dr.Close()
 
                         sql = "INSERT INTO tbl_books (isbn,
                                                         book_name,
@@ -107,8 +106,8 @@ Public Class Fm_add_books
                                                         primary_author_id,
                                                         primary_publisher_id,
                                                         publish_year)
-                                        VALUE ('" & save_Txt_isbn.Text & "',
-                                                '" & Txt_book_name.Text & "',
+                                        VALUE ('" & save_Txt_isbn.Text.Trim & "',
+                                                '" & Txt_book_name.Text.Trim & "',
                                                 '" & Txt_primary_category_id.Text & "',                                            
                                                 '" & Txt_primary_author_id.Text & "',
                                                 '" & Txt_primary_publisher_id.Text & "',
@@ -199,55 +198,32 @@ Public Class Fm_add_books
                 con.Open()
 
                 Dim primary_book_id As String = Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(6).Text
-                Dim isbn As String = Fm_home_page.Lv_listed_books.SelectedItems(0).Text
-                Dim book_name As String = Fm_home_page.Lv_listed_books.SelectedItems(0).SubItems(1).Text
 
-                'to make sure ISBN and Book Name are not exists while in update process
-                sql = "UPDATE tbl_books SET 
-                                  isbn = '" & "" & "',
-                                  book_name = '" & "" & "'
-                           WHERE primary_book_id = '" & primary_book_id & "'"
+                sql = "SELECT COUNT(*) FROM tbl_books
+                                WHERE TRIM(isbn) = '" & save_Txt_isbn.Text.Trim & "'
+                                AND TRIM(book_name) = '" & Txt_book_name.Text.Trim & "'
+                                AND primary_book_id <> '" & primary_book_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                dr.Close()
-                '---------------------------------
 
-                sql = "SELECT * FROM tbl_books
-                                WHERE isbn = '" & update_Txt_isbn.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                If dr.Read Then
-
-                    dr.Close()
+                If duplicate_Count > 0 Then
 
                     Lbl_error_msg.Text = "ISBN already exists"
                     Lbl_error_msg_1.Text = "Book name already exists"
 
-                    'returned previous ISBN and Book Name
-                    sql = "UPDATE tbl_books SET 
-                                  isbn = '" & isbn & "',
-                                  book_name = '" & book_name & "'
-                           WHERE primary_book_id = '" & primary_book_id & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-                    con.Close()
-                    '---------------------------------
-
                 Else
 
-                    dr.Close()
-
                     sql = "UPDATE tbl_books SET
-                                    isbn = '" & update_Txt_isbn.Text & "',
-                                    book_name = '" & Txt_book_name.Text & "',
+                                    isbn = '" & update_Txt_isbn.Text.Trim & "',
+                                    book_name = '" & Txt_book_name.Text.Trim & "',
                                     primary_category_id = '" & Txt_primary_category_id.Text & "',
                                     primary_author_id = '" & Txt_primary_author_id.Text & "',
                                     primary_publisher_id = '" & Txt_primary_publisher_id.Text & "',
                                     publish_year = '" & Dtp_publish_date.Value.ToString("MMMM dd, yyyy") & "'
                             WHERE primary_book_id = '" & primary_book_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -294,7 +270,7 @@ Public Class Fm_add_books
 
     End Sub
 
-    Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
+    Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
         If Fm_home_page.Enabled = False And Fm_add_delivery.Enabled = False Then
 
@@ -496,9 +472,6 @@ Public Class Fm_add_books
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength = 100 ' Change this to the desired maximum length
 
@@ -510,7 +483,7 @@ Public Class Fm_add_books
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -528,9 +501,6 @@ Public Class Fm_add_books
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength As Integer = 100 ' Change this to the desired maximum length
 
@@ -542,7 +512,7 @@ Public Class Fm_add_books
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -560,9 +530,6 @@ Public Class Fm_add_books
             Return
         End If
 
-        ' Convert the entered character to uppercase
-        e.KeyChar = Char.ToUpper(e.KeyChar)
-
         ' Define the maximum length for the TextBox
         Dim maxLength As Integer = 100 ' Change this to the desired maximum length
 
@@ -574,7 +541,7 @@ Public Class Fm_add_books
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

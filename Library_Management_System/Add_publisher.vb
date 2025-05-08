@@ -20,22 +20,20 @@ Public Class Fm_publisher
 
                 con.Open()
 
-                sql = "SELECT * FROM tbl_library_publisher
-                                WHERE publisher_name = '" & Txt_publisher_name.Text & "'"
+                sql = "SELECT COUNT(*) FROM tbl_library_publisher
+                                WHERE TRIM(publisher_name) = '" & Txt_publisher_name.Text.Trim & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
 
-                If dr.Read Then
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                    con.Close()
+                If duplicate_Count > 0 Then
+
                     Lbl_error_msg.Text = "Publisher already exists"
 
                 Else
 
-                    dr.Close()
-
                     sql = "INSERT INTO tbl_library_publisher (publisher_name)
-                                  VALUE ('" & Txt_publisher_name.Text & "')"
+                                  VALUE ('" & Txt_publisher_name.Text.Trim & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
 
@@ -48,15 +46,15 @@ Public Class Fm_publisher
                         Load_library_cb_publisher()
                         Fm_add_books.Enabled = True
                         Fm_add_books.Txt_publisher.Text = Txt_publisher_name.Text
-                        Me.Close()
 
                     Else
 
                         Load_library_publisher_data_table(Fm_home_page.Txt_search_publisher.Text)
                         Fm_home_page.Enabled = True
-                        Me.Close()
 
                     End If
+
+                    Me.Close()
 
                 End If
 
@@ -88,45 +86,25 @@ Public Class Fm_publisher
 
                 con.Open()
 
-                'to make sure Publisher Name not exists while in update process
-                sql = "UPDATE tbl_library_publisher SET 
-                              publisher_name = '" & "" & "'                                        
-                       WHERE primary_publisher_id = '" & Fm_home_page.Lv_publisher.SelectedItems(0).SubItems(1).Text & "'"
+                Dim primary_publisher_id As String = Fm_home_page.Lv_publisher.SelectedItems(0).SubItems(1).Text
+
+                sql = "SELECT COUNT(*) FROM tbl_library_publisher
+                                WHERE TRIM(publisher_name) = '" & Txt_publisher_name.Text.Trim & "' AND primary_publisher_id <> '" & primary_publisher_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                dr.Close()
-                '---------------------------------
 
-                sql = "SELECT * FROM tbl_library_publisher
-                                WHERE publisher_name = '" & Txt_publisher_name.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                If dr.Read Then
-
-                    dr.Close()
+                If duplicate_Count > 0 Then
 
                     Lbl_error_msg.Text = "Publisher already exists"
 
-                    'returned previous Author Name
-                    sql = "UPDATE tbl_library_publisher SET 
-                                  publisher_name = '" & Fm_home_page.Lv_publisher.SelectedItems(0).Text & "'                                       
-                           WHERE primary_publisher_id = '" & Fm_home_page.Lv_publisher.SelectedItems(0).SubItems(1).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-
-                    con.Close()
-                    '---------------------------------
-
                 Else
 
-                    dr.Close()
-
                     sql = "UPDATE tbl_library_publisher SET
-                                  publisher_name = '" & Txt_publisher_name.Text & "'
-                           WHERE primary_publisher_id = '" & Fm_home_page.Lv_publisher.SelectedItems(0).SubItems(1).Text & "'"
+                                  publisher_name = '" & Txt_publisher_name.Text.Trim & "'
+                           WHERE primary_publisher_id = '" & primary_publisher_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -158,15 +136,15 @@ Public Class Fm_publisher
         If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
 
             Fm_add_books.Enabled = True
-            Me.Close()
 
         Else
 
             Fm_home_page.Enabled = True
             Load_library_publisher_data_table(Fm_home_page.Txt_search_publisher.Text) '-> To item selection On the listview
-            Me.Close()
 
         End If
+
+        Me.Close()
 
     End Sub
 
@@ -189,7 +167,7 @@ Public Class Fm_publisher
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

@@ -46,18 +46,18 @@ Partial Class Fm_supplier_maintenance
         ' 
         ' Cb_supplier_source_type
         ' 
-        Cb_supplier_source_type.Font = New Font("Georgia", 14.25F)
+        Cb_supplier_source_type.Font = New Font("Arial", 14.25F)
         Cb_supplier_source_type.FormattingEnabled = True
         Cb_supplier_source_type.Items.AddRange(New Object() {"Supplier", "Donator"})
         Cb_supplier_source_type.Location = New Point(28, 411)
         Cb_supplier_source_type.Name = "Cb_supplier_source_type"
-        Cb_supplier_source_type.Size = New Size(302, 31)
+        Cb_supplier_source_type.Size = New Size(302, 30)
         Cb_supplier_source_type.TabIndex = 9
         Cb_supplier_source_type.Text = "--Select Source Type--"
         ' 
         ' Txt_supplier_address
         ' 
-        Txt_supplier_address.Font = New Font("Georgia", 14.25F)
+        Txt_supplier_address.Font = New Font("Arial", 14.25F)
         Txt_supplier_address.Location = New Point(28, 361)
         Txt_supplier_address.Name = "Txt_supplier_address"
         Txt_supplier_address.PlaceholderText = "Enter Address"
@@ -66,7 +66,7 @@ Partial Class Fm_supplier_maintenance
         ' 
         ' Txt_supplier_contact
         ' 
-        Txt_supplier_contact.Font = New Font("Georgia", 14.25F)
+        Txt_supplier_contact.Font = New Font("Arial", 14.25F)
         Txt_supplier_contact.Location = New Point(28, 311)
         Txt_supplier_contact.Name = "Txt_supplier_contact"
         Txt_supplier_contact.PlaceholderText = "Enter Contact No."
@@ -75,7 +75,7 @@ Partial Class Fm_supplier_maintenance
         ' 
         ' Txt_supplier_email_address
         ' 
-        Txt_supplier_email_address.Font = New Font("Georgia", 14.25F)
+        Txt_supplier_email_address.Font = New Font("Arial", 14.25F)
         Txt_supplier_email_address.Location = New Point(28, 261)
         Txt_supplier_email_address.Name = "Txt_supplier_email_address"
         Txt_supplier_email_address.PlaceholderText = "Enter  Email Address"
@@ -84,7 +84,7 @@ Partial Class Fm_supplier_maintenance
         ' 
         ' Txt_supplier_lastname
         ' 
-        Txt_supplier_lastname.Font = New Font("Georgia", 14.25F)
+        Txt_supplier_lastname.Font = New Font("Arial", 14.25F)
         Txt_supplier_lastname.Location = New Point(28, 211)
         Txt_supplier_lastname.Name = "Txt_supplier_lastname"
         Txt_supplier_lastname.PlaceholderText = "Enter Lastname"
@@ -93,7 +93,7 @@ Partial Class Fm_supplier_maintenance
         ' 
         ' Txt_supplier_firstname
         ' 
-        Txt_supplier_firstname.Font = New Font("Georgia", 14.25F)
+        Txt_supplier_firstname.Font = New Font("Arial", 14.25F)
         Txt_supplier_firstname.Location = New Point(28, 161)
         Txt_supplier_firstname.Name = "Txt_supplier_firstname"
         Txt_supplier_firstname.PlaceholderText = "Enter First Name"
@@ -102,7 +102,7 @@ Partial Class Fm_supplier_maintenance
         ' 
         ' Txt_supplier_id
         ' 
-        Txt_supplier_id.Font = New Font("Georgia", 14.25F)
+        Txt_supplier_id.Font = New Font("Arial", 14.25F)
         Txt_supplier_id.Location = New Point(28, 61)
         Txt_supplier_id.Name = "Txt_supplier_id"
         Txt_supplier_id.PlaceholderText = "Enter Supplier ID"
@@ -115,7 +115,7 @@ Partial Class Fm_supplier_maintenance
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(125, 30)
         Btn_save.TabIndex = 0
-        Btn_save.Text = "Save"
+        Btn_save.Text = "&Save"
         Btn_save.UseVisualStyleBackColor = True
         ' 
         ' Btn_cancel
@@ -124,7 +124,7 @@ Partial Class Fm_supplier_maintenance
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(125, 30)
         Btn_cancel.TabIndex = 1
-        Btn_cancel.Text = "Cancel"
+        Btn_cancel.Text = "&Cancel"
         Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Btn_update
@@ -133,12 +133,12 @@ Partial Class Fm_supplier_maintenance
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(125, 30)
         Btn_update.TabIndex = 0
-        Btn_update.Text = "Update"
+        Btn_update.Text = "&Update"
         Btn_update.UseVisualStyleBackColor = True
         ' 
         ' Txt_supplier_name
         ' 
-        Txt_supplier_name.Font = New Font("Georgia", 14.25F)
+        Txt_supplier_name.Font = New Font("Arial", 14.25F)
         Txt_supplier_name.Location = New Point(28, 111)
         Txt_supplier_name.Name = "Txt_supplier_name"
         Txt_supplier_name.PlaceholderText = "Enter Supplier Name"
@@ -261,7 +261,6 @@ Partial Class Fm_supplier_maintenance
         Controls.Add(Lbl_error_msg_1)
         Controls.Add(Lbl_error_msg)
         Controls.Add(Txt_supplier_name)
-        Controls.Add(Btn_update)
         Controls.Add(Btn_cancel)
         Controls.Add(Btn_save)
         Controls.Add(Cb_supplier_source_type)
@@ -271,6 +270,7 @@ Partial Class Fm_supplier_maintenance
         Controls.Add(Txt_supplier_lastname)
         Controls.Add(Txt_supplier_firstname)
         Controls.Add(Txt_supplier_id)
+        Controls.Add(Btn_update)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Fm_supplier_maintenance"
         StartPosition = FormStartPosition.CenterScreen

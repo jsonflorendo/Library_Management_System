@@ -47,7 +47,7 @@ Partial Class Fm_publisher
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(85, 25)
         Btn_update.TabIndex = 15
-        Btn_update.Text = "Update"
+        Btn_update.Text = "&Update"
         Btn_update.UseVisualStyleBackColor = True
         ' 
         ' Btn_cancel
@@ -56,7 +56,7 @@ Partial Class Fm_publisher
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(85, 25)
         Btn_cancel.TabIndex = 13
-        Btn_cancel.Text = "Cancel"
+        Btn_cancel.Text = "&Cancel"
         Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Btn_save
@@ -65,12 +65,12 @@ Partial Class Fm_publisher
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(85, 25)
         Btn_save.TabIndex = 12
-        Btn_save.Text = "Save"
+        Btn_save.Text = "&Save"
         Btn_save.UseVisualStyleBackColor = True
         ' 
         ' Txt_publisher_name
         ' 
-        Txt_publisher_name.Font = New Font("Georgia", 14.25F)
+        Txt_publisher_name.Font = New Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Txt_publisher_name.Location = New Point(12, 47)
         Txt_publisher_name.Name = "Txt_publisher_name"
         Txt_publisher_name.PlaceholderText = "Publisher"
@@ -98,9 +98,9 @@ Partial Class Fm_publisher
         Controls.Add(Label4)
         Controls.Add(Lbl_error_msg)
         Controls.Add(Btn_cancel)
-        Controls.Add(Btn_save)
         Controls.Add(Txt_publisher_name)
         Controls.Add(Btn_update)
+        Controls.Add(Btn_save)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Fm_publisher"
         StartPosition = FormStartPosition.CenterScreen

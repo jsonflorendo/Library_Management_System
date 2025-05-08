@@ -31,23 +31,21 @@ Public Class Fm_penalty_description
 
                 con.Open()
 
-                sql = "SELECT * FROM tbl_library_penalty
-                                WHERE penalty_description = '" & Txt_penalty_description.Text & "'"
+                sql = "SELECT COUNT(*) FROM tbl_library_penalty
+                                WHERE TRIM(penalty_description) = '" & Txt_penalty_description.Text.Trim & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
 
-                If dr.Read Then
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                    con.Close()
+                If duplicate_Count > 0 Then
+
                     Lbl_error_msg.Text = "Penalty Description already exists"
 
                 Else
 
-                    dr.Close()
-
                     sql = "INSERT INTO tbl_library_penalty (penalty_description,
                                                             amount)
-                                  VALUE ('" & Txt_penalty_description.Text & "',
+                                  VALUE ('" & Txt_penalty_description.Text.Trim & "',
                                          '" & Txt_penalty_amount.Text & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
@@ -72,7 +70,6 @@ Public Class Fm_penalty_description
                 End If
 
             End Try
-
 
         End If
 
@@ -101,46 +98,26 @@ Public Class Fm_penalty_description
 
                 con.Open()
 
-                'to make sure Penalty Description not exists while in update process
-                sql = "UPDATE tbl_library_penalty SET 
-                              penalty_description = '" & "" & "'                                        
-                       WHERE primary_penalty_description_id = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(2).Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                dr.Close()
-                '---------------------------------
+                Dim primary_penalty_description_id As String = Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(2).Text
 
                 sql = "SELECT * FROM tbl_library_penalty
-                                WHERE penalty_description = '" & Txt_penalty_description.Text & "'"
+                                WHERE TRIM(penalty_description) = '" & Txt_penalty_description.Text.Trim & "' AND primary_penalty_description_id <> '" & primary_penalty_description_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
 
-                If dr.Read Then
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                    dr.Close()
+                If duplicate_Count > 0 Then
 
                     Lbl_error_msg.Text = "Penalty Description already exists"
 
-                    'returned previous Author Name
-                    sql = "UPDATE tbl_library_penalty SET 
-                                  penalty_description = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).Text & "'                                       
-                           WHERE primary_penalty_description_id = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(2).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-
-                    con.Close()
-                    '---------------------------------
-
                 Else
 
-                    dr.Close()
-
                     sql = "UPDATE tbl_library_penalty SET
-                                  penalty_description = '" & Txt_penalty_description.Text & "',
+                                  penalty_description = '" & Txt_penalty_description.Text.Trim & "',
                                   amount = '" & Txt_penalty_amount.Text & "'
-                           WHERE primary_penalty_description_id = '" & Fm_home_page.Lv_penalty_description.SelectedItems(0).SubItems(2).Text & "'"
+                           WHERE primary_penalty_description_id = '" & primary_penalty_description_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -194,7 +171,7 @@ Public Class Fm_penalty_description
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

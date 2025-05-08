@@ -29,7 +29,7 @@ Partial Class Fm_add_books
         Label4 = New Label()
         Label5 = New Label()
         Label6 = New Label()
-        Btn_exit = New Button()
+        Btn_cancel = New Button()
         Btn_update = New Button()
         Cb_author = New ComboBox()
         Cb_publisher = New ComboBox()
@@ -56,7 +56,7 @@ Partial Class Fm_add_books
         ' Txt_publisher
         ' 
         Txt_publisher.BorderStyle = BorderStyle.None
-        Txt_publisher.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_publisher.Font = New Font("Arial", 9F)
         Txt_publisher.Location = New Point(175, 279)
         Txt_publisher.Margin = New Padding(4, 3, 4, 3)
         Txt_publisher.Multiline = True
@@ -68,7 +68,7 @@ Partial Class Fm_add_books
         ' Txt_author
         ' 
         Txt_author.BorderStyle = BorderStyle.None
-        Txt_author.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_author.Font = New Font("Arial", 9F)
         Txt_author.Location = New Point(175, 196)
         Txt_author.Margin = New Padding(4, 3, 4, 3)
         Txt_author.Multiline = True
@@ -79,7 +79,7 @@ Partial Class Fm_add_books
         ' 
         ' Txt_book_name
         ' 
-        Txt_book_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_book_name.Font = New Font("Arial", 9F)
         Txt_book_name.Location = New Point(173, 105)
         Txt_book_name.Margin = New Padding(4, 3, 4, 3)
         Txt_book_name.Name = "Txt_book_name"
@@ -135,16 +135,16 @@ Partial Class Fm_add_books
         Label6.TabIndex = 10
         Label6.Text = "Author :"
         ' 
-        ' Btn_exit
+        ' Btn_cancel
         ' 
-        Btn_exit.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_exit.Location = New Point(297, 331)
-        Btn_exit.Margin = New Padding(4, 3, 4, 3)
-        Btn_exit.Name = "Btn_exit"
-        Btn_exit.Size = New Size(130, 40)
-        Btn_exit.TabIndex = 8
-        Btn_exit.Text = "&Exit"
-        Btn_exit.UseVisualStyleBackColor = True
+        Btn_cancel.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_cancel.Location = New Point(297, 331)
+        Btn_cancel.Margin = New Padding(4, 3, 4, 3)
+        Btn_cancel.Name = "Btn_cancel"
+        Btn_cancel.Size = New Size(130, 40)
+        Btn_cancel.TabIndex = 8
+        Btn_cancel.Text = "&Cancel"
+        Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Btn_update
         ' 
@@ -191,7 +191,7 @@ Partial Class Fm_add_books
         ' 
         ' Cb_book_category
         ' 
-        Cb_book_category.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Cb_book_category.Font = New Font("Arial", 9F)
         Cb_book_category.FormattingEnabled = True
         Cb_book_category.Items.AddRange(New Object() {"(1, '1', 'Adventure fiction'),", "(2, '2', 'Biographies'),", "(3, '3', 'Books'),", "(4, '4', 'Chapter books'),", "(5, '5', 'Childrens literature'),", "(6, '6', 'Classics'),", "(7, '7', 'Comics'),", "(8, '8', 'Cooking'),", "(9, '9', 'Fantasy'),", "(10, '10', 'Fiction'),", "(11, '11', 'General fiction'),", "(12, '12', 'History'),", "(13, '13', 'Horror'),", "(14, '14', 'Humor'),", "(15, '15', 'Memoir'),", "(16, '16', 'Mystery'),", "(17, '17', 'Non-fiction'),", "(18, '18', 'Poetry'),", "(19, '19', 'Religion'),", "(20, '20', 'Romance'),", "(21, '21', 'Satire'),", "(22, '22', 'Science fiction'),", "(23, '23', 'Self-help book'),", "(24, '24', 'Thriller');"})
         Cb_book_category.Location = New Point(173, 149)
@@ -223,7 +223,7 @@ Partial Class Fm_add_books
         ' 
         ' Dtp_publish_date
         ' 
-        Dtp_publish_date.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Dtp_publish_date.Font = New Font("Arial", 9F)
         Dtp_publish_date.Location = New Point(173, 240)
         Dtp_publish_date.Margin = New Padding(4, 3, 4, 3)
         Dtp_publish_date.Name = "Dtp_publish_date"
@@ -244,7 +244,7 @@ Partial Class Fm_add_books
         ' 
         ' save_Txt_isbn
         ' 
-        save_Txt_isbn.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        save_Txt_isbn.Font = New Font("Arial", 9F)
         save_Txt_isbn.Location = New Point(173, 61)
         save_Txt_isbn.Margin = New Padding(4, 3, 4, 3)
         save_Txt_isbn.Name = "save_Txt_isbn"
@@ -406,7 +406,7 @@ Partial Class Fm_add_books
         Controls.Add(Txt_author)
         Controls.Add(Cb_publisher)
         Controls.Add(Cb_author)
-        Controls.Add(Btn_exit)
+        Controls.Add(Btn_cancel)
         Controls.Add(Label6)
         Controls.Add(Label5)
         Controls.Add(Label4)
@@ -429,7 +429,7 @@ Partial Class Fm_add_books
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents Btn_exit As Button
+    Friend WithEvents Btn_cancel As Button
     Friend WithEvents Btn_update As Button
     Friend WithEvents ErrorProvider As ErrorProvider
     Friend WithEvents Cb_publisher As ComboBox

@@ -66,8 +66,6 @@ Public Class Fm_add_penalty
 
                 End While
 
-                con.Close()
-
             Catch ex As Exception
 
                 MsgBox("Error: " & ex.Message)
@@ -98,7 +96,7 @@ Public Class Fm_add_penalty
 
             Lv_penalty_description.Items.Clear()
 
-            Do While dr.Read
+            While dr.Read()
 
                 Dim lv As New ListViewItem({dr("penalty_description").ToString(),
                                             dr("amount").ToString(),
@@ -113,24 +111,16 @@ Public Class Fm_add_penalty
 
                 Lv_penalty_description.Items.Add(lv)
 
-            Loop
+            End While
 
-            con.Close()
+            dr.Close()
 
+            ' Alternate row coloring
             For i As Integer = 0 To Lv_penalty_description.Items.Count - 1
-
-                If i Mod 2 = 0 Then
-
-                    Lv_penalty_description.Items(i).BackColor = Color.Azure
-                    Lv_penalty_description.Items(i).ForeColor = Color.Black
-
-                Else
-
-                    Lv_penalty_description.Items(i).BackColor = Color.GhostWhite
-                    Lv_penalty_description.Items(i).ForeColor = Color.Black
-
-                End If
-
+                With Lv_penalty_description.Items(i)
+                    .BackColor = If(i Mod 2 = 0, Color.Azure, Color.GhostWhite)
+                    .ForeColor = Color.Black
+                End With
             Next
 
         Catch ex As Exception
@@ -234,10 +224,6 @@ Public Class Fm_add_penalty
                     Fm_returned_books.Enabled = True
                     Me.Close()
 
-                Else
-
-                    con.Close()
-
                 End If
 
             Catch ex As Exception
@@ -329,7 +315,6 @@ Public Class Fm_add_penalty
 
             End Try
 
-
         End If
 
     End Sub
@@ -339,15 +324,15 @@ Public Class Fm_add_penalty
         If Fm_home_page.Enabled = False And Fm_returned_books.Enabled = False Then
 
             Fm_returned_books.Enabled = True
-            Me.Close()
 
         Else
 
             Fm_home_page.Enabled = True
             Load_penalty_report_data_table(Fm_home_page.Txt_search_penalty_report.Text) '-> To item selection On the listview
-            Me.Close()
 
         End If
+
+        Me.Close()
 
     End Sub
 

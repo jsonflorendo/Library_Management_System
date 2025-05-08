@@ -38,7 +38,7 @@ Partial Class Fm_add_borrower
         Label10 = New Label()
         Label11 = New Label()
         Btn_update = New Button()
-        Btn_exit = New Button()
+        Btn_cancel = New Button()
         Btn_save = New Button()
         Txt_borrower_email = New TextBox()
         Label1 = New Label()
@@ -83,7 +83,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_middle_name
         ' 
-        Txt_borrower_middle_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_middle_name.Font = New Font("Arial", 9F)
         Txt_borrower_middle_name.Location = New Point(178, 214)
         Txt_borrower_middle_name.Name = "Txt_borrower_middle_name"
         Txt_borrower_middle_name.PlaceholderText = "Middle Name"
@@ -92,7 +92,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_first_name
         ' 
-        Txt_borrower_first_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_first_name.Font = New Font("Arial", 9F)
         Txt_borrower_first_name.Location = New Point(178, 168)
         Txt_borrower_first_name.Name = "Txt_borrower_first_name"
         Txt_borrower_first_name.PlaceholderText = "First Name"
@@ -136,7 +136,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_last_name
         ' 
-        Txt_borrower_last_name.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_last_name.Font = New Font("Arial", 9F)
         Txt_borrower_last_name.Location = New Point(178, 122)
         Txt_borrower_last_name.Name = "Txt_borrower_last_name"
         Txt_borrower_last_name.PlaceholderText = "Last Name"
@@ -145,7 +145,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_address
         ' 
-        Txt_borrower_address.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_address.Font = New Font("Arial", 9F)
         Txt_borrower_address.Location = New Point(178, 447)
         Txt_borrower_address.Name = "Txt_borrower_address"
         Txt_borrower_address.PlaceholderText = "Address"
@@ -154,7 +154,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_contact_no
         ' 
-        Txt_borrower_contact_no.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_contact_no.Font = New Font("Arial", 9F)
         Txt_borrower_contact_no.Location = New Point(178, 355)
         Txt_borrower_contact_no.Name = "Txt_borrower_contact_no"
         Txt_borrower_contact_no.PlaceholderText = "Contact No."
@@ -163,7 +163,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_id_number
         ' 
-        Txt_borrower_id_number.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_id_number.Font = New Font("Arial", 9F)
         Txt_borrower_id_number.Location = New Point(178, 76)
         Txt_borrower_id_number.Name = "Txt_borrower_id_number"
         Txt_borrower_id_number.PlaceholderText = "ID Number"
@@ -224,15 +224,15 @@ Partial Class Fm_add_borrower
         Btn_update.Text = "&Update"
         Btn_update.UseVisualStyleBackColor = True
         ' 
-        ' Btn_exit
+        ' Btn_cancel
         ' 
-        Btn_exit.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Btn_exit.Location = New Point(231, 597)
-        Btn_exit.Name = "Btn_exit"
-        Btn_exit.Size = New Size(124, 44)
-        Btn_exit.TabIndex = 59
-        Btn_exit.Text = "&Exit"
-        Btn_exit.UseVisualStyleBackColor = True
+        Btn_cancel.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Btn_cancel.Location = New Point(231, 597)
+        Btn_cancel.Name = "Btn_cancel"
+        Btn_cancel.Size = New Size(124, 44)
+        Btn_cancel.TabIndex = 59
+        Btn_cancel.Text = "&Cancel"
+        Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Btn_save
         ' 
@@ -245,7 +245,7 @@ Partial Class Fm_add_borrower
         ' 
         ' Txt_borrower_email
         ' 
-        Txt_borrower_email.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_borrower_email.Font = New Font("Arial", 9F)
         Txt_borrower_email.Location = New Point(178, 401)
         Txt_borrower_email.Name = "Txt_borrower_email"
         Txt_borrower_email.PlaceholderText = "Email"
@@ -287,8 +287,9 @@ Partial Class Fm_add_borrower
         ' 
         ' Cb_borrower_category_type
         ' 
+        Cb_borrower_category_type.Font = New Font("Arial", 9F)
         Cb_borrower_category_type.FormattingEnabled = True
-        Cb_borrower_category_type.Items.AddRange(New Object() {"STUDENT", "TEACHER", "FACULTY MEMBER"})
+        Cb_borrower_category_type.Items.AddRange(New Object() {"Student", "Teacher", "Faculty Member"})
         Cb_borrower_category_type.Location = New Point(178, 260)
         Cb_borrower_category_type.Name = "Cb_borrower_category_type"
         Cb_borrower_category_type.Size = New Size(200, 23)
@@ -298,7 +299,7 @@ Partial Class Fm_add_borrower
         ' 
         Pb_id_no_barcode.Location = New Point(37, 523)
         Pb_id_no_barcode.Name = "Pb_id_no_barcode"
-        Pb_id_no_barcode.Size = New Size(341, 59)
+        Pb_id_no_barcode.Size = New Size(367, 59)
         Pb_id_no_barcode.TabIndex = 66
         Pb_id_no_barcode.TabStop = False
         ' 
@@ -435,7 +436,7 @@ Partial Class Fm_add_borrower
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(Txt_borrower_email)
-        Controls.Add(Btn_exit)
+        Controls.Add(Btn_cancel)
         Controls.Add(Label7)
         Controls.Add(Label6)
         Controls.Add(Txt_borrower_middle_name)
@@ -477,7 +478,7 @@ Partial Class Fm_add_borrower
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Btn_update As Button
-    Friend WithEvents Btn_exit As Button
+    Friend WithEvents Btn_cancel As Button
     Friend WithEvents Btn_save As Button
     Friend WithEvents Txt_borrower_email As TextBox
     Friend WithEvents Label1 As Label

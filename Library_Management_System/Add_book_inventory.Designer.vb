@@ -77,7 +77,7 @@ Partial Class Fm_add_book_inventory
         ' 
         ' save_Txt_isbn
         ' 
-        save_Txt_isbn.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        save_Txt_isbn.Font = New Font("Arial", 9F)
         save_Txt_isbn.Location = New Point(166, 18)
         save_Txt_isbn.Name = "save_Txt_isbn"
         save_Txt_isbn.PlaceholderText = "ISBN"
@@ -106,7 +106,7 @@ Partial Class Fm_add_book_inventory
         ' 
         ' Txt_book_quantity
         ' 
-        Txt_book_quantity.Font = New Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Txt_book_quantity.Font = New Font("Arial", 9F)
         Txt_book_quantity.Location = New Point(166, 61)
         Txt_book_quantity.Name = "Txt_book_quantity"
         Txt_book_quantity.PlaceholderText = "Quantity"

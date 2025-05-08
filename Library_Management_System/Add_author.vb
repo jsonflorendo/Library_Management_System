@@ -20,22 +20,20 @@ Public Class Fm_add_author
 
                 con.Open()
 
-                sql = "SELECT * FROM tbl_library_author
-                                WHERE author_name = '" & Txt_author_name.Text & "'"
+                sql = "SELECT COUNT(*) FROM tbl_library_author
+                                WHERE TRIM(author_name) = '" & Txt_author_name.Text.Trim & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
 
-                If dr.Read Then
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                    con.Close()
+                If duplicate_Count > 0 Then
+
                     Lbl_error_msg.Text = "Author already exists"
 
                 Else
 
-                    dr.Close()
-
                     sql = "INSERT INTO tbl_library_author (author_name)
-                                  VALUE ('" & Txt_author_name.Text & "')"
+                                  VALUE ('" & Txt_author_name.Text.Trim & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
 
@@ -48,15 +46,15 @@ Public Class Fm_add_author
                         Load_library_cb_author()
                         Fm_add_books.Enabled = True
                         Fm_add_books.Txt_author.Text = Txt_author_name.Text
-                        Me.Close()
 
                     Else
 
                         Load_library_author_data_table(Fm_home_page.Txt_search_author.Text)
                         Fm_home_page.Enabled = True
-                        Me.Close()
 
                     End If
+
+                    Me.Close()
 
                 End If
 
@@ -88,45 +86,25 @@ Public Class Fm_add_author
 
                 con.Open()
 
-                'to make sure Author Name not exists while in update process
-                sql = "UPDATE tbl_library_author SET 
-                              author_name = '" & "" & "'                                        
-                       WHERE primary_author_id = '" & Fm_home_page.Lv_author.SelectedItems(0).SubItems(1).Text & "'"
+                Dim primary_author_id As String = Fm_home_page.Lv_author.SelectedItems(0).SubItems(1).Text
+
+                sql = "SELECT COUNT(*) FROM tbl_library_author
+                                WHERE TRIM(author_name) = '" & Txt_author_name.Text.Trim & "' AND primary_author_id <> '" & primary_author_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                dr.Close()
-                '---------------------------------
 
-                sql = "SELECT * FROM tbl_library_author
-                                WHERE author_name = '" & Txt_author_name.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                If dr.Read Then
-
-                    dr.Close()
+                If duplicate_Count > 0 Then
 
                     Lbl_error_msg.Text = "Author already exists"
 
-                    'returned previous Author Name
-                    sql = "UPDATE tbl_library_author SET 
-                                  author_name = '" & Fm_home_page.Lv_author.SelectedItems(0).Text & "'                                       
-                           WHERE primary_author_id = '" & Fm_home_page.Lv_author.SelectedItems(0).SubItems(1).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-
-                    con.Close()
-                    '---------------------------------
-
                 Else
 
-                    dr.Close()
-
                     sql = "UPDATE tbl_library_author SET
-                                  author_name = '" & Txt_author_name.Text & "'
-                           WHERE primary_author_id = '" & Fm_home_page.Lv_author.SelectedItems(0).SubItems(1).Text & "'"
+                                  author_name = '" & Txt_author_name.Text.Trim & "'
+                           WHERE primary_author_id = '" & primary_author_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -158,15 +136,15 @@ Public Class Fm_add_author
         If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
 
             Fm_add_books.Enabled = True
-            Me.Close()
 
         Else
 
             Fm_home_page.Enabled = True
             Load_library_author_data_table(Fm_home_page.Txt_search_author.Text) '-> To item selection On the listview
-            Me.Close()
 
         End If
+
+        Me.Close()
 
     End Sub
 
@@ -189,7 +167,7 @@ Public Class Fm_add_author
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

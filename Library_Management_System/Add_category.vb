@@ -20,22 +20,20 @@ Public Class Fm_add_category
 
                 con.Open()
 
-                sql = "SELECT * FROM tbl_library_category
-                                WHERE category_name = '" & Txt_category_name.Text & "'"
+                sql = "SELECT COUNT(*) FROM tbl_library_category
+                                WHERE TRIM(category_name) = '" & Txt_category_name.Text.Trim & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
 
-                If dr.Read Then
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                    con.Close()
+                If duplicate_Count > 0 Then
+
                     Lbl_error_msg.Text = "Genre already exists"
 
                 Else
 
-                    dr.Close()
-
                     sql = "INSERT INTO tbl_library_category (category_name)
-                                  VALUE ('" & Txt_category_name.Text & "')"
+                                  VALUE ('" & Txt_category_name.Text.Trim & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
 
@@ -45,20 +43,19 @@ Public Class Fm_add_category
 
                     If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
 
-                        Load_library_category_data_table(Fm_home_page.Txt_search_category.Text)
                         Load_library_cb_category()
                         Fm_add_books.Enabled = True
                         Fm_add_books.Cb_book_category.Text = Txt_category_name.Text
-                        Me.Close()
 
                     Else
 
-                        Load_library_category_data_table(Fm_home_page.Txt_search_category.Text)
                         Load_library_cb_category()
+                        Load_library_category_data_table(Fm_home_page.Txt_search_category.Text)
                         Fm_home_page.Enabled = True
-                        Me.Close()
 
                     End If
+
+                    Me.Close()
 
                 End If
 
@@ -90,45 +87,25 @@ Public Class Fm_add_category
 
                 con.Open()
 
-                'to make sure Category Name not exists while in update process
-                sql = "UPDATE tbl_library_category SET 
-                              category_name = '" & "" & "'                                        
-                       WHERE primary_category_id = '" & Fm_home_page.Lv_category.SelectedItems(0).SubItems(1).Text & "'"
+                Dim primary_category_id As String = Fm_home_page.Lv_category.SelectedItems(0).SubItems(1).Text
+
+                sql = "SELECT COUNT(*) FROM tbl_library_category
+                                WHERE TRIM(category_name) = '" & Txt_category_name.Text.Trim & "' AND primary_category_id <> '" & primary_category_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                dr.Close()
-                '---------------------------------
 
-                sql = "SELECT * FROM tbl_library_category
-                                WHERE category_name = '" & Txt_category_name.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                If dr.Read Then
-
-                    dr.Close()
+                If duplicate_Count > 0 Then
 
                     Lbl_error_msg.Text = "Genre already exists"
 
-                    'returned previous Category Name
-                    sql = "UPDATE tbl_library_category SET 
-                                  category_name = '" & Fm_home_page.Lv_category.SelectedItems(0).Text & "'
-                           WHERE primary_category_id = '" & Fm_home_page.Lv_category.SelectedItems(0).SubItems(1).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-
-                    con.Close()
-                    '---------------------------------
-
                 Else
 
-                    dr.Close()
-
                     sql = "UPDATE tbl_library_category SET
-                                  category_name = '" & Txt_category_name.Text & "'
-                           WHERE primary_category_id = '" & Fm_home_page.Lv_category.SelectedItems(0).SubItems(1).Text & "'"
+                                  category_name = '" & Txt_category_name.Text.Trim & "'
+                           WHERE primary_category_id = '" & primary_category_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -161,15 +138,15 @@ Public Class Fm_add_category
         If Fm_home_page.Enabled = False And Fm_add_books.Enabled = False Then
 
             Fm_add_books.Enabled = True
-            Me.Close()
 
         Else
 
             Fm_home_page.Enabled = True
             Load_library_category_data_table(Fm_home_page.Txt_search_category.Text) '-> To item selection On the listview
-            Me.Close()
 
         End If
+
+        Me.Close()
 
     End Sub
 
@@ -192,7 +169,7 @@ Public Class Fm_add_category
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

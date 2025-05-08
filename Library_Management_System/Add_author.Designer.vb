@@ -26,14 +26,13 @@ Partial Class Fm_add_author
         Btn_save = New Button()
         Btn_cancel = New Button()
         Btn_update = New Button()
-        MySqlDataAdapter1 = New MySql.Data.MySqlClient.MySqlDataAdapter()
         Lbl_error_msg = New Label()
         Label2 = New Label()
         SuspendLayout()
         ' 
         ' Txt_author_name
         ' 
-        Txt_author_name.Font = New Font("Georgia", 14.25F)
+        Txt_author_name.Font = New Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Txt_author_name.Location = New Point(12, 46)
         Txt_author_name.Name = "Txt_author_name"
         Txt_author_name.PlaceholderText = "Author"
@@ -46,7 +45,7 @@ Partial Class Fm_add_author
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(85, 25)
         Btn_save.TabIndex = 0
-        Btn_save.Text = "Save"
+        Btn_save.Text = "&Save"
         Btn_save.UseVisualStyleBackColor = True
         ' 
         ' Btn_cancel
@@ -55,7 +54,7 @@ Partial Class Fm_add_author
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(85, 25)
         Btn_cancel.TabIndex = 1
-        Btn_cancel.Text = "Cancel"
+        Btn_cancel.Text = "&Cancel"
         Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Btn_update
@@ -64,15 +63,8 @@ Partial Class Fm_add_author
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(85, 25)
         Btn_update.TabIndex = 10
-        Btn_update.Text = "Update"
+        Btn_update.Text = "&Update"
         Btn_update.UseVisualStyleBackColor = True
-        ' 
-        ' MySqlDataAdapter1
-        ' 
-        MySqlDataAdapter1.DeleteCommand = Nothing
-        MySqlDataAdapter1.InsertCommand = Nothing
-        MySqlDataAdapter1.SelectCommand = Nothing
-        MySqlDataAdapter1.UpdateCommand = Nothing
         ' 
         ' Lbl_error_msg
         ' 
@@ -105,10 +97,10 @@ Partial Class Fm_add_author
         ControlBox = False
         Controls.Add(Label2)
         Controls.Add(Lbl_error_msg)
-        Controls.Add(Btn_update)
         Controls.Add(Btn_cancel)
         Controls.Add(Btn_save)
         Controls.Add(Txt_author_name)
+        Controls.Add(Btn_update)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Fm_add_author"
         StartPosition = FormStartPosition.CenterScreen
@@ -120,7 +112,6 @@ Partial Class Fm_add_author
     Friend WithEvents Btn_save As Button
     Friend WithEvents Btn_cancel As Button
     Friend WithEvents Btn_update As Button
-    Friend WithEvents MySqlDataAdapter1 As MySql.Data.MySqlClient.MySqlDataAdapter
     Friend WithEvents Lbl_error_msg As Label
     Friend WithEvents Label2 As Label
 End Class

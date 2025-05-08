@@ -43,20 +43,17 @@ Public Class Fm_supplier_maintenance
 
                 con.Open()
 
-                sql = "SELECT * FROM tbl_library_supplier
-                                WHERE supplier_id = '" & Txt_supplier_id.Text & "'"
+                sql = "SELECT COUNT(*) FROM tbl_library_supplier
+                                WHERE TRIM(supplier_id) = '" & Txt_supplier_id.Text.Trim & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
 
-                If dr.Read Then
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                    con.Close()
+                If duplicate_Count > 0 Then
 
                     Lbl_error_msg.Text = "Supplier already exists"
 
                 Else
-
-                    dr.Close()
 
                     sql = "INSERT INTO tbl_library_supplier (supplier_id,
                                                             supplier_name,
@@ -66,13 +63,13 @@ Public Class Fm_supplier_maintenance
                                                             contact,
                                                             address,
                                                             source_type)
-                                    VALUE ('" & Txt_supplier_id.Text & "',
-                                            '" & Txt_supplier_name.Text & "',
-                                            '" & Txt_supplier_lastname.Text & "',
-                                            '" & Txt_supplier_firstname.Text & "',
-                                            '" & Txt_supplier_email_address.Text & "',
-                                            '" & Txt_supplier_contact.Text & "',
-                                            '" & Txt_supplier_address.Text & "',
+                                    VALUE ('" & Txt_supplier_id.Text.Trim & "',
+                                            '" & Txt_supplier_name.Text.Trim & "',
+                                            '" & Txt_supplier_lastname.Text.Trim & "',
+                                            '" & Txt_supplier_firstname.Text.Trim & "',
+                                            '" & Txt_supplier_email_address.Text.Trim & "',
+                                            '" & Txt_supplier_contact.Text.Trim & "',
+                                            '" & Txt_supplier_address.Text.Trim & "',
                                             '" & Cb_supplier_source_type.Text & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
@@ -86,15 +83,21 @@ Public Class Fm_supplier_maintenance
                         Load_library_cb_purchase_supplier()
                         Load_library_cb_donate_supplier()
                         Fm_add_delivery.Enabled = True
-                        Me.Close()
+
+                        If Fm_add_delivery.Panel_purchase.Visible = True Then
+                            Fm_add_delivery.Cb_purchase_supplier.Text = Txt_supplier_name.Text
+                        Else
+                            Fm_add_delivery.Cb_donate_supplier.Text = Txt_supplier_name.Text
+                        End If
 
                     Else
 
                         Load_library_supplier_data_table(Fm_home_page.Txt_search_supplier.Text)
                         Fm_home_page.Enabled = True
-                        Me.Close()
 
                     End If
+
+                    Me.Close()
 
                 End If
 
@@ -149,51 +152,32 @@ Public Class Fm_supplier_maintenance
 
                 con.Open()
 
-                'to make sure Supplier ID not exists while in update process
-                sql = "UPDATE tbl_library_supplier SET 
-                                    supplier_id = '" & "" & "'                                        
-                        WHERE primary_supplier_id = '" & Fm_home_page.Lv_supplier.SelectedItems(0).SubItems(7).Text & "'"
+                Dim primary_supplier_id As String = Fm_home_page.Lv_supplier.SelectedItems(0).SubItems(7).Text
+
+                sql = "SELECT COUNT(*) FROM tbl_library_supplier
+                                WHERE TRIM(supplier_id) = '" & Txt_supplier_id.Text.Trim & "' AND primary_supplier_id <> '" & primary_supplier_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                dr.Close()
-                '---------------------------------
 
-                sql = "SELECT * FROM tbl_library_supplier
-                                WHERE supplier_id = '" & Txt_supplier_id.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                If dr.Read Then
-
-                    dr.Close()
+                If duplicate_Count > 0 Then
 
                     Lbl_error_msg.Text = "Supplier already exists"
 
-                    'returned previous Supplier ID
-                    sql = "UPDATE tbl_library_supplier SET 
-                                    supplier_id = '" & Fm_home_page.Lv_supplier.SelectedItems(0).Text & "'                                        
-                            WHERE primary_supplier_id = '" & Fm_home_page.Lv_supplier.SelectedItems(0).SubItems(7).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-                    con.Close()
-                    '---------------------------------
-
                 Else
 
-                    dr.Close()
-
                     sql = "UPDATE tbl_library_supplier SET 
-                                    supplier_id = '" & Txt_supplier_id.Text & "',
-                                    supplier_name = '" & Txt_supplier_name.Text & "',
-                                    last_name = '" & Txt_supplier_lastname.Text & "',
-                                    first_name = '" & Txt_supplier_firstname.Text & "',
-                                    email_address = '" & Txt_supplier_email_address.Text & "',
-                                    contact = '" & Txt_supplier_contact.Text & "',
-                                    address = '" & Txt_supplier_address.Text & "',
+                                    supplier_id = '" & Txt_supplier_id.Text.Trim & "',
+                                    supplier_name = '" & Txt_supplier_name.Text.Trim & "',
+                                    last_name = '" & Txt_supplier_lastname.Text.Trim & "',
+                                    first_name = '" & Txt_supplier_firstname.Text.Trim & "',
+                                    email_address = '" & Txt_supplier_email_address.Text.Trim & "',
+                                    contact = '" & Txt_supplier_contact.Text.Trim & "',
+                                    address = '" & Txt_supplier_address.Text.Trim & "',
                                     source_type = '" & Cb_supplier_source_type.Text & "'
-                            WHERE primary_supplier_id = '" & Fm_home_page.Lv_supplier.SelectedItems(0).SubItems(7).Text & "'"
+                            WHERE primary_supplier_id = '" & primary_supplier_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -225,15 +209,15 @@ Public Class Fm_supplier_maintenance
         If Fm_home_page.Enabled = False And Fm_add_delivery.Enabled = False Then
 
             Fm_add_delivery.Enabled = True
-            Me.Close()
 
         Else
 
             Fm_home_page.Enabled = True
             Load_library_supplier_data_table(Fm_home_page.Txt_search_supplier.Text) '-> To item selection On the listview
-            Me.Close()
 
         End If
+
+        Me.Close()
 
     End Sub
 
@@ -269,7 +253,7 @@ Public Class Fm_supplier_maintenance
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789- " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789-" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -298,7 +282,7 @@ Public Class Fm_supplier_maintenance
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -327,7 +311,7 @@ Public Class Fm_supplier_maintenance
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -356,7 +340,7 @@ Public Class Fm_supplier_maintenance
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -385,7 +369,7 @@ Public Class Fm_supplier_maintenance
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+'<>,.?/""" ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+<>,.?/""" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -441,7 +425,7 @@ Public Class Fm_supplier_maintenance
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

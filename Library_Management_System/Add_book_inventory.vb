@@ -33,43 +33,41 @@ Public Class Fm_add_book_inventory
 
                     con.Open()
 
-
                     ' Check book details on the books table
                     sql = "SELECT * FROM tbl_books
                                     WHERE isbn = '" & save_Txt_isbn.Text & "'"
                     cmd = New MySqlCommand(sql, con)
                     dr = cmd.ExecuteReader()
 
-                    If dr.Read Then
+                    Dim primary_book_id As String = ""
+                    Dim isbn As String = ""
 
-                        Dim primary_book_id As String = dr("primary_book_id").ToString()
+                    If dr.Read() Then
+                        primary_book_id = dr("primary_book_id").ToString()
+                        isbn = dr("isbn").ToString()
+                    End If
+                    dr.Close()
 
-                        dr.Close()
-
-                        ' Check book details exists on the database, if so, update quantity, else add new data on the book inventory
-                        sql = "SELECT * FROM tbl_book_inventory
-                                        WHERE primary_book_id = '" & primary_book_id & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader()
+                    If save_Txt_isbn.Text = isbn Then
 
                         Dim quantity As Integer = Txt_book_quantity.Text
 
-                        If dr.Read Then
+                        ' Check book details exists on the database, if so, update quantity, else add new data on the book inventory
+                        sql = "SELECT * FROM tbl_book_inventory
+                                WHERE primary_book_id = '" & primary_book_id & "'"
+                        cmd = New MySqlCommand(sql, con)
+                        dr = cmd.ExecuteReader()
 
-                            Dim total_quantity As String = dr("quantity").ToString() + quantity
+                        Dim primary_book_inventory_id As String = ""
+                        Dim total_quantity As Integer
 
-                            dr.Close()
+                        If dr.Read() Then
+                            primary_book_inventory_id = dr("primary_book_inventory_id").ToString()
+                            total_quantity = dr("quantity") + quantity
+                        End If
+                        dr.Close()
 
-                            sql = "UPDATE tbl_book_inventory
-                                    SET quantity = '" & total_quantity & "',
-                                        status = 'On Stock'
-                                    WHERE primary_book_id = '" & primary_book_id & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader()
-
-                        Else
-
-                            dr.Close()
+                        If primary_book_inventory_id = "" Then
 
                             sql = "INSERT INTO tbl_book_inventory (primary_book_id,
                                                                     quantity,
@@ -78,6 +76,15 @@ Public Class Fm_add_book_inventory
                                             '" & quantity & "',
                                             'On Stock')"
 
+                            cmd = New MySqlCommand(sql, con)
+                            cmd.ExecuteNonQuery()
+
+                        Else
+
+                            sql = "UPDATE tbl_book_inventory
+                                    SET quantity = '" & total_quantity & "',
+                                        status = 'On Stock'
+                                    WHERE primary_book_id = '" & primary_book_id & "'"
                             cmd = New MySqlCommand(sql, con)
                             cmd.ExecuteNonQuery()
 
@@ -155,7 +162,7 @@ Public Class Fm_add_book_inventory
                             status = 'On Stock'
                         WHERE primary_book_id = '" & primary_book_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
+                cmd.ExecuteNonQuery()
 
                 con.Close()
 
@@ -206,13 +213,11 @@ Public Class Fm_add_book_inventory
             Return
         End If
 
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "0123456789,." ' Change this to the desired allowed characters
+        'Input numeric only
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
 
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
             e.Handled = True
+
         End If
 
     End Sub

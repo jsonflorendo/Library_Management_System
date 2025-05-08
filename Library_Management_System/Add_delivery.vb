@@ -17,6 +17,41 @@ Public Class Fm_add_delivery
 
     End Sub
 
+    Private Sub Panel_purchase_MouseHover(sender As Object, e As EventArgs) Handles Panel_purchase.MouseHover
+
+        If Cb_purchase_supplier.Text = "" Or
+            Txt_purchase_transaction_number.Text = "" Or
+            Txt_purchase_delivered_by.Text = "" Or
+            Txt_purchase_received_by.Text = "" Then
+
+            Txt_purchase_book_isbn.Enabled = False
+
+        Else
+
+            Txt_purchase_book_isbn.Enabled = True
+
+        End If
+
+    End Sub
+
+    Private Sub Panel_donate_MouseHover(sender As Object, e As EventArgs) Handles Panel_donate.MouseHover
+
+        If Cb_donate_supplier.Text = "" Or
+            Txt_donate_transaction_number.Text = "" Or
+            Txt_donate_delivered_by.Text = "" Or
+            Txt_donate_received_by.Text = "" Or
+            Txt_donate_quantity.Text = "" Then
+
+            Txt_donate_book_isbn.Enabled = False
+
+        Else
+
+            Txt_donate_book_isbn.Enabled = True
+
+        End If
+
+    End Sub
+
     Private Sub Rb_purchase_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_purchase.CheckedChanged
 
         Panel_purchase.Visible = True
@@ -123,37 +158,6 @@ Public Class Fm_add_delivery
 
     End Sub
 
-    Private Sub Fm_add_delivery_MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
-
-        If Cb_purchase_supplier.Text = "" Or
-            Txt_purchase_transaction_number.Text = "" Or
-            Txt_purchase_delivered_by.Text = "" Or
-            Txt_purchase_received_by.Text = "" Then
-
-            Txt_purchase_book_isbn.Enabled = False
-
-        Else
-
-            Txt_purchase_book_isbn.Enabled = True
-
-        End If
-
-        If Cb_donate_supplier.Text = "" Or
-            Txt_donate_transaction_number.Text = "" Or
-            Txt_donate_delivered_by.Text = "" Or
-            Txt_donate_received_by.Text = "" Or
-            Txt_donate_quantity.Text = "" Then
-
-            Txt_donate_book_isbn.Enabled = False
-
-        Else
-
-            Txt_donate_book_isbn.Enabled = True
-
-        End If
-
-    End Sub
-
     Private Sub Txt_purchase_book_isbn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt_purchase_book_isbn.KeyPress
 
         Clear_error_msg()
@@ -210,8 +214,8 @@ Public Class Fm_add_delivery
 
                     If dr.Read Then
 
-                        Dim primary_book_id = dr("primary_book_id").ToString
-                        Dim isbn = dr("isbn").ToString
+                        Dim primary_book_id As String = dr("primary_book_id").ToString
+                        Dim isbn As String= dr("isbn").ToString
 
                         Txt_purchase_book_title.Text = dr("book_name").ToString
                         Txt_purchase_book_genre.Text = dr("category_name").ToString
@@ -235,7 +239,7 @@ Public Class Fm_add_delivery
 
                                 INNER JOIN tbl_books ON tbl_delivery.primary_book_id = tbl_books.primary_book_id
 
-                                WHERE    transaction_number = '" & Txt_purchase_transaction_number.Text & "' AND
+                                WHERE   transaction_number = '" & Txt_purchase_transaction_number.Text.Trim & "' AND
                                         isbn = '" & isbn & "' AND
                                         delivery_date = '" & Dtp_purchase_delivery_date.Value.ToString("MMMM dd, yyyy") & "'"
 
@@ -244,7 +248,7 @@ Public Class Fm_add_delivery
 
                         If dr.Read Then
 
-                            Dim primary_delivery_id = dr("primary_delivery_id").ToString
+                            Dim primary_delivery_id As String = dr("primary_delivery_id").ToString
                             Dim total_quantity As Integer = dr("quantity").ToString + 1
 
                             dr.Close()
@@ -253,7 +257,7 @@ Public Class Fm_add_delivery
                                     SET quantity = '" & total_quantity & "'
                                     WHERE primary_delivery_id = '" & primary_delivery_id & "'"
                             cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
+                            cmd.ExecuteNonQuery()
 
                         Else
 
@@ -266,12 +270,12 @@ Public Class Fm_add_delivery
                                                             delivery_date,
                                                             received_by,
                                                             status)
-                                    VALUE  ('" & Txt_purchase_transaction_number.Text & "',
+                                    VALUE  ('" & Txt_purchase_transaction_number.Text.Trim & "',
                                             '" & primary_book_id & "',
                                             '1',
-                                            '" & Txt_purchase_delivered_by.Text & "',
+                                            '" & Txt_purchase_delivered_by.Text.Trim & "',
                                             '" & Dtp_purchase_delivery_date.Value.ToString("MMMM dd, yyyy") & "',
-                                            '" & Txt_purchase_received_by.Text & "',
+                                            '" & Txt_purchase_received_by.Text.Trim & "',
                                             'Purchased')"
 
                             cmd = New MySqlCommand(sql, con)
@@ -299,7 +303,7 @@ Public Class Fm_add_delivery
                                         status = 'On Stock'
                                     WHERE primary_book_id = '" & primary_book_id & "'"
                             cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
+                            cmd.ExecuteNonQuery()
 
                         Else
 
@@ -315,7 +319,6 @@ Public Class Fm_add_delivery
                             cmd.ExecuteNonQuery()
 
                         End If
-
 
                         con.Close()
 
@@ -409,8 +412,8 @@ Public Class Fm_add_delivery
 
                     If dr.Read Then
 
-                        Dim primary_book_id = dr("primary_book_id").ToString
-                        Dim isbn = dr("isbn").ToString
+                        Dim primary_book_id As String = dr("primary_book_id").ToString
+                        Dim isbn As String = dr("isbn").ToString
 
                         Txt_donate_book_title.Text = dr("book_name").ToString
                         Txt_donate_book_genre.Text = dr("category_name").ToString
@@ -434,7 +437,7 @@ Public Class Fm_add_delivery
 
                                 INNER JOIN tbl_books ON tbl_delivery.primary_book_id = tbl_books.primary_book_id
 
-                                WHERE    transaction_number = '" & Txt_donate_transaction_number.Text & "' AND
+                                WHERE   transaction_number = '" & Txt_donate_transaction_number.Text.Trim & "' AND
                                         isbn = '" & isbn & "' AND
                                         delivery_date = '" & Dtp_donate_delivery_date.Value.ToString("MMMM dd, yyyy") & "'"
                         cmd = New MySqlCommand(sql, con)
@@ -452,7 +455,7 @@ Public Class Fm_add_delivery
                                     SET quantity = '" & total_quantity & "'
                                     WHERE primary_delivery_id = '" & primary_delivery_id & "'"
                             cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
+                            cmd.ExecuteNonQuery()
 
                         Else
 
@@ -465,12 +468,12 @@ Public Class Fm_add_delivery
                                                             delivery_date,
                                                             received_by,
                                                             status)
-                                    VALUE  ('" & Txt_donate_transaction_number.Text & "',
+                                    VALUE  ('" & Txt_donate_transaction_number.Text.Trim & "',
                                             '" & primary_book_id & "',
                                             '" & Txt_donate_quantity.Text & "',
-                                            '" & Txt_donate_delivered_by.Text & "',
+                                            '" & Txt_donate_delivered_by.Text.Trim & "',
                                             '" & Dtp_donate_delivery_date.Value.ToString("MMMM dd, yyyy") & "',
-                                            '" & Txt_donate_received_by.Text & "',
+                                            '" & Txt_donate_received_by.Text.Trim & "',
                                             'Donated')"
                             cmd = New MySqlCommand(sql, con)
                             cmd.ExecuteNonQuery()
@@ -498,7 +501,7 @@ Public Class Fm_add_delivery
                                         status = 'On Stock'
                                     WHERE primary_book_id = '" & primary_book_id & "'"
                             cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
+                            cmd.ExecuteNonQuery()
 
                         Else
 
@@ -584,7 +587,7 @@ Public Class Fm_add_delivery
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789-" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -613,7 +616,7 @@ Public Class Fm_add_delivery
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -642,7 +645,7 @@ Public Class Fm_add_delivery
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -671,7 +674,7 @@ Public Class Fm_add_delivery
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789-" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -700,7 +703,7 @@ Public Class Fm_add_delivery
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -729,7 +732,7 @@ Public Class Fm_add_delivery
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -757,13 +760,11 @@ Public Class Fm_add_delivery
             Return
         End If
 
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "0123456789" ' Change this to the desired allowed characters
+        'Input numeric only
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
 
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
             e.Handled = True
+
         End If
 
     End Sub

@@ -22,7 +22,7 @@ Partial Class Fm_returned_books
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Btn_close = New Button()
+        Btn_cancel = New Button()
         Label3 = New Label()
         Label2 = New Label()
         Label1 = New Label()
@@ -35,24 +35,25 @@ Partial Class Fm_returned_books
         Txt_primary_book_id = New TextBox()
         Lbl_error_msg = New Label()
         Lbl_error_msg_1 = New Label()
+        Label4 = New Label()
         SuspendLayout()
         ' 
-        ' Btn_close
+        ' Btn_cancel
         ' 
-        Btn_close.Font = New Font("Georgia", 9F)
-        Btn_close.Location = New Point(269, 197)
-        Btn_close.Name = "Btn_close"
-        Btn_close.Size = New Size(110, 39)
-        Btn_close.TabIndex = 2
-        Btn_close.Text = "&Close"
-        Btn_close.UseVisualStyleBackColor = True
+        Btn_cancel.Font = New Font("Georgia", 9F)
+        Btn_cancel.Location = New Point(266, 235)
+        Btn_cancel.Name = "Btn_cancel"
+        Btn_cancel.Size = New Size(110, 39)
+        Btn_cancel.TabIndex = 2
+        Btn_cancel.Text = "&Cancel"
+        Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
         Label3.BackColor = SystemColors.ControlLight
         Label3.Font = New Font("Georgia", 14.25F, FontStyle.Bold)
-        Label3.Location = New Point(20, 151)
+        Label3.Location = New Point(17, 189)
         Label3.Name = "Label3"
         Label3.Size = New Size(112, 23)
         Label3.TabIndex = 6
@@ -63,7 +64,7 @@ Partial Class Fm_returned_books
         Label2.AutoSize = True
         Label2.BackColor = SystemColors.ControlLight
         Label2.Font = New Font("Georgia", 14.25F, FontStyle.Bold)
-        Label2.Location = New Point(20, 108)
+        Label2.Location = New Point(17, 146)
         Label2.Name = "Label2"
         Label2.Size = New Size(127, 23)
         Label2.TabIndex = 5
@@ -74,7 +75,7 @@ Partial Class Fm_returned_books
         Label1.AutoSize = True
         Label1.BackColor = SystemColors.ControlLight
         Label1.Font = New Font("Georgia", 14.25F, FontStyle.Bold)
-        Label1.Location = New Point(20, 66)
+        Label1.Location = New Point(17, 104)
         Label1.Name = "Label1"
         Label1.Size = New Size(129, 23)
         Label1.TabIndex = 4
@@ -83,8 +84,8 @@ Partial Class Fm_returned_books
         ' Txt_issued_to
         ' 
         Txt_issued_to.Enabled = False
-        Txt_issued_to.Font = New Font("Georgia", 9F, FontStyle.Bold)
-        Txt_issued_to.Location = New Point(166, 155)
+        Txt_issued_to.Font = New Font("Arial", 9F)
+        Txt_issued_to.Location = New Point(163, 193)
         Txt_issued_to.Name = "Txt_issued_to"
         Txt_issued_to.Size = New Size(242, 21)
         Txt_issued_to.TabIndex = 2
@@ -92,8 +93,8 @@ Partial Class Fm_returned_books
         ' 
         ' Txt_borrower_id_number
         ' 
-        Txt_borrower_id_number.Font = New Font("Georgia", 9F, FontStyle.Bold)
-        Txt_borrower_id_number.Location = New Point(166, 109)
+        Txt_borrower_id_number.Font = New Font("Arial", 9F, FontStyle.Bold)
+        Txt_borrower_id_number.Location = New Point(163, 147)
         Txt_borrower_id_number.Name = "Txt_borrower_id_number"
         Txt_borrower_id_number.PlaceholderText = "ID Number"
         Txt_borrower_id_number.Size = New Size(242, 21)
@@ -103,26 +104,27 @@ Partial Class Fm_returned_books
         ' Txt_book_name
         ' 
         Txt_book_name.Enabled = False
-        Txt_book_name.Font = New Font("Georgia", 9F, FontStyle.Bold)
-        Txt_book_name.Location = New Point(166, 68)
+        Txt_book_name.Font = New Font("Arial", 9F)
+        Txt_book_name.Location = New Point(163, 106)
         Txt_book_name.Name = "Txt_book_name"
         Txt_book_name.Size = New Size(242, 21)
         Txt_book_name.TabIndex = 0
         ' 
         ' Txt_primary_borrower_id
         ' 
-        Txt_primary_borrower_id.Location = New Point(414, 108)
+        Txt_primary_borrower_id.Location = New Point(411, 146)
         Txt_primary_borrower_id.Name = "Txt_primary_borrower_id"
         Txt_primary_borrower_id.PlaceholderText = "Primary Borrower ID"
         Txt_primary_borrower_id.Size = New Size(114, 23)
         Txt_primary_borrower_id.TabIndex = 24
+        Txt_primary_borrower_id.Visible = False
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
         Label5.BackColor = SystemColors.ControlLight
         Label5.Font = New Font("Georgia", 14.25F, FontStyle.Bold)
-        Label5.Location = New Point(20, 21)
+        Label5.Location = New Point(17, 59)
         Label5.Name = "Label5"
         Label5.Size = New Size(67, 23)
         Label5.TabIndex = 26
@@ -131,8 +133,8 @@ Partial Class Fm_returned_books
         ' Txt_isbn
         ' 
         Txt_isbn.Enabled = False
-        Txt_isbn.Font = New Font("Georgia", 9F, FontStyle.Bold)
-        Txt_isbn.Location = New Point(166, 21)
+        Txt_isbn.Font = New Font("Arial", 9F, FontStyle.Bold)
+        Txt_isbn.Location = New Point(163, 59)
         Txt_isbn.Name = "Txt_isbn"
         Txt_isbn.PlaceholderText = "ISBN"
         Txt_isbn.Size = New Size(242, 21)
@@ -141,18 +143,19 @@ Partial Class Fm_returned_books
         ' 
         ' Txt_primary_book_id
         ' 
-        Txt_primary_book_id.Location = New Point(414, 68)
+        Txt_primary_book_id.Location = New Point(411, 106)
         Txt_primary_book_id.Name = "Txt_primary_book_id"
         Txt_primary_book_id.PlaceholderText = "Primary Book ID"
         Txt_primary_book_id.Size = New Size(114, 23)
         Txt_primary_book_id.TabIndex = 27
+        Txt_primary_book_id.Visible = False
         ' 
         ' Lbl_error_msg
         ' 
         Lbl_error_msg.AutoSize = True
         Lbl_error_msg.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg.ForeColor = Color.Red
-        Lbl_error_msg.Location = New Point(164, 133)
+        Lbl_error_msg.Location = New Point(161, 171)
         Lbl_error_msg.Name = "Lbl_error_msg"
         Lbl_error_msg.Size = New Size(91, 17)
         Lbl_error_msg.TabIndex = 29
@@ -163,19 +166,31 @@ Partial Class Fm_returned_books
         Lbl_error_msg_1.AutoSize = True
         Lbl_error_msg_1.Font = New Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Lbl_error_msg_1.ForeColor = Color.Red
-        Lbl_error_msg_1.Location = New Point(164, 45)
+        Lbl_error_msg_1.Location = New Point(161, 83)
         Lbl_error_msg_1.Name = "Lbl_error_msg_1"
         Lbl_error_msg_1.Size = New Size(101, 17)
         Lbl_error_msg_1.TabIndex = 30
         Lbl_error_msg_1.Text = "Lbl_error_msg_1"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Georgia", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(71, 9)
+        Label4.Margin = New Padding(4, 0, 4, 0)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(266, 38)
+        Label4.TabIndex = 49
+        Label4.Text = "Returned Book"
         ' 
         ' Fm_returned_books
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(548, 251)
+        ClientSize = New Size(421, 290)
         ControlBox = False
+        Controls.Add(Label4)
         Controls.Add(Lbl_error_msg_1)
         Controls.Add(Lbl_error_msg)
         Controls.Add(Txt_primary_book_id)
@@ -183,7 +198,7 @@ Partial Class Fm_returned_books
         Controls.Add(Txt_isbn)
         Controls.Add(Txt_primary_borrower_id)
         Controls.Add(Label3)
-        Controls.Add(Btn_close)
+        Controls.Add(Btn_cancel)
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(Txt_book_name)
@@ -195,7 +210,7 @@ Partial Class Fm_returned_books
         ResumeLayout(False)
         PerformLayout()
     End Sub
-    Friend WithEvents Btn_close As Button
+    Friend WithEvents Btn_cancel As Button
     Friend WithEvents Txt_issued_to As TextBox
     Friend WithEvents Txt_borrower_id_number As TextBox
     Friend WithEvents Txt_book_name As TextBox
@@ -208,4 +223,5 @@ Partial Class Fm_returned_books
     Friend WithEvents Txt_primary_book_id As TextBox
     Friend WithEvents Lbl_error_msg As Label
     Friend WithEvents Lbl_error_msg_1 As Label
+    Friend WithEvents Label4 As Label
 End Class

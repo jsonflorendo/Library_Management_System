@@ -38,7 +38,7 @@ Partial Class Fm_penalty_description
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(85, 25)
         Btn_cancel.TabIndex = 1
-        Btn_cancel.Text = "Cancel"
+        Btn_cancel.Text = "&Cancel"
         Btn_cancel.UseVisualStyleBackColor = True
         ' 
         ' Btn_save
@@ -47,12 +47,12 @@ Partial Class Fm_penalty_description
         Btn_save.Name = "Btn_save"
         Btn_save.Size = New Size(85, 25)
         Btn_save.TabIndex = 0
-        Btn_save.Text = "Save"
+        Btn_save.Text = "&Save"
         Btn_save.UseVisualStyleBackColor = True
         ' 
         ' Txt_penalty_description
         ' 
-        Txt_penalty_description.Font = New Font("Georgia", 14.25F)
+        Txt_penalty_description.Font = New Font("Arial", 14.25F)
         Txt_penalty_description.Location = New Point(12, 41)
         Txt_penalty_description.Name = "Txt_penalty_description"
         Txt_penalty_description.PlaceholderText = "Penalty Description"
@@ -65,7 +65,7 @@ Partial Class Fm_penalty_description
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(85, 25)
         Btn_update.TabIndex = 0
-        Btn_update.Text = "Update"
+        Btn_update.Text = "&Update"
         Btn_update.UseVisualStyleBackColor = True
         ' 
         ' Lbl_error_msg
@@ -92,7 +92,7 @@ Partial Class Fm_penalty_description
         ' 
         ' Txt_penalty_amount
         ' 
-        Txt_penalty_amount.Font = New Font("Georgia", 14.25F)
+        Txt_penalty_amount.Font = New Font("Arial", 14.25F)
         Txt_penalty_amount.Location = New Point(12, 95)
         Txt_penalty_amount.Name = "Txt_penalty_amount"
         Txt_penalty_amount.PlaceholderText = "Amount"
@@ -121,10 +121,10 @@ Partial Class Fm_penalty_description
         Controls.Add(Lbl_error_msg_1)
         Controls.Add(Txt_penalty_amount)
         Controls.Add(Lbl_error_msg)
-        Controls.Add(Btn_update)
         Controls.Add(Btn_cancel)
         Controls.Add(Btn_save)
         Controls.Add(Txt_penalty_description)
+        Controls.Add(Btn_update)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "Fm_penalty_description"
         StartPosition = FormStartPosition.CenterScreen

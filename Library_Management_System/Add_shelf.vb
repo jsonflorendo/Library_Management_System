@@ -36,20 +36,17 @@ Public Class Fm_add_shelf
 
                 con.Open()
 
-                sql = "SELECT * FROM tbl_shelf
-                                WHERE shelf_id = '" & Txt_shelf_id.Text & "'"
+                sql = "SELECT COUNT(*) FROM tbl_shelf
+                                WHERE TRIM(shelf_id) = '" & Txt_shelf_id.Text.Trim & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
 
-                If dr.Read Then
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                    con.Close()
+                If duplicate_Count > 0 Then
 
                     Lbl_error_msg.Text = "Shelf ID already exists"
 
                 Else
-
-                    dr.Close()
 
                     sql = "INSERT INTO tbl_shelf   (shelf_id,
                                                     shelf_name,
@@ -58,12 +55,12 @@ Public Class Fm_add_shelf
                                                     capacity,
                                                     current_load,
                                                     created_at)
-                                    VALUE ('" & Txt_shelf_id.Text & "',
-                                            '" & Txt_shelf_name.Text & "',
-                                            '" & Txt_shelf_section.Text & "',
-                                            '" & Txt_shelf_floor_number.Text & "',
-                                            '" & Txt_shelf_capacity.Text & "',
-                                            '" & Txt_shelf_current_load.Text & "',
+                                    VALUE ('" & Txt_shelf_id.Text.Trim & "',
+                                            '" & Txt_shelf_name.Text.Trim & "',
+                                            '" & Txt_shelf_section.Text.Trim & "',
+                                            '" & Txt_shelf_floor_number.Text.Trim & "',
+                                            '" & Txt_shelf_capacity.Text.Trim & "',
+                                            '" & Txt_shelf_current_load.Text.Trim & "',
                                             '" & Date.Now.ToString("MMMM dd, yyyy") & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
@@ -121,50 +118,31 @@ Public Class Fm_add_shelf
 
                 con.Open()
 
-                'to make sure Supplier ID not exists while in update process
-                sql = "UPDATE tbl_shelf SET 
-                                shelf_id = '" & "" & "'                                        
-                        WHERE primary_shelf_id = '" & Fm_home_page.Lv_shelf.SelectedItems(0).SubItems(8).Text & "'"
+                Dim primary_shelf_id As String = Fm_home_page.Lv_shelf.SelectedItems(0).SubItems(8).Text
+
+                sql = "SELECT COUNT(*) FROM tbl_shelf
+                                WHERE TRIM(shelf_id) = '" & Txt_shelf_id.Text.Trim & "' AND primary_shelf_id <> '" & primary_shelf_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                dr.Close()
-                '---------------------------------
 
-                sql = "SELECT * FROM tbl_shelf
-                                WHERE shelf_id = '" & Txt_shelf_id.Text & "'"
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
+                Dim duplicate_Count As Integer = cmd.ExecuteScalar()
 
-                If dr.Read Then
-
-                    dr.Close()
+                If duplicate_Count > 0 Then
 
                     Lbl_error_msg.Text = "Shelf ID already exists"
 
-                    'returned previous Supplier ID
-                    sql = "UPDATE tbl_shelf SET 
-                                    shelf_id = '" & Fm_home_page.Lv_shelf.SelectedItems(0).Text & "'                                        
-                            WHERE primary_shelf_id = '" & Fm_home_page.Lv_shelf.SelectedItems(0).SubItems(8).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-                    con.Close()
-                    '---------------------------------
-
                 Else
 
-                    dr.Close()
-
                     sql = "UPDATE tbl_shelf SET 
-                                    shelf_id = '" & Txt_shelf_id.Text & "',
-                                    shelf_name = '" & Txt_shelf_name.Text & "',
-                                    section = '" & Txt_shelf_section.Text & "',
-                                    floor_number = '" & Txt_shelf_floor_number.Text & "',
-                                    capacity = '" & Txt_shelf_capacity.Text & "',
-                                    current_load = '" & Txt_shelf_current_load.Text & "',
+                                    shelf_id = '" & Txt_shelf_id.Text.Trim & "',
+                                    shelf_name = '" & Txt_shelf_name.Text.Trim & "',
+                                    section = '" & Txt_shelf_section.Text.Trim & "',
+                                    floor_number = '" & Txt_shelf_floor_number.Text.Trim & "',
+                                    capacity = '" & Txt_shelf_capacity.Text.Trim & "',
+                                    current_load = '" & Txt_shelf_current_load.Text.Trim & "',
                                     updated_at = '" & Date.Now.ToString("MMMM dd, yyyy") & "'                                    
-                            WHERE primary_shelf_id = '" & Fm_home_page.Lv_shelf.SelectedItems(0).SubItems(8).Text & "'"
+                            WHERE primary_shelf_id = '" & primary_shelf_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
 
                     con.Close()
 
@@ -218,7 +196,7 @@ Public Class Fm_add_shelf
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890-" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -247,7 +225,7 @@ Public Class Fm_add_shelf
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -276,7 +254,7 @@ Public Class Fm_add_shelf
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -305,7 +283,7 @@ Public Class Fm_add_shelf
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -333,13 +311,11 @@ Public Class Fm_add_shelf
             Return
         End If
 
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "1234567890" ' Change this to the desired allowed characters
+        'Input numeric only
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
 
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
             e.Handled = True
+
         End If
 
     End Sub
@@ -362,13 +338,11 @@ Public Class Fm_add_shelf
             Return
         End If
 
-        ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "1234567890" ' Change this to the desired allowed characters
+        'Input numeric only
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
 
-        ' Check if the entered key is an allowed character
-        If Not allowedChars.Contains(e.KeyChar) Then
-            ' Cancel the key press if the entered character is not allowed
             e.Handled = True
+
         End If
 
     End Sub

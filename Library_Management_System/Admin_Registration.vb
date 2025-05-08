@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Button
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel
 Imports MySql.Data.MySqlClient
 
 Public Class Fm_admin_registration
@@ -19,13 +20,13 @@ Public Class Fm_admin_registration
 
     Private Sub Rb_male_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_male.CheckedChanged
 
-        Gender = "MALE"
+        Gender = "Male"
 
     End Sub
 
     Private Sub Rb_female_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_female.CheckedChanged
 
-        Gender = "FEMALE"
+        Gender = "Female"
 
     End Sub
 
@@ -77,67 +78,56 @@ Public Class Fm_admin_registration
 
                 con.Open()
 
-                sql = "SELECT * FROM tbl_admin
-                                WHERE username = '" & Txt_username.Text & "'"
+                ' To display error message at the same time for Username and Email address if exists
+                sql = "SELECT COUNT(*) FROM tbl_admin
+                                WHERE TRIM(username) = '" & Txt_username.Text.Trim & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
 
-                If dr.Read = True Then
+                Dim duplicate_username_Count As Integer = cmd.ExecuteScalar()
 
-                    Lbl_error_msg_7.Text = "Username already exists"
+                sql = "SELECT COUNT(*) FROM tbl_admin
+                                    WHERE TRIM(email) = '" & Txt_email.Text.Trim & "'"
+                cmd = New MySqlCommand(sql, con)
+
+                Dim duplicate_email_Count As Integer = cmd.ExecuteScalar()
+
+                ' Display error messages if any
+                Lbl_error_msg_7.Text = If(duplicate_username_Count > 0, "Username already exists", "")
+                Lbl_error_msg_8.Text = If(duplicate_email_Count > 0, "Email already exists", "")
+
+                If duplicate_username_Count = 0 AndAlso duplicate_email_Count = 0 Then
+
+                    sql = "INSERT INTO tbl_admin (first_name,
+                                                    middle_name,
+                                                    last_name,
+                                                    gender,
+                                                    birthday,
+                                                    contact_no,
+                                                    address,
+                                                    username,
+                                                    email,
+                                                    password,
+                                                    user_type)
+                                    VALUE ('" & Txt_firstname.Text.Trim & "',
+                                            '" & Txt_middlename.Text.Trim & "',
+                                            '" & Txt_lastname.Text.Trim & "',
+                                            '" & Gender & "',
+                                            '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
+                                            '" & Txt_contact.Text.Trim & "',
+                                            '" & Txt_address.Text.Trim & "',
+                                            '" & Txt_username.Text.Trim & "',
+                                            '" & Txt_email.Text.Trim & "',
+                                            '" & Txt_password.Text.Trim & "',
+                                            '" & Cb_user_type.Text & "')"
+                    cmd = New MySqlCommand(sql, con)
+                    cmd.ExecuteNonQuery()
+
                     con.Close()
 
-                Else
-
-                    dr.Close()
-
-                    sql = "SELECT * FROM tbl_admin
-                                    WHERE email = '" & Txt_email.Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
-
-                    If dr.Read = True Then
-
-                        Lbl_error_msg_8.Text = "Email already exists"
-                        con.Close()
-
-                    Else
-
-                        dr.Close()
-
-                        sql = "INSERT INTO tbl_admin (first_name,
-                                                        middle_name,
-                                                        last_name,
-                                                        gender,
-                                                        birthday,
-                                                        contact_no,
-                                                        address,
-                                                        username,
-                                                        email,
-                                                        password,
-                                                        user_type)
-                                        VALUE ('" & Txt_firstname.Text & "',
-                                                '" & Txt_middlename.Text & "',
-                                                '" & Txt_lastname.Text & "',
-                                                '" & Gender & "',
-                                                '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
-                                                '" & Txt_contact.Text & "',
-                                                '" & Txt_address.Text & "',
-                                                '" & Txt_username.Text & "',
-                                                '" & Txt_email.Text & "',
-                                                '" & Txt_password.Text & "',
-                                                '" & Cb_user_type.Text & "')"
-                        cmd = New MySqlCommand(sql, con)
-                        cmd.ExecuteNonQuery()
-
-                        con.Close()
-
-                        MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " added successfully")
-                        Load_listed_accounts_data_table(Fm_home_page.Txt_listed_accounts_search.Text)
-                        Fm_home_page.Enabled = True
-                        Me.Close()
-
-                    End If
+                    MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " added successfully")
+                    Load_listed_accounts_data_table(Fm_home_page.Txt_listed_accounts_search.Text)
+                    Fm_home_page.Enabled = True
+                    Me.Close()
 
                 End If
 
@@ -199,105 +189,49 @@ Public Class Fm_admin_registration
 
                 con.Open()
 
-                'to make sure Username not exists while in update process
-                sql = "UPDATE tbl_admin SET
-                                username = '" & "" & "'
-                        WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
+                Dim primary_admin_id As String = Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text
+
+                ' To display error message at the same time for Username and Email address if exists
+                sql = "SELECT COUNT(*) FROM tbl_admin
+                                WHERE TRIM(username) = '" & Txt_username.Text.Trim & "' AND primary_admin_id <> '" & primary_admin_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                dr.Close()
-                '---------------------------------
 
-                sql = "SELECT * FROM tbl_admin
-                                WHERE username = '" & Txt_username.Text & "'"
+                Dim duplicate_username_Count As Integer = cmd.ExecuteScalar()
+
+                sql = "SELECT COUNT(*) FROM tbl_admin
+                                    WHERE TRIM(email) = '" & Txt_email.Text.Trim & "' AND primary_admin_id <> '" & primary_admin_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
 
-                If dr.Read Then
+                Dim duplicate_email_Count As Integer = cmd.ExecuteScalar()
 
-                    dr.Close()
+                ' Display error messages if any
+                Lbl_error_msg_7.Text = If(duplicate_username_Count > 0, "Username already exists", "")
+                Lbl_error_msg_8.Text = If(duplicate_email_Count > 0, "Email already exists", "")
 
-                    Lbl_error_msg_7.Text = "Username already exists"
+                If duplicate_username_Count = 0 AndAlso duplicate_email_Count = 0 Then
 
-                    'returned previous Username
-                    sql = "UPDATE tbl_admin SET
-                                    username = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(7).Text & "'
-                            WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
+                    sql = "UPDATE tbl_admin SET 
+                                    first_name = '" & Txt_firstname.Text.Trim & "',
+                                    middle_name = '" & Txt_middlename.Text.Trim & "',
+                                    last_name = '" & Txt_lastname.Text.Trim & "',
+                                    gender = '" & Gender & "',
+                                    birthday = '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
+                                    contact_no = '" & Txt_contact.Text.Trim & "',
+                                    address = '" & Txt_address.Text.Trim & "',
+                                    username = '" & Txt_username.Text.Trim & "',
+                                    email = '" & Txt_email.Text.Trim & "',
+                                    password = '" & Txt_password.Text.Trim & "',
+                                    user_type = '" & Cb_user_type.Text & "'
+                            WHERE primary_admin_id = '" & primary_admin_id & "'"
                     cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
+                    cmd.ExecuteNonQuery()
+
                     con.Close()
-                    '---------------------------------
 
-                Else
-
-                    dr.Close()
-
-                    'returned previous Username
-                    sql = "UPDATE tbl_admin SET
-                                    username = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(7).Text & "'
-                            WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                    '---------------------------------
-
-                    'to make sure Email not exists while in update process
-                    sql = "UPDATE tbl_admin SET
-                                email = '" & "" & "'
-                        WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                    '---------------------------------
-
-                    sql = "SELECT * FROM tbl_admin
-                                    WHERE email = '" & Txt_email.Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
-
-                    If dr.Read Then
-
-                        dr.Close()
-
-                        Lbl_error_msg_8.Text = "Email already exists"
-
-                        'returned previous Email
-                        sql = "UPDATE tbl_admin SET
-                                        email = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(8).Text & "'
-                                WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader
-                        con.Close()
-                        '---------------------------------
-
-                    Else
-
-                        dr.Close()
-
-                        sql = "UPDATE tbl_admin SET 
-                                        first_name = '" & Txt_firstname.Text & "',
-                                        middle_name = '" & Txt_middlename.Text & "',
-                                        last_name = '" & Txt_lastname.Text & "',
-                                        gender = '" & Gender & "',
-                                        birthday = '" & Dtp_birthdate.Value.ToString("MMM-dd-yyyy") & "',
-                                        contact_no = '" & Txt_contact.Text & "',
-                                        address = '" & Txt_address.Text & "',
-                                        username = '" & Txt_username.Text & "',
-                                        email = '" & Txt_email.Text & "',
-                                        password = '" & Txt_password.Text & "',
-                                        user_type = '" & Cb_user_type.Text & "'
-                                WHERE primary_admin_id = '" & Fm_home_page.Lv_listed_accounts.SelectedItems(0).SubItems(11).Text & "'"
-                        cmd = New MySqlCommand(sql, con)
-                        dr = cmd.ExecuteReader
-
-                        con.Close()
-
-                        MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Load_listed_accounts_data_table(Fm_home_page.Txt_listed_accounts_search.Text)
-                        Fm_home_page.Enabled = True
-                        Me.Close()
-
-                    End If
+                    MessageBox.Show(Txt_firstname.Text + " " + Txt_lastname.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Load_listed_accounts_data_table(Fm_home_page.Txt_listed_accounts_search.Text)
+                    Fm_home_page.Enabled = True
+                    Me.Close()
 
                 End If
 
@@ -373,7 +307,7 @@ Public Class Fm_admin_registration
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -402,7 +336,7 @@ Public Class Fm_admin_registration
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -431,7 +365,7 @@ Public Class Fm_admin_registration
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -487,7 +421,7 @@ Public Class Fm_admin_registration
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -516,7 +450,7 @@ Public Class Fm_admin_registration
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+'<>,.?/""" ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+<>,.?/""" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -545,7 +479,7 @@ Public Class Fm_admin_registration
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+'<>,.?/""" ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+<>,.?/""" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -574,7 +508,7 @@ Public Class Fm_admin_registration
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+'<>,.?/""" ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+<>,.?/""" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -603,7 +537,7 @@ Public Class Fm_admin_registration
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+'<>,.?/""" ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+<>,.?/""" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

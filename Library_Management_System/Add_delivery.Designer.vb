@@ -68,6 +68,7 @@ Partial Class Fm_add_delivery
         Lbl_error_msg_7 = New Label()
         Txt_donate_received_by = New TextBox()
         Lbl_error_msg_8 = New Label()
+        Label3 = New Label()
         Panel_purchase.SuspendLayout()
         Panel_donate.SuspendLayout()
         SuspendLayout()
@@ -118,16 +119,16 @@ Partial Class Fm_add_delivery
         ' 
         ' Txt_purchase_book_isbn
         ' 
-        Txt_purchase_book_isbn.Font = New Font("Georgia", 14.25F)
+        Txt_purchase_book_isbn.Font = New Font("Arial", 12.75F)
         Txt_purchase_book_isbn.Location = New Point(10, 258)
         Txt_purchase_book_isbn.Name = "Txt_purchase_book_isbn"
         Txt_purchase_book_isbn.PlaceholderText = "Enter ISBN"
-        Txt_purchase_book_isbn.Size = New Size(380, 29)
+        Txt_purchase_book_isbn.Size = New Size(380, 27)
         Txt_purchase_book_isbn.TabIndex = 5
         ' 
         ' Btn_update
         ' 
-        Btn_update.Location = New Point(65, 678)
+        Btn_update.Location = New Point(79, 719)
         Btn_update.Name = "Btn_update"
         Btn_update.Size = New Size(125, 30)
         Btn_update.TabIndex = 0
@@ -136,7 +137,7 @@ Partial Class Fm_add_delivery
         ' 
         ' Btn_cancel
         ' 
-        Btn_cancel.Location = New Point(242, 678)
+        Btn_cancel.Location = New Point(256, 719)
         Btn_cancel.Name = "Btn_cancel"
         Btn_cancel.Size = New Size(125, 30)
         Btn_cancel.TabIndex = 0
@@ -145,82 +146,83 @@ Partial Class Fm_add_delivery
         ' 
         ' Txt_purchase_delivered_by
         ' 
-        Txt_purchase_delivered_by.Font = New Font("Georgia", 14.25F)
+        Txt_purchase_delivered_by.Font = New Font("Arial", 12.75F)
         Txt_purchase_delivered_by.Location = New Point(10, 158)
         Txt_purchase_delivered_by.Name = "Txt_purchase_delivered_by"
         Txt_purchase_delivered_by.PlaceholderText = "Enter Delivered By"
-        Txt_purchase_delivered_by.Size = New Size(380, 29)
+        Txt_purchase_delivered_by.Size = New Size(380, 27)
         Txt_purchase_delivered_by.TabIndex = 3
         ' 
         ' Txt_purchase_transaction_number
         ' 
-        Txt_purchase_transaction_number.Font = New Font("Georgia", 12F)
+        Txt_purchase_transaction_number.Font = New Font("Arial", 12.75F)
         Txt_purchase_transaction_number.Location = New Point(10, 60)
         Txt_purchase_transaction_number.Name = "Txt_purchase_transaction_number"
         Txt_purchase_transaction_number.PlaceholderText = "Enter Transaction Number"
-        Txt_purchase_transaction_number.Size = New Size(380, 26)
+        Txt_purchase_transaction_number.Size = New Size(380, 27)
         Txt_purchase_transaction_number.TabIndex = 1
         ' 
         ' Txt_purchase_received_by
         ' 
-        Txt_purchase_received_by.Font = New Font("Georgia", 14.25F)
+        Txt_purchase_received_by.Font = New Font("Arial", 12.75F)
         Txt_purchase_received_by.Location = New Point(10, 208)
         Txt_purchase_received_by.Name = "Txt_purchase_received_by"
         Txt_purchase_received_by.PlaceholderText = "Enter Received By"
-        Txt_purchase_received_by.Size = New Size(380, 29)
+        Txt_purchase_received_by.Size = New Size(380, 27)
         Txt_purchase_received_by.TabIndex = 4
         ' 
         ' Txt_purchase_book_title
         ' 
         Txt_purchase_book_title.Enabled = False
-        Txt_purchase_book_title.Font = New Font("Georgia", 14.25F)
+        Txt_purchase_book_title.Font = New Font("Arial", 12.75F)
         Txt_purchase_book_title.Location = New Point(10, 308)
         Txt_purchase_book_title.Name = "Txt_purchase_book_title"
-        Txt_purchase_book_title.Size = New Size(380, 29)
+        Txt_purchase_book_title.Size = New Size(380, 27)
         Txt_purchase_book_title.TabIndex = 60
         ' 
         ' Txt_purchase_book_genre
         ' 
         Txt_purchase_book_genre.Enabled = False
-        Txt_purchase_book_genre.Font = New Font("Georgia", 14.25F)
+        Txt_purchase_book_genre.Font = New Font("Arial", 12.75F)
         Txt_purchase_book_genre.Location = New Point(10, 359)
         Txt_purchase_book_genre.Name = "Txt_purchase_book_genre"
-        Txt_purchase_book_genre.Size = New Size(380, 29)
+        Txt_purchase_book_genre.Size = New Size(380, 27)
         Txt_purchase_book_genre.TabIndex = 61
         ' 
         ' Txt_purchase_book_author
         ' 
         Txt_purchase_book_author.Enabled = False
-        Txt_purchase_book_author.Font = New Font("Georgia", 14.25F)
+        Txt_purchase_book_author.Font = New Font("Arial", 12.75F)
         Txt_purchase_book_author.Location = New Point(10, 410)
         Txt_purchase_book_author.Name = "Txt_purchase_book_author"
-        Txt_purchase_book_author.Size = New Size(380, 29)
+        Txt_purchase_book_author.Size = New Size(380, 27)
         Txt_purchase_book_author.TabIndex = 62
         ' 
         ' Txt_purchase_book_publish_year
         ' 
         Txt_purchase_book_publish_year.Enabled = False
-        Txt_purchase_book_publish_year.Font = New Font("Georgia", 14.25F)
+        Txt_purchase_book_publish_year.Font = New Font("Arial", 12.75F)
         Txt_purchase_book_publish_year.Location = New Point(10, 461)
         Txt_purchase_book_publish_year.Name = "Txt_purchase_book_publish_year"
-        Txt_purchase_book_publish_year.Size = New Size(380, 29)
+        Txt_purchase_book_publish_year.Size = New Size(380, 27)
         Txt_purchase_book_publish_year.TabIndex = 63
         ' 
         ' Txt_purchase_book_publisher
         ' 
         Txt_purchase_book_publisher.Enabled = False
-        Txt_purchase_book_publisher.Font = New Font("Georgia", 14.25F)
+        Txt_purchase_book_publisher.Font = New Font("Arial", 12.75F)
         Txt_purchase_book_publisher.Location = New Point(10, 512)
         Txt_purchase_book_publisher.Name = "Txt_purchase_book_publisher"
-        Txt_purchase_book_publisher.Size = New Size(380, 29)
+        Txt_purchase_book_publisher.Size = New Size(380, 27)
         Txt_purchase_book_publisher.TabIndex = 64
         ' 
         ' Rb_donate
         ' 
         Rb_donate.AutoSize = True
-        Rb_donate.Location = New Point(144, 22)
+        Rb_donate.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold)
+        Rb_donate.Location = New Point(162, 60)
         Rb_donate.Name = "Rb_donate"
-        Rb_donate.Size = New Size(63, 19)
+        Rb_donate.Size = New Size(102, 34)
         Rb_donate.TabIndex = 65
         Rb_donate.TabStop = True
         Rb_donate.Text = "&Donate"
@@ -229,9 +231,10 @@ Partial Class Fm_add_delivery
         ' Rb_purchase
         ' 
         Rb_purchase.AutoSize = True
-        Rb_purchase.Location = New Point(27, 22)
+        Rb_purchase.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold)
+        Rb_purchase.Location = New Point(28, 60)
         Rb_purchase.Name = "Rb_purchase"
-        Rb_purchase.Size = New Size(73, 19)
+        Rb_purchase.Size = New Size(119, 34)
         Rb_purchase.TabIndex = 66
         Rb_purchase.TabStop = True
         Rb_purchase.Text = "&Purchase"
@@ -258,7 +261,7 @@ Partial Class Fm_add_delivery
         Panel_purchase.Controls.Add(Lbl_error_msg_2)
         Panel_purchase.Controls.Add(Txt_purchase_received_by)
         Panel_purchase.Controls.Add(Lbl_error_msg_3)
-        Panel_purchase.Location = New Point(27, 47)
+        Panel_purchase.Location = New Point(29, 100)
         Panel_purchase.Name = "Panel_purchase"
         Panel_purchase.Size = New Size(401, 560)
         Panel_purchase.TabIndex = 67
@@ -299,11 +302,11 @@ Partial Class Fm_add_delivery
         ' 
         ' Dtp_purchase_delivery_date
         ' 
-        Dtp_purchase_delivery_date.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Dtp_purchase_delivery_date.Font = New Font("Arial", 12.75F)
         Dtp_purchase_delivery_date.Location = New Point(134, 108)
         Dtp_purchase_delivery_date.Margin = New Padding(4, 3, 4, 3)
         Dtp_purchase_delivery_date.Name = "Dtp_purchase_delivery_date"
-        Dtp_purchase_delivery_date.Size = New Size(256, 26)
+        Dtp_purchase_delivery_date.Size = New Size(256, 27)
         Dtp_purchase_delivery_date.TabIndex = 2
         ' 
         ' Label11
@@ -319,11 +322,11 @@ Partial Class Fm_add_delivery
         ' 
         ' Cb_purchase_supplier
         ' 
-        Cb_purchase_supplier.Font = New Font("Segoe UI", 12F)
+        Cb_purchase_supplier.Font = New Font("Arial", 12.75F)
         Cb_purchase_supplier.FormattingEnabled = True
         Cb_purchase_supplier.Location = New Point(96, 10)
         Cb_purchase_supplier.Name = "Cb_purchase_supplier"
-        Cb_purchase_supplier.Size = New Size(257, 29)
+        Cb_purchase_supplier.Size = New Size(257, 27)
         Cb_purchase_supplier.TabIndex = 0
         ' 
         ' Panel_donate
@@ -349,7 +352,7 @@ Partial Class Fm_add_delivery
         Panel_donate.Controls.Add(Lbl_error_msg_7)
         Panel_donate.Controls.Add(Txt_donate_received_by)
         Panel_donate.Controls.Add(Lbl_error_msg_8)
-        Panel_donate.Location = New Point(454, 47)
+        Panel_donate.Location = New Point(26, 100)
         Panel_donate.Name = "Panel_donate"
         Panel_donate.Size = New Size(407, 613)
         Panel_donate.TabIndex = 68
@@ -367,11 +370,11 @@ Partial Class Fm_add_delivery
         ' 
         ' Txt_donate_quantity
         ' 
-        Txt_donate_quantity.Font = New Font("Georgia", 14.25F)
+        Txt_donate_quantity.Font = New Font("Arial", 12.75F)
         Txt_donate_quantity.Location = New Point(13, 559)
         Txt_donate_quantity.Name = "Txt_donate_quantity"
         Txt_donate_quantity.PlaceholderText = "Quantity"
-        Txt_donate_quantity.Size = New Size(380, 29)
+        Txt_donate_quantity.Size = New Size(380, 27)
         Txt_donate_quantity.TabIndex = 87
         ' 
         ' Label2
@@ -410,11 +413,11 @@ Partial Class Fm_add_delivery
         ' 
         ' Dtp_donate_delivery_date
         ' 
-        Dtp_donate_delivery_date.Font = New Font("Georgia", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Dtp_donate_delivery_date.Font = New Font("Arial", 12.75F)
         Dtp_donate_delivery_date.Location = New Point(137, 108)
         Dtp_donate_delivery_date.Margin = New Padding(4, 3, 4, 3)
         Dtp_donate_delivery_date.Name = "Dtp_donate_delivery_date"
-        Dtp_donate_delivery_date.Size = New Size(256, 26)
+        Dtp_donate_delivery_date.Size = New Size(256, 27)
         Dtp_donate_delivery_date.TabIndex = 70
         ' 
         ' Label4
@@ -430,65 +433,65 @@ Partial Class Fm_add_delivery
         ' 
         ' Cb_donate_supplier
         ' 
-        Cb_donate_supplier.Font = New Font("Segoe UI", 12F)
+        Cb_donate_supplier.Font = New Font("Arial", 12.75F)
         Cb_donate_supplier.FormattingEnabled = True
         Cb_donate_supplier.Location = New Point(99, 10)
         Cb_donate_supplier.Name = "Cb_donate_supplier"
-        Cb_donate_supplier.Size = New Size(257, 29)
+        Cb_donate_supplier.Size = New Size(257, 27)
         Cb_donate_supplier.TabIndex = 68
         ' 
         ' Txt_donate_transaction_number
         ' 
-        Txt_donate_transaction_number.Font = New Font("Georgia", 12F)
+        Txt_donate_transaction_number.Font = New Font("Arial", 12.75F)
         Txt_donate_transaction_number.Location = New Point(13, 60)
         Txt_donate_transaction_number.Name = "Txt_donate_transaction_number"
         Txt_donate_transaction_number.PlaceholderText = "Enter Transaction Number"
-        Txt_donate_transaction_number.Size = New Size(380, 26)
+        Txt_donate_transaction_number.Size = New Size(380, 27)
         Txt_donate_transaction_number.TabIndex = 69
         ' 
         ' Txt_donate_book_publisher
         ' 
         Txt_donate_book_publisher.Enabled = False
-        Txt_donate_book_publisher.Font = New Font("Georgia", 14.25F)
+        Txt_donate_book_publisher.Font = New Font("Arial", 12.75F)
         Txt_donate_book_publisher.Location = New Point(13, 512)
         Txt_donate_book_publisher.Name = "Txt_donate_book_publisher"
-        Txt_donate_book_publisher.Size = New Size(380, 29)
+        Txt_donate_book_publisher.Size = New Size(380, 27)
         Txt_donate_book_publisher.TabIndex = 83
         ' 
         ' Txt_donate_delivered_by
         ' 
-        Txt_donate_delivered_by.Font = New Font("Georgia", 14.25F)
+        Txt_donate_delivered_by.Font = New Font("Arial", 12.75F)
         Txt_donate_delivered_by.Location = New Point(13, 158)
         Txt_donate_delivered_by.Name = "Txt_donate_delivered_by"
         Txt_donate_delivered_by.PlaceholderText = "Enter Delivered By"
-        Txt_donate_delivered_by.Size = New Size(380, 29)
+        Txt_donate_delivered_by.Size = New Size(380, 27)
         Txt_donate_delivered_by.TabIndex = 71
         ' 
         ' Txt_donate_book_publish_year
         ' 
         Txt_donate_book_publish_year.Enabled = False
-        Txt_donate_book_publish_year.Font = New Font("Georgia", 14.25F)
+        Txt_donate_book_publish_year.Font = New Font("Arial", 12.75F)
         Txt_donate_book_publish_year.Location = New Point(13, 461)
         Txt_donate_book_publish_year.Name = "Txt_donate_book_publish_year"
-        Txt_donate_book_publish_year.Size = New Size(380, 29)
+        Txt_donate_book_publish_year.Size = New Size(380, 27)
         Txt_donate_book_publish_year.TabIndex = 82
         ' 
         ' Txt_donate_book_isbn
         ' 
-        Txt_donate_book_isbn.Font = New Font("Georgia", 14.25F)
+        Txt_donate_book_isbn.Font = New Font("Arial", 12.75F)
         Txt_donate_book_isbn.Location = New Point(13, 258)
         Txt_donate_book_isbn.Name = "Txt_donate_book_isbn"
         Txt_donate_book_isbn.PlaceholderText = "Enter ISBN"
-        Txt_donate_book_isbn.Size = New Size(380, 29)
+        Txt_donate_book_isbn.Size = New Size(380, 27)
         Txt_donate_book_isbn.TabIndex = 73
         ' 
         ' Txt_donate_book_author
         ' 
         Txt_donate_book_author.Enabled = False
-        Txt_donate_book_author.Font = New Font("Georgia", 14.25F)
+        Txt_donate_book_author.Font = New Font("Arial", 12.75F)
         Txt_donate_book_author.Location = New Point(13, 410)
         Txt_donate_book_author.Name = "Txt_donate_book_author"
-        Txt_donate_book_author.Size = New Size(380, 29)
+        Txt_donate_book_author.Size = New Size(380, 27)
         Txt_donate_book_author.TabIndex = 81
         ' 
         ' Lbl_error_msg_5
@@ -505,10 +508,10 @@ Partial Class Fm_add_delivery
         ' Txt_donate_book_genre
         ' 
         Txt_donate_book_genre.Enabled = False
-        Txt_donate_book_genre.Font = New Font("Georgia", 14.25F)
+        Txt_donate_book_genre.Font = New Font("Arial", 12.75F)
         Txt_donate_book_genre.Location = New Point(13, 359)
         Txt_donate_book_genre.Name = "Txt_donate_book_genre"
-        Txt_donate_book_genre.Size = New Size(380, 29)
+        Txt_donate_book_genre.Size = New Size(380, 27)
         Txt_donate_book_genre.TabIndex = 80
         ' 
         ' Lbl_error_msg_6
@@ -525,10 +528,10 @@ Partial Class Fm_add_delivery
         ' Txt_donate_book_title
         ' 
         Txt_donate_book_title.Enabled = False
-        Txt_donate_book_title.Font = New Font("Georgia", 14.25F)
+        Txt_donate_book_title.Font = New Font("Arial", 12.75F)
         Txt_donate_book_title.Location = New Point(13, 308)
         Txt_donate_book_title.Name = "Txt_donate_book_title"
-        Txt_donate_book_title.Size = New Size(380, 29)
+        Txt_donate_book_title.Size = New Size(380, 27)
         Txt_donate_book_title.TabIndex = 79
         ' 
         ' Lbl_error_msg_7
@@ -544,11 +547,11 @@ Partial Class Fm_add_delivery
         ' 
         ' Txt_donate_received_by
         ' 
-        Txt_donate_received_by.Font = New Font("Georgia", 14.25F)
+        Txt_donate_received_by.Font = New Font("Arial", 12.75F)
         Txt_donate_received_by.Location = New Point(13, 208)
         Txt_donate_received_by.Name = "Txt_donate_received_by"
         Txt_donate_received_by.PlaceholderText = "Enter Received By"
-        Txt_donate_received_by.Size = New Size(380, 29)
+        Txt_donate_received_by.Size = New Size(380, 27)
         Txt_donate_received_by.TabIndex = 72
         ' 
         ' Lbl_error_msg_8
@@ -562,14 +565,26 @@ Partial Class Fm_add_delivery
         Lbl_error_msg_8.TabIndex = 78
         Lbl_error_msg_8.Text = "Lbl_error_msg_8"
         ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Font = New Font("Georgia", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.Location = New Point(124, 9)
+        Label3.Margin = New Padding(4, 0, 4, 0)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(229, 38)
+        Label3.TabIndex = 69
+        Label3.Text = "Add Delivery"
+        ' 
         ' Fm_add_delivery
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
-        ClientSize = New Size(1006, 718)
+        ClientSize = New Size(460, 762)
         ControlBox = False
         Controls.Add(Panel_donate)
+        Controls.Add(Label3)
         Controls.Add(Panel_purchase)
         Controls.Add(Rb_purchase)
         Controls.Add(Rb_donate)
@@ -631,4 +646,5 @@ Partial Class Fm_add_delivery
     Friend WithEvents Lbl_error_msg_8 As Label
     Friend WithEvents Lbl_error_msg_10 As Label
     Friend WithEvents Txt_donate_quantity As TextBox
+    Friend WithEvents Label3 As Label
 End Class

@@ -107,7 +107,7 @@ Partial Class Fm_add_shelf
         ' 
         ' Txt_shelf_name
         ' 
-        Txt_shelf_name.Font = New Font("Georgia", 14.25F)
+        Txt_shelf_name.Font = New Font("Arial", 14.25F)
         Txt_shelf_name.Location = New Point(30, 71)
         Txt_shelf_name.Name = "Txt_shelf_name"
         Txt_shelf_name.PlaceholderText = "Shelf Name"
@@ -143,7 +143,7 @@ Partial Class Fm_add_shelf
         ' 
         ' Txt_shelf_current_load
         ' 
-        Txt_shelf_current_load.Font = New Font("Georgia", 14.25F)
+        Txt_shelf_current_load.Font = New Font("Arial", 14.25F)
         Txt_shelf_current_load.Location = New Point(30, 279)
         Txt_shelf_current_load.Name = "Txt_shelf_current_load"
         Txt_shelf_current_load.PlaceholderText = "Current Load"
@@ -152,7 +152,7 @@ Partial Class Fm_add_shelf
         ' 
         ' Txt_shelf_capacity
         ' 
-        Txt_shelf_capacity.Font = New Font("Georgia", 14.25F)
+        Txt_shelf_capacity.Font = New Font("Arial", 14.25F)
         Txt_shelf_capacity.Location = New Point(30, 227)
         Txt_shelf_capacity.Name = "Txt_shelf_capacity"
         Txt_shelf_capacity.PlaceholderText = "Capacity"
@@ -161,7 +161,7 @@ Partial Class Fm_add_shelf
         ' 
         ' Txt_shelf_floor_number
         ' 
-        Txt_shelf_floor_number.Font = New Font("Georgia", 14.25F)
+        Txt_shelf_floor_number.Font = New Font("Arial", 14.25F)
         Txt_shelf_floor_number.Location = New Point(30, 175)
         Txt_shelf_floor_number.Name = "Txt_shelf_floor_number"
         Txt_shelf_floor_number.PlaceholderText = "Floor Number"
@@ -170,7 +170,7 @@ Partial Class Fm_add_shelf
         ' 
         ' Txt_shelf_section
         ' 
-        Txt_shelf_section.Font = New Font("Georgia", 14.25F)
+        Txt_shelf_section.Font = New Font("Arial", 14.25F)
         Txt_shelf_section.Location = New Point(30, 123)
         Txt_shelf_section.Name = "Txt_shelf_section"
         Txt_shelf_section.PlaceholderText = "Section"
@@ -179,7 +179,7 @@ Partial Class Fm_add_shelf
         ' 
         ' Txt_shelf_id
         ' 
-        Txt_shelf_id.Font = New Font("Georgia", 14.25F)
+        Txt_shelf_id.Font = New Font("Arial", 14.25F)
         Txt_shelf_id.Location = New Point(30, 19)
         Txt_shelf_id.Name = "Txt_shelf_id"
         Txt_shelf_id.PlaceholderText = "Shelf ID"

@@ -50,8 +50,6 @@ Public Class Fm_issued_books
             ' Display formatted year & month
             Lbl_transaction_yyyy_mm.Text = "BB" & currentYear & "-" & Date.Now.ToString("MM")
 
-            con.Close()
-
         Catch ex As Exception
 
             MsgBox("Error: " & ex.Message)
@@ -77,6 +75,7 @@ Public Class Fm_issued_books
                 con.Open()
 
                 sql = "SELECT   tbl_borrower.borrower_id,
+                                tbl_books.isbn,
                                 tbl_books.book_name,
                                 tbl_issued_books.returned_date                        
                         
@@ -86,18 +85,18 @@ Public Class Fm_issued_books
                         INNER JOIN tbl_books ON tbl_issued_books.primary_book_id = tbl_books.primary_book_id
 
                         WHERE borrower_id = '" & Txt_borrower_id_number.Text & "'
-                        AND book_name = '" & Txt_book_name.Text & "'
-                        AND returned_date = '" & "" & "'"
+                        AND isbn = '" & Txt_isbn.Text & "'
+                        AND returned_date IS NULL"
 
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader()
 
                 If dr.Read Then
 
+                    Txt_book_name.Text = dr("book_name").ToString()
+
                     MessageBox.Show("The book of " + Txt_book_name.Text + " was borrowed by " + Txt_issued_to.Text, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Txt_isbn.Clear()
-
-                    con.Close()
 
                 Else
 
@@ -153,7 +152,7 @@ Public Class Fm_issued_books
                                                 status = '" & "Out of Stock" & "'
                                         WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
                                 cmd = New MySqlCommand(sql, con)
-                                dr = cmd.ExecuteReader
+                                cmd.ExecuteNonQuery()
 
                             Else
 
@@ -161,7 +160,7 @@ Public Class Fm_issued_books
                                                 quantity = '" & total_book_qty & "'
                                         WHERE primary_book_id = '" & Txt_primary_book_id.Text & "'"
                                 cmd = New MySqlCommand(sql, con)
-                                dr = cmd.ExecuteReader
+                                cmd.ExecuteNonQuery()
 
                             End If
 
@@ -178,7 +177,6 @@ Public Class Fm_issued_books
                         Else
 
                             Lbl_error_msg_1.Text = "Book is out of stock"
-                            con.Close()
 
                         End If
 
@@ -187,7 +185,6 @@ Public Class Fm_issued_books
                         Lbl_error_msg_1.Text = "Invalid Bar Code Number"
                         Txt_isbn.Clear()
                         Txt_book_name.Clear()
-                        con.Close()
 
                     End If
 
@@ -195,7 +192,7 @@ Public Class Fm_issued_books
 
             Catch ex As Exception
 
-                MsgBox(ex.Message)
+                MsgBox("Error: " & ex.Message)
 
             Finally
 
@@ -226,6 +223,7 @@ Public Class Fm_issued_books
 
                 Txt_primary_borrower_id.Text = dr("primary_borrower_id").ToString()
                 Txt_issued_to.Text = dr("first_name").ToString() + " " + dr("last_name").ToString()
+                Txt_isbn.Focus()
 
             Else
 
@@ -235,11 +233,11 @@ Public Class Fm_issued_books
 
             End If
 
-            con.Close()
+            dr.Close()
 
         Catch ex As Exception
 
-            MsgBox(ex.Message)
+            MsgBox("Error: " & ex.Message)
 
         Finally
 
@@ -265,9 +263,8 @@ Public Class Fm_issued_books
 
     End Sub
 
-    Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
+    Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
-        Load_listed_books_data_table(Fm_home_page.Txt_listed_books_search.Text)
         Fm_home_page.Enabled = True
         Me.Close()
 
@@ -292,7 +289,7 @@ Public Class Fm_issued_books
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789- " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789-" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then

@@ -3,56 +3,6 @@ Imports System.Drawing
 
 Public Class Fm_add_borrower
 
-    ' Mapping Code 39 characters to barcode patterns
-    Dim code39Table As New Dictionary(Of Char, String) From {
-        {"0"c, "101001101101"}, {"1"c, "110100101011"}, {"2"c, "101100101011"},
-        {"3"c, "110110010101"}, {"4"c, "101001101011"}, {"5"c, "110100110101"},
-        {"6"c, "101100110101"}, {"7"c, "101001011011"}, {"8"c, "110100101101"},
-        {"9"c, "101100101101"}, {"A"c, "110101001011"}, {"B"c, "101101001011"},
-        {"C"c, "110110100101"}, {"D"c, "101011001011"}, {"E"c, "110101100101"},
-        {"F"c, "101101100101"}, {"G"c, "101010011011"}, {"H"c, "110101001101"},
-        {"I"c, "101101001101"}, {"J"c, "101011001101"}, {"K"c, "110101010011"},
-        {"L"c, "101101010011"}, {"M"c, "110110101001"}, {"N"c, "101011010011"},
-        {"O"c, "110101101001"}, {"P"c, "101101101001"}, {"Q"c, "101010110011"},
-        {"R"c, "110101011001"}, {"S"c, "101101011001"}, {"T"c, "101011011001"},
-        {"U"c, "110010101011"}, {"V"c, "100110101011"}, {"W"c, "110011010101"},
-        {"X"c, "100101101011"}, {"Y"c, "110010110101"}, {"Z"c, "100110110101"},
-        {"-"c, "100101011011"}, {"."c, "110010101101"}, {" "c, "100110101101"},
-        {"$"c, "100100100101"}, {"/"c, "100100101001"}, {"+"c, "100101001001"},
-        {"%"c, "101001001001"}, {"*"c, "100101101101"} ' * is the start/stop character
-    }
-
-    Public Sub generate_barcode()
-
-        Dim borrower_id_number As String = Txt_borrower_id_number.Text.ToUpper()
-        Dim encoded As String = "*" & borrower_id_number & "*"
-
-        Dim pattern As String = ""
-        For Each ch As Char In encoded
-            If code39Table.ContainsKey(ch) Then
-                pattern &= code39Table(ch) & "0" ' add narrow space between characters
-            End If
-        Next
-
-        ' Draw barcode
-        Dim widthPerBar As Integer = 2
-        Dim height As Integer = 100
-        Dim totalWidth As Integer = pattern.Length * widthPerBar
-        Dim bmp As New Bitmap(totalWidth, height)
-        Using g As Graphics = Graphics.FromImage(bmp)
-            g.Clear(Color.White)
-            Dim x As Integer = 0
-            For Each bit As Char In pattern
-                Dim brush As Brush = If(bit = "1"c, Brushes.Black, Brushes.White)
-                g.FillRectangle(brush, x, 0, widthPerBar, height)
-                x += widthPerBar
-            Next
-        End Using
-
-        Pb_id_no_barcode.Image = bmp
-
-    End Sub
-
     Private Sub Fm_add_borrower_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Clear_error_msg()
@@ -73,13 +23,13 @@ Public Class Fm_add_borrower
 
     Private Sub Rb_male_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_male.CheckedChanged
 
-        Gender = "MALE"
+        Gender = "Male"
 
     End Sub
 
     Private Sub Rb_female_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_female.CheckedChanged
 
-        Gender = "FEMALE"
+        Gender = "Female"
 
     End Sub
 
@@ -124,85 +74,70 @@ Public Class Fm_add_borrower
 
                 con.Open()
 
-                sql = "SELECT * FROM tbl_borrower
-                                WHERE borrower_id = '" & Txt_borrower_id_number.Text & "'"
+                ' To display error message at the same time for ID Number and Email address if exists
+                sql = "SELECT COUNT(*) FROM tbl_borrower
+                                WHERE TRIM(borrower_id) = '" & Txt_borrower_id_number.Text.Trim & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
 
-                If dr.Read Then
+                Dim duplicate_borrower_id_Count As Integer = cmd.ExecuteScalar()
 
-                    Lbl_error_msg.Text = "ID Number already exists"
+                sql = "SELECT COUNT(*) FROM tbl_borrower
+                                WHERE TRIM(email) = '" & Txt_borrower_email.Text.Trim & "'"
+                cmd = New MySqlCommand(sql, con)
 
-                Else
+                Dim duplicate_borrower_email_Count As Integer = cmd.ExecuteScalar()
 
-                    dr.Close()
+                ' Display error messages if any
+                Lbl_error_msg.Text = If(duplicate_borrower_id_Count > 0, "ID Number already exists", "")
+                Lbl_error_msg_7.Text = If(duplicate_borrower_email_Count > 0, "Email address already exists", "")
 
-                    sql = "SELECT * FROM tbl_borrower
-                                    WHERE email = '" & Txt_borrower_email.Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
+                If duplicate_borrower_id_Count = 0 AndAlso duplicate_borrower_email_Count = 0 Then
 
-                    If dr.Read Then
+                    Dim dialog As DialogResult
 
-                        Lbl_error_msg_7.Text = "Email address already exists"
+                    dialog = MessageBox.Show("Do you want to save " + Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
-                    Else
+                    If dialog = DialogResult.Yes Then
 
-                        dr.Close()
+                        sql = "INSERT INTO tbl_borrower (borrower_id,
+                                                        last_name,
+                                                        first_name,
+                                                        middle_name,
+                                                        category_type,
+                                                        gender,
+                                                        borrower_contact_no,
+                                                        email,
+                                                        borrower_address)
+                                        VALUE ('" & Txt_borrower_id_number.Text.Trim & "',
+                                                '" & Txt_borrower_last_name.Text.Trim & "',
+                                                '" & Txt_borrower_first_name.Text.Trim & "',
+                                                '" & Txt_borrower_middle_name.Text.Trim & "',
+                                                '" & Cb_borrower_category_type.Text & "',
+                                                '" & Gender & "',
+                                                '" & Txt_borrower_contact_no.Text.Trim & "',
+                                                '" & Txt_borrower_email.Text.Trim & "',
+                                                '" & Txt_borrower_address.Text.Trim & "')"
+                        cmd = New MySqlCommand(sql, con)
+                        cmd.ExecuteNonQuery()
 
-                        Dim dialog As DialogResult
+                        con.Close()
 
-                        dialog = MessageBox.Show("Do you want to save " + Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                        MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
 
-                        If dialog = DialogResult.Yes Then
+                        SendBorrowerEmail(
+                        Txt_borrower_id_number.Text.Trim,
+                        Txt_borrower_first_name.Text.Trim,
+                        Txt_borrower_last_name.Text.Trim,
+                        Txt_borrower_email.Text.Trim,
+                        Pb_id_no_barcode.Image)
 
-                            sql = "INSERT INTO tbl_borrower (borrower_id,
-                                                            last_name,
-                                                            first_name,
-                                                            middle_name,
-                                                            category_type,
-                                                            gender,
-                                                            borrower_contact_no,
-                                                            email,
-                                                            borrower_address)
-                                            VALUE ('" & Txt_borrower_id_number.Text & "',
-                                                    '" & Txt_borrower_last_name.Text & "',
-                                                    '" & Txt_borrower_first_name.Text & "',
-                                                    '" & Txt_borrower_middle_name.Text & "',
-                                                    '" & Cb_borrower_category_type.Text & "',
-                                                    '" & Gender & "',
-                                                    '" & Txt_borrower_contact_no.Text & "',
-                                                    '" & Txt_borrower_email.Text & "',
-                                                    '" & Txt_borrower_address.Text & "')"
-                            cmd = New MySqlCommand(sql, con)
-                            cmd.ExecuteNonQuery()
-
-                            con.Close()
-
-                            MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " has been saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
-
-                            SendBorrowerEmail(
-                            Txt_borrower_id_number.Text,
-                            Txt_borrower_first_name.Text,
-                            Txt_borrower_last_name.Text,
-                            Txt_borrower_email.Text,
-                            Pb_id_no_barcode.Image)
-
-                            Fm_home_page.Enabled = True
-                            Me.Close()
-
-                        Else
-
-                            con.Close()
-
-                        End If
+                        Fm_home_page.Enabled = True
+                        Me.Close()
 
                     End If
 
                 End If
-
-                con.Close()
 
             Catch ex As Exception
 
@@ -263,98 +198,71 @@ Public Class Fm_add_borrower
 
                 con.Open()
 
-                'to make sure ID Number not exists while in update process
-                sql = "UPDATE tbl_borrower SET
-                                borrower_id = '" & "" & "',
-                                email = '" & "" & "'
-                        WHERE primary_borrower_id = '" & primary_borrower_id & "'"
+                ' Check ID Number and Email address if exists
+                sql = "SELECT COUNT(*) FROM tbl_borrower
+                                WHERE TRIM(borrower_id) = '" & Txt_borrower_id_number.Text.Trim & "' AND primary_borrower_id <> '" & primary_borrower_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader
-                dr.Close()
-                '---------------------------------
 
-                sql = "SELECT * FROM tbl_borrower
-                                WHERE borrower_id = '" & Txt_borrower_id_number.Text & "'"
+                Dim duplicate_borrower_id_Count As Integer = cmd.ExecuteScalar()
+
+                sql = "SELECT COUNT(*) FROM tbl_borrower
+                                WHERE TRIM(email) = '" & Txt_borrower_email.Text.Trim & "' AND primary_borrower_id <> '" & primary_borrower_id & "'"
                 cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
 
-                If dr.Read() Then
+                Dim duplicate_borrower_email_Count As Integer = cmd.ExecuteScalar()
 
-                    Lbl_error_msg.Text = "ID Number already exists"
+                ' Display error messages if any
+                Lbl_error_msg.Text = If(duplicate_borrower_id_Count > 0, "ID Number already exists", "")
+                Lbl_error_msg_7.Text = If(duplicate_borrower_email_Count > 0, "Email address already exists", "")
 
-                Else
+                If duplicate_borrower_id_Count = 0 AndAlso duplicate_borrower_email_Count = 0 Then
 
-                    dr.Close()
+                    Dim dialog As DialogResult
 
-                    sql = "SELECT * FROM tbl_borrower
-                                    WHERE email = '" & Txt_borrower_email.Text & "'"
-                    cmd = New MySqlCommand(sql, con)
-                    dr = cmd.ExecuteReader()
+                    dialog = MessageBox.Show("Do you want to update " + Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
-                    If dr.Read() Then
+                    If dialog = DialogResult.Yes Then
 
-                        Lbl_error_msg_7.Text = "Email address already exists"
+                        'issued_to_last_name = '" & Txt_last_name.Text + ", " + Txt_first_name.Text & "' - /* concatenate of 2 inputs and save to mysql database table into 1 column */
 
-                    Else
-
-                        dr.Close()
-
-                        Dim dialog As DialogResult
-
-                        dialog = MessageBox.Show("Do you want to update " + Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + "?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-
-                        If dialog = DialogResult.Yes Then
-
-                            dr.Close()
-
-                            'issued_to_last_name = '" & Txt_last_name.Text + ", " + Txt_first_name.Text & "' - /* concatenate of 2 inputs and save to mysql database table into 1 column */
-
-                            sql = "UPDATE tbl_borrower SET
-                                            borrower_id = '" & Txt_borrower_id_number.Text & "',
-                                            last_name = '" & Txt_borrower_last_name.Text & "',
-                                            first_name = '" & Txt_borrower_first_name.Text & "',
-                                            middle_name = '" & Txt_borrower_middle_name.Text & "',
+                        sql = "UPDATE tbl_borrower SET
+                                            borrower_id = '" & Txt_borrower_id_number.Text.Trim & "',
+                                            last_name = '" & Txt_borrower_last_name.Text.Trim & "',
+                                            first_name = '" & Txt_borrower_first_name.Text.Trim & "',
+                                            middle_name = '" & Txt_borrower_middle_name.Text.Trim & "',
                                             category_type = '" & Cb_borrower_category_type.Text & "',
                                             gender = '" & Gender & "',
-                                            borrower_contact_no = '" & Txt_borrower_contact_no.Text & "',
-                                            email = '" & Txt_borrower_email.Text & "',
-                                            borrower_address = '" & Txt_borrower_address.Text & "'
+                                            borrower_contact_no = '" & Txt_borrower_contact_no.Text.Trim & "',
+                                            email = '" & Txt_borrower_email.Text.Trim & "',
+                                            borrower_address = '" & Txt_borrower_address.Text.Trim & "'
                                    WHERE primary_borrower_id = '" & primary_borrower_id & "'"
-                            cmd = New MySqlCommand(sql, con)
-                            dr = cmd.ExecuteReader
+                        cmd = New MySqlCommand(sql, con)
+                        cmd.ExecuteNonQuery()
 
-                            con.Close()
+                        con.Close()
 
-                            MessageBox.Show(Txt_borrower_first_name.Text + " " + Txt_borrower_last_name.Text + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        MessageBox.Show(Txt_borrower_first_name.Text.Trim + " " + Txt_borrower_last_name.Text.Trim + " was updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                            Dim borrower_id_2 As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).Text
+                        Dim borrower_id As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).Text
 
-                            If borrower_id_2 <> Txt_borrower_id_number.Text Then
+                        If borrower_id <> Txt_borrower_id_number.Text.Trim Then
 
-                                SendBorrowerEmail(
-                                Txt_borrower_id_number.Text,
-                                Txt_borrower_first_name.Text,
-                                Txt_borrower_last_name.Text,
-                                Txt_borrower_email.Text,
-                                Pb_id_no_barcode.Image)
-
-                            End If
-
-                            Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
-                            Fm_home_page.Enabled = True
-                            Me.Close()
-
-                        Else
-
-                            con.Close()
+                            SendBorrowerEmail(
+                            Txt_borrower_id_number.Text.Trim,
+                            Txt_borrower_first_name.Text.Trim,
+                            Txt_borrower_last_name.Text.Trim,
+                            Txt_borrower_email.Text.Trim,
+                            Pb_id_no_barcode.Image)
 
                         End If
+
+                        Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
+                        Fm_home_page.Enabled = True
+                        Me.Close()
 
                     End If
 
                 End If
-
-                con.Close()
 
             Catch ex As Exception
 
@@ -372,27 +280,7 @@ Public Class Fm_add_borrower
 
     End Sub
 
-    Private Sub Btn_exit_Click(sender As Object, e As EventArgs) Handles Btn_exit.Click
-
-        If Btn_update.Visible = True Then
-
-            Dim borrower_id As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).Text
-            Dim email As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(7).Text
-            Dim primary_borrower_id As String = Fm_home_page.Lv_borrower_info.SelectedItems(0).SubItems(9).Text
-
-            'returned previous ID Number
-            con.Close()
-            con.Open()
-            sql = "UPDATE tbl_borrower SET
-                            borrower_id = '" & borrower_id & "',
-                            email = '" & email & "'
-                    WHERE primary_borrower_id = '" & primary_borrower_id & "'"
-            cmd = New MySqlCommand(sql, con)
-            dr = cmd.ExecuteReader
-            con.Close()
-            '---------------------------------
-
-        End If
+    Private Sub Btn_cancel_Click(sender As Object, e As EventArgs) Handles Btn_cancel.Click
 
         Load_borrower_info_data_table(Fm_home_page.Txt_student_info_search.Text)
         Fm_home_page.Enabled = True
@@ -433,7 +321,7 @@ Public Class Fm_add_borrower
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789- " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789-" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -462,7 +350,7 @@ Public Class Fm_add_borrower
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -491,7 +379,7 @@ Public Class Fm_add_borrower
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -520,7 +408,7 @@ Public Class Fm_add_borrower
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -589,7 +477,7 @@ Public Class Fm_add_borrower
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+'<>,.?/""" ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789~@#$%^&*()_-=+<>,.?/""" ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
@@ -618,7 +506,7 @@ Public Class Fm_add_borrower
         End If
 
         ' Define the allowed characters (in this example, only digits are allowed)
-        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:'<>,.?/"" " ' Change this to the desired allowed characters
+        Dim allowedChars As String = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789`~@#$%^&*()_-=+{}[]|;:<>,.?/"" " ' Change this to the desired allowed characters
 
         ' Check if the entered key is an allowed character
         If Not allowedChars.Contains(e.KeyChar) Then
