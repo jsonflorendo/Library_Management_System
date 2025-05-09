@@ -504,8 +504,6 @@ Module Module1
             sql = "SELECT   tbl_borrower.borrower_id,
                             CONCAT (tbl_borrower.last_name, ', ', tbl_borrower.first_name) AS full_name,
                             tbl_books.book_name,
-                            tbl_library_penalty.penalty_description,
-                            tbl_library_penalty.amount,
                             tbl_penalty_report.penalty_date,
                             tbl_borrower.primary_borrower_id,
                             tbl_books.primary_book_id,
@@ -524,8 +522,10 @@ Module Module1
                         OR  penalty_description LIKE '%" & penalty_report_search & "%'
                         OR  amount LIKE '%" & penalty_report_search & "%'
                         OR  penalty_date LIKE '%" & penalty_report_search & "%'
+            
+                    GROUP BY tbl_penalty_report.penalty_date
                     
-                    ORDER BY primary_penalty_id DESC"
+                    ORDER BY penalty_date DESC"
 
             'GROUP BY tbl_penalty_report.primary_borrower_id
             'tbl_penalty_report.primary_book_id,
@@ -541,8 +541,6 @@ Module Module1
                 Dim lv As New ListViewItem({dr("borrower_id").ToString(),
                                             dr("full_name").ToString(),
                                             dr("book_name").ToString(),
-                                            dr("penalty_description").ToString(),
-                                            dr("amount").ToString(),
                                             dr("penalty_date").ToString(),
                                             dr("primary_borrower_id").ToString(),
                                             dr("primary_book_id").ToString(),
@@ -559,9 +557,7 @@ Module Module1
                 .Item(0).Text = "ID NUMBER"
                 .Item(1).Text = "NAME"
                 .Item(2).Text = "BOOK NAME"
-                .Item(3).Text = "PENALTY DESCRIPTION"
-                .Item(4).Text = "PENALTY AMOUNT"
-                .Item(5).Text = "DATE"
+                .Item(3).Text = "DATE"
             End With
 
             ' Alternate row coloring

@@ -690,8 +690,8 @@ Public Class Fm_home_page
     Private Sub Btn_listed_books_add_Click(sender As Object, e As EventArgs) Handles Btn_listed_books_add.Click
 
         Fm_add_books.update_Txt_isbn.Visible = False
-        Fm_add_books.Show()
         Fm_add_books.Btn_update.Visible = False
+        Fm_add_books.Show()
         Me.Enabled = False
 
     End Sub
@@ -722,9 +722,6 @@ Public Class Fm_home_page
 
         If Lv_listed_books.SelectedItems.Count > 0 Then
 
-            Fm_add_books.Show()
-            Fm_add_books.save_Txt_isbn.Visible = False
-
             Fm_add_books.update_Txt_isbn.Text = Lv_listed_books.SelectedItems(0).Text
             Fm_add_books.Txt_book_name.Text = Lv_listed_books.SelectedItems(0).SubItems(1).Text
             Fm_add_books.Cb_book_category.Text = Lv_listed_books.SelectedItems(0).SubItems(2).Text
@@ -734,6 +731,8 @@ Public Class Fm_home_page
 
             Fm_add_books.Txt_primary_category_id.Text = Lv_listed_books.SelectedItems(0).SubItems(7).Text
 
+            Fm_add_books.save_Txt_isbn.Visible = False
+            Fm_add_books.Show()
             Me.Enabled = False
 
         Else
@@ -979,8 +978,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_borrower_info_add_Click(sender As Object, e As EventArgs) Handles Btn_borrower_info_add.Click
 
-        Fm_add_borrower.Show()
         Fm_add_borrower.Btn_update.Visible = False
+        Fm_add_borrower.Show()
         Me.Enabled = False
 
     End Sub
@@ -1011,8 +1010,6 @@ Public Class Fm_home_page
 
         If Lv_borrower_info.SelectedItems.Count > 0 Then
 
-            Fm_add_borrower.Show()
-
             Fm_add_borrower.Txt_borrower_id_number.Text = Lv_borrower_info.SelectedItems(0).Text
             Fm_add_borrower.Txt_borrower_last_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(1).Text
             Fm_add_borrower.Txt_borrower_first_name.Text = Lv_borrower_info.SelectedItems(0).SubItems(2).Text
@@ -1031,6 +1028,7 @@ Public Class Fm_home_page
             Fm_add_borrower.Txt_borrower_email.Text = Lv_borrower_info.SelectedItems(0).SubItems(7).Text
             Fm_add_borrower.Txt_borrower_address.Text = Lv_borrower_info.SelectedItems(0).SubItems(8).Text
 
+            Fm_add_borrower.Show()
             Me.Enabled = False
 
         Else
@@ -1179,22 +1177,81 @@ Public Class Fm_home_page
 
     End Sub
 
-    Private Sub Btn_penalty_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_report_edit.Click
+    Private Sub Lv_penalty_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_penalty.SelectedIndexChanged
 
         If Lv_penalty.SelectedItems.Count > 0 Then
 
-            Fm_add_penalty.Show()
+            Dim primary_borrower_id As String = Lv_penalty.SelectedItems(0).SubItems(4).Text
+            Dim primary_book_id As String = Lv_penalty.SelectedItems(0).SubItems(5).Text
+            Dim penalty_date As String = Lv_penalty.SelectedItems(0).SubItems(3).Text
+
+            Try
+
+                con.Open()
+
+                sql = "SELECT   tbl_library_penalty.penalty_description,
+                                tbl_library_penalty.amount
+
+                        FROM tbl_penalty_report
+
+                        INNER JOIN tbl_library_penalty ON tbl_penalty_report.primary_penalty_description_id = tbl_library_penalty.primary_penalty_description_id
+
+                        WHERE   primary_borrower_id = '" & primary_borrower_id & "'
+                        AND     primary_book_id = '" & primary_book_id & "'
+                        AND     penalty_date = '" & penalty_date & "'            
+                     
+                        ORDER BY penalty_description ASC"
+
+                cmd = New MySqlCommand(sql, con)
+                dr = cmd.ExecuteReader()
+
+                Lv_penalty_report_penalty_description.Items.Clear()
+
+                While dr.Read()
+
+                    Dim lv As New ListViewItem({dr("penalty_description").ToString(),
+                                                dr("amount").ToString()})
+                    Lv_penalty_report_penalty_description.Items.Add(lv)
+
+                End While
+
+                dr.Close()
+
+            Catch ex As Exception
+
+                MsgBox("Error: " & ex.Message)
+
+            Finally
+
+                If con.State = ConnectionState.Open Then
+                    con.Close()
+                End If
+
+            End Try
+
+        Else
+
+            Lv_penalty_report_penalty_description.Items.Clear()
+
+        End If
+
+    End Sub
+
+    Private Sub Btn_penalty_edit_Click(sender As Object, e As EventArgs) Handles Btn_penalty_report_edit.Click
+
+        If Lv_penalty.SelectedItems.Count > 0 Then
 
             Fm_add_penalty.Txt_borrower_id.Text = Lv_penalty.SelectedItems(0).Text
             Fm_add_penalty.Txt_borrower_name.Text = Lv_penalty.SelectedItems(0).SubItems(1).Text
             Fm_add_penalty.Txt_book_name.Text = Lv_penalty.SelectedItems(0).SubItems(2).Text
 
-            Fm_add_penalty.Txt_primary_borrower_id.Text = Lv_penalty.SelectedItems(0).SubItems(6).Text
-            Fm_add_penalty.Txt_primary_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(7).Text
+            Fm_add_penalty.Txt_primary_borrower_id.Text = Lv_penalty.SelectedItems(0).SubItems(4).Text
+            Fm_add_penalty.Txt_primary_book_id.Text = Lv_penalty.SelectedItems(0).SubItems(5).Text
 
-            Fm_add_penalty.Txt_primary_penalty_report_id.Text = Lv_penalty.SelectedItems(0).SubItems(9).Text
+            Fm_add_penalty.Txt_primary_penalty_report_id.Text = Lv_penalty.SelectedItems(0).SubItems(7).Text
 
             Fm_add_penalty.Btn_save.Visible = False
+            Fm_add_penalty.Show()
             Me.Enabled = False
 
         Else
@@ -1343,8 +1400,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_listed_accounts_add_Click(sender As Object, e As EventArgs) Handles Btn_listed_accounts_add.Click
 
-        Fm_admin_registration.Show()
         Fm_admin_registration.Btn_update.Visible = False
+        Fm_admin_registration.Show()
         Me.Enabled = False
 
     End Sub
@@ -1375,8 +1432,6 @@ Public Class Fm_home_page
 
         If Lv_listed_accounts.SelectedItems.Count > 0 Then
 
-            Fm_admin_registration.Show()
-
             Fm_admin_registration.Txt_firstname.Text = Lv_listed_accounts.SelectedItems(0).Text
             Fm_admin_registration.Txt_middlename.Text = Lv_listed_accounts.SelectedItems(0).SubItems(1).Text
             Fm_admin_registration.Txt_lastname.Text = Lv_listed_accounts.SelectedItems(0).SubItems(2).Text
@@ -1399,6 +1454,7 @@ Public Class Fm_home_page
 
             Fm_admin_registration.Btn_save.Visible = False
             Fm_admin_registration.Txt_confirmpassword.Visible = False
+            Fm_admin_registration.Show()
             Me.Enabled = False
 
         Else
@@ -1550,8 +1606,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_supplier_add_Click(sender As Object, e As EventArgs) Handles Btn_supplier_add.Click
 
-        Fm_supplier_maintenance.Show()
         Fm_supplier_maintenance.Btn_update.Visible = False
+        Fm_supplier_maintenance.Show()
         Me.Enabled = False
 
     End Sub
@@ -1582,8 +1638,6 @@ Public Class Fm_home_page
 
         If Lv_supplier.SelectedItems.Count > 0 Then
 
-            Fm_supplier_maintenance.Show()
-
             Fm_supplier_maintenance.Txt_supplier_id.Text = Lv_supplier.SelectedItems(0).Text
             Fm_supplier_maintenance.Txt_supplier_name.Text = Lv_supplier.SelectedItems(0).SubItems(1).Text
             Fm_supplier_maintenance.Txt_supplier_firstname.Text = Lv_supplier.SelectedItems(0).SubItems(8).Text
@@ -1594,6 +1648,7 @@ Public Class Fm_home_page
             Fm_supplier_maintenance.Cb_supplier_source_type.Text = Lv_supplier.SelectedItems(0).SubItems(6).Text
 
             Fm_supplier_maintenance.Btn_save.Visible = False
+            Fm_supplier_maintenance.Show()
             Me.Enabled = False
 
         Else
@@ -1742,8 +1797,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_author_add_Click(sender As Object, e As EventArgs) Handles Btn_author_add.Click
 
-        Fm_add_author.Show()
         Fm_add_author.Btn_update.Visible = False
+        Fm_add_author.Show()
         Me.Enabled = False
 
     End Sub
@@ -1774,10 +1829,10 @@ Public Class Fm_home_page
 
         If Lv_author.SelectedItems.Count > 0 Then
 
-            Fm_add_author.Show()
-
             Fm_add_author.Txt_author_name.Text = Lv_author.SelectedItems(0).Text
+
             Fm_add_author.Btn_save.Visible = False
+            Fm_add_author.Show()
             Me.Enabled = False
 
         Else
@@ -1946,8 +2001,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_category_add_Click(sender As Object, e As EventArgs) Handles Btn_category_add.Click
 
-        Fm_add_category.Show()
         Fm_add_category.Btn_update.Visible = False
+        Fm_add_category.Show()
         Me.Enabled = False
 
     End Sub
@@ -1978,10 +2033,10 @@ Public Class Fm_home_page
 
         If Lv_category.SelectedItems.Count > 0 Then
 
-            Fm_add_category.Show()
-
             Fm_add_category.Txt_category_name.Text = Lv_category.SelectedItems(0).Text
+
             Fm_add_category.Btn_save.Visible = False
+            Fm_add_category.Show()
             Me.Enabled = False
 
         Else
@@ -2151,8 +2206,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_penalty_description_add_Click(sender As Object, e As EventArgs) Handles Btn_penalty_description_add.Click
 
-        Fm_penalty_description.Show()
         Fm_penalty_description.Btn_update.Visible = False
+        Fm_penalty_description.Show()
         Me.Enabled = False
 
     End Sub
@@ -2183,11 +2238,11 @@ Public Class Fm_home_page
 
         If Lv_penalty_description.SelectedItems.Count > 0 Then
 
-            Fm_penalty_description.Show()
-
             Fm_penalty_description.Txt_penalty_description.Text = Lv_penalty_description.SelectedItems(0).Text
             Fm_penalty_description.Txt_penalty_amount.Text = Lv_penalty_description.SelectedItems(0).SubItems(1).Text
+
             Fm_penalty_description.Btn_save.Visible = False
+            Fm_penalty_description.Show()
             Me.Enabled = False
 
         Else
@@ -2356,8 +2411,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_publisher_add_Click(sender As Object, e As EventArgs) Handles Btn_publisher_add.Click
 
-        Fm_publisher.Show()
         Fm_publisher.Btn_update.Visible = False
+        Fm_publisher.Show()
         Me.Enabled = False
 
     End Sub
@@ -2388,10 +2443,10 @@ Public Class Fm_home_page
 
         If Lv_publisher.SelectedItems.Count > 0 Then
 
-            Fm_publisher.Show()
-
             Fm_publisher.Txt_publisher_name.Text = Lv_publisher.SelectedItems(0).Text
+
             Fm_publisher.Btn_save.Visible = False
+            Fm_publisher.Show()
             Me.Enabled = False
 
         Else
@@ -2560,8 +2615,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_shelf_add_Click(sender As Object, e As EventArgs) Handles Btn_shelf_add.Click
 
-        Fm_add_shelf.Show()
         Fm_add_shelf.Btn_update.Visible = False
+        Fm_add_shelf.Show()
         Me.Enabled = False
 
     End Sub
@@ -2592,15 +2647,15 @@ Public Class Fm_home_page
 
         If Lv_shelf.SelectedItems.Count > 0 Then
 
-            Fm_add_shelf.Show()
-
             Fm_add_shelf.Txt_shelf_id.Text = Lv_shelf.SelectedItems(0).Text
             Fm_add_shelf.Txt_shelf_name.Text = Lv_shelf.SelectedItems(0).SubItems(1).Text
             Fm_add_shelf.Txt_shelf_section.Text = Lv_shelf.SelectedItems(0).SubItems(2).Text
             Fm_add_shelf.Txt_shelf_floor_number.Text = Lv_shelf.SelectedItems(0).SubItems(3).Text
             Fm_add_shelf.Txt_shelf_capacity.Text = Lv_shelf.SelectedItems(0).SubItems(4).Text
             Fm_add_shelf.Txt_shelf_current_load.Text = Lv_shelf.SelectedItems(0).SubItems(5).Text
+
             Fm_add_shelf.Btn_save.Visible = False
+            Fm_add_shelf.Show()
             Me.Enabled = False
 
         Else
@@ -2750,8 +2805,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_delivery_add_Click(sender As Object, e As EventArgs) Handles Btn_delivery_add.Click
 
-        Fm_add_delivery.Show()
         Fm_add_delivery.Btn_update.Visible = False
+        Fm_add_delivery.Show()
         Me.Enabled = False
 
     End Sub
@@ -2901,8 +2956,8 @@ Public Class Fm_home_page
 
     Private Sub Btn_book_inventory_add_Click(sender As Object, e As EventArgs) Handles Btn_book_inventory_add.Click
 
-        Fm_add_book_inventory.Show()
         Fm_add_book_inventory.Btn_update.Visible = False
+        Fm_add_book_inventory.Show()
         Me.Enabled = False
 
     End Sub
@@ -2933,13 +2988,12 @@ Public Class Fm_home_page
 
         If Lv_book_inventory.SelectedItems.Count > 0 Then
 
-            Fm_add_book_inventory.Show()
-
             Fm_add_book_inventory.update_Txt_isbn.Text = Lv_book_inventory.SelectedItems(0).Text
             Fm_add_book_inventory.Txt_book_quantity.Text = Lv_book_inventory.SelectedItems(0).SubItems(6).Text
 
             Fm_add_book_inventory.update_Txt_isbn.Enabled = False
             Fm_add_book_inventory.save_Txt_isbn.Visible = False
+            Fm_add_book_inventory.Show()
             Me.Enabled = False
 
         Else

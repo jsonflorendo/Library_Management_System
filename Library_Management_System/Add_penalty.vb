@@ -2,6 +2,8 @@
 
 Public Class Fm_add_penalty
 
+    Private isLoading As Boolean = False
+
     'Dictionary to store checked items when searching
     Dim checkedItems As New Dictionary(Of String, Boolean)
 
@@ -20,12 +22,17 @@ Public Class Fm_add_penalty
 
                 con.Open()
 
+                Dim primary_borrower_id As String = Txt_primary_borrower_id.Text
+                Dim primary_book_id As String = Txt_primary_book_id.Text
+                Dim penalty_date As String = Fm_home_page.Lv_penalty.SelectedItems(0).SubItems(3).Text
+
                 ' STEP 1: Fetch previously selected penalties
                 Dim penalty_report_primary_penalty_description_id As New HashSet(Of String)
 
                 sql = "SELECT * FROM tbl_penalty_report
-                                WHERE primary_borrower_id = '" & Txt_primary_borrower_id.Text & "'
-                                AND primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                                WHERE primary_borrower_id = '" & primary_borrower_id & "'
+                                AND primary_book_id = '" & primary_book_id & "'
+                                AND penalty_date = '" & penalty_date & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader()
 
@@ -45,13 +52,13 @@ Public Class Fm_add_penalty
 
                 While dr.Read()
 
-                    Dim lv As New ListViewItem({dr("penalty_description").ToString(),
-                                                dr("amount").ToString(),
-                                                dr("primary_penalty_description_id").ToString()})
-
-                    ' STEP 3: Check if this penalty was selected before
                     Dim library_penalty_primary_penalty_description_id As String = dr("primary_penalty_description_id").ToString()
 
+                    Dim lv As New ListViewItem({dr("penalty_description").ToString(),
+                                                dr("amount").ToString(),
+                                                library_penalty_primary_penalty_description_id})
+
+                    ' STEP 3: Check if this penalty was selected before
                     If penalty_report_primary_penalty_description_id.Contains(library_penalty_primary_penalty_description_id) Then
                         lv.Checked = True
                         If Not checkedItems.ContainsKey(library_penalty_primary_penalty_description_id) Then
@@ -78,6 +85,52 @@ Public Class Fm_add_penalty
             End Try
 
         End If
+
+    End Sub
+
+    Private Sub Refresh_Lv_penalty_description_selected()
+
+        Lv_penalty_description_selected.Items.Clear()
+
+        For Each item As ListViewItem In Lv_penalty_description.Items
+            Dim primary_penalty_description_id As String = item.SubItems(2).Text
+
+            If checkedItems.ContainsKey(primary_penalty_description_id) Then
+                ' Create a new item with Column 0 text (main item text)
+                Dim newItem As New ListViewItem(item.Text)
+
+                ' Make sure there are at least 3 columns
+                While newItem.SubItems.Count < 3
+                    newItem.SubItems.Add("")
+                End While
+
+                ' Set the third column (index 2) to the value from Lv_penalty_description column 2
+                newItem.SubItems(1).Text = item.SubItems(1).Text ' Column 2 of source into Column 3 here
+
+                Lv_penalty_description_selected.Items.Add(newItem)
+            End If
+        Next
+
+    End Sub
+
+
+    Private Sub Lv_penalty_description_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles Lv_penalty_description.ItemCheck
+
+        Dim item As ListViewItem = Lv_penalty_description.Items(e.Index)
+        Dim primary_penalty_description_id As String = item.SubItems(2).Text ' Third column
+
+        If item.Checked Then
+            ' Unchecked now
+            checkedItems.Remove(primary_penalty_description_id)
+        Else
+            ' Checked now
+            If Not checkedItems.ContainsKey(primary_penalty_description_id) Then
+                checkedItems.Add(primary_penalty_description_id, True)
+            End If
+        End If
+
+        ' Rebuild Penalty Description Selected ListView
+        Refresh_Lv_penalty_description_selected()
 
     End Sub
 
@@ -133,50 +186,6 @@ Public Class Fm_add_penalty
             End If
 
         End Try
-
-    End Sub
-
-    Private Sub Refresh_Lv_penalty_description_selected()
-
-        Lv_penalty_description_selected.Items.Clear()
-
-        For Each item As ListViewItem In Lv_penalty_description.Items
-            Dim id As String = item.SubItems(2).Text
-
-            If checkedItems.ContainsKey(id) Then
-                ' Create a new item with Column 0 text (main item text)
-                Dim newItem As New ListViewItem(item.Text)
-
-                ' Make sure there are at least 3 columns
-                While newItem.SubItems.Count < 3
-                    newItem.SubItems.Add("")
-                End While
-
-                ' Set the third column (index 2) to the value from Lv_penalty_description column 2
-                newItem.SubItems(1).Text = item.SubItems(1).Text ' Column 2 of source into Column 3 here
-
-                Lv_penalty_description_selected.Items.Add(newItem)
-            End If
-        Next
-
-    End Sub
-
-
-    Private Sub Lv_penalty_description_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles Lv_penalty_description.ItemCheck
-
-        Dim item As ListViewItem = Lv_penalty_description.Items(e.Index)
-        Dim primary_penalty_description_id As String = item.SubItems(2).Text ' Third column
-
-        ' Update the checkedItems set based on the new value
-        If e.NewValue = CheckState.Checked Then
-            checkedItems(primary_penalty_description_id) = True
-        ElseIf e.NewValue = CheckState.Unchecked Then
-            ' Remove from dictionary if unchecked
-            checkedItems.Remove(primary_penalty_description_id)
-        End If
-
-        ' Rebuild Penalty Description Selected ListView
-        Refresh_Lv_penalty_description_selected()
 
     End Sub
 
@@ -253,10 +262,15 @@ Public Class Fm_add_penalty
 
                 con.Open()
 
+                Dim primary_borrower_id As String = Txt_primary_borrower_id.Text
+                Dim primary_book_id As String = Txt_primary_book_id.Text
+                Dim penalty_date As String = Fm_home_page.Lv_penalty.SelectedItems(0).SubItems(3).Text
+
                 ' Step 1: Get existing penalty record (if any)
                 sql = "SELECT * FROM tbl_penalty_report
-                                WHERE primary_borrower_id = '" & Txt_primary_borrower_id.Text & "'
-                                AND primary_book_id = '" & Txt_primary_book_id.Text & "'"
+                                WHERE primary_borrower_id = '" & primary_borrower_id & "'
+                                AND primary_book_id = '" & primary_book_id & "'
+                                AND penalty_date = '" & penalty_date & "'"
                 cmd = New MySqlCommand(sql, con)
                 dr = cmd.ExecuteReader()
 
@@ -279,17 +293,16 @@ Public Class Fm_add_penalty
 
                 Next
 
-
                 For Each primary_penalty_description_id As String In checkedItems.Keys 'Selecting checked items from checkedItems
 
                     sql = "INSERT INTO tbl_penalty_report (primary_borrower_id, 
                                                                 primary_book_id,
                                                                 primary_penalty_description_id,
                                                                 penalty_date)
-                                        VALUE ('" & Txt_primary_borrower_id.Text & "',
-                                                '" & Txt_primary_book_id.Text & "',
+                                        VALUE ('" & primary_borrower_id & "',
+                                                '" & primary_book_id & "',
                                                 '" & primary_penalty_description_id & "',
-                                                '" & Date.Now.ToString("MMMM dd, yyyy") & "')"
+                                                '" & penalty_date & "')"
                     cmd = New MySqlCommand(sql, con)
                     cmd.ExecuteNonQuery()
 
