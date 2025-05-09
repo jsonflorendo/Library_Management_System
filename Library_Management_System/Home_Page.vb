@@ -1185,49 +1185,7 @@ Public Class Fm_home_page
             Dim primary_book_id As String = Lv_penalty.SelectedItems(0).SubItems(5).Text
             Dim penalty_date As String = Lv_penalty.SelectedItems(0).SubItems(3).Text
 
-            Try
-
-                con.Open()
-
-                sql = "SELECT   tbl_library_penalty.penalty_description,
-                                tbl_library_penalty.amount
-
-                        FROM tbl_penalty_report
-
-                        INNER JOIN tbl_library_penalty ON tbl_penalty_report.primary_penalty_description_id = tbl_library_penalty.primary_penalty_description_id
-
-                        WHERE   primary_borrower_id = '" & primary_borrower_id & "'
-                        AND     primary_book_id = '" & primary_book_id & "'
-                        AND     penalty_date = '" & penalty_date & "'            
-                     
-                        ORDER BY penalty_description ASC"
-
-                cmd = New MySqlCommand(sql, con)
-                dr = cmd.ExecuteReader()
-
-                Lv_penalty_report_penalty_description.Items.Clear()
-
-                While dr.Read()
-
-                    Dim lv As New ListViewItem({dr("penalty_description").ToString(),
-                                                dr("amount").ToString()})
-                    Lv_penalty_report_penalty_description.Items.Add(lv)
-
-                End While
-
-                dr.Close()
-
-            Catch ex As Exception
-
-                MsgBox("Error: " & ex.Message)
-
-            Finally
-
-                If con.State = ConnectionState.Open Then
-                    con.Close()
-                End If
-
-            End Try
+            Load_penalty_report_penalty_description_data_table(primary_borrower_id, primary_book_id, penalty_date)
 
         Else
 
@@ -1286,13 +1244,13 @@ Public Class Fm_home_page
 
     Private Sub Btn_penalty_delete_Click(sender As Object, e As EventArgs) Handles Btn_penalty_report_delete.Click
 
-        If Lv_penalty.SelectedItems.Count > 0 Then
+        If Lv_penalty_report_penalty_description.SelectedItems.Count > 0 Then
 
             Try
                 con.Open()
 
                 Dim full_name = Lv_penalty.SelectedItems(0).SubItems(1).Text
-                Dim primary_penalty_id As String = Lv_penalty.SelectedItems(0).SubItems(9).Text
+                Dim primary_penalty_id As String = Lv_penalty_report_penalty_description.SelectedItems(0).SubItems(2).Text
 
                 Dim dialog As DialogResult
 
@@ -1307,14 +1265,21 @@ Public Class Fm_home_page
 
                     con.Close()
 
-                    Load_penalty_report_data_table(Txt_search_penalty_report.Text)
                     MessageBox.Show("Penalty deleted successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Dim primary_borrower_id As String = Lv_penalty.SelectedItems(0).SubItems(4).Text
+                    Dim primary_book_id As String = Lv_penalty.SelectedItems(0).SubItems(5).Text
+                    Dim penalty_date As String = Lv_penalty.SelectedItems(0).SubItems(3).Text
+                    Load_penalty_report_penalty_description_data_table(primary_borrower_id, primary_book_id, penalty_date)
 
                 Else
 
                     con.Close()
 
-                    Load_penalty_report_data_table(Txt_search_penalty_report.Text)
+                    Dim primary_borrower_id As String = Lv_penalty.SelectedItems(0).SubItems(4).Text
+                    Dim primary_book_id As String = Lv_penalty.SelectedItems(0).SubItems(5).Text
+                    Dim penalty_date As String = Lv_penalty.SelectedItems(0).SubItems(3).Text
+                    Load_penalty_report_penalty_description_data_table(primary_borrower_id, primary_book_id, penalty_date)
 
                 End If
 
@@ -1332,7 +1297,7 @@ Public Class Fm_home_page
 
         Else
 
-            MessageBox.Show("Please select on the list", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Please select penalty on the list", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         End If
 

@@ -568,6 +568,66 @@ Module Module1
                 End With
             Next
 
+            con.Close()
+            Load_penalty_report_penalty_description_data_table("", "", "")
+
+        Catch ex As Exception
+
+            MsgBox("Error: " & ex.Message)
+
+        Finally
+
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+
+        End Try
+
+    End Sub
+
+    Public Sub Load_penalty_report_penalty_description_data_table(primary_borrower_id As String, primary_book_id As String, penalty_date As String)
+
+        Try
+
+            con.Open()
+
+            sql = "SELECT   tbl_library_penalty.penalty_description,
+                                tbl_library_penalty.amount,
+                                tbl_penalty_report.primary_penalty_id
+
+                        FROM tbl_penalty_report
+
+                        INNER JOIN tbl_library_penalty ON tbl_penalty_report.primary_penalty_description_id = tbl_library_penalty.primary_penalty_description_id
+
+                        WHERE   primary_borrower_id = '" & primary_borrower_id & "'
+                        AND     primary_book_id = '" & primary_book_id & "'
+                        AND     penalty_date = '" & penalty_date & "'            
+                     
+                        ORDER BY penalty_description ASC"
+
+            cmd = New MySqlCommand(sql, con)
+            dr = cmd.ExecuteReader()
+
+            Fm_home_page.Lv_penalty_report_penalty_description.Items.Clear()
+
+            While dr.Read()
+
+                Dim lv As New ListViewItem({dr("penalty_description").ToString(),
+                                            dr("amount").ToString(),
+                                            dr("primary_penalty_id")})
+                Fm_home_page.Lv_penalty_report_penalty_description.Items.Add(lv)
+
+            End While
+
+            dr.Close()
+
+            ' Alternate row coloring
+            For i As Integer = 0 To Fm_home_page.Lv_penalty_report_penalty_description.Items.Count - 1
+                With Fm_home_page.Lv_penalty_report_penalty_description.Items(i)
+                    .BackColor = Color.GhostWhite
+                End With
+            Next
+
         Catch ex As Exception
 
             MsgBox("Error: " & ex.Message)

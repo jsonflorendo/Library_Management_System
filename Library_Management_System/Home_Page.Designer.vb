@@ -1151,6 +1151,7 @@ Partial Class Fm_home_page
         Lv_penalty_report_penalty_description.BackColor = SystemColors.ActiveCaption
         Lv_penalty_report_penalty_description.Columns.AddRange(New ColumnHeader() {ColumnHeader2, ColumnHeader3})
         Lv_penalty_report_penalty_description.Font = New Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Lv_penalty_report_penalty_description.FullRowSelect = True
         Lv_penalty_report_penalty_description.HeaderStyle = ColumnHeaderStyle.Nonclickable
         Lv_penalty_report_penalty_description.HideSelection = True
         Lv_penalty_report_penalty_description.Location = New Point(934, 99)
@@ -1184,7 +1185,7 @@ Partial Class Fm_home_page
         ' 
         Btn_penalty_report_delete.BackColor = Color.Tan
         Btn_penalty_report_delete.Font = New Font("Georgia", 9F)
-        Btn_penalty_report_delete.Location = New Point(810, 46)
+        Btn_penalty_report_delete.Location = New Point(1465, 46)
         Btn_penalty_report_delete.Name = "Btn_penalty_report_delete"
         Btn_penalty_report_delete.Size = New Size(118, 30)
         Btn_penalty_report_delete.TabIndex = 10
@@ -1195,7 +1196,7 @@ Partial Class Fm_home_page
         ' 
         Btn_penalty_report_edit.BackColor = Color.Tan
         Btn_penalty_report_edit.Font = New Font("Georgia", 9F)
-        Btn_penalty_report_edit.Location = New Point(668, 46)
+        Btn_penalty_report_edit.Location = New Point(810, 46)
         Btn_penalty_report_edit.Name = "Btn_penalty_report_edit"
         Btn_penalty_report_edit.Size = New Size(118, 30)
         Btn_penalty_report_edit.TabIndex = 9

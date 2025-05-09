@@ -312,6 +312,7 @@ Public Class Fm_add_penalty
 
                 MessageBox.Show("Penalty for " + Txt_borrower_name.Text + " updated successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Load_penalty_report_data_table(Fm_home_page.Txt_search_penalty_report.Text)
+                Fm_home_page.Lv_penalty_report_penalty_description.Items.Clear()
                 Fm_home_page.Enabled = True
                 Me.Close()
 
